@@ -1,0 +1,173 @@
+
+/* Section shell */
+.one-click--brand{
+  padding: 3rem 7rem 4rem;
+  background:
+    radial-gradient(1000px 280px at -10% -30%, color-mix(in oklab, var(--primary-color) 8%, transparent), transparent 60%),
+    radial-gradient(900px 260px at 110% -20%, color-mix(in oklab, var(--accent-color) 8%, transparent), transparent 60%),
+    linear-gradient(180deg, var(--text-light), color-mix(in oklab, var(--text-light) 92%, var(--bg-muted)));
+  font-family: var(--font-family-main, "Inter", system-ui, sans-serif);
+}
+
+/* Grid */
+.one-click__grid{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.6rem;
+  align-items: stretch;
+}
+
+/* Cards */
+.one-click--brand .card{
+  background: var(--text-light);
+  border: 1px solid color-mix(in oklab, var(--text-dark) 10%, transparent);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 2.2rem;
+  display:flex; flex-direction:column; gap: .8rem;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.one-click--brand .card:hover{
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: color-mix(in oklab, var(--text-dark) 18%, transparent);
+}
+
+.one-click--brand .card h3{ font-size:2.1rem; color:var(--text-dark); margin:.2rem 0 .3rem; }
+.one-click--brand .card h4{ font-size:1.8rem; color:var(--text-dark); margin-bottom:.2rem; }
+.one-click--brand .card h5{ font-size:1.6rem; color:var(--text-dark); margin-bottom:.2rem; }
+.one-click--brand .card p{ font-size:1.42rem; color: color-mix(in oklab, var(--text-dark) 70%, var(--text-dark)); line-height:1.65; }
+
+.one-click--brand .card__header{ display:flex; align-items:center; gap:.8rem; }
+.one-click--brand .card__eyebrow{ font-weight:800; font-size:1.15rem; color: color-mix(in oklab, var(--text-dark) 55%, var(--text-light)); }
+
+.one-click--brand .card__icon{
+  width:54px;height:54px;border-radius:50%;
+  display:grid;place-items:center;font-size:1.8rem;color:var(--text-light);
+  background: var(--accent-color-gradient);
+  box-shadow: 0 10px 24px color-mix(in oklab, var(--accent-color) 35%, transparent);
+}
+.one-click--brand .card__icon--outline{
+  color: var(--primary-color);
+  background: color-mix(in oklab, var(--primary-color) 8%, var(--text-light));
+  border: 1.6px solid color-mix(in oklab, var(--primary-color) 35%, transparent);
+  box-shadow: none;
+}
+
+.one-click--brand .card__btn{
+  margin-top:auto; align-self:flex-start; display:inline-flex; align-items:center; gap:.7rem;
+  padding: 1rem 1.6rem; border-radius: 999px; border:none; cursor:pointer;
+  background: var(--accent-color-gradient); color: var(--text-light); font-weight:800; font-size:1.4rem;
+  box-shadow: var(--shadow-md); transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.one-click--brand .card__btn:hover{ transform: translateY(-2px); }
+.one-click--brand .card__btn.ghost{
+  background: color-mix(in oklab, var(--primary-color) 6%, var(--text-light));
+  color: var(--primary-color);
+  border: 1.6px solid color-mix(in oklab, var(--primary-color) 35%, transparent);
+}
+.one-click--brand .card__btn.ghost:hover{ background: var(--primary-color); color: var(--text-light); }
+
+.one-click--brand .card__pill{
+  display:inline-flex; align-items:center; gap:.6rem;
+  padding:.45rem .9rem; border-radius: 999px; font-weight:800; font-size:1.22rem;
+  background: color-mix(in oklab, var(--primary-color) 10%, var(--text-light));
+  color: var(--primary-color); border:1px solid color-mix(in oklab, var(--primary-color) 25%, transparent);
+}
+.one-click--brand .card__big-ico{ margin-top:auto; font-size:3.2rem; color: var(--primary-color-light); }
+
+/* Bullets */
+.bullets{ margin:.4rem 0 .6rem; padding:0; list-style:none; }
+.bullets li{
+  padding-left:1.2rem; position:relative; font-size:1.38rem;
+  color: color-mix(in oklab, var(--text-dark) 75%, var(--text-light));
+}
+.bullets li + li{ margin-top:.25rem; }
+.bullets li::before{
+  content:""; position:absolute; left:0; top:.6rem; width:.55rem; height:.55rem;
+  border-radius:50%; background: var(--success-color);
+}
+
+/* Feature & brand accents */
+.one-click--brand .card--feature{
+  color: var(--text-light);
+  background:
+    linear-gradient(135deg, color-mix(in oklab, var(--primary-color) 92%, transparent), color-mix(in oklab, var(--primary-color-dark) 90%, transparent));
+  border: none; box-shadow: 0 18px 38px color-mix(in oklab, var(--primary-color) 35%, transparent);
+}
+.one-click--brand .card--feature h3, .one-click--brand .card--feature p{ color: var(--text-light); }
+.ppc .one-click--brand .card__icon{ background: var(--accent-color-gradient); }
+
+.one-click--brand .seo{ border-left: 6px solid var(--primary-color); }
+.one-click--brand .smo{ background: color-mix(in oklab, var(--accent-color) 10%, var(--text-light)); border-left: 6px solid var(--accent-color); }
+.one-click--brand .video{ background: color-mix(in oklab, var(--primary-color-light) 14%, var(--text-light)); border-left: 6px solid var(--primary-color-light); }
+.optimize{ background: color-mix(in oklab, var(--bg-muted) 36%, var(--text-light)); }
+
+/* Webdev progress */
+.progress{ width:100%; height:.7rem; background: color-mix(in oklab, var(--text-dark) 10%, transparent); border-radius: 999px; overflow:hidden; margin:.6rem 0 1rem; }
+.progress span{ display:block; height:100%; background: var(--success-color); }
+
+/* KPI & split */
+.split{ display:flex; align-items:center; gap:1.2rem; flex-wrap:wrap; }
+.kpi{ display:flex; flex-direction:column; align-items:flex-start; }
+.kpi__value{ font-weight:900; font-size:2rem; color: var(--text-light); }
+.kpi__label{ font-size:1.1rem; color: color-mix(in oklab, var(--text-light) 85%, black); opacity:.95; }
+
+/* Industries block (chips) */
+.industries{
+  margin: 1.2rem 0 1.2rem;
+  background: color-mix(in oklab, var(--text-light) 85%, var(--bg-muted));
+  border: 1px solid color-mix(in oklab, var(--text-light) 60%, var(--primary-color));
+  padding: 1.1rem 1.2rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+.industries h5{
+  margin: 0 0 .6rem; font-size: 1.32rem; letter-spacing:.2px;
+  color: var(--text-dark); font-weight: 900;
+}
+.chips{ display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:.6rem; }
+.chip{
+  display:inline-flex; align-items:center; gap:.4rem;
+  font-size:1.22rem; font-weight:700; padding:.45rem .9rem;
+  border-radius: 999px; background: color-mix(in oklab, var(--text-light) 90%, var(--bg-muted));
+  color: var(--text-dark); border: 1px solid color-mix(in oklab, var(--text-dark) 12%, transparent);
+  transition: transform .15s ease, box-shadow .2s ease;
+}
+.chip:hover{ transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.chip--tag{
+  background: color-mix(in oklab, var(--primary-color) 12%, var(--text-light));
+  color: var(--primary-color);
+  border-color: color-mix(in oklab, var(--primary-color) 30%, transparent);
+}
+
+/* Hacking card brand */
+.hacking {
+  background: color-mix(in oklab, var(--primary-color-dark) 12%, var(--text-light));
+  border-left: 6px solid var(--primary-color-dark);
+}
+.hacking .one-click--brand .card__pill {
+  background: color-mix(in oklab, var(--primary-color-dark) 15%, var(--text-light));
+  color: var(--primary-color-dark);
+  border: 1px solid color-mix(in oklab, var(--primary-color-dark) 35%, transparent);
+}
+
+/* Widths (12-col) */
+.one-click--brand .card--wide{ grid-column: span 7; }
+.one-click--brand .card--tall{ grid-column: span 3; }
+.one-click--brand .card--small{ grid-column: span 2; }
+
+/* Responsive */
+@media (max-width: 1100px){
+  .one-click--brand{ padding: 3rem 3rem 4rem; }
+  .one-click--brand .card--wide{ grid-column: span 12; }
+  .one-click--brand .card--tall{ grid-column: span 6; }
+  .one-click--brand .card--small{ grid-column: span 6; }
+}
+@media (max-width: 640px){
+  .one-click--brand{ padding: 3rem 1.6rem; }
+  .one-click__grid{ gap:1.2rem; }
+  .one-click--brand .card{ padding:1.8rem; }
+  .one-click--brand .card--tall, .one-click--brand .card--small, .one-click--brand .card--wide{ grid-column: span 12; }
+  .kpi__value{ font-size:1.7rem; }
+}

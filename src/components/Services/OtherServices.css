@@ -1,0 +1,117 @@
+.other-services {
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.other-services-header {
+  margin-bottom: 4rem;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.other-services-header h2 {
+  font-size: 3.4rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.other-services-header p {
+  font-size: 1.6rem;
+  color: var(--text-dark);
+}
+
+.other-services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 3rem;
+  max-width: 1180px;
+  margin: auto;
+}
+
+.other-service-card {
+  background: #f8fafc;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 2.6rem;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  transition: 0.3s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.other-service-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-lg);
+}
+
+.other-service-content h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  color: var(--text-dark);
+}
+
+.other-service-content p {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.other-service-link {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* Hexagon styling is shared */
+.services-icon-wrapper {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+}
+
+.services-icon-wrapper .hexagon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.services-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  font-size: 2.2rem;
+  color: #fff;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .other-services-header h2 {
+    font-size: 2.4rem;
+  }
+
+  .other-service-content h3 {
+    font-size: 1.6rem;
+  }
+
+  .other-service-content p {
+    font-size: 1.4rem;
+  }
+}
+
+.fa-icon {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.2rem;
+  color: #ffffff;
+  z-index: 1;
+}

@@ -1,0 +1,109 @@
+.elevate-banner {
+  position: relative;
+  background: linear-gradient(135deg, #1e3a8a, #7c3aed, #2563eb);
+  padding: 120px 30px;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Glow animation layer */
+.elevate-banner::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -40%;
+  width: 180%;
+  height: 180%;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 70%);
+  animation: spinGlow 18s linear infinite;
+  z-index: 0;
+}
+
+@keyframes spinGlow {
+  0% { transform: rotate(0deg) scale(1); opacity: 0.5; }
+  50% { transform: rotate(180deg) scale(1.15); opacity: 0.3; }
+  100% { transform: rotate(360deg) scale(1); opacity: 0.5; }
+}
+
+.elevate-banner-content {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.banner-tag {
+  display: inline-block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 6px 16px;
+  border-radius: 999px;
+  margin-bottom: 1.2rem;
+}
+
+.elevate-banner-content h2 {
+  font-size: 3.8rem;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 1.6rem;
+}
+.elevate-banner-content h2 span {
+  color: #facc15; /* golden highlight */
+}
+
+.elevate-banner-content p {
+  font-size: 1.7rem;
+  line-height: 1.8;
+  color: #e2e8f0;
+  margin-bottom: 3rem;
+}
+
+.banner-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.elevate-banner-content button {
+  background-color: #fff;
+  color: #1e40af;
+  padding: 14px 36px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.elevate-banner-content button:hover {
+  transform: translateY(-3px);
+  background-color: #f8fafc;
+  color: #7c3aed;
+}
+
+.secondary-btn {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+.secondary-btn:hover {
+  background: #fff;
+  color: #1e40af;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .elevate-banner-content h2 { font-size: 2.6rem; }
+  .elevate-banner-content p { font-size: 1.45rem; }
+  .banner-actions { gap: 1rem; }
+  .elevate-banner-content button { width: 100%; max-width: 280px; }
+}

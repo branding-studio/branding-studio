@@ -1,0 +1,106 @@
+/* 1rem = 10px */
+html { font-size: 10px; }
+
+.sfw{
+  /* full-bleed wrapper with a tiny top spacing you can adjust/remove */
+  margin-top: 0;
+}
+
+/* Full-width gradient band */
+.sfw-band{
+  width: 100%;
+  background:
+    radial-gradient(120rem 28rem at -10% -40%, rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(100rem 28rem at 110% -40%, rgba(255,255,255,.06), transparent 60%),
+    var(--grad);
+  position: relative;
+  padding: 2.4rem 0; /* vertical breathing */
+  overflow: hidden;
+}
+
+/* Subtle diagonal texture */
+.sfw-band::after{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,.06) 0 1px, transparent 1px 12px);
+  opacity:.25;
+  pointer-events:none;
+}
+
+/* Content container (still centered for readability) */
+.sfw-inner{
+  width: 1400px;
+  margin-inline:auto;
+  padding-inline: var(--gutter);
+  display: grid;
+  grid-template-columns: 1.7fr auto;
+  gap: 1.6rem;
+  align-items: center;
+}
+
+.sfw-copy{ color:#f8fafc; text-align:left; }
+.sfw-kicker{
+  display:inline-block;
+  padding:.5rem 1rem;
+  border:1px solid rgba(255,255,255,.25);
+  color:#e2e8f0;
+  background: rgba(255,255,255,.08);
+  border-radius:999rem;
+  font-weight:800; font-size:1.2rem;
+  backdrop-filter: blur(2px);
+}
+.sfw-title{
+  margin:1.0rem 0 .4rem;
+  font-size:clamp(2.0rem, 2.6vw, 2.6rem);
+  line-height:1.2; font-weight:900;
+  color:#ffffff;
+  text-wrap: balance;
+}
+.sfw-blurb{
+  margin:0 0 1.0rem; color:#e2e8f0; font-size:1.5rem; max-width:86rem;
+}
+
+/* Points (pills) */
+.sfw-points{
+  list-style:none; padding:0; margin:0;
+  display:flex; flex-wrap:wrap; gap:.8rem;
+}
+.sfw-points li{
+  display:inline-flex; align-items:center; gap:.6rem;
+  padding:.6rem 1.0rem;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:999rem;
+  background: rgba(255,255,255,.08);
+  color:#f1f5f9; font-weight:700; font-size:1.2rem;
+  backdrop-filter: blur(2px);
+}
+.sfw-points svg{ color:#a7f3d0; } /* mint accent for checks */
+
+/* Actions */
+.sfw-actions{
+  display:flex; flex-direction:column; align-items:flex-end; gap:.8rem; justify-content:center;
+}
+.sfw-btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+  padding:1.0rem 1.6rem;
+  border-radius:999rem;
+  border:1px solid rgba(255,255,255,.15);
+  background:#ffffff;
+  color:var(--accent);
+  font-weight:900; font-size:1.4rem;
+  cursor:pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+}
+.sfw-btn:hover{
+  transform: translateY(-.2rem);
+  box-shadow: var(--shadow-md);
+}
+.sfw-note{ color:#e2e8f0; font-size:1.2rem; }
+
+/* Responsive */
+@media (max-width: 920px){
+  .sfw-inner{ width: 100%;grid-template-columns: 1fr; }
+  .sfw-actions{ align-items:flex-start; }
+}

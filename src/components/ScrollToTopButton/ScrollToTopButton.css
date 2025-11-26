@@ -1,0 +1,30 @@
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 90px;
+  right: 18px;
+  width: 50px;
+  height: 50px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  color: #1e40af;
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.scroll-to-top-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15);
+}
+
+
+@media (max-width: 768px){
+  .scroll-to-top-btn{
+    right: 4px;
+  }
+}

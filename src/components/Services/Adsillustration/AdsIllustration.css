@@ -1,0 +1,303 @@
+.ads-illustration {
+ 
+}
+
+/* ---------- Hero Section ---------- */
+.ads-hero {
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  padding: 6rem 8rem;
+  background: linear-gradient(135deg, var(--bg-dark-purple), var(--primary-color));
+  color: var(--text-light);
+  flex-wrap: wrap;
+  border-bottom-left-radius: var(--radius-lg);
+  border-bottom-right-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.ads-hero-text {
+  max-width: 50rem;
+}
+
+.ads-hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1.6rem;
+  color: var(--text-light);
+}
+
+.ads-hero p {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.ads-hero-img {
+  max-width: 40rem;
+  width: 100%;
+}
+
+.ads-hero-tagline {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+}
+
+
+.ads-hero-benefits {
+  margin-top: 1.6rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.ads-hero-benefits li {
+  font-size: 1.4rem;
+  color: var(--text-light);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+}
+
+.benefit-icon {
+  font-size: 1.6rem;
+  color: whitesmoke;
+  margin-right: 0.8rem;
+}
+
+
+.ads-hero-cta {
+  margin-top: 2rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: var(--primary-color);
+  color: var(--text-light);
+  font-weight: 600;
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.cta-btn:hover {
+  background: var(--accent-color-dark);
+}
+
+
+/* ---------- Services Section ---------- */
+.ads-services {
+  text-align: center;
+  padding: 6rem 2rem;
+}
+
+.ads-subtitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  letter-spacing: 0.1rem;
+  margin-bottom: 0.8rem;
+}
+
+.ads-heading {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1.6rem;
+}
+
+.ads-description {
+  font-size: 1.6rem;
+  color: var(--text-dark);
+  opacity: 0.8;
+  max-width: 80rem;
+  margin: 0 auto 4rem;
+}
+
+.ads-services-grid {
+  display: grid;
+  gap: 2.4rem;
+  grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+}
+
+.ads-service-card {
+  background: var(--text-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 3.2rem 2rem 2.4rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ads-service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.ads-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.6rem;
+}
+
+.ads-icon-bg {
+  background: var(--primary-color);
+  color: var(--text-light);
+  font-size: 2.2rem;
+  width: 4.8rem;
+  height: 4.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(45deg);
+  border-radius: 0.8rem;
+}
+
+.ads-icon-bg svg {
+  transform: rotate(-45deg); /* keep icon upright */
+}
+
+.ads-service-card h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.8rem;
+}
+
+.ads-service-card p {
+  font-size: 1.4rem;
+  color: var(--text-dark);
+  opacity: 0.8;
+}
+
+
+/* ---------- Process Section ---------- */
+.ads-process-section {
+  padding: 6rem 2rem;
+  background: linear-gradient(180deg, var(--bg-muted) 0%, #ffffff 100%);
+}
+
+.ads-process-title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.ads-process-subtitle {
+  text-align: center;
+  font-size: 1.6rem;
+  color: var(--text-dark);
+  opacity: 0.85;
+  max-width: 68rem;
+  margin: 0 auto 4rem;
+}
+
+.ads-process-timeline {
+  position: relative;
+  margin: 0 auto;
+  max-width: 900px;
+  padding-left: 3rem;
+}
+
+.ads-process-timeline::before {
+  content: "";
+  position: absolute;
+  left: 1.5rem;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--primary-color);
+  border-radius: 2px;
+}
+
+.ads-process-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 3.5rem;
+}
+
+.ads-process-icon {
+  flex-shrink: 0;
+  width: 4.5rem;
+  height: 4.5rem;
+  background: var(--primary-color);
+  color: var(--text-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  position: absolute;
+  left: -0.8rem;
+  top: 0;
+}
+
+.ads-process-content {
+  margin-left: 7rem;
+  background: #fff;
+  padding: 1.8rem 2rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ads-process-content:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.ads-process-content h3 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.ads-process-content p {
+  font-size: 1.4rem;
+  color: var(--text-dark);
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .ads-process-timeline {
+    padding-left: 2rem;
+  }
+  .ads-process-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.6rem;
+  }
+  .ads-process-content {
+    margin-left: 6rem;
+  }
+}
+
+
+/* ---------- Themes ---------- */
+.google-theme .ads-service-icon,
+.google-theme .ads-step-number {
+  background: #4285f4;
+}
+
+.meta-theme .ads-service-icon,
+.meta-theme .ads-step-number {
+  background: #1877f2;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .ads-hero {
+    padding: 4rem 1.5rem;
+    text-align: center;
+    flex-direction: column;
+  }
+  .ads-hero-img {
+    margin-top: 2rem;
+  }
+}
