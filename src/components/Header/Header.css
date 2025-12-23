@@ -1,0 +1,282 @@
+.clean-header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: white;
+  box-shadow: 0 0 0 transparent;
+  transition: 0.3s ease all;
+  padding: 1.5rem 8.5rem;
+}
+
+.clean-header.scrolled {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
+.header-inner .logo img{
+  width:155px;
+  display: block;
+  max-height: 140px;
+  object-fit: contain;
+  padding: 0;
+  margin: 0;
+}
+
+.header-logo .logo img {
+  object-fit: contain;
+  clip-path: inset(5% 5% 5% 5%) !important;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.4rem;
+}
+
+.nav-links span {
+  font-size: 1.6rem;
+  color: var(--text-dark);
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-links span.active::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: var(--primary-color);
+  bottom: -4px;
+  left: 0;
+}
+
+.right-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.0rem; /* tighter to fit Telegram + Call + Menu */
+}
+
+/* NEW: Telegram pill (desktop) */
+.telegram-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  background: #229ED9;           /* Telegram brand */
+  color: #fff;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+  box-shadow: 0 10px 22px rgba(34,158,217,.25);
+}
+.telegram-btn:hover {
+  transform: translateY(-1px);
+  background: #1b8aba;
+  box-shadow: 0 12px 26px rgba(34,158,217,.35);
+}
+.telegram-btn span { line-height: 1; }
+
+.call-now-btn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.8rem 1.6rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.5rem;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.call-now-btn:hover {
+  background-color: var(--primary-color-dark);
+  color: white;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+/* Mobile drawer */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100vh;
+  background: white;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2rem;
+  transition: right 0.3s ease;
+  z-index: 999;
+}
+
+.mobile-drawer.open {
+  right: 0;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.close-icon {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  margin-top: 2rem;
+}
+
+.drawer-links span {
+  font-size: 1.6rem;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+/* NEW: Telegram button inside drawer */
+.drawer-telegram-btn {
+  margin-top: .5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.8rem;
+  font-size: 1.5rem;
+  border-radius: 999px;
+  background-color: #229ED9;
+  color: white;
+  border: none;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 10px 22px rgba(34,158,217,.25);
+}
+.drawer-telegram-btn:hover {
+  background: #1b8aba;
+  color: #fff;
+}
+
+.drawer-call-btn {
+  margin-top: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.8rem;
+  font-size: 1.5rem;
+  border-radius: 6px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.drawer-call-btn:hover {
+  background: var(--secondary-color);
+  color: var(--text-dark);
+}
+
+@media (max-width: 1024px) {
+  .nav-links { display: none; }
+
+  .header-inner .logo img{
+    width:125px;
+    display: block;
+    max-height: 110px;
+    object-fit: contain;
+    padding: 0;
+    margin: 0;
+  }
+
+  .clean-header{
+    padding: 1.5rem 2.5rem;
+  }
+
+  .menu-toggle { display: block; }
+
+  .drawer-call-btn span { color: white; }
+}
+
+/* Telegram buttons */
+.telegram-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: 1rem 1.8rem;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 1.4rem;
+  text-decoration: none;
+  border: 1px solid rgba(34, 158, 217, .28);
+  color: #229ED9;
+  background: #fff;
+  transition: transform .15s ease, background .15s ease, box-shadow .15s ease, color .15s ease;
+}
+.telegram-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(34, 158, 217, .06);
+  box-shadow: 0 10px 24px rgba(34,158,217,.18);
+}
+.telegram-btn svg { font-size: 1.05rem; }
+
+/* Drawer Telegram */
+.drawer-telegram-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .9rem 1rem;
+  border-radius: 12px;
+  font-weight: 900;
+  text-decoration: none;
+  border: 1px solid rgba(34, 158, 217, .32);
+  color: #229ED9;
+  background: #fff;
+  margin-top: .4rem;
+  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+}
+.drawer-telegram-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(34, 158, 217, .06);
+  box-shadow: 0 10px 24px rgba(34,158,217,.18);
+}
+.drawer-telegram-btn svg { font-size: 1.05rem; }
+
+/* Accessibility for the drawer close button (if it’s an icon button) */
+.close-icon {
+  border: 1px solid var(--border, #e5e7eb);
+  background: #fff;
+  color: inherit;
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: grid; place-items: center;
+  cursor: pointer;
+}

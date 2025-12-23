@@ -1,0 +1,136 @@
+/* ===== Shell & background ===== */
+.mk-hero--enhanced{
+  width: 100%;
+  position:relative; overflow:hidden;
+  padding:6rem 2rem 3.2rem;
+  background:linear-gradient(180deg,var(--text-light) 0%, color-mix(in oklab,var(--text-light) 96%, var(--bg-muted)) 100%);
+}
+.mk-grid{max-width:100%;margin:0 6rem;display:grid;grid-template-columns:1.08fr 1fr;gap:4.2rem;align-items:center}
+
+/* ambient blobs */
+.mk-bg{position:absolute;pointer-events:none;filter:blur(18px);opacity:.7;mix-blend-mode:multiply}
+.mk-bg--orbA{width:520px;height:520px;left:-140px;top:-160px;background:radial-gradient(closest-side,color-mix(in oklab,var(--primary-color) 22%,transparent),transparent 70%);border-radius:50%;animation:mkFloatA 14s ease-in-out infinite}
+.mk-bg--orbB{width:620px;height:620px;right:-220px;top:-200px;background:radial-gradient(closest-side,color-mix(in oklab,var(--accent-color) 18%,transparent),transparent 70%);border-radius:40%;animation:mkFloatB 18s ease-in-out infinite}
+@keyframes mkFloatA{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,10px)}}
+@keyframes mkFloatB{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-16px,6px) rotate(2deg)}}
+
+/* dotted mist */
+.mk-grid-dots{
+  position:absolute;inset:0;pointer-events:none;opacity:.55;
+  background-image:
+    radial-gradient(color-mix(in oklab,var(--primary-color) 12%,var(--text-light)) 1.4px, transparent 1.4px),
+    radial-gradient(color-mix(in oklab,var(--accent-color) 12%,var(--text-light)) 1.4px, transparent 1.4px);
+  background-size:22px 22px,26px 26px; background-position:0 0,6px 8px;
+  mask-image:radial-gradient(600px 240px at 20% 10%, #000 40%, transparent 70%);
+}
+
+/* ===== Left column ===== */
+.mk-left{z-index:2}
+.mk-pill{
+  display:inline-block;background:color-mix(in oklab,var(--primary-color) 10%, var(--text-light));
+  color:var(--primary-color);border:1px solid color-mix(in oklab,var(--primary-color) 25%, transparent);
+  padding:.55rem 1.2rem;border-radius:999px;font-weight:800;font-size:1.28rem;letter-spacing:.2px;
+  box-shadow:var(--shadow-md)
+}
+
+.mk-title{margin-top:1.1rem;font-size:clamp(2.6rem,4.8vw,4.5rem);line-height:1.12;font-weight:900;color:var(--text-dark)}
+/* accent word */
+.mk-title-accent{
+  position:relative;display:inline-block;color:var(--accent-color);
+  background:linear-gradient(180deg,var(--accent-color) 0%, var(--accent-color-dark) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent
+}
+.mk-title-accent::after{
+  content:"";position:absolute;left:0;right:0;bottom:-8px;height:10px;border-radius:999px;
+  background:var(--accent-color-gradient);opacity:.32
+}
+
+.mk-sub{margin-top:1.1rem;color:color-mix(in oklab,var(--text-dark) 68%, var(--text-light));font-size:1.64rem;line-height:1.85;max-width:56ch}
+
+.mk-ctas{margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap}
+.mk-btn{border:0;cursor:pointer;padding:1.05rem 1.8rem;border-radius:var(--radius-md);font-weight:900;font-size:1.55rem;transition:transform .2s ease, box-shadow .25s ease, background .25s ease, color .25s ease, border-color .25s ease}
+.mk-btn--primary{color:var(--text-light);background:var(--accent-color-gradient);box-shadow:var(--shadow-lg)}
+.mk-btn--primary:hover{transform:translateY(-2px)}
+.mk-btn--ghost{color:var(--primary-color);background:color-mix(in oklab,var(--primary-color) 6%, var(--text-light));border:1.6px solid color-mix(in oklab,var(--primary-color) 35%, transparent)}
+.mk-btn--ghost:hover{background:var(--primary-color);color:var(--text-light);transform:translateY(-2px)}
+
+.mk-trust{margin-top:1.2rem;display:flex;gap:1.2rem;flex-wrap:wrap;color:color-mix(in oklab,var(--text-dark) 70%, var(--text-light));font-weight:600}
+.mk-trust li{list-style:none;position:relative;padding-left:1.4rem}
+.mk-trust li::before{content:"";position:absolute;left:0;top:.58rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--success-color)}
+
+/* ===== Right column ===== */
+.mk-right{z-index:2}
+.mk-photo-wrap{
+  position:relative;width:100%;max-width:600px;margin:0 auto;border-radius:var(--radius-lg);
+  padding:16px;background:color-mix(in oklab,var(--text-light) 78%, var(--bg-muted));
+  backdrop-filter:blur(8px) saturate(130%); box-shadow:var(--shadow-lg); isolation:isolate
+}
+.mk-photo-wrap--glow::before{
+  content:"";position:absolute;inset:-1px;z-index:-1;border-radius:calc(var(--radius-lg) + 2px);
+  background:linear-gradient(135deg, color-mix(in oklab,var(--primary-color) 50%, transparent), color-mix(in oklab,var(--accent-color) 50%, transparent));
+  filter:blur(8px);opacity:.65
+}
+.mk-photo{display:block;width:100%;height:auto;object-fit:cover;border-radius:calc(var(--radius-lg) - 6px)}
+
+/* floating cards */
+.mk-float{position:absolute;animation:bob 5.5s ease-in-out infinite}
+.mk-float--chart{left:-18px;bottom:112px;animation-delay:.3s}
+.mk-float--donut{right:-14px;bottom:24px;animation-delay:.6s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+.mk-mini-card{width:210px;padding:14px;background:var(--text-light);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);border:1px solid color-mix(in oklab,var(--text-dark) 12%, transparent);display:flex;flex-direction:column;align-items:center;gap:8px}
+.mk-mini-card p{margin:0;font-weight:800;color:color-mix(in oklab,var(--text-dark) 78%, var(--text-light));font-size:1.28rem}
+.mk-linechart{width:100%;height:70px;color:var(--primary-color-light)}
+.mk-mini-card--donut{width:180px;padding:18px 16px}
+.mk-donut{width:70px;height:70px;position:relative}
+.mk-donut-ring{
+  position:absolute;inset:0;border-radius:50%;
+  background:
+    radial-gradient(circle 22px at center, var(--text-light) 62%, transparent 63%),
+    conic-gradient(var(--accent-color) 0deg, var(--accent-color) 360deg);
+  box-shadow:inset 0 2px 10px color-mix(in oklab,var(--accent-color) 35%, transparent)
+}
+
+/* ===== Services strip ===== */
+.mk-services{max-width:100%;margin:2.8rem 6rem;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1.1rem}
+.mk-service{
+  position:relative;display:flex;align-items:center;gap:1rem;padding:1.15rem 1.25rem;background:var(--text-light);
+  border-radius:var(--radius-sm);border:1px solid color-mix(in oklab,var(--text-dark) 10%, transparent);
+  cursor:pointer;text-align:left;transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease
+}
+.mk-service:hover{transform:translateY(-4px);border-color:color-mix(in oklab,var(--text-dark) 18%, transparent);box-shadow:var(--shadow-md)}
+.mk-service::after{
+  content:"";position:absolute;inset:-1px;border-radius:calc(var(--radius-sm) + 1px);z-index:-1;
+  background:linear-gradient(120deg,color-mix(in oklab,var(--primary-color) 45%, transparent), color-mix(in oklab,var(--accent-color) 45%, transparent));
+  opacity:0;transition:opacity .25s ease;filter:blur(8px)
+}
+.mk-service:hover::after{opacity:.9}
+
+/* icon ring */
+.mk-ring{
+  width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-size:1.6rem;color:var(--primary-color);
+  background:
+    radial-gradient(circle at 30% 30%, color-mix(in oklab,var(--primary-color) 12%, transparent), transparent 60%),
+    radial-gradient(circle at 70% 70%, color-mix(in oklab,var(--accent-color) 12%, transparent), transparent 60%);
+  border:1.4px solid color-mix(in oklab,var(--primary-color) 22%, transparent)
+}
+.mk-service-texts strong{display:block;font-size:1.58rem;color:var(--text-dark)}
+.mk-service-texts small{display:block;font-size:1.22rem;color:color-mix(in oklab,var(--text-dark) 60%, var(--text-light));margin-top:.45rem}
+
+/* ===== Responsive ===== */
+@media (max-width:1100px){
+  .mk-grid{grid-template-columns:1fr;gap:3.2rem; margin: 0 0rem;}
+    .mk-mini-card{width:84px; display: none;}
+  .mk-photo-wrap{max-width:560px}
+  .mk-float--chart{left:8px;bottom:-14px}
+  .mk-float--donut{right:8px;bottom:-84px}
+  .mk-hero--enhanced{padding-bottom:9.6rem}
+  .mk-services{grid-template-columns:repeat(2,minmax(0,1fr)); margin: 0 0rem;}
+}
+@media (max-width:560px){
+  .mk-mini-card{width:84px; display: none;}
+  .mk-mini-card--donut{width:60px}
+  .mk-services{grid-template-columns:1fr}
+}
+
+

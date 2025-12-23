@@ -1,0 +1,458 @@
+/* =========================
+   OneClickSection.css (NEW LOOK)
+   Bento + glass + gradient-border
+   Layout preserved (wide/tall/small)
+   Circle icon preserved
+   ========================= */
+
+.one-click--brand{
+  padding: 3.2rem 7rem 4.2rem;
+  background:
+    radial-gradient(900px 320px at -10% -25%, color-mix(in oklab, var(--primary-color) 12%, transparent), transparent 62%),
+    radial-gradient(820px 320px at 110% -18%, color-mix(in oklab, var(--accent-color) 12%, transparent), transparent 62%),
+    linear-gradient(180deg, var(--text-light), color-mix(in oklab, var(--text-light) 92%, var(--bg-muted)));
+  font-family: var(--font-family-main, "Inter", system-ui, sans-serif);
+}
+
+.one-click__grid{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.6rem;
+  align-items: stretch;
+}
+
+/* =========================
+   Card base (new)
+   ========================= */
+.one-click--brand .card{
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(var(--radius-md) + 4px);
+  padding: 1.9rem;
+
+  /* glass */
+  background: color-mix(in oklab, var(--text-light) 88%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  /* gradient border via mask */
+  border: 1px solid transparent;
+  background-clip: padding-box;
+
+  box-shadow:
+    0 14px 30px color-mix(in oklab, var(--text-dark) 10%, transparent),
+    0 1px 0 color-mix(in oklab, white 55%, transparent) inset;
+
+  display:flex;
+  flex-direction:column;
+  gap: .85rem;
+
+  transition: transform .18s ease, box-shadow .22s ease;
+  transform: translateZ(0);
+}
+
+/* gradient border layer */
+.one-click--brand .card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  padding:1px;
+  border-radius: inherit;
+  background:
+    linear-gradient(135deg,
+      color-mix(in oklab, var(--primary-color) 42%, transparent),
+      color-mix(in oklab, var(--accent-color) 42%, transparent)
+    );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events:none;
+  opacity: .75;
+}
+
+.one-click--brand .card:hover{
+  transform: translateY(-6px);
+  box-shadow:
+    0 22px 56px color-mix(in oklab, var(--text-dark) 14%, transparent),
+    0 1px 0 color-mix(in oklab, white 60%, transparent) inset;
+}
+
+/* Keep content above layers */
+.one-click--brand .card > *{
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================
+   Header + type
+   ========================= */
+.one-click--brand .card__header{
+  display:flex;
+  align-items:center;
+  gap:.85rem;
+}
+
+.one-click--brand .card__eyebrow{
+  font-weight: 950;
+  font-size: 1.05rem;
+  letter-spacing: .2px;
+  color: color-mix(in oklab, var(--text-dark) 62%, var(--text-light));
+  text-transform: uppercase;
+}
+
+.one-click--brand .card__body{ display:block; }
+.one-click--brand .card__footer{ margin-top: auto; }
+
+.one-click--brand .card h3{
+  font-size: 2.0rem;
+  color: var(--text-dark);
+  margin: .05rem 0 .2rem;
+  letter-spacing: -0.25px;
+}
+.one-click--brand .card h4{
+  font-size: 1.7rem;
+  color: var(--text-dark);
+  margin: 0 0 .2rem;
+  letter-spacing: -0.2px;
+}
+.one-click--brand .card h5{
+  font-size: 1.45rem;
+  color: var(--text-dark);
+  margin: 0 0 .2rem;
+  letter-spacing: -0.12px;
+}
+.one-click--brand .card p{
+  font-size: 1.32rem;
+  color: color-mix(in oklab, var(--text-dark) 74%, var(--text-dark));
+  line-height: 1.62;
+  margin-top: .2rem;
+}
+
+/* =========================
+   Icon (circle preserved, upgraded)
+   ========================= */
+.one-click--brand .card__icon{
+  width:56px;
+  height:56px;
+  display:grid;
+  place-items:center;
+  font-size: 1.85rem;
+  color: var(--text-light);
+  background: var(--accent-color-gradient);
+  transition: transform .18s ease, filter .18s ease;
+}
+
+/* circle */
+.one-click--brand .card__icon--circle{
+  border-radius: 999px;
+  position: relative;
+  box-shadow: 0 14px 30px color-mix(in oklab, var(--accent-color) 26%, transparent);
+}
+
+/* ring glow */
+.one-click--brand .card__icon--circle::after{
+  content:"";
+  position:absolute;
+  inset:-7px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 52%),
+    radial-gradient(circle at 70% 70%, rgba(255,255,255,.16), transparent 56%);
+  box-shadow: 0 0 0 2px color-mix(in oklab, white 22%, transparent);
+  opacity: .95;
+  pointer-events:none;
+}
+
+.one-click--brand .card:hover .card__icon{
+  transform: translateY(-1px) scale(1.03);
+  filter: saturate(1.08);
+}
+
+.one-click--brand .card__icon--outline{
+  color: var(--primary-color);
+  background: color-mix(in oklab, var(--primary-color) 8%, var(--text-light));
+  border: 1.6px solid color-mix(in oklab, var(--primary-color) 28%, transparent);
+  box-shadow: none;
+}
+
+/* =========================
+   Pills
+   ========================= */
+.one-click--brand .card__pill{
+  display:inline-flex;
+  align-items:center;
+  gap:.6rem;
+  padding:.5rem .95rem;
+  border-radius: 999px;
+  font-weight: 950;
+  font-size: 1.12rem;
+
+  background: color-mix(in oklab, var(--primary-color) 10%, var(--text-light));
+  color: var(--primary-color);
+  border: 1px solid color-mix(in oklab, var(--primary-color) 24%, transparent);
+}
+
+/* =========================
+   Buttons (new: cleaner + hover-on-card)
+   ========================= */
+.one-click--brand .card__btn{
+  align-self:flex-start;
+  display:inline-flex;
+  align-items:center;
+  gap:.7rem;
+
+  padding: .95rem 1.45rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+
+  background: var(--accent-color-gradient);
+  color: var(--text-light);
+  font-weight: 950;
+  font-size: 1.25rem;
+
+  box-shadow: 0 14px 30px color-mix(in oklab, var(--accent-color) 20%, transparent);
+  transition: transform .16s ease, box-shadow .2s ease, filter .2s ease, background .2s ease, color .2s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.one-click--brand .card__btn:hover{
+  transform: translateY(-2px);
+  filter: saturate(1.08);
+  box-shadow: 0 18px 42px color-mix(in oklab, var(--accent-color) 24%, transparent);
+}
+
+.one-click--brand .card__btn.ghost{
+  background: color-mix(in oklab, var(--text-light) 86%, var(--bg-muted));
+  border: 1.8px solid color-mix(in oklab, var(--primary-color) 26%, transparent);
+  color: var(--primary-color);
+  box-shadow: none;
+}
+
+/* hover ANY card => ghost becomes solid primary (your requested behavior) */
+.one-click--brand .card:hover .card__btn.ghost{
+  background: var(--primary-color);
+  color: var(--text-light);
+  border-color: transparent;
+  box-shadow: 0 18px 44px color-mix(in oklab, var(--primary-color) 20%, transparent);
+}
+
+/* Focus */
+.one-click--brand .card__btn:focus-visible{
+  outline: none;
+  box-shadow:
+    0 0 0 4px color-mix(in oklab, var(--primary-color) 18%, transparent),
+    0 18px 46px color-mix(in oklab, var(--text-dark) 14%, transparent);
+}
+
+/* =========================
+   Bullets
+   ========================= */
+.bullets{
+  margin:.45rem 0 .6rem;
+  padding:0;
+  list-style:none;
+}
+.bullets li{
+  padding-left:1.15rem;
+  position:relative;
+  font-size:1.28rem;
+  color: color-mix(in oklab, var(--text-dark) 78%, var(--text-light));
+}
+.bullets li + li{ margin-top:.3rem; }
+.bullets li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:.62rem;
+  width:.52rem;
+  height:.52rem;
+  border-radius:50%;
+  background: var(--success-color);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--success-color) 18%, transparent);
+}
+
+/* =========================
+   Chips
+   ========================= */
+.industries{
+  margin: 1.05rem 0 1.05rem;
+  background: color-mix(in oklab, var(--text-light) 82%, var(--bg-muted));
+  border: 1px solid color-mix(in oklab, var(--text-dark) 10%, transparent);
+  padding: 1rem 1.05rem;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 10px 20px color-mix(in oklab, var(--text-dark) 10%, transparent);
+}
+.industries h5{
+  margin: 0 0 .55rem;
+  font-size: 1.18rem;
+  letter-spacing: .2px;
+  color: var(--text-dark);
+  font-weight: 950;
+}
+
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.55rem;
+}
+.chip{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+
+  font-size: 1.12rem;
+  font-weight: 850;
+
+  padding: .44rem .9rem;
+  border-radius: 999px;
+
+  background: color-mix(in oklab, var(--text-light) 92%, var(--bg-muted));
+  color: var(--text-dark);
+  border: 1px solid color-mix(in oklab, var(--text-dark) 12%, transparent);
+}
+.chip--tag{
+  background: color-mix(in oklab, var(--primary-color) 12%, var(--text-light));
+  color: var(--primary-color);
+  border-color: color-mix(in oklab, var(--primary-color) 24%, transparent);
+}
+
+/* =========================
+   Progress + footer split
+   ========================= */
+.progress{
+  width:100%;
+  height:.7rem;
+  background: color-mix(in oklab, var(--text-dark) 10%, transparent);
+  border-radius: 999px;
+  overflow:hidden;
+  margin: .7rem 0 0;
+}
+.progress span{
+  display:block;
+  height:100%;
+  background: linear-gradient(
+    90deg,
+    var(--success-color),
+    color-mix(in oklab, var(--success-color) 70%, var(--accent-color))
+  );
+}
+
+.split{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap:1rem;
+  flex-wrap:wrap;
+  margin-top: 1rem;
+}
+
+/* KPI (cleaner, always readable) */
+.kpi{
+  padding: .75rem .95rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in oklab, var(--text-dark) 10%, transparent);
+  background: color-mix(in oklab, var(--text-light) 92%, transparent);
+  box-shadow: 0 10px 22px color-mix(in oklab, var(--text-dark) 10%, transparent);
+  min-width: 118px;
+}
+.kpi__value{
+  font-weight: 950;
+  font-size: 1.75rem;
+  color: var(--text-dark);
+  letter-spacing: -0.3px;
+}
+.kpi__label{
+  font-size: 1.05rem;
+  color: color-mix(in oklab, var(--text-dark) 65%, var(--text-dark));
+}
+
+/* =========================
+   Feature card (new: cleaner, less heavy)
+   ========================= */
+.one-click--brand .card--feature{
+  color: var(--text-light);
+  background:
+    radial-gradient(700px 260px at 12% -10%, color-mix(in oklab, var(--accent-color) 24%, transparent), transparent 58%),
+    linear-gradient(135deg,
+      color-mix(in oklab, var(--primary-color) 92%, transparent),
+      color-mix(in oklab, var(--primary-color-dark) 90%, transparent)
+    );
+  border: 1px solid color-mix(in oklab, white 18%, transparent);
+  box-shadow: 0 28px 64px color-mix(in oklab, var(--primary-color) 24%, transparent);
+}
+.one-click--brand .card--feature h3,
+.one-click--brand .card--feature p{ color: var(--text-light); }
+.one-click--brand .card--feature .card__eyebrow{
+  color: color-mix(in oklab, var(--text-light) 88%, black);
+}
+
+/* KPI inside feature */
+.one-click--brand .card--feature .kpi{
+  border-color: color-mix(in oklab, white 22%, transparent);
+  background: color-mix(in oklab, white 14%, transparent);
+  box-shadow: 0 14px 34px color-mix(in oklab, black 18%, transparent);
+}
+.one-click--brand .card--feature .kpi__value,
+.one-click--brand .card--feature .kpi__label{ color: var(--text-light); }
+
+/* =========================
+   Accent cards (kept)
+   ========================= */
+.one-click--brand .seo{ border-left: 6px solid var(--primary-color); }
+.one-click--brand .smo{
+  background: color-mix(in oklab, var(--accent-color) 8%, var(--text-light));
+  border-left: 6px solid var(--accent-color);
+}
+.one-click--brand .webdev{ border-left: 6px solid var(--primary-color); }
+.one-click--brand .design{
+  background: color-mix(in oklab, var(--accent-color) 7%, var(--text-light));
+  border-left: 6px solid color-mix(in oklab, var(--accent-color) 80%, var(--primary-color));
+}
+
+/* Big icon */
+.one-click--brand .card__big-ico{
+  margin-top: 1rem;
+  font-size: 3.05rem;
+  opacity: .75;
+  color: color-mix(in oklab, var(--primary-color) 55%, var(--text-light));
+}
+
+/* =========================
+   Widths (12-col) preserved
+   ========================= */
+.one-click--brand .card--wide{ grid-column: span 7; }
+.one-click--brand .card--tall{ grid-column: span 3; }
+.one-click--brand .card--small{ grid-column: span 2; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .one-click--brand .card,
+  .one-click--brand .card::before,
+  .one-click--brand .card__btn,
+  .one-click--brand .card__icon{
+    transition:none !important;
+    animation:none !important;
+  }
+  .one-click--brand .card:hover{ transform:none; }
+}
+
+/* Responsive */
+@media (max-width: 1100px){
+  .one-click--brand{ padding: 3rem 3rem 4rem; }
+  .one-click--brand .card--wide{ grid-column: span 12; }
+  .one-click--brand .card--tall{ grid-column: span 6; }
+  .one-click--brand .card--small{ grid-column: span 6; }
+}
+
+@media (max-width: 640px){
+  .one-click--brand{ padding: 3rem 1.6rem; }
+  .one-click__grid{ gap: 1.2rem; }
+  .one-click--brand .card{ padding: 1.65rem; }
+  .one-click--brand .card--tall,
+  .one-click--brand .card--small,
+  .one-click--brand .card--wide{ grid-column: span 12; }
+}

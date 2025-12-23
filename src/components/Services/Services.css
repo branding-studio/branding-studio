@@ -1,0 +1,340 @@
+/* Services.css */
+/* ✅ Base: 1rem = 10px */
+html {
+  font-size: 10px;
+}
+
+/* ---------- Section ---------- */
+.wks-services.v5 {
+  position: relative;
+  padding: clamp(7rem, 9vw, 11rem) 1.6rem;
+  overflow: hidden;
+  background:
+    radial-gradient(70rem 50rem at 20% -10%, rgba(99, 102, 241, 0.18), transparent 60%),
+    radial-gradient(60rem 40rem at 85% 0%, rgba(236, 72, 153, 0.14), transparent 58%),
+    linear-gradient(180deg, var(--bg-light), var(--bg-muted));
+}
+
+/* soft dotted texture */
+.wks-services.v5::before {
+  content: "";
+  position: absolute;
+  inset: -2rem;
+  background:
+    radial-gradient(1px 1px at 10% 20%, rgba(0, 0, 0, 0.876), transparent 50%),
+    radial-gradient(1px 1px at 50% 30%, rgba(0,0,0,.14), transparent 50%),
+    radial-gradient(1px 1px at 80% 70%, rgba(0,0,0,.12), transparent 50%),
+    radial-gradient(1px 1px at 30% 80%, rgba(0,0,0,.12), transparent 50%);
+  opacity: .32;
+  pointer-events: none;
+}
+
+.wks-services__shell {
+  max-width: 128rem;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Header ---------- */
+.wks-services__head {
+  text-align: center;
+  margin-bottom: 5.2rem;
+}
+
+.wks-services__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .7rem 1.4rem;
+  border-radius: 999px;
+  font-size: 1.3rem;
+  font-weight: 800;
+  background: rgba(255,255,255,.75);
+  border: .1rem solid rgba(255,255,255,.65);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1.6rem 4rem rgba(0,0,0,.08);
+}
+
+.wks-services__spark {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  box-shadow: 0 0 0 0.4rem rgba(99,102,241,.12);
+}
+
+.wks-services__title {
+  margin: 1.8rem 0 1rem;
+  font-size: clamp(3.2rem, 4.6vw, 5.2rem);
+  font-weight: 950;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.wks-services__title span {
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.wks-services__sub {
+  max-width: 84rem;
+  margin: 0 auto;
+  font-size: 1.6rem;
+  color: rgba(0,0,0,.66);
+  line-height: 1.7;
+}
+
+/* ---------- Grid ---------- */
+.wks-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2.2rem;
+}
+
+/* Bento spans */
+.wks-tile { grid-column: span 4; }
+.wks-tile--a { grid-column: span 5; }
+.wks-tile--b { grid-column: span 4; }
+.wks-tile--c { grid-column: span 3; }
+.wks-tile--d { grid-column: span 7; }
+.wks-tile--e { grid-column: span 5; }
+
+/* ---------- Tile ---------- */
+.wks-tile {
+  min-height: 26rem;
+  position: relative;
+  border-radius: 2.6rem;
+  padding: 2rem;
+  overflow: hidden;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+
+  background: rgba(255,255,255,.62);
+  border: .1rem solid rgba(255,255,255,.58);
+  backdrop-filter: blur(14px);
+
+  box-shadow: 0 2.6rem 6.2rem rgba(0,0,0,.10);
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+
+.wks-tile:hover {
+  transform: translateY(-1rem);
+  box-shadow: 0 3.6rem 8.8rem rgba(0,0,0,.16);
+  border-color: rgba(255,255,255,.82);
+}
+
+.wks-tile:focus-visible {
+  box-shadow:
+    0 3.6rem 8.8rem rgba(0,0,0,.16),
+    0 0 0 .35rem rgba(99,102,241,.25);
+}
+
+/* ---------- Media layer ---------- */
+.wks-tile__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.wks-tile__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.06) contrast(1.02);
+  transform: scale(1.02);
+}
+
+.wks-tile__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.58));
+}
+
+.wks-tile__noise {
+  position: absolute;
+  inset: 0;
+  opacity: .12;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.wks-tile__glow {
+  position: absolute;
+  inset: -8rem;
+  opacity: .4;
+  filter: blur(18px);
+  background: radial-gradient(circle at 20% 20%, rgba(255,255,255,.28), transparent 45%);
+  pointer-events: none;
+}
+
+/* content layers */
+.wks-tile__top,
+.wks-tile__body,
+.wks-tile__foot {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Top row ---------- */
+.wks-tile__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
+.wks-tile__icon {
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 1.6rem;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 1.9rem;
+  box-shadow: 0 1.8rem 4rem rgba(0,0,0,.25);
+}
+
+.wks-tile__chip {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: .02em;
+  color: rgba(255,255,255,.92);
+  padding: .6rem 1rem;
+  border-radius: 999px;
+  background: rgba(0,0,0,.25);
+  border: .1rem solid rgba(255,255,255,.18);
+}
+
+/* ---------- Body ---------- */
+.wks-tile__body {
+  margin-top: 1.6rem;
+  max-width: 54rem;
+}
+
+.wks-tile__title {
+  font-size: 2.1rem;
+  font-weight: 950;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.wks-tile__desc {
+  margin-top: .7rem;
+  font-size: 1.35rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,.80);
+}
+
+/* ---------- Footer ---------- */
+.wks-tile__foot {
+  margin-top: auto;
+  padding-top: 1.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.wks-tile__meta {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: rgba(255,255,255,.75);
+}
+
+.wks-tile__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .8rem;
+  font-size: 1.3rem;
+  font-weight: 950;
+  color: #fff;
+  padding: .8rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+  border: .1rem solid rgba(255,255,255,.22);
+}
+
+/* ✅ Add/replace these parts in Services.css */
+
+/* Make CTA look like a button (default) */
+.wks-tile__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .8rem;
+  font-size: 1.3rem;
+  font-weight: 950;
+  color: #fff;
+  padding: .85rem 1.25rem;
+  border-radius: 999px;
+
+  background: rgba(255,255,255,.12);
+  border: .1rem solid rgba(255,255,255,.22);
+
+  transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+  will-change: transform;
+}
+
+/* ✅ When hovering ANY card, CTA transforms + gets solid background */
+.wks-tile:hover .wks-tile__cta {
+  transform: translateX(.4rem) translateY(-.1rem);
+  background: var(--primary-color);
+  border-color: transparent;
+  box-shadow: 0 1.2rem 2.4rem rgba(0,0,0,.22);
+}
+
+/* Optional: slightly brighter on active press */
+.wks-tile:active .wks-tile__cta {
+  transform: translateX(.2rem) translateY(0);
+  box-shadow: 0 .8rem 1.6rem rgba(0,0,0,.18);
+}
+
+/* Optional: keyboard accessibility (focus within card) */
+.wks-tile:focus-visible .wks-tile__cta {
+  background: var(--primary-color);
+  border-color: transparent;
+}
+
+/* ✅ If you want CTA color per-card tone (instead of primary), use this block */
+.wks-tile--a:hover .wks-tile__cta { background: #6366f1; }
+.wks-tile--b:hover .wks-tile__cta { background: #ec4899; }
+.wks-tile--c:hover .wks-tile__cta { background: #22c55e; }
+.wks-tile--d:hover .wks-tile__cta { background: #f59e0b; color: #111; }
+.wks-tile--e:hover .wks-tile__cta { background: #0ea5e9; }
+
+
+/* ---------- Tone gradients for icon ---------- */
+.wks-tile--a .wks-tile__icon { background: linear-gradient(135deg, #6366f1, #4338ca); }
+.wks-tile--b .wks-tile__icon { background: linear-gradient(135deg, #ec4899, #db2777); }
+.wks-tile--c .wks-tile__icon { background: linear-gradient(135deg, #22c55e, #16a34a); }
+.wks-tile--d .wks-tile__icon { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.wks-tile--e .wks-tile__icon { background: linear-gradient(135deg, #0ea5e9, #0369a1); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 98rem) {
+  .wks-grid { grid-template-columns: repeat(6, 1fr); }
+  .wks-tile,
+  .wks-tile--a,
+  .wks-tile--b,
+  .wks-tile--c,
+  .wks-tile--d,
+  .wks-tile--e { grid-column: span 3; }
+}
+
+@media (max-width: 64rem) {
+  .wks-grid { grid-template-columns: repeat(1, 1fr); }
+  .wks-tile,
+  .wks-tile--a,
+  .wks-tile--b,
+  .wks-tile--c,
+  .wks-tile--d,
+  .wks-tile--e { grid-column: span 1; }
+
+  .wks-services__sub { font-size: 1.5rem; }
+  .wks-tile { min-height: 24rem; }
+}

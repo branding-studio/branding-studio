@@ -1,0 +1,124 @@
+.testimonials-section {
+  padding: 100px 30px;
+  background: linear-gradient(to right, #e0f2fe, #fdf4ff);
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+.testimonial-header {
+  max-width: 700px;
+  margin: 0 auto 60px;
+}
+
+.testimonial-header h2 {
+  font-size: 36px;
+  font-weight: 800;
+  background: linear-gradient(to right, #1e40af, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 12px;
+}
+
+.testimonial-header p {
+  font-size: 17px;
+  color: #475569;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.testimonials-grid {
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testimonial-card {
+    height: 22rem;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 32px 26px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease;
+  text-align: left;
+  margin: 2rem;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-6px);
+}
+
+.testimonial-text {
+  font-size: 16px;
+  font-style: italic;
+  color: #1e293b;
+  line-height: 1.7;
+  margin-bottom: 24px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.testimonial-text::before {
+  content: "“";
+  font-size: 36px;
+  position: absolute;
+  left: 0;
+  top: -10px;
+  color: #7c3aed;
+}
+
+.testimonial-author {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 16px;
+}
+
+.author-name {
+  font-weight: 600;
+  font-size: 16px;
+  color: #1e293b;
+}
+
+.author-role {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .testimonial-header h2 {
+    font-size: 28px;
+  }
+
+  .testimonial-text {
+    font-size: 15px;
+  }
+
+  .testimonial-card {
+    padding: 26px 20px;
+  }
+}
+
+.testimonial-swiper {
+  padding: 10px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #1e40af;
+  font-size: 20px;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #7c3aed;
+}
+
+.swiper-button-disabled {
+  opacity: 0.25;
+}

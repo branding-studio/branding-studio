@@ -1,0 +1,186 @@
+.dashboard {
+  padding: 2rem;
+  background: #f8fafc;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  color: #0f172a;
+}
+
+/* Top row: stats + actions */
+.dash-top {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-bottom: 1.6rem;
+  flex-wrap: wrap;
+}
+
+/* Stats */
+.dashboard .stats-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 1fr);
+  gap: 1rem;
+  min-width: 300px;
+}
+
+.dashboard .stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 1.1rem 1.3rem;
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.05);
+}
+.dashboard .stat-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  color: #3730a3;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+}
+.dashboard .stat-content { display: grid; }
+.dashboard .stat-label {
+  color: #64748b;
+  font-size: 1.25rem;
+  margin-bottom: 2px;
+}
+.dashboard .stat-value {
+  color: #111827;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Actions */
+.dash-actions {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+}
+
+.btn {
+  appearance: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #0f172a;
+  transition: transform .06s ease, box-shadow .2s ease, background .2s ease, filter .2s ease;
+}
+.btn:hover { background: #f3f4f6; transform: translateY(-1px); }
+.btn.primary {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.25);
+}
+.btn.primary:hover { filter: brightness(1.02); }
+.btn.ghost {}
+
+/* Panel */
+.panel {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.05);
+  padding: 1.2rem 1.2rem .9rem;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: .6rem;
+}
+.panel-head h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #0f172a;
+}
+.panel-sub {
+  color: #64748b;
+  font-size: 1.2rem;
+}
+
+.muted { color: #6b7280; }
+
+/* Empty state */
+.empty { display: flex; justify-content: center; padding: 2rem 0; }
+.empty-card {
+  text-align: center;
+  background: #ffffff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 1rem;
+  padding: 2rem;
+  color: #475569;
+}
+.empty-card h4 { margin: 0 0 .4rem; color: #0f172a; }
+
+/* Table */
+.table-wrap { overflow: auto; }
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+.table thead th {
+  text-align: left;
+  padding: .75rem .75rem;
+  background: #f3f4f6;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+  font-weight: 800;
+  font-size: 1.26rem;
+}
+.table tbody td {
+  text-align: left;
+  padding: .75rem .75rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+  font-size: 1.45rem;
+}
+.title-cell .title { font-weight: 700; color: #111827; }
+.pill {
+  display: inline-block;
+  font-size: 1.2rem;
+  padding: .2rem .6rem;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+}
+.th-id { width: 30%; }
+.id-cell {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+  color: #6b7280;
+  font-size: 1.1rem;
+  max-width: 420px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 920px) {
+  .dashboard .stats-grid {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .dashboard { padding: 1.2rem; }
+  .dash-top { gap: 1rem; }
+  .dashboard .stats-grid { grid-template-columns: 1fr; }
+  .panel { padding: 1rem; }
+}

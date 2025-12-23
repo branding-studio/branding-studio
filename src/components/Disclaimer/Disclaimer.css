@@ -1,0 +1,213 @@
+/* =========================
+   Tokens (don’t use vars inside @media)
+   ========================= */
+:root{
+  --maxw: 134rem;
+
+  --radius-xl: 2.0rem;
+  --radius-lg: 1.6rem;
+  --radius-md: 1.0rem;
+
+  --primary: #0052cc;
+  --primary-500: #2563eb;
+  --accent: #facc15;
+
+  --bg-muted: #f1f5f9;
+  --text: #0f172a;
+  --text-mid: #475569;
+  --text-light: #ffffff;
+
+  --shadow-sm: 0 6px 16px rgba(15, 23, 42, .06);
+  --shadow-md: 0 10px 24px rgba(15, 23, 42, .08);
+  --shadow-lg: 0 18px 44px rgba(15, 23, 42, .12);
+}
+
+/* =========================
+   Base wrapper (mobile-first)
+   ========================= */
+.disc{
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+  background:
+    radial-gradient(110rem 28rem at -10% -30%, color-mix(in oklab, var(--primary) 10%, transparent), transparent 60%),
+    radial-gradient(110rem 28rem at 110% -30%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 60%),
+    linear-gradient(180deg, #fff, color-mix(in oklab, #fff 92%, var(--bg-muted)));
+  padding: max(2.0rem, env(safe-area-inset-top)) clamp(1.6rem, 5vw, 6.4rem) 3.2rem;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+/* =========================
+   Header
+   ========================= */
+.disc-header{
+  width: min(var(--maxw), 100%);
+  margin: 0 auto 1.6rem;
+  display: grid;
+  gap: .6rem;
+}
+.disc-kicker{
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #64748b;
+}
+.disc-title{
+  margin: 0;
+  font-size: clamp(2.4rem, 3.4vw, 3.6rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.disc-sub{
+  margin: 0;
+  color: var(--text-mid);
+  font-size: clamp(1.5rem, 1vw + 1rem, 1.7rem);
+  line-height: 1.6;
+}
+.disc-meta{
+  margin: .3rem 0 0;
+  color: #64748b;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+/* =========================
+   Card shell
+   ========================= */
+.disc-card{
+  background: #fff;
+  border: 1px solid color-mix(in oklab, var(--text) 10%, transparent);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+/* =========================
+   TOC (chips, horizontal scroll on narrow)
+   ========================= */
+.disc-toc{
+  width: min(var(--maxw), 100%);
+  margin: 0 auto 1.2rem;
+  padding: 1.2rem 1.2rem .8rem;
+}
+.disc-toc h3{
+  margin: .2rem .4rem .8rem;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+.disc-toc ul{
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-wrap: wrap; gap: .8rem;
+}
+.disc-toc a{
+  display: inline-block;
+  border: 1px solid color-mix(in oklab, var(--text) 10%, transparent);
+  padding: .6rem 1rem;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.35rem;
+}
+.disc-toc a:hover{
+  border-color: color-mix(in oklab, var(--primary) 30%, transparent);
+}
+
+/* Force horizontal scroll on phones (prevents tall inner scroll panes) */
+@media (max-width: 640px){
+  .disc-toc ul{
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: .4rem;
+  }
+}
+
+/* =========================
+   Body
+   ========================= */
+.disc-body{
+  width: min(var(--maxw), 100%);
+  margin: 0 auto;
+  padding: clamp(1.6rem, 2.2vw, 2.4rem);
+}
+.disc-section + .disc-section{ margin-top: 1.2rem; }
+
+.disc-section h2{
+  margin: 0 0 .6rem;
+  font-size: clamp(1.8rem, .8vw + 1rem, 2.2rem);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  scroll-margin-top: 8rem; /* anchor offset for sticky browser UI */
+}
+.disc-section p{
+  margin: 0 0 .9rem;
+  font-size: 1.55rem;
+  color: var(--text);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.disc-section ul{
+  margin: 0 0 1rem 1.6rem;
+  font-size: 1.55rem;
+  color: var(--text);
+  line-height: 1.7;
+}
+.disc-section li{ margin: .3rem 0; }
+
+.disc-note{
+  margin-top: .4rem;
+  padding: .9rem 1.1rem;
+  border: 1px dashed color-mix(in oklab, var(--primary) 35%, transparent);
+  background: color-mix(in oklab, var(--primary) 8%, #fff);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* =========================
+   Responsive tweaks (numeric breakpoints)
+   ========================= */
+@media (max-width: 1024px){
+  .disc-section h2{ scroll-margin-top: 7rem; }
+}
+@media (max-width: 768px){
+    .disc-toc{
+        display: none;
+    }
+  .disc-body{ padding: 1.6rem; }
+}
+@media (max-width: 560px){
+  .disc{ padding: max(1.6rem, env(safe-area-inset-top)) 1.6rem 2.4rem; }
+  .disc-section h2{ scroll-margin-top: 6rem; }
+}
+@media (max-width: 400px){
+  .disc-title{ font-size: clamp(2.0rem, 6vw, 2.6rem); }
+  .disc-card{ border-radius: var(--radius-lg); }
+}
+
+/* =========================
+   Safety + accessibility
+   ========================= */
+.disc img, .disc video, .disc iframe{ max-width: 100%; height: auto; }
+.disc a:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(250, 204, 21, .35), 0 0 0 1.5px #eab308;
+  border-radius: .4rem;
+}
+
+/* Motion & print */
+@media (prefers-reduced-motion: reduce){
+  *{ transition: none !important; animation: none !important; }
+}
+@media print{
+  .disc{ background: #fff !important; padding: 0 !important; }
+  .disc-card{ box-shadow: none !important; border: 1px solid #e5e7eb !important; border-radius: 0 !important; }
+  .disc-body{ padding: 16pt !important; }
+  .disc-title{ -webkit-text-fill-color: currentColor !important; background: none !important; color: #000 !important; }
+  @page{ margin: 12mm; }
+}

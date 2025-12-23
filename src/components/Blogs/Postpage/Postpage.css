@@ -1,0 +1,134 @@
+/* Base (use your existing html { font-size: 10px } if set globally) */
+
+/* Container */
+.postpage.light-bg {
+  background: #f8f9fa;
+  color: #1e293b;
+  /* fluid padding across viewports */
+  padding: clamp(1.6rem, 2vw + 1.2rem, 8rem);
+  width: 100%;
+  box-sizing: border-box;
+  padding: 2rem 8rem;
+}
+
+/* Hero */
+.post-hero {
+  margin: 4rem 0 2rem 0;
+  border-radius: 1.2rem;
+  overflow: hidden;
+}
+.post-hero img {
+  width: 700px;           /* was 600px – make fluid */
+  height: auto;
+  display: block;
+  box-shadow: 0 0.6rem 2rem rgba(0,0,0,0.08);
+}
+
+/* Head */
+.post-head {
+  margin-bottom: 2rem;
+}
+
+.post-meta-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;        /* allow wrap on small screens */
+}
+
+.pill {
+  background: #e6f0ff;
+  color: #0052cc;
+  padding: 0.4rem 1rem;
+  border-radius: 50rem;
+  font-size: clamp(1.1rem, 0.3vw + 1rem, 1.3rem);
+  text-decoration: none;
+}
+
+.muted {
+  color: #6b7280;
+  font-size: clamp(1.1rem, 0.3vw + 1rem, 1.3rem);
+}
+
+/* Typography (fluid sizes) */
+.post-title {
+  font-size: clamp(2.2rem, 2.2vw + 1.2rem, 3.4rem);
+  font-weight: 700;
+  margin: 0.5rem 0 0.5rem;
+}
+
+.post-author {
+  font-size: clamp(1.3rem, 0.4vw + 1rem, 1.5rem);
+  color: #475569;
+}
+
+.post-content {
+  line-height: 1.8;
+  font-size: clamp(1.5rem, 0.6vw + 1.2rem, 1.5rem);
+  color: #1e293b;
+}
+
+.post-content h2,
+.post-content h3 {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.post-footer {
+  margin-top: 4rem;
+  border-top: 0.1rem solid #e2e8f0;
+  padding-top: 1.5rem;
+}
+
+.back-link {
+  color: #0052cc;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: clamp(1.3rem, 0.4vw + 1rem, 1.5rem);
+}
+.back-link:hover { text-decoration: underline; }
+
+/* Loading skeletons */
+.loading-wrap { padding: 2rem; }
+
+.skeleton {
+  background: #e2e8f0;
+  border-radius: 0.6rem;
+  margin-bottom: 1rem;
+}
+.skeleton.hero { height: 20rem; }
+.skeleton.title { height: 2.8rem; width: 70%; }
+.skeleton.lines { height: 1.6rem; width: 100%; }
+
+/* =========================
+   Responsive breakpoints
+   ========================= */
+
+/* ≤ 1024px (tablets/large phones) */
+@media (max-width: 1024px) {
+  .postpage.light-bg {
+    padding: clamp(1.6rem, 4vw + 1rem, 4rem);
+  }
+}
+
+/* ≤ 768px (tablets/phones portrait) */
+@media (max-width: 768px) {
+  .post-hero { margin: 2.4rem 0 1.6rem; }
+  .post-content h2, .post-content h3 { margin-top: 2.2rem; }
+}
+
+/* ≤ 576px (small phones) */
+@media (max-width: 576px) {
+  .postpage.light-bg {
+    padding: 1.6rem;              /* comfortable mobile padding */
+  }
+  .post-meta-top {
+    gap: 0.8rem;
+  }
+  .post-title {
+    margin-top: 0.2rem;
+  }
+}

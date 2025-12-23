@@ -1,0 +1,231 @@
+/* 1rem = 10px */
+html { font-size: 10px; }
+
+/* Safe tokens (shared with your other pages) */
+:root{
+  --container: 120rem;
+  --gutter: 1.8rem;
+
+  --ink: #0f172a;
+  --muted: #64748b;
+
+  --primary: #1e40af;
+  --accent: #0ea5e9;
+  --grad: linear-gradient(135deg, var(--primary), var(--accent));
+
+  --edge: #e5e7eb;
+  --surface: #ffffff;
+
+  --success: #16a34a;
+
+  --shadow-sm: 0 8px 18px rgba(15,23,42,.06);
+  --shadow-md: 0 18px 40px rgba(15,23,42,.10);
+}
+
+/* ===== Frame: sticky rail + main ===== */
+.ve{
+  position: relative;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 20px;
+  width: 134rem;
+  color: var(--ink);
+  margin: 3.5rem auto;
+  background:
+    radial-gradient(120rem 28rem at -10% -10%, color-mix(in oklab, var(--primary) 8%, transparent), transparent 60%),
+    radial-gradient(100rem 28rem at 110% -10%, color-mix(in oklab, var(--accent) 8%, transparent), transparent 60%),
+    linear-gradient(180deg, #fff, #f6f7fb);
+}
+
+/* Sticky rail */
+.ve__rail{
+  position: sticky; top: 10px; align-self: start; height: calc(100dvh - 20px);
+  padding: 16px;
+  border-right: 1px solid var(--edge);
+  background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.75));
+  backdrop-filter: blur(10px) saturate(1.05);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+}
+.rail__brand{ display:flex; gap:10px; align-items:center; margin-bottom:10px; }
+.rail__logo{ width:36px; height:36px; border-radius:10px; display:grid; place-items:center; color:#fff; font-weight:900; background: var(--grad); box-shadow: var(--shadow-sm); }
+.rail__brand strong{ display:block; line-height:1.1; }
+.rail__brand small{ display:block; color:var(--muted); }
+.rail__nav{ list-style:none; padding:0; margin:8px 0; display:grid; gap:8px; }
+.rail__chip{
+  width: 100%; text-align:left; font-weight:800; font-size:14px; cursor:pointer;
+  padding:10px 12px; border-radius:12px; color:var(--ink);
+  border:1px solid var(--edge); background:#fff;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.rail__chip:hover{ transform: translateX(2px); border-color: color-mix(in oklab, var(--primary) 35%, transparent); box-shadow: 0 6px 16px rgba(15,23,42,.06); }
+.rail__chip.is-active{
+  background:
+    linear-gradient(#fff,#fff) padding-box,
+    linear-gradient(135deg, color-mix(in oklab, var(--primary) 45%, #fff), color-mix(in oklab, var(--accent) 45%, #fff)) border-box;
+  border:1px solid transparent; box-shadow: 0 0 0 6px rgba(30,64,175,.10);
+}
+
+/* Main column wrapper */
+.ve__main{
+  width: min(var(--container), 100%);
+  padding-inline: var(--gutter);
+}
+
+/* ---------- HERO ---------- */
+.ve__hero{
+  padding: 2.4rem 0 2.0rem;
+  text-align: left;
+}
+.ve__eyebrow{
+  display:inline-block;
+  padding:.5rem 1rem;
+  border:1px solid color-mix(in oklab, var(--primary) 35%, transparent);
+  color:var(--primary);
+  background: color-mix(in oklab, var(--primary) 12%, #fff);
+  border-radius:999rem;
+  font-weight:800;
+  font-size:1.2rem;
+}
+.ve__hero h1{
+  margin:1.0rem 0 .8rem;
+  font-size:clamp(2.6rem, 4.4vw, 3.9rem);
+  line-height:1.12;
+  font-weight:900;
+  letter-spacing:-.01em;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.ve__hero p{
+  color:var(--muted);
+  font-size:1.6rem;
+  max-width:82rem;
+  margin:0;
+}
+.ve__badges{
+  display:flex; gap:.8rem; flex-wrap:wrap; margin:1.2rem 0 1.2rem;
+}
+.ve__badges span{
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.5rem 1.0rem; border-radius:999rem; background:#fff; border:1px solid var(--edge);
+  font-weight:800; font-size:1.2rem;
+}
+.ve__hero-cta{ margin-top:.6rem; }
+
+/* ---------- GRID ---------- */
+.ve__grid{
+  padding: .8rem 0 3.0rem;
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap:1.6rem;
+}
+.ve__card{
+  background:#fff; border:1px solid var(--edge); border-radius:1.8rem;
+  padding:1.6rem; box-shadow: var(--shadow-sm);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.ve__card:hover{
+  transform: translateY(-.3rem);
+  box-shadow: var(--shadow-md);
+  border-color: color-mix(in oklab, var(--primary) 35%, transparent);
+}
+.ve__card-head{ display:flex; align-items:center; gap:1.0rem; margin-bottom:.6rem; }
+.ve__icon{
+  width:4.2rem; height:4.2rem; border-radius:1.0rem;
+  display:grid; place-items:center; color:#fff; font-size:1.8rem;
+  background: var(--grad);
+}
+.ve__card h2{ margin:0; font-size:1.8rem; font-weight:900; }
+.ve__copy{ margin:.4rem 0 1.0rem; color:var(--muted); font-size:1.4rem; }
+.ve__list{ list-style:none; padding:0; margin:0 0 1.2rem; display:grid; gap:.4rem; }
+.ve__list li{ display:flex; gap:.6rem; align-items:center; font-size:1.3rem; color:var(--ink); }
+.ve__list svg{ color: var(--success); }
+
+/* Buttons */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+  padding:1.0rem 1.6rem; border-radius:999rem; border:1px solid transparent;
+  font-weight:800; font-size:1.4rem; cursor:pointer;
+  transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.btn--primary{ background: var(--grad); color:#fff; box-shadow: var(--shadow-sm); }
+.btn--primary:hover{ transform: translateY(-.2rem); box-shadow: var(--shadow-md); }
+.btn--ghost{
+  background:#fff; color:var(--primary);
+  border:1px solid color-mix(in oklab, var(--primary) 35%, transparent);
+}
+.btn--ghost:hover{ background: color-mix(in oklab, var(--primary) 10%, #fff); transform: translateY(-.2rem); }
+
+/* ---------- PROCESS ---------- */
+.ve__process{ padding: 0 0 3.0rem; }
+.ve__head{ text-align:left; margin: 0 0 1.2rem; }
+.ve__head h3{ margin:0; font-size:2.2rem; font-weight:900; }
+.ve__head p{ margin:.2rem 0 0; color:var(--muted); font-size:1.5rem; }
+.ve__steps{
+  list-style:none; padding:0; margin:0;
+  display:grid; gap:1.2rem; max-width:96rem;
+}
+.ve__step{
+  display:flex; gap:1.0rem; align-items:flex-start; position:relative;
+  background:#fff; border:1px solid var(--edge); border-radius:1.6rem; padding:1.4rem 1.6rem;
+}
+.ve__num{
+  width:3.2rem; height:3.2rem; border-radius:.8rem;
+  display:grid; place-items:center; background: var(--grad); color:#fff; font-weight:900;
+}
+.ve__step h4{ margin:0 0 .2rem; font-size:1.6rem; }
+.ve__step p{ margin:0; color:var(--muted); font-size:1.4rem; }
+.ve__step-ico{ position:absolute; right:1.2rem; top:1.2rem; font-size:1.6rem; color:var(--primary); }
+
+/* ---------- STACK ---------- */
+.ve__stack{ padding: 0 0 3.2rem; }
+.ve__chips{
+  list-style:none; padding:0; margin:1.0rem 0 0;
+  display:flex; flex-wrap:wrap; gap:.8rem;
+}
+.ve__chip{
+  padding:.6rem 1.0rem; border-radius:999rem; background:#fff; border:1px solid var(--edge);
+  font-weight:700; font-size:1.3rem; color:var(--ink);
+}
+.ve__socials{
+  display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1.0rem; color:var(--muted);
+}
+.ve__socials span{ display:inline-flex; align-items:center; gap:.5rem; }
+
+/* ---------- DELIVERABLES ---------- */
+.ve__deliver{ padding: 0 0 3.0rem; }
+.ve__list--cards{
+  grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+}
+.ve__list--cards li{
+  background:#fff; border:1px solid var(--edge); border-radius:1.2rem; padding:1.0rem;
+}
+.ve__deliver-cta{ margin-top:1.2rem; }
+
+/* ---------- PRESETS ---------- */
+.ve__presets{ padding: 0 0 3.2rem; }
+.ve__preset-grids{
+  display:grid; gap:1.2rem; grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+}
+.ve__presets h4{ margin:.2rem 0; font-size:1.6rem; }
+
+/* ---------- CTA ---------- */
+.ve__cta{ padding: 0 1.6rem 5.2rem; }
+.ve__cta-inner{
+  background:#fff; border:1px solid var(--edge); border-radius:2.0rem; padding:1.8rem;
+  box-shadow: var(--shadow-md);
+  display:grid; grid-template-columns: 1fr auto; gap:1.2rem; align-items:center;
+}
+.ve__cta-copy h3{ margin:0 0 .2rem; font-size:2.0rem; font-weight:900; }
+.ve__cta-copy p{ margin:0; color:var(--muted); font-size:1.5rem; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px){
+  .ve{ grid-template-columns: 1fr; width: 100%; padding: 10px 20px; }
+  .ve__rail{ position: static; height: auto; display:grid; grid-auto-rows:min-content; }
+}
+@media (max-width: 560px){
+  .ve__chip{ font-size:1.2rem; }
+  .btn{ font-size:1.35rem; }
+}

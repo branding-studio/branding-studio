@@ -1,0 +1,227 @@
+/* Container */
+.blogs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin: 1rem 0 2rem;
+}
+
+/* Header */
+.blogs-head {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+}
+.blogs-head h2 {
+  margin: 0;
+  font-size: 2rem;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+}
+.count-chip {
+  background: #0ea5e9;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.2rem;
+  padding: .2rem .6rem;
+  border-radius: 999px;
+}
+
+/* Grid */
+.blogs-grid {
+  display: grid;
+  grid-template-columns: repeat( auto-fill, minmax(300px, 1fr) );
+  gap: 1.4rem;
+}
+
+/* Card */
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+  transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.blog-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.08);
+  border-color: #d1d5db;
+}
+
+/* Media */
+.card-media {
+  width: 100%;
+  height: 180px;
+  background: #f1f5f9;
+  overflow: hidden;
+}
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card-media.placeholder {
+  background: linear-gradient( 90deg, #f1f5f9 0%, #e5e7eb 50%, #f1f5f9 100% );
+  background-size: 200% 100%;
+  animation: shimmer 1.25s infinite linear;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Body */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  padding: 1rem 1rem 1.2rem;
+}
+
+/* Topline pills */
+.card-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: .6rem;
+  flex-wrap: wrap;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .35rem .7rem;
+  font-size: 1.15rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #0f172a;
+}
+.pill svg { font-size: 1.1rem; }
+.pill-cat {
+  border-color: #c7d2fe;
+  background: #eef2ff;
+}
+.pill-time {
+  border-color: #fde68a;
+  background: #fffbeb;
+}
+
+/* Title */
+.card-title {
+  margin: .2rem 0 0;
+  font-size: 1.6rem;
+  color: #0f172a;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
+
+/* Excerpt */
+.card-excerpt {
+  margin: 0;
+  color: #475569;
+  font-size: 1.35rem;
+  line-height: 1.6;
+}
+.read-more {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+.read-more:hover { text-decoration: underline; }
+
+/* Meta row */
+.card-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: .2rem;
+}
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  color: #64748b;
+  font-size: 1.2rem;
+}
+
+/* Actions */
+.card-actions {
+  display: flex;
+  gap: .8rem;
+  margin-top: .6rem;
+}
+.btn {
+  appearance: none;
+  border-radius: .8rem;
+  padding: .7rem 1rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  cursor: pointer;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #0f172a;
+  transition: transform .06s ease, box-shadow .2s ease, background .2s ease, border .2s ease;
+}
+.btn:hover { background: #f8fafc; transform: translateY(-1px); }
+.btn.ghost {
+  border-color: #111827;
+  color: #111827;
+}
+.btn.danger {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #ffffff !important;
+}
+.btn.danger:hover { background: #f11313 !important;color: black; }
+
+/* Empty state */
+.blogs-empty {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+.empty-card {
+  text-align: center;
+  background: #ffffff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 1rem;
+  padding: 2rem;
+  color: #475569;
+}
+.empty-card h3 {
+  margin: 0 0 .4rem;
+  color: #0f172a;
+}
+
+/* Spinner */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+}
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--norton-yellow, #2563eb);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive niceties */
+@media (max-width: 420px) {
+  .card-media { height: 160px; }
+  .card-title { font-size: 1.45rem; }
+}
