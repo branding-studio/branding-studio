@@ -41,6 +41,7 @@ import Smo from "../components/Services/SMO/Smo";
 import SubFooterBanner from "../components/SubFooterBanner/SubFooterBanner";
 import TelegramFixed from "../components/TelegramFixed/TelegramFixed";
 import About from "../components/About/About";
+import GraphicDesign from "../components/Services/GraphicDesign/GraphicDesign";
 
 const ScrollToTop = () => {
   const location = useLocation();
@@ -106,6 +107,7 @@ const Container = () => {
             <Route path="/services/seo" element={<Seo />} />
             <Route path="/services/ethical-hacking" element={<Eh />} />
             <Route path="/services/video-editing" element={<Videoediting />} />
+            <Route path="/services/graphic-design" element={<GraphicDesign />} />
              <Route path="/services/smo" element={<Smo />} />
             <Route path="/process" element={<Process />} />
             <Route path="/our-strategies" element={<Strategies />} />
