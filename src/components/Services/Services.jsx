@@ -28,7 +28,7 @@ const Services = () => {
       {
         label: "Social Media Marketing",
         icon: <FaShareAlt />,
-        to: "/services/social-media-marketing",
+        to: "/services/smo",
         desc: "Content, engagement & paid boosting",
         tone: "b",
         img: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
