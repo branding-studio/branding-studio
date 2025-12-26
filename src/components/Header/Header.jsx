@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaBars, FaTimes, FaPhoneAlt, FaEnvelope, FaTelegramPlane } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useLocalContext } from "../../context/LocalContext";
+import { useLocalContext } from "../../context/LocalContext"; // Ensure path is correct
 import "./Header.css";
 import TopHeader from "./TopHeader/TopHeader";
 
@@ -12,15 +12,14 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // ⬇️ Grab centralized helpers from context
   const {
     webinfo = {},
-    openTelegram,      // function to open Telegram (app/web with fallback)
-    getTelegramUrl,    // function that returns a safe href (web/app)
+    openTelegram,
+    getTelegramUrl,
   } = useLocalContext();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
+    const onScroll = () => setScrolled(window.scrollY > 0);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -30,60 +29,65 @@ const Header = () => {
     navigate(path);
   };
 
-  // Build an href for <a> (so right-click/open in new tab still works).
-  // Prefer web URL for href (compatible everywhere); onClick will try app if available.
   const telegramHref = getTelegramUrl?.({ preferApp: false }) || "https://t.me/";
 
   return (
     <>
       <TopHeader />
 
-      <header className={`clean-header ${scrolled ? "scrolled" : ""}`}>
-        <div className="header-inner">
-          <div className="logo" onClick={() => handleNavigate("/")}>
+      <header className={`apple-header ${scrolled ? "scrolled" : ""}`}>
+        <div className="apple-container">
+          {/* 1. Logo Section */}
+          <div className="apple-logo" onClick={() => handleNavigate("/")}>
             <img src={webinfo.logo} alt={webinfo.name || "Logo"} />
           </div>
 
-          <nav className="nav-links">
-            {["/", "/services", "/our-strategies", "/blogs", "/contact"].map((path, i) => (
-              <span
-                key={path}
-                className={location.pathname === path ? "active" : ""}
-                onClick={() => handleNavigate(path)}
-              >
-                {["Home", "Services", "Our Strategies", "Blogs", "Contact Us"][i]}
-              </span>
-            ))}
+          {/* 2. Desktop Navigation (Centered) */}
+          <nav className="apple-nav">
+            {["Home", "Services", "Our Strategies", "Blogs", "Contact Us"].map((text, i) => {
+              const path = ["/", "/services", "/our-strategies", "/blogs", "/contact"][i];
+              return (
+                <span
+                  key={path}
+                  className={location.pathname === path ? "active" : ""}
+                  onClick={() => handleNavigate(path)}
+                >
+                  {text}
+                </span>
+              );
+            })}
           </nav>
 
-          <div className="right-actions">
-            {/* Telegram — uses centralized helpers */}
+          {/* 3. Right Actions (Telegram, Call, Mobile Toggle) */}
+          <div className="apple-actions">
+            
+            {/* Telegram - Minimalist Icon Style */}
             <a
-              className="telegram-btn"
+              className="apple-icon-btn telegram"
               href={telegramHref}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Connect on Telegram${webinfo.telegramHandle ? ` @${webinfo.telegramHandle}` : ""}`}
+              aria-label="Connect on Telegram"
               onClick={(e) => {
-                // Let the centralized helper handle app/web + popup fallback
                 e.preventDefault();
-                openTelegram?.(); // uses default webinfo.telegramHandle
+                openTelegram?.();
               }}
             >
               <FaTelegramPlane />
-              <span>Connect</span>
             </a>
 
+            {/* Call Button - Minimalist */}
             <button
-              className="call-now-btn"
+              className="apple-icon-btn call"
               onClick={() => (window.location.href = `tel:${webinfo.phonecall}`)}
+              aria-label="Call Us"
             >
               <FaPhoneAlt />
-              <span>{webinfo.phone}</span>
             </button>
 
+            {/* Mobile Menu Toggle */}
             <button
-              className="menu-toggle"
+              className="apple-menu-toggle"
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
             >
@@ -92,65 +96,41 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile drawer */}
-        <div
-          className={`mobile-drawer ${menuOpen ? "open" : ""}`}
-          role="dialog"
-          aria-modal="true"
-        >
-          <div className="drawer-header">
-            <strong>{webinfo.name || "DM Agency"}</strong>
-            <button
-              className="close-icon"
-              onClick={() => setMenuOpen(false)}
-              aria-label="Close menu"
-            >
+        {/* Mobile Drawer (Overlay Style) */}
+        <div className={`apple-mobile-overlay ${menuOpen ? "open" : ""}`}>
+          <div className="apple-mobile-header">
+             <div className="mobile-logo-text">{webinfo.name || "Menu"}</div>
+            <button className="close-btn" onClick={() => setMenuOpen(false)}>
               <FaTimes />
             </button>
           </div>
 
-          <div className="drawer-links">
-            {["Home", "Services", "Our Strategies", "Blogs", "Contact Us"].map((text, i) => (
-              <span
-                key={i}
-                onClick={() =>
-                  handleNavigate(["/", "/services", "/our-strategies", "/blogs", "/contact"][i])
-                }
-              >
-                {text}
-              </span>
-            ))}
+          <div className="apple-mobile-links">
+            {["Home", "Services", "Our Strategies", "Blogs", "Contact Us"].map((text, i) => {
+               const path = ["/", "/services", "/our-strategies", "/blogs", "/contact"][i];
+               return (
+                <span key={i} onClick={() => handleNavigate(path)}>
+                  {text}
+                </span>
+              )
+            })}
+            
+            <div className="mobile-divider"></div>
 
-            {/* Telegram in drawer — still uses centralized helpers */}
             <a
-              className="drawer-telegram-btn"
               href={telegramHref}
-              target="_blank"
-              rel="noopener noreferrer"
+              className="mobile-action-link"
               onClick={(e) => {
                 e.preventDefault();
                 openTelegram?.();
               }}
             >
-              <FaTelegramPlane />
-              <span>Connect</span>
+              <FaTelegramPlane /> Connect Telegram
             </a>
-
-            <button
-              className="drawer-call-btn"
-              onClick={() => (window.location.href = `tel:${webinfo.phonecall}`)}
-            >
-              <FaPhoneAlt />
-              <span>{webinfo.phone}</span>
-            </button>
-
-            <button
-              className="drawer-call-btn"
-              onClick={() => (window.location.href = `mailto:${webinfo.email}`)}
-            >
-              <FaEnvelope />
-              <span>{webinfo.email}</span>
-            </button>
+            
+            <a href={`tel:${webinfo.phonecall}`} className="mobile-action-link">
+              <FaPhoneAlt /> {webinfo.phone || "Call Us"}
+            </a>
           </div>
         </div>
       </header>
