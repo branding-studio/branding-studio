@@ -6,7 +6,6 @@ import {
   FaPaintBrush,     // Graphic Design
   FaLaptopCode,     // Web Dev
   FaSearch,         // SEO
-  FaRocket,         // Performance Ads (added to balance the circle)
 } from "react-icons/fa";
 import "./ImpactOrbit.css";
 import { useLocalContext } from "../../context/LocalContext";
@@ -17,7 +16,7 @@ const services = [
   { icon: <FaPaintBrush />, label: "Graphic Design", hint: "Brand Identity" },
   { icon: <FaLaptopCode />, label: "Web Dev", hint: "React / Next.js" },
   { icon: <FaSearch />, label: "SEO", hint: "Rank & Traffic" },
-  { icon: <FaRocket />, label: "Performance", hint: "PPC & Funnels" },
+  
 ];
 
 const kpis = [
@@ -135,10 +134,7 @@ export default function ImpactOrbit() {
           <p>Websites that load in milliseconds and convert visitors. Built on React/Next.js with deep SEO integration and secure architecture.</p>
         </motion.div>
 
-        <motion.div className="io-card" variants={fade(0.3)} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <div className="io-card-head"><FaRocket /> Growth Ecosystem</div>
-          <p>Connecting the dots between Social Media buzz, Organic SEO traffic, and Paid Performance ads to create a compounding growth loop.</p>
-        </motion.div>
+        
       </div>
     </section>
   );

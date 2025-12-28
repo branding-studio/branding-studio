@@ -2,12 +2,11 @@ import React from "react";
 import "./Strategies.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBullhorn,
-  faFeather,
-  faNetworkWired,
-  faUserShield,
-  faChartLine,
-  faCogs
+  faVideo,
+  faHashtag,
+  faPaintBrush,
+  faLaptopCode,
+  faSearch
 } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
@@ -15,46 +14,39 @@ import ImpactOrbit from "../ImpactOrbit/ImpactOrbit";
 
 const strategyItems = [
   {
-    icon: faBullhorn,
-    title: "Performance Marketing",
+    icon: faVideo,
+    title: "Cinematic Film Making",
     description:
-      "ROI-first paid strategies across Google Ads, Meta, and emerging platforms — designed to convert, not just click.",
+      "Studio-grade ad films, brand stories, and corporate shoots. We produce visual narratives that capture attention instantly.",
     gradient: "linear-gradient(135deg, #1e40af, #3b82f6)",
   },
   {
-    icon: faFeather,
-    title: "Brand Storytelling",
+    icon: faHashtag,
+    title: "Social Media Dominance",
     description:
-      "We merge creativity with data, building narratives and visuals that leave lasting impressions.",
+      "Trend-driven content creation and engagement strategies designed to explode your reach and build a loyal community.",
     gradient: "linear-gradient(135deg, #9333ea, #d946ef)",
   },
   {
-    icon: faNetworkWired,
-    title: "Omnichannel CX",
+    icon: faPaintBrush,
+    title: "Creative Graphic Design",
     description:
-      "From ads to email to SEO, we unify experiences for seamless customer journeys and stronger brand recall.",
-    gradient: "linear-gradient(135deg, #0ea5e9, #22d3ee)",
-  },
-  {
-    icon: faUserShield,
-    title: "Security & Trust",
-    description:
-      "Digital frameworks built with compliance, privacy, and protection at the core — trust without compromise.",
+      "Scroll-stopping visuals and premium brand identity designs that define your personality and set you apart from competitors.",
     gradient: "linear-gradient(135deg, #f59e0b, #f97316)",
   },
   {
-    icon: faChartLine,
-    title: "Data-Driven Insights",
+    icon: faLaptopCode,
+    title: "High-Performance Web Dev",
     description:
-      "We harness analytics, dashboards, and AI-driven insights to constantly refine campaigns and maximize ROI.",
-    gradient: "linear-gradient(135deg, #16a34a, #4ade80)",
+      "Blazing fast, SEO-ready websites built on React & Next.js. We engineer digital experiences that convert visitors into customers.",
+    gradient: "linear-gradient(135deg, #0ea5e9, #22d3ee)",
   },
   {
-    icon: faCogs,
-    title: "Automation & Scale",
+    icon: faSearch,
+    title: "Strategic SEO Growth",
     description:
-      "From CRM to ad automation, we build scalable systems that save time, reduce cost, and accelerate growth.",
-    gradient: "linear-gradient(135deg, #06b6d4, #3b82f6)",
+      "Technical optimization and data-backed content strategies to secure top rankings and drive sustainable organic traffic.",
+    gradient: "linear-gradient(135deg, #16a34a, #4ade80)",
   },
 ];
 
@@ -82,18 +74,38 @@ const Strategies = () => {
         >
           <h2>Strategies That Power Tomorrow’s Growth</h2>
           <p>
-            More than traffic — we design end-to-end systems that create
-            measurable impact, brand authority, and compounding ROI.
+            From cinematic visuals to high-performance code, we design end-to-end
+            systems that create brand authority and compounding ROI.
           </p>
         </motion.div>
 
-        <div className="strategies-modern-grid">
+        {/* UPDATED DESIGN: 
+            Changed from Grid to Flexbox to handle 5 items gracefully.
+            - justify-content: center -> Centers the 2 items in the last row.
+            - flex-wrap: wrap -> Allows items to flow naturally.
+            - gap: 2rem -> Maintains spacing.
+        */}
+        <div 
+          className="strategies-modern-container"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "2rem",
+            padding: "0 1rem",
+            maxWidth: "1200px",
+            margin: "0 auto"
+          }}
+        >
           {strategyItems.map((item, index) => (
             <motion.div
               className="strategy-modern-card-pro"
               key={index}
               style={{
                 background: item.gradient,
+                flex: "1 1 300px", /* Grow, Shrink, Basis: Cards won't get smaller than 300px */
+                maxWidth: "360px", /* Prevents cards from getting too wide on large screens */
+                width: "100%",     /* Ensures it takes space on mobile */
               }}
               initial="hidden"
               whileInView="visible"

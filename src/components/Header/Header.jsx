@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { FaBars, FaTimes, FaPhoneAlt, FaEnvelope, FaTelegramPlane } from "react-icons/fa";
+import { FaBars, FaTimes, FaPhoneAlt, FaTelegramPlane } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useLocalContext } from "../../context/LocalContext"; // Ensure path is correct
+import { useLocalContext } from "../../context/LocalContext"; 
 import "./Header.css";
 import TopHeader from "./TopHeader/TopHeader";
 
@@ -11,6 +11,7 @@ const Header = () => {
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const {
     webinfo = {},
@@ -20,8 +21,15 @@ const Header = () => {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0);
+    const onResize = () => setIsMobile(window.innerWidth <= 768);
+    
     window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onResize);
+    
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   const handleNavigate = (path) => {
@@ -36,7 +44,20 @@ const Header = () => {
       <TopHeader />
 
       <header className={`apple-header ${scrolled ? "scrolled" : ""}`}>
-        <div className="apple-container">
+        {/* FIX: 
+            1. width: "100%" to span the screen.
+            2. padding: "0 8.8rem" is used for desktop to match your TopHeader.css exactly.
+            3. We use a ternary operator to switch back to smaller padding on mobile so the header doesn't break on phones.
+        */}
+        <div 
+          className="apple-container" 
+          style={{ 
+            maxWidth: "100%", 
+            width: "100%", 
+            padding: isMobile ? "0 1rem" : "0 8.8rem", 
+            boxSizing: "border-box" 
+          }}
+        >
           {/* 1. Logo Section */}
           <div className="apple-logo" onClick={() => handleNavigate("/")}>
             <img src={webinfo.logo} alt={webinfo.name || "Logo"} />

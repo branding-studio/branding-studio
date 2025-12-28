@@ -49,13 +49,13 @@ const Hero = () => {
   {
     label: "Social Media Marketing",
     icon: <FaShareAlt />,
-    to: "/services/social-media-marketing",
+    to: "/services/smo",
     desc: "Content, engagement & paid boosting",
   },
   {
     label: "Graphic Designing",
     icon: <FaPalette />,
-    to: "/services/graphic-designing",
+    to: "/services/graphic-design",
     desc: "Visual identity, creatives & brand design",
   },
   {
