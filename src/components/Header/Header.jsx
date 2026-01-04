@@ -146,7 +146,7 @@ const Header = () => {
                 openTelegram?.();
               }}
             >
-              <FaTelegramPlane /> Connect Telegram
+              <FaTelegramPlane /> Connect Telegram.
             </a>
             
             <a href={`tel:${webinfo.phonecall}`} className="mobile-action-link">
