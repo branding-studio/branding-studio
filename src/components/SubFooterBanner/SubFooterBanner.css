@@ -99,6 +99,10 @@ html { font-size: 10px; }
 }
 .sfw-note{ color:#e2e8f0; font-size:1.2rem; }
 
+.sfw a{
+  text-decoration: none;
+}
+
 /* Responsive */
 @media (max-width: 920px){
   .sfw-inner{ width: 100%;grid-template-columns: 1fr; }

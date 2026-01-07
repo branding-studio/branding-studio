@@ -1,8 +1,10 @@
+/* src/components/Header/Header.css */
+
 /* --- Variables: Light Mode Apple Style --- */
 :root {
-  --apple-bg: rgba(255, 255, 255, 0.85); /* Slightly less transparent for better text contrast */
-  --apple-text: #000000;            /* Pure black for maximum boldness */
-  --apple-text-hover: #2997ff;      /* Apple Blue on hover */
+  --apple-bg: rgba(255, 255, 255, 0.88);
+  --apple-text: #000000;
+  --apple-text-hover: #2997ff;
 }
 
 /* --- Main Header Container --- */
@@ -10,27 +12,26 @@
   position: sticky;
   top: 0;
   width: 100%;
-  height: 54px; /* Increased height slightly to fit bigger text */
-  background-color: #ffffff;
+  height: 64px;
   background-color: var(--apple-bg);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   z-index: 9999;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   transition: background-color 0.3s ease;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .apple-header.scrolled {
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 6px 26px rgba(0, 0, 0, 0.06);
 }
 
 /* --- Inner Layout --- */
 .apple-container {
-  max-width: 1100px; /* Slightly wider to accommodate bigger text */
+  max-width: 1240px;
   margin: 0 auto;
   height: 100%;
-  padding: 0 22px;
+  padding: 0 80px !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,28 +45,28 @@
 }
 
 .apple-logo img {
-  height: 28px; /* Bigger Logo */
+  height: 62px;
   width: auto;
   object-fit: contain;
 }
 
-/* --- Desktop Nav Links (BIGGER & BOLDER) --- */
+/* --- Desktop Nav Links --- */
 .apple-nav {
   display: flex;
-  gap: 32px;
+  gap: 36px;
   height: 100%;
   align-items: center;
 }
 
 .apple-nav span {
-  font-size: 15px;      /* Increased from 12px */
-  font-weight: 600;     /* Bolder (was 400) */
+  font-size: 17px;
+  font-weight: 600;
   color: var(--apple-text);
   text-decoration: none;
   cursor: pointer;
   letter-spacing: -0.01em;
   transition: color 0.2s ease, opacity 0.2s ease;
-  opacity: 0.9;         /* Increased opacity for better visibility */
+  opacity: 0.92;
 }
 
 .apple-nav span:hover,
@@ -74,31 +75,32 @@
   opacity: 1;
 }
 
-/* --- Right Actions (Icons - BIGGER) --- */
+/* --- Right Actions --- */
 .apple-actions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 22px;
 }
 
 .apple-icon-btn {
   background: transparent;
   border: none;
   color: var(--apple-text);
-  font-size: 18px;      /* Increased from 14px */
+  font-size: 20px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
-  transition: color 0.2s ease;
+  padding: 6px;
+  transition: color 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
   text-decoration: none;
-  opacity: 0.9;
+  opacity: 0.92;
 }
 
 .apple-icon-btn:hover {
   color: var(--apple-text-hover);
   opacity: 1;
+  transform: translateY(-1px);
 }
 
 .apple-menu-toggle {
@@ -106,18 +108,24 @@
   background: transparent;
   border: none;
   color: var(--apple-text);
-  font-size: 22px;      /* Bigger hamburger icon */
+  font-size: 26px;
   cursor: pointer;
 }
 
 /* --- Responsive --- */
-@media (max-width: 900px) { /* Trigger mobile menu slightly earlier due to bigger text */
-  .apple-nav { display: none; }
-  .apple-menu-toggle { display: block; }
-  .apple-icon-btn { display: none; }
+@media (max-width: 900px) {
+  .apple-nav {
+    display: none;
+  }
+  .apple-menu-toggle {
+    display: block;
+  }
+  .apple-icon-btn {
+    display: none;
+  }
 }
 
-/* --- Mobile Drawer (Light Mode) --- */
+/* --- Mobile Drawer --- */
 .apple-mobile-overlay {
   position: fixed;
   top: 0;
@@ -137,7 +145,7 @@
 }
 
 .apple-mobile-header {
-  height: 54px;
+  height: 64px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -147,23 +155,25 @@
 
 .mobile-logo-text {
   color: #000;
-  font-weight: 700;
-  font-size: 1.4rem;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.01em;
 }
 
 .close-btn {
   background: transparent;
   border: none;
   color: #000;
-  font-size: 24px;
+  font-size: 28px;
   cursor: pointer;
 }
 
+/* Mobile links */
 .apple-mobile-links {
-  padding: 40px;
+  padding: 44px 32px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 26px;
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
@@ -175,11 +185,12 @@
 }
 
 .apple-mobile-links span {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 800;
   color: #000;
   cursor: pointer;
   transition: color 0.2s;
+  letter-spacing: -0.02em;
 }
 
 .apple-mobile-links span:hover {
@@ -189,19 +200,38 @@
 .mobile-divider {
   height: 1px;
   background: #e5e5e5;
-  margin: 10px 0;
+  margin: 12px 0;
 }
 
 .mobile-action-link {
-  font-size: 18px;
+  font-size: 20px;
   color: #000;
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 12px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .mobile-action-link:hover {
   color: #2997ff;
+}
+
+/* Small devices tuning */
+@media (max-width: 420px) {
+  .apple-header {
+    height: 60px;
+  }
+  .apple-logo img {
+    height: 32px;
+  }
+  .mobile-logo-text {
+    font-size: 17px;
+  }
+  .apple-mobile-links span {
+    font-size: 26px;
+  }
+  .mobile-action-link {
+    font-size: 19px;
+  }
 }

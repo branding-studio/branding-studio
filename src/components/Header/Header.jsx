@@ -1,7 +1,8 @@
+// src/components/Header/Header.jsx
 import React, { useState, useEffect } from "react";
-import { FaBars, FaTimes, FaPhoneAlt, FaTelegramPlane } from "react-icons/fa";
+import { FaBars, FaTimes, FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useLocalContext } from "../../context/LocalContext"; 
+import { useLocalContext } from "../../context/LocalContext";
 import "./Header.css";
 import TopHeader from "./TopHeader/TopHeader";
 
@@ -13,19 +14,15 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-  const {
-    webinfo = {},
-    openTelegram,
-    getTelegramUrl,
-  } = useLocalContext();
+  const { webinfo = {}, openWhatsApp } = useLocalContext();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0);
     const onResize = () => setIsMobile(window.innerWidth <= 768);
-    
+
     window.addEventListener("scroll", onScroll);
     window.addEventListener("resize", onResize);
-    
+
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
@@ -37,25 +34,25 @@ const Header = () => {
     navigate(path);
   };
 
-  const telegramHref = getTelegramUrl?.({ preferApp: false }) || "https://t.me/";
+  const handleWhatsApp = () => {
+    openWhatsApp?.({
+      message: `Hi ${webinfo?.name || "Branding Studio"}, I’d like to connect.`,
+      preferApp: true,
+    });
+  };
 
   return (
     <>
       <TopHeader />
 
       <header className={`apple-header ${scrolled ? "scrolled" : ""}`}>
-        {/* FIX: 
-            1. width: "100%" to span the screen.
-            2. padding: "0 8.8rem" is used for desktop to match your TopHeader.css exactly.
-            3. We use a ternary operator to switch back to smaller padding on mobile so the header doesn't break on phones.
-        */}
-        <div 
-          className="apple-container" 
-          style={{ 
-            maxWidth: "100%", 
-            width: "100%", 
-            padding: isMobile ? "0 1rem" : "0 8.8rem", 
-            boxSizing: "border-box" 
+        <div
+          className="apple-container"
+          style={{
+            maxWidth: "100%",
+            width: "100%",
+            padding: isMobile ? "0 1rem" : "0 6rem",
+            boxSizing: "border-box",
           }}
         >
           {/* 1. Logo Section */}
@@ -63,7 +60,7 @@ const Header = () => {
             <img src={webinfo.logo} alt={webinfo.name || "Logo"} />
           </div>
 
-          {/* 2. Desktop Navigation (Centered) */}
+          {/* 2. Desktop Navigation */}
           <nav className="apple-nav">
             {["Home", "Services", "Our Strategies", "Blogs", "Contact Us"].map((text, i) => {
               const path = ["/", "/services", "/our-strategies", "/blogs", "/contact"][i];
@@ -79,26 +76,21 @@ const Header = () => {
             })}
           </nav>
 
-          {/* 3. Right Actions (Telegram, Call, Mobile Toggle) */}
+          {/* 3. Right Actions (WhatsApp, Call, Mobile Toggle) */}
           <div className="apple-actions">
-            
-            {/* Telegram - Minimalist Icon Style */}
-            <a
-              className="apple-icon-btn telegram"
-              href={telegramHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Connect on Telegram"
-              onClick={(e) => {
-                e.preventDefault();
-                openTelegram?.();
-              }}
-            >
-              <FaTelegramPlane />
-            </a>
-
-            {/* Call Button - Minimalist */}
+            {/* WhatsApp - Minimalist Icon */}
             <button
+              type="button"
+              className="apple-icon-btn whatsapp"
+              aria-label="Connect on WhatsApp"
+              onClick={handleWhatsApp}
+            >
+              <FaWhatsapp />
+            </button>
+
+            {/* Call Button */}
+            <button
+              type="button"
               className="apple-icon-btn call"
               onClick={() => (window.location.href = `tel:${webinfo.phonecall}`)}
               aria-label="Call Us"
@@ -108,6 +100,7 @@ const Header = () => {
 
             {/* Mobile Menu Toggle */}
             <button
+              type="button"
               className="apple-menu-toggle"
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
@@ -117,38 +110,41 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile Drawer (Overlay Style) */}
+        {/* Mobile Drawer */}
         <div className={`apple-mobile-overlay ${menuOpen ? "open" : ""}`}>
           <div className="apple-mobile-header">
-             <div className="mobile-logo-text">{webinfo.name || "Menu"}</div>
-            <button className="close-btn" onClick={() => setMenuOpen(false)}>
+            <div className="mobile-logo-text">{webinfo.name || "Menu"}</div>
+            <button type="button" className="close-btn" onClick={() => setMenuOpen(false)}>
               <FaTimes />
             </button>
           </div>
 
           <div className="apple-mobile-links">
             {["Home", "Services", "Our Strategies", "Blogs", "Contact Us"].map((text, i) => {
-               const path = ["/", "/services", "/our-strategies", "/blogs", "/contact"][i];
-               return (
-                <span key={i} onClick={() => handleNavigate(path)}>
+              const path = ["/", "/services", "/our-strategies", "/blogs", "/contact"][i];
+              return (
+                <span key={path} onClick={() => handleNavigate(path)}>
                   {text}
                 </span>
-              )
+              );
             })}
-            
+
             <div className="mobile-divider"></div>
 
+            {/* WhatsApp link */}
             <a
-              href={telegramHref}
+              href="#"
               className="mobile-action-link"
               onClick={(e) => {
                 e.preventDefault();
-                openTelegram?.();
+                setMenuOpen(false);
+                handleWhatsApp();
               }}
             >
-              <FaTelegramPlane /> Connect Telegram.
+              <FaWhatsapp /> Connect on WhatsApp
             </a>
-            
+
+            {/* Call link */}
             <a href={`tel:${webinfo.phonecall}`} className="mobile-action-link">
               <FaPhoneAlt /> {webinfo.phone || "Call Us"}
             </a>

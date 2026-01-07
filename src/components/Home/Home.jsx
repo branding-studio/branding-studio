@@ -21,7 +21,7 @@ const Home = () => {
       <ImpactOrbit />
       <Banner />
       <Process />
-      <Strategies />
+      {/* <Strategies /> */}
     
       <FaqSection />
        

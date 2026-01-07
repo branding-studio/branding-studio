@@ -19,6 +19,18 @@ const isLikelyMobile = () => {
   return /Android|iPhone|iPad|iPod|IEMobile|Opera Mini/i.test(ua);
 };
 
+/**
+ * Normalize WhatsApp number:
+ * - keep digits only
+ * - MUST include country code (e.g. 91xxxxxxxxxx)
+ */
+const normalizeWaNumber = (raw = "") => String(raw).replace(/[^\d]/g, "");
+
+/**
+ * Encode message safely for URL
+ */
+const encodeMsg = (msg = "") => encodeURIComponent(String(msg));
+
 export const LocalProvider = ({ children }) => {
   const [currentTFN, setCurrentTFN] = useState({
     intlFormat: "",
@@ -30,17 +42,24 @@ export const LocalProvider = ({ children }) => {
     phone: "",
     phonecall: "",
     logo:
-      "https://res.cloudinary.com/duv3inafo/image/upload/v1758302608/d066c4dc-02a3-4fd7-baf8-3e961c7f4854-removebg-preview_nsb2qs.png",
+      "https://brandingstudio.in/wp-content/uploads/2024/08/NEW-BS-LOGOOOO-1-copy-2-scaled.png",
     email: "contact@digiborr.com",
-    address: "19, Ashoka Rd, Janpath, Connaught Place, New Delhi, Delhi 110001, India",
+    address:
+      "19, Ashoka Rd, Janpath, Connaught Place, New Delhi, Delhi 110001, India",
     addressCity: "New Delhi",
 
     /**
      * 🔹 Default Telegram handle
-     * You can override per-call, but this acts as the global default.
      * Examples: "darioharmon" (no leading @)
      */
     telegramHandle: "darioharmon",
+
+    /**
+     * 🔹 Default WhatsApp number
+     * IMPORTANT: include country code, digits only preferred.
+     * Example: "919876543210"
+     */
+    whatsappNumber: "91XXXXXXXXXX",
   });
 
   // Fetch TFN from Firebase
@@ -80,35 +99,16 @@ export const LocalProvider = ({ children }) => {
   /**
    * ============= Telegram helpers (centralized) =============
    */
-
-  /**
-   * getTelegramUrl
-   * @param {Object} opts
-   * @param {string} [opts.handle]  - Telegram handle without '@'. Falls back to webinfo.telegramHandle
-   * @param {boolean} [opts.preferApp] - If true, use tg:// (on mobile opens app).
-   * @returns {string} A deep link to open Telegram.
-   */
   const getTelegramUrl = ({ handle, preferApp } = {}) => {
     const h = (handle || webinfo.telegramHandle || "").replace(/^@/, "").trim();
-    if (!h) return ""; // no handle configured
+    if (!h) return "";
 
-    // Heuristic: if preferApp not provided, default to app link on mobile browsers.
     const useApp = typeof preferApp === "boolean" ? preferApp : isLikelyMobile();
     return useApp
       ? `tg://resolve?domain=${encodeURIComponent(h)}`
       : `https://t.me/${encodeURIComponent(h)}`;
   };
 
-  /**
-   * openTelegram
-   * Attempts to open Telegram in a new tab; if blocked or protocol prevented,
-   * falls back to same-tab navigation.
-   *
-   * @param {Object} opts
-   * @param {string} [opts.handle]    - Override handle (no '@')
-   * @param {boolean} [opts.preferApp]- try tg:// on mobile
-   * @returns {boolean} success flag (best-effort)
-   */
   const openTelegram = ({ handle, preferApp } = {}) => {
     const w = getWin();
     const url = getTelegramUrl({ handle, preferApp });
@@ -118,11 +118,9 @@ export const LocalProvider = ({ children }) => {
       const popup = w.open(url, "_blank", "noopener,noreferrer");
       if (popup) return true;
 
-      // If blocked, fallback same tab
       w.location.href = url;
       return true;
     } catch (e) {
-      // Some browsers block tg:// in window.open; fallback to https
       if (url.startsWith("tg://")) {
         const httpsUrl = getTelegramUrl({ handle, preferApp: false });
         try {
@@ -139,14 +137,81 @@ export const LocalProvider = ({ children }) => {
     }
   };
 
-  /**
-   * Optionally expose a convenience "getTelegramOnClick" that returns
-   * a stable callback you can assign directly to onClick.
-   */
   const getTelegramOnClick = ({ handle, preferApp } = {}) => {
     return (e) => {
       e?.preventDefault?.();
       openTelegram({ handle, preferApp });
+    };
+  };
+
+  /**
+   * ============= WhatsApp helpers (same pattern as Telegram) =============
+   */
+
+  /**
+   * getWhatsAppUrl
+   * @param {Object} opts
+   * @param {string} [opts.number] - digits with country code (e.g. 9198xxxxxx). Falls back to webinfo.whatsappNumber
+   * @param {string} [opts.message] - optional prefilled message
+   * @param {boolean} [opts.preferApp] - if true, try wa:// on mobile
+   * @returns {string} deep link to WhatsApp chat
+   */
+  const getWhatsAppUrl = ({ number, message, preferApp } = {}) => {
+    const raw = number || webinfo.whatsappNumber || "";
+    const n = normalizeWaNumber(raw);
+    if (!n) return "";
+
+    const msg = message ? `?text=${encodeMsg(message)}` : "";
+
+    // If preferApp not provided, default to app link on mobile browsers.
+    const useApp = typeof preferApp === "boolean" ? preferApp : isLikelyMobile();
+
+    // Mobile app deep link:
+    // Note: wa:// works on many devices, but not all browsers.
+    if (useApp) return `wa://send?phone=${n}${message ? `&text=${encodeMsg(message)}` : ""}`;
+
+    // Web link:
+    return `https://wa.me/${n}${msg}`;
+  };
+
+  /**
+   * openWhatsApp
+   * Opens WhatsApp link in a new tab; if blocked, fallback to same tab.
+   * If wa:// fails, fallback to https://wa.me
+   */
+  const openWhatsApp = ({ number, message, preferApp } = {}) => {
+    const w = getWin();
+    const url = getWhatsAppUrl({ number, message, preferApp });
+    if (!w || !url) return false;
+
+    try {
+      const popup = w.open(url, "_blank", "noopener,noreferrer");
+      if (popup) return true;
+
+      w.location.href = url;
+      return true;
+    } catch (e) {
+      // Fallback to https if wa:// blocked
+      if (url.startsWith("wa://")) {
+        const httpsUrl = getWhatsAppUrl({ number, message, preferApp: false });
+        try {
+          const popup2 = w.open(httpsUrl, "_blank", "noopener,noreferrer");
+          if (popup2) return true;
+          w.location.href = httpsUrl;
+          return true;
+        } catch {
+          w.location.href = httpsUrl;
+          return true;
+        }
+      }
+      return false;
+    }
+  };
+
+  const getWhatsAppOnClick = ({ number, message, preferApp } = {}) => {
+    return (e) => {
+      e?.preventDefault?.();
+      openWhatsApp({ number, message, preferApp });
     };
   };
 
@@ -155,12 +220,18 @@ export const LocalProvider = ({ children }) => {
     () => ({
       webinfo,
       setwebinfo,
+
       // Telegram helpers:
       getTelegramUrl,
       openTelegram,
       getTelegramOnClick,
+
+      // WhatsApp helpers:
+      getWhatsAppUrl,
+      openWhatsApp,
+      getWhatsAppOnClick,
     }),
-    [webinfo] // functions close over webinfo.telegramHandle
+    [webinfo]
   );
 
   return (

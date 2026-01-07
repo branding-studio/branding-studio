@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import "./Banner.css";
 import { motion } from "framer-motion";
 import { useLocalContext } from "../../context/LocalContext";
-import { FaTelegram, FaTelegramPlane } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 
 const Banner = () => {
   const navigate = useNavigate();
-  const {openTelegram} = useLocalContext();
+  const { openWhatsApp, webinfo } = useLocalContext();
+
+  const brand = webinfo?.name || "Branding Studio";
 
   return (
     <section className="elevate-banner">
@@ -18,20 +20,30 @@ const Banner = () => {
         transition={{ delay: 0.25, duration: 0.6 }}
       >
         <span className="banner-tag">Next-Level Marketing</span>
+
         <h2>
           Unlock <span>Scalable Growth</span> for Your Business
         </h2>
+
         <p>
           Data-driven campaigns. Creative storytelling. Relentless optimization.
           We align your brand with proven strategies that attract, convert, and
           retain customers at scale.
         </p>
+
         <div className="banner-actions">
-          <button onClick={() => openTelegram()}><FaTelegramPlane /> Connect On Telegram</button>
           <button
-            className="secondary-btn"
-            onClick={() => navigate("/services")}
+            onClick={() =>
+              openWhatsApp?.({
+                message: `Hi ${brand}, I want to discuss scalable growth for my business.`,
+                preferApp: true,
+              })
+            }
           >
+            <FaWhatsapp /> Connect on WhatsApp
+          </button>
+
+          <button className="secondary-btn" onClick={() => navigate("/services")}>
             Explore Services
           </button>
         </div>

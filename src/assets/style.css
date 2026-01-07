@@ -15,30 +15,66 @@ html {
 
 
 :root {
-  --primary-color: #0052cc;
-   --primary-color-dark: #0a49a8;
-  --primary-color-light: #9270cc;
-  --accent-color: #ff7a59;
-  --accent-color-dark:  #ff6a3d;
-  --accent-color-gradient: linear-gradient(180deg, #ff7a59, #ff6a3d);
+  /* ===============================
+     BRAND CORE (Logo Matched)
+  =============================== */
+
+  /* Primary – Deep Purple (Logo Base) */
+  --primary-color: #4b2b82;
+  --primary-color-dark: #2e164f;
+  --primary-color-light: #7a5ccf;
+
+  /* Accent – Indigo / Royal Blue */
+  --accent-color: #4f6bdc;
+  --accent-color-dark: #3a54b4;
+  --accent-color-light: #7f94ff;
+
+  /* Gradient – Cinematic Purple → Blue */
+  --accent-color-gradient: linear-gradient(
+    135deg,
+    #4b2b82,
+    #5a3fa3,
+    #4f6bdc
+  );
+
+  /* ===============================
+     TEXT COLORS
+  =============================== */
+
   --text-light: #ffffff;
-  --text-muted: #f1f5f9;
-  --text-dark: #1e293b;
-  --bg-muted: #dbeafe;
-  --bg-dark-purple: #3e0f6b;
-  --success-color: #16a34a;
+  --text-muted: #cbd5f5;
+  --text-dark: #1e1b2e;
+
+  /* ===============================
+     BACKGROUNDS
+  =============================== */
+
+  --bg-light: #f6f7ff;
+  --bg-muted: #eef0ff;
+  --bg-dark-purple: #1f1333;
+
+  /* ===============================
+     STATUS
+  =============================== */
+
+  --success-color: #22c55e;
+
+  /* ===============================
+     UI TOKENS (keep as-is)
+  =============================== */
 
   --radius-lg: 2rem;
   --radius-md: 1.6rem;
   --radius-sm: 1.2rem;
 
-  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.08);
-  --shadow-sm: 0 6px 16px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 14px 40px rgba(75, 43, 130, 0.18);
+  --shadow-md: 0 8px 22px rgba(75, 43, 130, 0.14);
+  --shadow-sm: 0 6px 16px rgba(75, 43, 130, 0.12);
 
   --break-md: 768px;
   --break-lg: 1024px;
 }
+
 
   
 

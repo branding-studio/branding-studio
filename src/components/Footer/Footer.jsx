@@ -9,7 +9,6 @@ import {
   faLocationDot,
   faClock,
   faShieldHeart,
-  faArrowRight,
   faMedal,
   faCheckDouble,
 } from "@fortawesome/free-solid-svg-icons";
@@ -21,10 +20,10 @@ import {
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
 import { useLocalContext } from "../../context/LocalContext";
-import { FaTelegramPlane } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
-  const { webinfo, openTelegram } = useLocalContext();
+  const { webinfo, openWhatsApp } = useLocalContext(); // ✅ WhatsApp helper
   const brand = webinfo?.name || "Your Brand";
 
   return (
@@ -45,12 +44,24 @@ const Footer = () => {
             <h3>Ready to accelerate growth?</h3>
             <p>Get a free plan—channels, budgets, and 90-day roadmap.</p>
           </div>
-          <div className="footerx__cta-actions">
-            <a className="btn btn--primary" onClick={()=>openTelegram()}>
-                <FaTelegramPlane /> Connect Now
+
+          <div className="footerx__cta-actions wp-action">
+            {/* ✅ WhatsApp CTA */}
+            <a
+              className="btn btn-wp btn--primary"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                openWhatsApp({
+                  message: "Hi! I want a free growth plan + 90-day roadmap.",
+                });
+              }}
+            >
+              <FaWhatsapp /> WhatsApp Now
             </a>
+
             <a className="btn btn--ghost" href="/services">
-              See Our Services 
+              See Our Services
             </a>
           </div>
         </div>
@@ -61,10 +72,8 @@ const Footer = () => {
         {/* Brand & Newsletter */}
         <div className="fcard fcard--brand">
           <div className="brand">
-            
             <div className="brand__text">
               <img src={webinfo.logo} alt="" />
-              {/* <h4>{brand}</h4> */}
               <p>Performance marketing, made simple—and measurable.</p>
             </div>
           </div>

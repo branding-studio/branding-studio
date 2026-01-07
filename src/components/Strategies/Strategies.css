@@ -1,87 +1,314 @@
-.strategies-modern {
-  padding: 40px 20px;
-  background: linear-gradient(to bottom, #f9fafb, #ffffff);
-  color: var(--text-dark);
+/* =========================
+   Strategies.css (NEW COMPLETE DESIGN)
+   Premium bento + glass + motion-friendly
+   Optimized for html{font-size:10px}
+   Uses your existing classes:
+   - .strategies-modern
+   - .strategies-modern-header
+   - .strategies-modern-container (you have inline flex; this CSS still works)
+   - .strategy-modern-card-pro
+   - .strategy-icon
+   ========================= */
+
+:root{
+  /* safe fallbacks if some tokens missing */
+  --s-bg: var(--text-light, #ffffff);
+  --s-ink: var(--text-dark, #0f172a);
+  --s-muted: color-mix(in oklab, var(--s-ink) 64%, transparent);
+  --s-border: color-mix(in oklab, var(--s-ink) 12%, transparent);
+  --s-shadow: color-mix(in oklab, var(--s-ink) 12%, transparent);
+  --s-card: color-mix(in oklab, var(--s-bg) 86%, transparent);
+
+  --s-rad: 26px;
+  --s-gap: 1.6rem;
 }
 
-.strategies-modern-header {
+/* =========================
+   Section background (deep + premium)
+   ========================= */
+.strategies-modern{
+  position: relative;
+  padding: 7rem 2rem 7.5rem;
+  color: var(--s-ink);
+  overflow: hidden;
+
+  background:
+    radial-gradient(1100px 520px at 12% -20%,
+      color-mix(in oklab, var(--primary-color, #6e5cf6) 16%, transparent),
+      transparent 60%),
+    radial-gradient(980px 520px at 110% 10%,
+      color-mix(in oklab, var(--accent-color, #00c9a7) 14%, transparent),
+      transparent 62%),
+    linear-gradient(180deg,
+      color-mix(in oklab, var(--s-bg) 98%, transparent),
+      color-mix(in oklab, var(--s-bg) 84%, var(--bg-muted, #eef2f7)));
+}
+
+/* subtle noise / grain */
+.strategies-modern::before{
+  content:"";
+  position:absolute;
+  inset:-30%;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.22), transparent 35%),
+    radial-gradient(circle at 80% 30%, rgba(255,255,255,.18), transparent 38%),
+    radial-gradient(circle at 40% 80%, rgba(255,255,255,.16), transparent 40%);
+  opacity:.6;
+  filter: blur(0.2px);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* top glow line */
+/* .strategies-modern::after{
+  content:"";
+  position:absolute;
+  left: 8%;
+  right: 8%;
+  top: 2.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent,
+    color-mix(in oklab, var(--primary-color, #6e5cf6) 40%, transparent),
+    color-mix(in oklab, var(--accent-color, #00c9a7) 40%, transparent),
+    transparent);
+  opacity:.65;
+  pointer-events:none;
+  z-index:0;
+} */
+
+/* =========================
+   Header (new hierarchy)
+   ========================= */
+.strategies-modern-header{
+  position: relative;
+  z-index: 1;
   text-align: center;
-  max-width: 780px;
-  margin: 0 auto 60px;
+  max-width: 92rem;
+  margin: 0 auto 4.2rem;
+  padding: 0 1.2rem;
 }
 
-.strategies-modern-header h2 {
-  font-size: 3.2rem;
-  font-weight: 800;
-  background: linear-gradient(to right, #1e40af, #7c3aed);
+.strategies-modern-header h2{
+  font-size: clamp(2.8rem, 2.2rem + 1.2vw, 4.4rem);
+  line-height: 1.08;
+  font-weight: 950;
+  margin: 0 0 1.2rem;
+  letter-spacing: -0.5px;
+
+  background: linear-gradient(90deg,
+    color-mix(in oklab, var(--primary-color, #6e5cf6) 92%, black),
+    color-mix(in oklab, var(--accent-color, #00c9a7) 85%, black));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 18px;
 }
 
-.strategies-modern-header p {
-  font-size: 1.6rem;
-  color: #475569;
-  line-height: 1.8;
-}
-
-/* Grid */
-.strategies-modern-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 28px;
-  max-width: 1100px;
+.strategies-modern-header p{
+  font-size: clamp(1.45rem, 1.3rem + 0.35vw, 1.75rem);
+  line-height: 1.75;
   margin: 0 auto;
+  max-width: 78rem;
+  color: color-mix(in oklab, var(--s-ink) 70%, transparent);
 }
 
-/* Card */
-.strategy-modern-card-pro {
-  border-radius: 20px;
-  padding: 40px 28px;
-  text-align: center;
-  color: #ffffff;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(6px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* =========================
+   Container layout (BENTO via CSS)
+   IMPORTANT: your JSX uses inline flex styles.
+   To fully change layout, remove the inline style from JSX and keep only className.
+   This CSS assumes you WILL remove inline style.
+   ========================= */
+.strategies-modern-container{
+  position: relative;
+  z-index: 1;
+
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.2rem;
+
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--s-gap);
+  align-items: stretch;
 }
 
-.strategy-modern-card-pro:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.25);
+/* =========================
+   Card (new design + motion)
+   ========================= */
+.strategy-modern-card-pro{
+  position: relative;
+  border-radius: var(--s-rad);
+  padding: 2.6rem 2.2rem;
+  color: #fff;
+  overflow: hidden;
+
+  /* your JSX sets background: item.gradient; we enhance on top */
+  box-shadow:
+    0 18px 60px rgba(0,0,0,.18),
+    0 1px 0 rgba(255,255,255,.14) inset;
+
+  transform: translateZ(0);
+  transition:
+    transform .25s cubic-bezier(.2,.8,.2,1),
+    box-shadow .25s cubic-bezier(.2,.8,.2,1),
+    filter .25s ease;
 }
 
-.strategy-icon {
-  width: 70px;
-  height: 70px;
-  margin: 0 auto 18px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26px;
-  box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.4);
+/* bento sizing: 5 cards in a premium layout */
+.strategy-modern-card-pro:nth-child(1){ grid-column: span 7; }
+.strategy-modern-card-pro:nth-child(2){ grid-column: span 5; }
+.strategy-modern-card-pro:nth-child(3){ grid-column: span 4; }
+.strategy-modern-card-pro:nth-child(4){ grid-column: span 4; }
+.strategy-modern-card-pro:nth-child(5){ grid-column: span 4; }
+
+/* gradient border ring */
+.strategy-modern-card-pro::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  padding:1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg,
+    rgba(255,255,255,.28),
+    rgba(255,255,255,.06),
+    rgba(255,255,255,.18));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: .85;
+  pointer-events:none;
 }
 
-.strategy-modern-card-pro h3 {
-  font-size: 1.9rem;
-  font-weight: 700;
-  margin-bottom: 12px;
+/* inner glass overlay */
+.strategy-modern-card-pro::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(900px 420px at 10% 0%, rgba(255,255,255,.14), transparent 55%),
+    radial-gradient(900px 420px at 90% 20%, rgba(255,255,255,.10), transparent 58%),
+    linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
+  opacity: .85;
+  pointer-events:none;
 }
 
-.strategy-modern-card-pro p {
-  font-size: 1.45rem;
-  line-height: 1.6;
-  opacity: 0.95;
+/* hover lift + glow */
+.strategy-modern-card-pro:hover{
+  transform: translateY(-10px) scale(1.01);
+  box-shadow:
+    0 28px 90px rgba(0,0,0,.25),
+    0 1px 0 rgba(255,255,255,.16) inset;
+  filter: saturate(1.08);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .strategies-modern-header h2 {
-    font-size: 2.4rem;
+/* =========================
+   Icon (new)
+   ========================= */
+.strategy-icon{
+  width: 66px;
+  height: 66px;
+  border-radius: 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin: 0 0 1.35rem;
+
+  background: rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.22);
+  box-shadow:
+    0 16px 40px rgba(0,0,0,.18),
+    0 1px 0 rgba(255,255,255,.22) inset;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  font-size: 2.35rem;
+}
+
+.strategy-modern-card-pro:hover .strategy-icon{
+  transform: translateY(-1px);
+}
+
+/* =========================
+   Card Typography
+   ========================= */
+.strategy-modern-card-pro h3{
+  position: relative;
+  z-index: 1;
+  margin: 0 0 .9rem;
+  font-size: clamp(1.9rem, 1.7rem + .5vw, 2.35rem);
+  line-height: 1.15;
+  font-weight: 950;
+  letter-spacing: -0.25px;
+}
+
+.strategy-modern-card-pro p{
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: clamp(1.35rem, 1.28rem + .2vw, 1.55rem);
+  line-height: 1.75;
+  color: rgba(255,255,255,.92);
+  max-width: 56ch;
+}
+
+/* bottom accent bar */
+.strategy-modern-card-pro .accent-bar{
+  display:none; /* helper if you add later */
+}
+
+/* =========================
+   Better focus for accessibility
+   ========================= */
+.strategy-modern-card-pro:focus-within{
+  outline: none;
+  box-shadow:
+    0 0 0 5px color-mix(in oklab, var(--accent-color, #00c9a7) 35%, transparent),
+    0 28px 90px rgba(0,0,0,.25);
+}
+
+/* =========================
+   Animation hooks (Framer friendly)
+   - You asked to change animation: do it in JSX (below).
+   CSS supports it with subtle transitions.
+   ========================= */
+@media (prefers-reduced-motion: reduce){
+  .strategy-modern-card-pro,
+  .strategy-modern-card-pro:hover{
+    transition:none !important;
+    transform:none !important;
+  }
+}
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 1100px){
+  .strategies-modern{ padding: 6rem 1.6rem 6.5rem; }
+  .strategies-modern-container{ gap: 1.35rem; }
+
+  .strategy-modern-card-pro:nth-child(1){ grid-column: span 12; }
+  .strategy-modern-card-pro:nth-child(2){ grid-column: span 12; }
+  .strategy-modern-card-pro:nth-child(3){ grid-column: span 6; }
+  .strategy-modern-card-pro:nth-child(4){ grid-column: span 6; }
+  .strategy-modern-card-pro:nth-child(5){ grid-column: span 12; }
+}
+
+@media (max-width: 640px){
+  .strategies-modern{ padding: 5.2rem 1.2rem 6rem; }
+  .strategies-modern-header{ margin-bottom: 3.2rem; }
+  .strategies-modern-container{ grid-template-columns: 1fr; }
+
+  .strategy-modern-card-pro{
+    grid-column: span 1 !important;
+    padding: 2.2rem 1.9rem;
+    border-radius: 22px;
   }
 
-  .strategy-modern-card-pro {
-    padding: 28px 20px;
+  .strategy-icon{
+    width: 62px;
+    height: 62px;
+    border-radius: 16px;
+    font-size: 2.2rem;
   }
 }

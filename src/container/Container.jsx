@@ -43,6 +43,7 @@ import TelegramFixed from "../components/TelegramFixed/TelegramFixed";
 import About from "../components/About/About";
 import GraphicDesign from "../components/Services/GraphicDesign/GraphicDesign";
 import Filmmaking from "../components/Services/Filmmaking/Filmmaking";
+import WhatsappFixed from "../components/WhatsappFixed/WhatsappFixed";
 
 const ScrollToTop = () => {
   const location = useLocation();
@@ -63,7 +64,8 @@ const Shell = ({ children }) => {
   return (
     <>
        {!isAdmin && <ContactFormPopup />}
-       {!isAdmin && <TelegramFixed />}
+       {/* {!isAdmin && <TelegramFixed />} */}
+        {!isAdmin && <WhatsappFixed />}
       {/* Only show public site chrome when NOT in /admin */}
       {!isAdmin && (
         <div className="circle-bg">
