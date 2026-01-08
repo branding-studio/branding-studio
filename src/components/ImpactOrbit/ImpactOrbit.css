@@ -1,13 +1,13 @@
-/* ImpactOrbit.css - MORE TOP SPACE & PERFECT FIT */
+/* ImpactOrbit.css - MAXIMUM IMPACT TYPOGRAPHY */
 
 .impact-orbit {
   position: relative;
   width: 100%;
   max-width: 100%;
-  overflow: hidden; /* No scrollbar */
+  overflow: hidden;
   
-  /* UPDATED PADDING: increased top padding from 5rem to 8rem */
-  padding: clamp(8rem, 12vw, 10rem) clamp(2rem, 5vw, 4rem);
+  /* Adjusted padding */
+  padding: clamp(4rem, 6vw, 6rem) clamp(2rem, 5vw, 4rem);
   
   background: var(--bg-light, #f8f9fa);
   isolation: isolate;
@@ -53,7 +53,7 @@
   max-width: 1440px;
   margin: 0 auto;
   display: grid;
-  /* 40% Text / 60% Orbit - Prevents orbit cut-off */
+  /* 0.85fr / 1.15fr split to give text room to be big without hitting orbit */
   grid-template-columns: 0.85fr 1.15fr;
   align-items: center;
   gap: 1rem;
@@ -67,28 +67,31 @@
   padding-left: 3rem; 
 }
 
+/* 1. BADGE */
 .io-badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.6rem 1.2rem;
-  font-size: 0.85rem;
-  font-weight: 800;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   border-radius: 50px;
   background: #edeefc;
   color: #5d5fef;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   border: 1px solid rgba(93, 95, 239, 0.2);
 }
 
+/* 2. TITLE: MASSIVE & TIGHT */
 .io-title {
-  font-size: clamp(3.5rem, 5.5vw, 6rem);
-  line-height: 1.05;
-  font-weight: 950;
+  /* Huge scaling: Starts at 4.5rem, grows to 8rem on big screens */
+  font-size: clamp(4.5rem, 8vw, 8rem); 
+  line-height: 0.95; /* Very tight spacing for impact */
+  font-weight: 950;  /* Maximum thickness */
   color: #111;
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.03em;
+  margin-bottom: 2rem;
+  letter-spacing: -0.04em;
 }
 .io-title span {
   background: linear-gradient(90deg, #5D5FEF, #3B3DBF);
@@ -96,26 +99,28 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Big readable text */
+/* 3. SUBTITLE: LARGE & READABLE */
 .io-sub {
-  font-size: 1.5rem;
-  line-height: 1.6;
-  font-weight: 500;
+  font-size: 1.7rem; /* Increased size */
+  line-height: 1.5;
+  font-weight: 600;  /* Semi-bold */
   color: #0f172a;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3rem;
   max-width: 95%; 
 }
 .io-sub b { font-weight: 800; color: #000; }
 
-.io-tags { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+/* 4. TAGS */
+.io-tags { display: flex; flex-wrap: wrap; gap: 1rem; }
 .io-tags span {
-  padding: 0.8rem 1.4rem;
-  font-size: 1rem;
-  font-weight: 700;
-  border-radius: 12px;
+  padding: 1rem 1.8rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  border-radius: 16px;
   background: #fff;
   border: 1px solid #e5e5e5;
   box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  color: #111;
 }
 
 /* --- RIGHT VISUAL (ORBIT) --- */
@@ -135,7 +140,6 @@
   display: grid;
   place-items: center;
   
-  /* Tuned size to fit frame */
   --orbit-r: 240px; 
   --orbit-dur: 50s; 
   --wave-dur: 3s;
@@ -353,12 +357,13 @@
   100% { width: 500px; height: 500px; opacity: 0; border-width: 0px; }
 }
 
-/* --- RESPONSIVE ADJUSTMENTS --- */
-@media (max-width: 1440px) {
-  /* On laptops, shrink radius slightly so it stays fully visible */
-  .io-orbit-frame { width: 500px; height: 500px; --orbit-r: 210px; }
+/* RESPONSIVE */
+@media (max-width: 1366px) {
+  .io-orbit-frame { width: 500px; height: 500px; --orbit-r: 220px; }
   .io-core { width: 170px; height: 170px; }
-  .io-title { font-size: 3.5rem; }
+  /* Shrink text slightly on laptops to prevent overlap, but keep it big */
+  .io-title { font-size: 4.5rem; } 
+  .io-sub { font-size: 1.4rem; }
   
   @keyframes ripple {
     0% { width: 170px; height: 170px; opacity: 0.8; }
@@ -389,6 +394,9 @@
   .io-node-inner { padding: 0; width: 45px; height: 45px; justify-content: center; border-radius: 50%; }
   .io-node-detail { display: none; }
   .io-node-icon { width: 100%; height: 100%; font-size: 1.4rem; background: transparent; }
+  
+  /* Mobile Title Scaling */
+  .io-title { font-size: 3.2rem; }
   
   @keyframes ripple {
     0% { width: 140px; height: 140px; opacity: 0.8; }
