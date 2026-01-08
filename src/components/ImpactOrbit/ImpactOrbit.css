@@ -1,4 +1,4 @@
-/* ImpactOrbit.css - BIGGER CONTENT VERSION */
+/* ImpactOrbit.css - WITH WAVE EFFECT */
 
 .impact-orbit {
   position: relative;
@@ -106,7 +106,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  height: 750px; /* Increased height for bigger orbit */
+  height: 750px; 
 }
 
 .io-orbit-frame {
@@ -115,10 +115,11 @@
   height: 650px;
   display: grid;
   place-items: center;
-
-  /* INCREASED RADIUS to fit bigger cards safely */
+  
+  /* Config Variables */
   --orbit-r: 300px; 
   --orbit-dur: 50s; 
+  --wave-dur: 3s; /* Speed of the wave */
 }
 
 .io-orbit-ring {
@@ -128,6 +129,23 @@
   border-radius: 50%;
   border: 1px dashed rgba(0, 0, 0, 0.15);
   z-index: 1;
+}
+
+/* --- NEW: WAVE EFFECT --- */
+.io-wave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid #5d5fef; /* Purple Border */
+  background: rgba(93, 95, 239, 0.05); /* Very faint purple fill */
+  z-index: 0; /* Behind everything */
+  opacity: 0;
+  pointer-events: none;
+  
+  /* Animation Definition */
+  animation: ripple var(--wave-dur) cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 /* --- BIG CENTER HUB --- */
@@ -176,7 +194,6 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  /* INCREASED WIDTH from 200px to 240px */
   width: 240px;
   
   transform: 
@@ -195,12 +212,11 @@
   align-items: center;
 }
 
-/* STATIC CORRECTION & BIGGER CARD STYLING */
+/* STATIC CORRECTION */
 .io-node-inner {
   transform: rotate(calc(var(--i) * -72deg));
   
   background: rgba(255, 255, 255, 0.96);
-  /* INCREASED PADDING from 0.8rem to 1.1rem */
   padding: 1.1rem 1.3rem;
   border-radius: 16px;
   box-shadow: 0 10px 35px rgba(0,0,0,0.09);
@@ -213,7 +229,6 @@
 }
 
 .io-node-icon {
-  /* INCREASED ICON SIZE from 40px to 48px */
   width: 48px;
   height: 48px;
   background: #f4f5ff;
@@ -231,7 +246,6 @@
   text-align: left;
 }
 .io-node-detail b {
-  /* INCREASED FONT SIZE slightly */
   font-size: 1.05rem;
   color: #111;
   font-weight: 800;
@@ -247,7 +261,7 @@
 .io-kpi-bar {
   max-width: 1200px;
   width: 100%;
-  margin: 5rem auto 0; /* More top margin */
+  margin: 5rem auto 0;
   padding: 2.5rem;
   background: #ffffff;
   border-radius: 20px;
@@ -286,13 +300,23 @@
 }
 
 /* ANIMATIONS */
-@keyframes spin { 
-  from { transform: rotate(0deg); } 
-  to { transform: rotate(360deg); } 
-}
-@keyframes counterSpin { 
-  from { transform: rotate(0deg); } 
-  to { transform: rotate(-360deg); } 
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes counterSpin { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+
+/* RIPPLE ANIMATION */
+@keyframes ripple {
+  0% {
+    width: 220px; /* Start at Hub size */
+    height: 220px;
+    opacity: 0.8;
+    border-width: 1px;
+  }
+  100% {
+    width: 600px; /* Expand to Orbit Ring size */
+    height: 600px;
+    opacity: 0;
+    border-width: 0px;
+  }
 }
 
 /* --- RESPONSIVE --- */
@@ -301,25 +325,20 @@
   .io-visual { height: 650px; }
   .io-tags { justify-content: center; }
   
-  /* Shrink Orbit slightly for tablet */
   .io-orbit-frame { width: 100%; --orbit-r: 240px; }
   .io-core { width: 180px; height: 180px; } 
   .io-core strong { font-size: 1.3rem; }
   
   .io-node-detail span { display: none; }
 
-  /* Responsive KPI */
-  .io-kpi-bar { 
-    grid-template-columns: 1fr 1fr; 
-    gap: 2rem;
-  }
-  .io-kpi-item { 
-    border-right: none; 
-    border-bottom: 1px solid rgba(0,0,0,0.08); 
-    padding-bottom: 1rem;
-  }
-  .io-kpi-item:nth-last-child(-n+2) {
-    border-bottom: none;
+  .io-kpi-bar { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .io-kpi-item { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 1rem; }
+  .io-kpi-item:nth-last-child(-n+2) { border-bottom: none; }
+  
+  /* Adjust ripple for tablet */
+  @keyframes ripple {
+    0% { width: 180px; height: 180px; opacity: 0.8; }
+    100% { width: 480px; height: 480px; opacity: 0; }
   }
 }
 
@@ -329,6 +348,11 @@
   .io-node-inner { padding: 0; width: 45px; height: 45px; justify-content: center; border-radius: 50%; }
   .io-node-detail { display: none; }
   .io-node-icon { width: 100%; height: 100%; font-size: 1.4rem; background: transparent; }
-  
   .io-kpi-val { font-size: 2rem; }
+  
+  /* Adjust ripple for mobile */
+  @keyframes ripple {
+    0% { width: 140px; height: 140px; opacity: 0.8; }
+    100% { width: 320px; height: 320px; opacity: 0; }
+  }
 }

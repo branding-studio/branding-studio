@@ -85,6 +85,13 @@ export default function ImpactOrbit() {
           variants={fade(0.2)}
         >
           <div className="io-orbit-frame">
+            
+            {/* --- NEW: WAVE RIPPLES ADDED HERE --- */}
+            {/* These pulse outward from behind the center hub */}
+            <div className="io-wave" style={{ animationDelay: "0s" }} />
+            <div className="io-wave" style={{ animationDelay: "1s" }} />
+            <div className="io-wave" style={{ animationDelay: "2s" }} />
+
             {/* Dashed Ring */}
             <div className="io-orbit-ring" aria-hidden="true" />
 
