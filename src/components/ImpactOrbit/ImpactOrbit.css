@@ -1,9 +1,10 @@
-/* ImpactOrbit.css - WITH WAVE EFFECT */
+/* ImpactOrbit.css - BALANCED LAYOUT VERSION */
 
 .impact-orbit {
   position: relative;
   overflow-x: hidden;
-  padding: clamp(6rem, 8vw, 8rem) 2rem;
+  /* Reduced side padding slightly to give content more total width */
+  padding: clamp(6rem, 8vw, 8rem) clamp(1.5rem, 3vw, 2rem);
   background: var(--bg-light, #f8f9fa);
   isolation: isolate;
 }
@@ -40,18 +41,25 @@
   background-size: 24px 24px;
 }
 
-/* --- MAIN GRID --- */
+/* --- MAIN GRID (FIXED) --- */
 .io-grid {
   max-width: 1440px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  /* CHANGED: Equal 1fr 1fr split to stop text compression */
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 3rem;
+  /* Reduced gap slightly to prevent overflow on laptops */
+  gap: 2rem;
 }
 
-/* --- LEFT CONTENT --- */
-.io-copy { z-index: 2; position: relative; }
+/* --- LEFT CONTENT (FIXED) --- */
+.io-copy { 
+  z-index: 2; 
+  position: relative; 
+  /* Ensure it takes full available width */
+  width: 100%;
+}
 
 .io-badge {
   display: inline-flex;
@@ -69,7 +77,8 @@
 }
 
 .io-title {
-  font-size: clamp(3rem, 5vw, 4.5rem);
+  /* Dynamic font size that scales better */
+  font-size: clamp(3rem, 5vw, 4.8rem);
   line-height: 1.05;
   font-weight: 950;
   color: #111;
@@ -86,10 +95,15 @@
   line-height: 1.7;
   color: #555;
   margin-bottom: 2rem;
-  max-width: 90%;
+  /* CHANGED: Increased from 90% to 100% to fill the column */
+  max-width: 100%;
 }
 
-.io-tags { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+.io-tags { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 0.8rem; 
+}
 .io-tags span {
   padding: 0.7rem 1.2rem;
   font-size: 0.95rem;
@@ -106,7 +120,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  height: 750px; 
+  height: 750px;
 }
 
 .io-orbit-frame {
@@ -115,11 +129,9 @@
   height: 650px;
   display: grid;
   place-items: center;
-  
-  /* Config Variables */
   --orbit-r: 300px; 
   --orbit-dur: 50s; 
-  --wave-dur: 3s; /* Speed of the wave */
+  --wave-dur: 3s;
 }
 
 .io-orbit-ring {
@@ -131,24 +143,22 @@
   z-index: 1;
 }
 
-/* --- NEW: WAVE EFFECT --- */
+/* WAVE EFFECT */
 .io-wave {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  border: 1px solid #5d5fef; /* Purple Border */
-  background: rgba(93, 95, 239, 0.05); /* Very faint purple fill */
-  z-index: 0; /* Behind everything */
+  border: 1px solid #5d5fef;
+  background: rgba(93, 95, 239, 0.05);
+  z-index: 0;
   opacity: 0;
   pointer-events: none;
-  
-  /* Animation Definition */
   animation: ripple var(--wave-dur) cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-/* --- BIG CENTER HUB --- */
+/* BIG CENTER HUB */
 .io-core {
   width: 220px;
   height: 220px;
@@ -181,7 +191,7 @@
   text-transform: uppercase;
 }
 
-/* ROTATING WRAPPER */
+/* ORBIT ANIMATIONS */
 .io-orbit-anim {
   position: absolute;
   inset: 0;
@@ -189,20 +199,17 @@
   animation: spin var(--orbit-dur) linear infinite;
 }
 
-/* ITEM PLACEMENT */
 .io-node {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 240px;
-  
   transform: 
     translate(-50%, -50%) 
     rotate(calc(var(--i) * 72deg)) 
     translateY(calc(var(--orbit-r) * -1));
 }
 
-/* COUNTER SPINNER */
 .io-node-counter {
   width: 100%;
   height: 100%;
@@ -212,10 +219,8 @@
   align-items: center;
 }
 
-/* STATIC CORRECTION */
 .io-node-inner {
   transform: rotate(calc(var(--i) * -72deg));
-  
   background: rgba(255, 255, 255, 0.96);
   padding: 1.1rem 1.3rem;
   border-radius: 16px;
@@ -257,7 +262,7 @@
   font-weight: 600;
 }
 
-/* --- KPI BAR --- */
+/* KPI BAR */
 .io-kpi-bar {
   max-width: 1200px;
   width: 100%;
@@ -280,7 +285,6 @@
 .io-kpi-item:last-child { 
   border-right: none; 
 }
-
 .io-kpi-val {
   display: block;
   font-size: clamp(2.5rem, 3vw, 3.2rem);
@@ -289,7 +293,6 @@
   line-height: 1.1;
   margin-bottom: 0.5rem;
 }
-
 .io-kpi-lbl {
   display: block;
   font-size: 1rem;
@@ -302,44 +305,36 @@
 /* ANIMATIONS */
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes counterSpin { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
-
-/* RIPPLE ANIMATION */
 @keyframes ripple {
-  0% {
-    width: 220px; /* Start at Hub size */
-    height: 220px;
-    opacity: 0.8;
-    border-width: 1px;
-  }
-  100% {
-    width: 600px; /* Expand to Orbit Ring size */
-    height: 600px;
-    opacity: 0;
-    border-width: 0px;
+  0% { width: 220px; height: 220px; opacity: 0.8; border-width: 1px; }
+  100% { width: 600px; height: 600px; opacity: 0; border-width: 0px; }
+}
+
+/* --- RESPONSIVE ADJUSTMENTS (CRITICAL FOR LAPTOPS) --- */
+@media (max-width: 1366px) {
+  /* On smaller laptops, shrink the orbit slightly so it doesn't overlap text */
+  .io-orbit-frame { width: 550px; height: 550px; --orbit-r: 250px; }
+  .io-core { width: 180px; height: 180px; }
+  .io-title { font-size: 3.5rem; }
+  
+  @keyframes ripple {
+    0% { width: 180px; height: 180px; opacity: 0.8; }
+    100% { width: 500px; height: 500px; opacity: 0; }
   }
 }
 
-/* --- RESPONSIVE --- */
 @media (max-width: 1024px) {
-  .io-grid { grid-template-columns: 1fr; text-align: center; gap: 4rem; }
-  .io-visual { height: 650px; }
+  .io-grid { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
   .io-tags { justify-content: center; }
+  .io-visual { height: 600px; }
   
   .io-orbit-frame { width: 100%; --orbit-r: 240px; }
   .io-core { width: 180px; height: 180px; } 
-  .io-core strong { font-size: 1.3rem; }
-  
   .io-node-detail span { display: none; }
 
   .io-kpi-bar { grid-template-columns: 1fr 1fr; gap: 2rem; }
   .io-kpi-item { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 1rem; }
   .io-kpi-item:nth-last-child(-n+2) { border-bottom: none; }
-  
-  /* Adjust ripple for tablet */
-  @keyframes ripple {
-    0% { width: 180px; height: 180px; opacity: 0.8; }
-    100% { width: 480px; height: 480px; opacity: 0; }
-  }
 }
 
 @media (max-width: 600px) {
@@ -348,9 +343,7 @@
   .io-node-inner { padding: 0; width: 45px; height: 45px; justify-content: center; border-radius: 50%; }
   .io-node-detail { display: none; }
   .io-node-icon { width: 100%; height: 100%; font-size: 1.4rem; background: transparent; }
-  .io-kpi-val { font-size: 2rem; }
   
-  /* Adjust ripple for mobile */
   @keyframes ripple {
     0% { width: 140px; height: 140px; opacity: 0.8; }
     100% { width: 320px; height: 320px; opacity: 0; }
