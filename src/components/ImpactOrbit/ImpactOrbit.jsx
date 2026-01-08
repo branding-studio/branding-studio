@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom"; // 1. Import Link
 import {
   FaVideo,
   FaHashtag,
@@ -10,12 +11,38 @@ import {
 import "./ImpactOrbit.css";
 import { useLocalContext } from "../../context/LocalContext";
 
+// 2. Added 'path' to each service
 const services = [
-  { icon: <FaVideo />, label: "Film Making", hint: "Ads & Cinematic" },
-  { icon: <FaHashtag />, label: "Social Media", hint: "Trends & Reach" },
-  { icon: <FaPaintBrush />, label: "Graphic Design", hint: "Brand Identity" },
-  { icon: <FaLaptopCode />, label: "Web Dev", hint: "React / Next.js" },
-  { icon: <FaSearch />, label: "SEO", hint: "Rank & Traffic" },
+  { 
+    icon: <FaVideo />, 
+    label: "Film Making", 
+    hint: "Ads & Cinematic", 
+    path: "/services/film-making" 
+  },
+  { 
+    icon: <FaHashtag />, 
+    label: "Social Media", 
+    hint: "Trends & Reach", 
+    path: "/services/smo" 
+  },
+  { 
+    icon: <FaPaintBrush />, 
+    label: "Graphic Design", 
+    hint: "Brand Identity", 
+    path: "/services/graphic-design" 
+  },
+  { 
+    icon: <FaLaptopCode />, 
+    label: "Web Dev", 
+    hint: "React / Next.js", 
+    path: "/services/website-development" 
+  },
+  { 
+    icon: <FaSearch />, 
+    label: "SEO", 
+    hint: "Rank & Traffic", 
+    path: "/services/seo" 
+  },
 ];
 
 const kpis = [
@@ -92,29 +119,35 @@ export default function ImpactOrbit() {
             <div className="io-wave" style={{ animationDelay: "1s" }} />
             <div className="io-wave" style={{ animationDelay: "2s" }} />
 
-            {/* Dashed Ring */}
+            {/* Orbit Ring */}
             <div className="io-orbit-ring" aria-hidden="true" />
 
-            {/* Orbit Animation Wrapper */}
+            {/* Orbit Animation */}
             <div className="io-orbit-anim">
               {services.map((s, i) => (
                 <div key={s.label} className="io-node" style={{ "--i": i }}>
-                  
                   <div className="io-node-counter">
-                    <div className="io-node-inner">
+                    
+                    {/* 3. Changed div to Link here */}
+                    {/* Added inline style to remove default blue link color/underline */}
+                    <Link 
+                      to={s.path} 
+                      className="io-node-inner" 
+                      style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
+                    >
                       <div className="io-node-icon">{s.icon}</div>
                       <div className="io-node-detail">
                         <b>{s.label}</b>
                         <span>{s.hint}</span>
                       </div>
-                    </div>
-                  </div>
+                    </Link>
 
+                  </div>
                 </div>
               ))}
             </div>
 
-            {/* BIG CENTER HUB */}
+            {/* Center Hub */}
             <div className="io-core">
               <strong>{webinfo?.name || "Branding Studio"}</strong>
               <small>HUB</small>
