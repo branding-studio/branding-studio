@@ -1,0 +1,69 @@
+/* InstagramFeed.css */
+
+.instagram-section {
+  padding: 80px 20px;
+  text-align: center;
+  background-color: #fff; /* Or transparent if you prefer */
+}
+
+/* The Pill/Badge Style */
+.badge-container {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.badge {
+  background-color: #f3f4f6; /* Light gray background */
+  color: #000;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #5D5FEF; /* The purple accent color */
+  border-radius: 50%;
+}
+
+/* The Main Heading */
+.section-heading {
+  font-size: 3.5rem; /* Big, bold text */
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  color: #000;
+  letter-spacing: -0.02em;
+}
+
+.highlight-text {
+  color: #5D5FEF; /* Purple color for 'Instagram' */
+  /* Optional: Gradient text effect like your screenshot */
+  background: linear-gradient(90deg, #5D5FEF 0%, #3B3DBF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtext description */
+.section-subtext {
+  color: #666;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 50px auto;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .section-heading {
+    font-size: 2.5rem;
+  }
+}

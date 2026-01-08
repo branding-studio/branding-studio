@@ -10,6 +10,7 @@ import CircleFeature from '../CircleFeature/CircleFeature'
 import SEOFeatures from '../SEOFeatures/SEOFeatures'
 import FaqSection from '../FaqSection/FaqSection'
 import ImpactOrbit from '../ImpactOrbit/ImpactOrbit'
+import InstagramFeed from '../InstagramFeed/InstagramFeed';
 
 const Home = () => {
   return (
@@ -21,6 +22,7 @@ const Home = () => {
       <ImpactOrbit />
       <Banner />
       <Process />
+      <InstagramFeed />
       {/* <Strategies /> */}
     
       <FaqSection />
