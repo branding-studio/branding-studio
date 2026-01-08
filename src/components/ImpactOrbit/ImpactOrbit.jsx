@@ -63,10 +63,11 @@ export default function ImpactOrbit() {
           </h2>
 
           <p className="io-sub">
-            We blend studio-grade visuals with hard-hitting data strategies.
+            We blend <b>studio-grade visuals</b> with <b>hard-hitting data strategies</b>.
+            <br />
             <br />
             From cinematic ad films to high-conversion websites, we build the entire ecosystem your
-            brand needs to scale.
+            brand needs to <b>scale.</b>
           </p>
 
           <div className="io-tags">
@@ -86,8 +87,7 @@ export default function ImpactOrbit() {
         >
           <div className="io-orbit-frame">
             
-            {/* --- NEW: WAVE RIPPLES ADDED HERE --- */}
-            {/* These pulse outward from behind the center hub */}
+            {/* Wave Ripples */}
             <div className="io-wave" style={{ animationDelay: "0s" }} />
             <div className="io-wave" style={{ animationDelay: "1s" }} />
             <div className="io-wave" style={{ animationDelay: "2s" }} />
@@ -100,10 +100,7 @@ export default function ImpactOrbit() {
               {services.map((s, i) => (
                 <div key={s.label} className="io-node" style={{ "--i": i }}>
                   
-                  {/* LAYER 2: Counter-Spin Wrapper */}
                   <div className="io-node-counter">
-                    
-                    {/* LAYER 3: Static Correction (Inner Card) */}
                     <div className="io-node-inner">
                       <div className="io-node-icon">{s.icon}</div>
                       <div className="io-node-detail">
@@ -111,7 +108,6 @@ export default function ImpactOrbit() {
                         <span>{s.hint}</span>
                       </div>
                     </div>
-
                   </div>
 
                 </div>
@@ -142,6 +138,42 @@ export default function ImpactOrbit() {
           </div>
         ))}
       </motion.div>
+
+      {/* --- BOTTOM CARDS (.io-deck) --- */}
+      <div className="io-deck">
+        <motion.div
+          className="io-card"
+          variants={fade(0.1)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <div className="io-card-head">
+            <FaVideo /> Visual Storytelling
+          </div>
+          <p>
+            We don’t just post; we produce. Ad films, cinematic reels, and brand shoots that capture
+            attention instantly.
+          </p>
+        </motion.div>
+
+        <motion.div
+          className="io-card"
+          variants={fade(0.2)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <div className="io-card-head">
+            <FaLaptopCode /> Digital Experience
+          </div>
+          <p>
+            Websites that load fast and convert visitors. Built with modern stacks + deep SEO
+            integration to compound traffic.
+          </p>
+        </motion.div>
+      </div>
+
     </section>
   );
 }

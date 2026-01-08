@@ -1,13 +1,20 @@
-/* ImpactOrbit.css - BALANCED LAYOUT VERSION */
+/* ImpactOrbit.css - MORE TOP SPACE & PERFECT FIT */
 
 .impact-orbit {
   position: relative;
-  overflow-x: hidden;
-  /* Reduced side padding slightly to give content more total width */
-  padding: clamp(6rem, 8vw, 8rem) clamp(1.5rem, 3vw, 2rem);
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden; /* No scrollbar */
+  
+  /* UPDATED PADDING: increased top padding from 5rem to 8rem */
+  padding: clamp(8rem, 12vw, 10rem) clamp(2rem, 5vw, 4rem);
+  
   background: var(--bg-light, #f8f9fa);
   isolation: isolate;
+  box-sizing: border-box;
 }
+
+.impact-orbit * { box-sizing: border-box; }
 
 /* --- BACKGROUND GLOWS --- */
 .io-glow {
@@ -18,8 +25,8 @@
   opacity: 0.55;
 }
 .io-glow--1 {
-  top: -15%;
-  left: -15%;
+  top: -10%;
+  left: -10%;
   width: 600px;
   height: 600px;
   background: radial-gradient(circle, rgba(93, 95, 239, 0.15), transparent 70%);
@@ -41,24 +48,23 @@
   background-size: 24px 24px;
 }
 
-/* --- MAIN GRID (FIXED) --- */
+/* --- MAIN GRID --- */
 .io-grid {
   max-width: 1440px;
   margin: 0 auto;
   display: grid;
-  /* CHANGED: Equal 1fr 1fr split to stop text compression */
-  grid-template-columns: 1fr 1fr;
+  /* 40% Text / 60% Orbit - Prevents orbit cut-off */
+  grid-template-columns: 0.85fr 1.15fr;
   align-items: center;
-  /* Reduced gap slightly to prevent overflow on laptops */
-  gap: 2rem;
+  gap: 1rem;
 }
 
-/* --- LEFT CONTENT (FIXED) --- */
+/* --- LEFT CONTENT --- */
 .io-copy { 
-  z-index: 2; 
+  z-index: 10; 
   position: relative; 
-  /* Ensure it takes full available width */
   width: 100%;
+  padding-left: 3rem; 
 }
 
 .io-badge {
@@ -77,12 +83,12 @@
 }
 
 .io-title {
-  /* Dynamic font size that scales better */
-  font-size: clamp(3rem, 5vw, 4.8rem);
+  font-size: clamp(3.5rem, 5.5vw, 6rem);
   line-height: 1.05;
   font-weight: 950;
   color: #111;
   margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
 }
 .io-title span {
   background: linear-gradient(90deg, #5D5FEF, #3B3DBF);
@@ -90,23 +96,21 @@
   -webkit-text-fill-color: transparent;
 }
 
+/* Big readable text */
 .io-sub {
-  font-size: 1.15rem;
-  line-height: 1.7;
-  color: #555;
-  margin-bottom: 2rem;
-  /* CHANGED: Increased from 90% to 100% to fill the column */
-  max-width: 100%;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  font-weight: 500;
+  color: #0f172a;
+  margin-bottom: 2.5rem;
+  max-width: 95%; 
 }
+.io-sub b { font-weight: 800; color: #000; }
 
-.io-tags { 
-  display: flex; 
-  flex-wrap: wrap; 
-  gap: 0.8rem; 
-}
+.io-tags { display: flex; flex-wrap: wrap; gap: 0.8rem; }
 .io-tags span {
-  padding: 0.7rem 1.2rem;
-  font-size: 0.95rem;
+  padding: 0.8rem 1.4rem;
+  font-size: 1rem;
   font-weight: 700;
   border-radius: 12px;
   background: #fff;
@@ -120,16 +124,19 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  height: 750px;
+  height: 700px;
+  width: 100%;
 }
 
 .io-orbit-frame {
   position: relative;
-  width: 650px;
-  height: 650px;
+  width: 580px;
+  height: 580px;
   display: grid;
   place-items: center;
-  --orbit-r: 300px; 
+  
+  /* Tuned size to fit frame */
+  --orbit-r: 240px; 
   --orbit-dur: 50s; 
   --wave-dur: 3s;
 }
@@ -143,7 +150,7 @@
   z-index: 1;
 }
 
-/* WAVE EFFECT */
+/* WAVE ANIMATION */
 .io-wave {
   position: absolute;
   top: 50%;
@@ -158,10 +165,10 @@
   animation: ripple var(--wave-dur) cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-/* BIG CENTER HUB */
+/* HUB */
 .io-core {
-  width: 220px;
-  height: 220px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   background: #fff;
   box-shadow: 0 25px 60px rgba(93, 95, 239, 0.18);
@@ -176,7 +183,7 @@
 }
 .io-core strong {
   display: block;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 900;
   color: #111;
   line-height: 1.2;
@@ -191,7 +198,7 @@
   text-transform: uppercase;
 }
 
-/* ORBIT ANIMATIONS */
+/* ANIMATIONS */
 .io-orbit-anim {
   position: absolute;
   inset: 0;
@@ -203,7 +210,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 240px;
+  width: 230px; 
   transform: 
     translate(-50%, -50%) 
     rotate(calc(var(--i) * 72deg)) 
@@ -222,7 +229,7 @@
 .io-node-inner {
   transform: rotate(calc(var(--i) * -72deg));
   background: rgba(255, 255, 255, 0.96);
-  padding: 1.1rem 1.3rem;
+  padding: 1rem 1.2rem; 
   border-radius: 16px;
   box-shadow: 0 10px 35px rgba(0,0,0,0.09);
   display: flex;
@@ -250,14 +257,16 @@
   flex-direction: column;
   text-align: left;
 }
+
 .io-node-detail b {
-  font-size: 1.05rem;
+  font-size: 1.35rem; 
   color: #111;
   font-weight: 800;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
+  line-height: 1.1;
 }
 .io-node-detail span {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: #666;
   font-weight: 600;
 }
@@ -277,14 +286,8 @@
   position: relative;
   z-index: 5;
 }
-
-.io-kpi-item { 
-  text-align: center; 
-  border-right: 1px solid rgba(0,0,0,0.08); 
-}
-.io-kpi-item:last-child { 
-  border-right: none; 
-}
+.io-kpi-item { text-align: center; border-right: 1px solid rgba(0,0,0,0.08); }
+.io-kpi-item:last-child { border-right: none; }
 .io-kpi-val {
   display: block;
   font-size: clamp(2.5rem, 3vw, 3.2rem);
@@ -302,29 +305,70 @@
   letter-spacing: 0.05em;
 }
 
+/* DECK / BOTTOM CARDS */
+.io-deck {
+  max-width: 1200px;
+  margin: 3rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+}
+.io-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 22px;
+  padding: 3rem;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.io-card:hover { 
+  transform: translateY(-6px); 
+  box-shadow: 0 25px 70px rgba(0,0,0,0.12); 
+}
+.io-card-head {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 1.5rem;
+}
+.io-card-head svg { 
+  font-size: 2rem; 
+  color: #5d5fef; 
+}
+.io-card p {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #666;
+  margin: 0;
+}
+
 /* ANIMATIONS */
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes counterSpin { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
 @keyframes ripple {
-  0% { width: 220px; height: 220px; opacity: 0.8; border-width: 1px; }
-  100% { width: 600px; height: 600px; opacity: 0; border-width: 0px; }
+  0% { width: 200px; height: 200px; opacity: 0.8; border-width: 1px; }
+  100% { width: 500px; height: 500px; opacity: 0; border-width: 0px; }
 }
 
-/* --- RESPONSIVE ADJUSTMENTS (CRITICAL FOR LAPTOPS) --- */
-@media (max-width: 1366px) {
-  /* On smaller laptops, shrink the orbit slightly so it doesn't overlap text */
-  .io-orbit-frame { width: 550px; height: 550px; --orbit-r: 250px; }
-  .io-core { width: 180px; height: 180px; }
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 1440px) {
+  /* On laptops, shrink radius slightly so it stays fully visible */
+  .io-orbit-frame { width: 500px; height: 500px; --orbit-r: 210px; }
+  .io-core { width: 170px; height: 170px; }
   .io-title { font-size: 3.5rem; }
   
   @keyframes ripple {
-    0% { width: 180px; height: 180px; opacity: 0.8; }
-    100% { width: 500px; height: 500px; opacity: 0; }
+    0% { width: 170px; height: 170px; opacity: 0.8; }
+    100% { width: 440px; height: 440px; opacity: 0; }
   }
 }
 
 @media (max-width: 1024px) {
   .io-grid { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
+  .io-copy { padding-left: 0; }
   .io-tags { justify-content: center; }
   .io-visual { height: 600px; }
   
@@ -335,6 +379,8 @@
   .io-kpi-bar { grid-template-columns: 1fr 1fr; gap: 2rem; }
   .io-kpi-item { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 1rem; }
   .io-kpi-item:nth-last-child(-n+2) { border-bottom: none; }
+  
+  .io-deck { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
