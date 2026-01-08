@@ -35,16 +35,18 @@ const fade = (i = 0, d = 0.55) => ({
 });
 
 export default function ImpactOrbit() {
-  const { webinfo } = useLocalContext();
+  const context = useLocalContext();
+  const webinfo = context?.webinfo;
 
   return (
-    <section className="impact-orbit" aria-label="Impact Orbit – capabilities & KPIs">
+    <section className="impact-orbit" aria-label="Impact Orbit">
+      {/* Background Elements */}
       <div className="io-glow io-glow--1" />
       <div className="io-glow io-glow--2" />
       <div className="io-dots" aria-hidden="true" />
 
       <div className="io-grid">
-        {/* LEFT */}
+        {/* --- LEFT SIDE: TEXT --- */}
         <motion.div
           className="io-copy"
           initial="hidden"
@@ -74,7 +76,7 @@ export default function ImpactOrbit() {
           </div>
         </motion.div>
 
-        {/* RIGHT */}
+        {/* --- RIGHT SIDE: ORBIT --- */}
         <motion.div
           className="io-visual"
           initial="hidden"
@@ -83,46 +85,42 @@ export default function ImpactOrbit() {
           variants={fade(0.2)}
         >
           <div className="io-orbit-frame">
-            {/* Fixed Ring */}
+            {/* Dashed Ring */}
             <div className="io-orbit-ring" aria-hidden="true" />
 
-            {/* Orbiting Wrapper (DO NOT aria-hide because you hover inside it) */}
+            {/* Orbit Animation Wrapper */}
             <div className="io-orbit-anim">
               {services.map((s, i) => (
-                <div
-                  key={s.label}
-                  className="io-node"
-                  style={{ "--i": i }}
-                >
-                  {/* Hover scale ONLY inner */}
-                  <motion.div
-                    className="io-node-inner"
-                    whileHover={{ scale: 1.06 }}
-                    whileTap={{ scale: 0.98 }}
-                    transition={{ type: "spring", stiffness: 320, damping: 22 }}
-                  >
-                    <div className="io-node-icon">{s.icon}</div>
-                    <div className="io-node-detail">
-                      <b>{s.label}</b>
-                      <span>{s.hint}</span>
+                <div key={s.label} className="io-node" style={{ "--i": i }}>
+                  
+                  {/* LAYER 2: Counter-Spin Wrapper */}
+                  <div className="io-node-counter">
+                    
+                    {/* LAYER 3: Static Correction (Inner Card) */}
+                    <div className="io-node-inner">
+                      <div className="io-node-icon">{s.icon}</div>
+                      <div className="io-node-detail">
+                        <b>{s.label}</b>
+                        <span>{s.hint}</span>
+                      </div>
                     </div>
-                  </motion.div>
+
+                  </div>
+
                 </div>
               ))}
             </div>
 
-            {/* Center Core (topmost) */}
+            {/* BIG CENTER HUB */}
             <div className="io-core">
-              <div className="io-core-content">
-                <strong>{webinfo?.name || "Branding Studio"}</strong>
-                <small>HUB</small>
-              </div>
+              <strong>{webinfo?.name || "Branding Studio"}</strong>
+              <small>HUB</small>
             </div>
           </div>
         </motion.div>
       </div>
 
-      {/* KPI STRIP */}
+      {/* KPI BAR */}
       <motion.div
         className="io-kpi-bar"
         initial="hidden"
@@ -137,41 +135,6 @@ export default function ImpactOrbit() {
           </div>
         ))}
       </motion.div>
-
-      {/* Cards */}
-      <div className="io-deck">
-        <motion.div
-          className="io-card"
-          variants={fade(0.1)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <div className="io-card-head">
-            <FaVideo /> Visual Storytelling
-          </div>
-          <p>
-            We don’t just post; we produce. Ad films, cinematic reels, and brand shoots that capture
-            attention instantly.
-          </p>
-        </motion.div>
-
-        <motion.div
-          className="io-card"
-          variants={fade(0.2)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <div className="io-card-head">
-            <FaLaptopCode /> Digital Experience
-          </div>
-          <p>
-            Websites that load fast and convert visitors. Built with modern stacks + deep SEO
-            integration to compound traffic.
-          </p>
-        </motion.div>
-      </div>
     </section>
   );
 }
