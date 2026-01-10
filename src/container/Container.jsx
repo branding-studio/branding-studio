@@ -11,7 +11,8 @@ import Disclaimer from "../components/Disclaimer/Disclaimer";
 import PrivacyPolicy from "../components/PrivacyPolicy/PrivacyPolicy";
 import Terms from "../components/Terms/Terms";
 import ScrollToTopButton from "../components/ScrollToTopButton/ScrollToTopButton";
-
+import Pricing from "../components/Pricing/Pricing";
+import Gallery from "../components/Gallery/Gallery";
 
 // admin
 import AdminLayout from "./AdminLayout";
@@ -24,7 +25,6 @@ import BlogEditForm from "../Admin/blog/BlogEditForm";
 import ManageUser from "../Admin/ManageUser/ManageUser";
 import ManageMessages from "../Admin/ManageMessages/ManageMessages";
 import ManageComment from "../Admin/ManageComment/ManageComment";
-
 
 import RequireRole from "../routes/RequireRole";
 import Forbidden from "../Admin/Forbidden";
@@ -44,6 +44,8 @@ import About from "../components/About/About";
 import GraphicDesign from "../components/Services/GraphicDesign/GraphicDesign";
 import Filmmaking from "../components/Services/Filmmaking/Filmmaking";
 import WhatsappFixed from "../components/WhatsappFixed/WhatsappFixed";
+
+
 
 const ScrollToTop = () => {
   const location = useLocation();
@@ -100,10 +102,15 @@ const Container = () => {
             <Route path="/" element={<Home />} />
             {/* <Route path="/services/:serviceId" element={<ServicePage />} />
             <Route path="/services/ads/:adsid" element={<AdsIllustration />} /> */}
+            
             <Route path="/about" element={<About />} />
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/blogs/:category/:slug" element={<Postpage />} />
             <Route path="/contact" element={<Contact />} />
+            
+            
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="/services" element={<Services />} />
             <Route path="/services/website-development" element={<Webdev />} />
             <Route path="/services/google-ads-ppc" element={<Ppc />} />

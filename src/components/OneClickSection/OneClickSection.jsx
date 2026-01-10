@@ -142,7 +142,7 @@ const OneClickSection = forwardRef((_, ref) => {
           </div>
 
           <div className="card__footer split">
-            <button className="card__btn ghost" onClick={() => navigate("/services/website-development")}>
+            <button className="card__btn ghost" onClick={() => navigate("/pricing")}>
               View Web Packages <FaArrowRight />
             </button>
 
@@ -171,7 +171,7 @@ const OneClickSection = forwardRef((_, ref) => {
           </div>
 
           <div className="card__footer">
-            <button className="card__btn ghost" onClick={() => navigate("/services/graphic-designing")}>
+            <button className="card__btn ghost" onClick={() => navigate("/gallery")}>
               View Design Work <FaArrowRight />
             </button>
           </div>
