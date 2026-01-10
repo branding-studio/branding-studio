@@ -81,11 +81,14 @@ const Footer = () => {
             aria-label="Subscribe to our newsletter"
           >
             <input
-              type="email"
-              placeholder="Your email address"
-              aria-label="Email address"
+              type="tel"
+              placeholder="Send Message"
+              aria-label="WhatsApp number"
               required
+              inputMode="tel"
+              pattern="^\+?[0-9\s-]{8,15}$"
             />
+
             <button type="submit" aria-label="Subscribe">
               <FontAwesomeIcon icon={faWhatsapp} />
             </button>
