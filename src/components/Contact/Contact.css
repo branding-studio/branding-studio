@@ -12,11 +12,17 @@ html { font-size: 62.5%; } /* 1rem = 10px */
   --cv4-muted: var(--muted, #475569);
   --cv4-border: var(--border, #e5e7eb);
 
-  --cv4-brand: var(--brand, #1e40af);
+  /* --cv4-brand: var(--brand, #1e40af);
   --cv4-brand-600: var(--brand-600, #2e4fc7);
-  --cv4-accent: var(--accent, #0ea5e9);
+  --cv4-accent: var(--accent, #0ea5e9); */
 
-  --cv4-success: var(--success, #10b981);
+  /* WhatsApp theme */
+  --cv4-brand: #25D366;       /* WhatsApp Green */
+  --cv4-brand-600: #1FA855;   /* darker green */
+  --cv4-accent: #128C7E;      /* WhatsApp teal */
+  --cv4-success: #25D366; 
+
+  /* --cv4-success: var(--success, #10b981); */
 
   --cv4-radius-sm: 1.2rem;
   --cv4-radius: 1.6rem;
@@ -283,7 +289,12 @@ html { font-size: 62.5%; } /* 1rem = 10px */
   background: linear-gradient(90deg, var(--cv4-brand), var(--cv4-accent));
   color: #fff; box-shadow: var(--cv4-shadow-1);
 }
-.cv4-btn.solid:hover { transform: translateY(-2px); }
+/* .cv4-btn.solid:hover { transform: translateY(-2px); } */
+.cv4-btn.solid:hover {
+  transform: translateY(-2px);
+  filter: brightness(0.96);
+}
+
 .cv4-btn:disabled { opacity: .6; cursor: not-allowed; }
 .cv4-btn.ghost {
   background: #fff; color: var(--cv4-brand);

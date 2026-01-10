@@ -3,7 +3,6 @@ import "./Footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleInfo,
-  faPaperPlane,
   faPhone,
   faEnvelope,
   faLocationDot,
@@ -18,7 +17,6 @@ import {
   faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
 import { useLocalContext } from "../../context/LocalContext";
-import { FaWhatsapp } from "react-icons/fa"; // Keep this if you use it in the big button
 
 const Footer = () => {
   const { webinfo, openWhatsApp } = useLocalContext();
@@ -55,7 +53,7 @@ const Footer = () => {
                 });
               }}
             >
-              <FaWhatsapp /> WhatsApp Now
+              <FontAwesomeIcon icon={faWhatsapp} /> WhatsApp Now
             </a>
 
             <a className="btn btn--ghost" href="/services">
@@ -71,11 +69,12 @@ const Footer = () => {
         <div className="fcard fcard--brand">
           <div className="brand">
             <div className="brand__text">
-              <img src={webinfo.logo} alt="" />
+              <img src={webinfo.logo} alt={brand} />
               <p>Performance marketing, made simple—and measurable.</p>
             </div>
           </div>
 
+          {/* Newsletter */}
           <form
             className="newsletter"
             onSubmit={(e) => e.preventDefault()}
@@ -88,25 +87,25 @@ const Footer = () => {
               required
             />
             <button type="submit" aria-label="Subscribe">
-              <FontAwesomeIcon icon={faPaperPlane} />
+              <FontAwesomeIcon icon={faWhatsapp} />
             </button>
           </form>
 
-          {/* ✅ UPDATED SOCIALS SECTION */}
+          {/* Socials */}
           <div className="socials" aria-label="Social links">
-            {/* 1. WhatsApp */}
+            {/* WhatsApp */}
             <a
               href="#"
               aria-label="WhatsApp"
               onClick={(e) => {
                 e.preventDefault();
-                openWhatsApp({ message: "Hello I Need Help!" });
+                openWhatsApp({ message: "Hello! I need help." });
               }}
             >
               <FontAwesomeIcon icon={faWhatsapp} />
             </a>
 
-            {/* 2. Instagram */}
+            {/* Instagram */}
             <a
               href="https://www.instagram.com/brandingstudio.in/"
               target="_blank"
@@ -116,7 +115,7 @@ const Footer = () => {
               <FontAwesomeIcon icon={faInstagram} />
             </a>
 
-            {/* 3. YouTube */}
+            {/* YouTube */}
             <a
               href="https://www.youtube.com/@brandingstudioteam"
               target="_blank"
@@ -126,12 +125,12 @@ const Footer = () => {
               <FontAwesomeIcon icon={faYoutube} />
             </a>
 
-            {/* 4. Phone */}
+            {/* Phone */}
             <a href={`tel:${webinfo.phone}`} aria-label="Call Us">
               <FontAwesomeIcon icon={faPhone} />
             </a>
 
-            {/* 5. Email */}
+            {/* Email */}
             <a href={`mailto:${webinfo.email}`} aria-label="Email Us">
               <FontAwesomeIcon icon={faEnvelope} />
             </a>
@@ -143,53 +142,30 @@ const Footer = () => {
           <div>
             <h5>Solutions</h5>
             <ul>
-              <li>
-                <a href="/services/film-making">Flim Making</a>
-              </li>
-               <li>
-                <a href="/services/smo">Social Media (SMO)</a>
-              </li>
-              <li>
-                <a href="/services/graphic-design">Graphic Designing</a>
-              </li>
-              <li>
-                <a href="/services/website-development">Web Development</a>
-              </li>
-              <li>
-                <a href="/services/seo">SEO Services</a>
-              </li>
-              
+              <li><a href="/services/film-making">Film Making</a></li>
+              <li><a href="/services/smo">Social Media (SMO)</a></li>
+              <li><a href="/services/graphic-design">Graphic Designing</a></li>
+              <li><a href="/services/website-development">Web Development</a></li>
+              <li><a href="/services/seo">SEO Services</a></li>
             </ul>
           </div>
+
           <div>
             <h5>Company</h5>
             <ul>
-              <li>
-                <a href="/about">About {brand}</a>
-              </li>
-              <li>
-                <a href="/blogs">Blogs</a>
-              </li>
-              <li>
-                <a href="/our-strategies">Our Strategies</a>
-              </li>
-              <li>
-                <a href="/contact">Contact</a>
-              </li>
+              <li><a href="/about">About {brand}</a></li>
+              <li><a href="/blogs">Blogs</a></li>
+              <li><a href="/our-strategies">Our Strategies</a></li>
+              <li><a href="/contact">Contact</a></li>
             </ul>
           </div>
+
           <div>
             <h5>Legal</h5>
             <ul>
-              <li>
-                <a href="/privacy-policy">Privacy Policy</a>
-              </li>
-              <li>
-                <a href="/terms-and-condition">Terms & Conditions</a>
-              </li>
-              <li>
-                <a href="/disclaimer">Disclaimer</a>
-              </li>
+              <li><a href="/privacy-policy">Privacy Policy</a></li>
+              <li><a href="/terms-and-condition">Terms & Conditions</a></li>
+              <li><a href="/disclaimer">Disclaimer</a></li>
             </ul>
           </div>
         </nav>
@@ -211,7 +187,8 @@ const Footer = () => {
               <span>Remote-first • Global</span>
             </li>
             <li>
-              <FontAwesomeIcon icon={faClock} /> <span>Mon–Fri • 9am–6pm</span>
+              <FontAwesomeIcon icon={faClock} />{" "}
+              <span>Mon–Fri • 9am–6pm</span>
             </li>
           </ul>
 
@@ -255,18 +232,10 @@ const Footer = () => {
           © {new Date().getFullYear()} {brand}. All rights reserved.
         </p>
         <ul className="legal-mini">
-          <li>
-            <a href="/privacy-policy">Privacy</a>
-          </li>
-          <li>
-            <a href="/terms-and-condition">Terms</a>
-          </li>
-          <li>
-            <a href="/disclaimer">Disclaimer</a>
-          </li>
-          <li>
-            <a href="/contact">Support</a>
-          </li>
+          <li><a href="/privacy-policy">Privacy</a></li>
+          <li><a href="/terms-and-condition">Terms</a></li>
+          <li><a href="/disclaimer">Disclaimer</a></li>
+          <li><a href="/contact">Support</a></li>
         </ul>
       </div>
     </footer>

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+
 import {
   faPhone,
   faEnvelope,
   faLocationDot,
   faClock,
-  faPaperPlane,
+  // faPaperPlane,
   faArrowRight,
   faCircleQuestion,
   faCheck,
@@ -305,7 +307,7 @@ export default function Contact() {
                 disabled={sending}
                 aria-busy={sending}
               >
-                <FontAwesomeIcon icon={faPaperPlane} />{" "}
+                <FontAwesomeIcon icon={faWhatsapp} />{" "}
                 {sending ? "Sending…" : "Send message"}
               </button>
               <span className="cv4-note">
