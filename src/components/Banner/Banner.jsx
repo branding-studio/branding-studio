@@ -19,7 +19,7 @@ const Banner = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.25, duration: 0.6 }}
       >
-        <span className="banner-tag">Next-Level Marketing</span>
+        <span className="banner-tag">Results-Driven Digital Marketing</span>
 
         <h2>
           Unlock <span>Scalable Growth</span> for Your Business

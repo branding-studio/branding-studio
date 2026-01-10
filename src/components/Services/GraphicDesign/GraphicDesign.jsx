@@ -1,36 +1,127 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  FaPenNib, FaLayerGroup, FaPalette, FaVectorSquare, FaImage, FaDesktop,
-  FaBookOpen, FaBezierCurve, FaCheckCircle, FaTelegramPlane, FaAngleRight,
-  FaLightbulb, FaShapes
+  FaPenNib,
+  FaLayerGroup,
+  FaPalette,
+  FaVectorSquare,
+  FaImage,
+  FaDesktop,
+  FaBookOpen,
+  FaBezierCurve,
+  FaCheckCircle,
+  FaTelegramPlane,
+  FaAngleRight,
+  FaLightbulb,
+  FaShapes,
+  FaWhatsapp, // ✅ Added FaWhatsapp
 } from "react-icons/fa";
 import "./GraphicDesign.css";
 import { useLocalContext } from "../../../context/LocalContext";
 
 const GraphicDesign = () => {
   const navigate = useNavigate();
-  const { openTelegram, getTelegramUrl } = useLocalContext();
+  // ✅ Switch to WhatsApp helpers
+  const { openWhatsApp, getWhatsAppUrl } = useLocalContext();
 
   /** ===== Services ===== */
   const services = [
-    { icon: <FaPenNib/>, title: "Brand Identity", copy: "More than just a logo. We build cohesive visual systems: typography, color palettes, and voice guides.", bullets: ["Logo design", "Brand guidelines", "Visual strategy"] },
-    { icon: <FaDesktop/>, title: "UI/UX Design", copy: "User-centric interfaces for web and mobile. We design clean, accessible, and high-converting experiences.", bullets: ["Wireframing", "High-fidelity UI", "Interactive prototypes"] },
-    { icon: <FaLayerGroup/>, title: "Social Media Kits", copy: "Stop the scroll with consistent, on-brand creatives for Instagram, LinkedIn, and Twitter.", bullets: ["Post templates", "Story assets", "Carousel design"] },
-    { icon: <FaBookOpen/>, title: "Marketing Print", copy: "Tangible assets that leave a mark. Brochures, flyers, and business cards ready for high-quality print.", bullets: ["Brochures & Flyers", "Packaging design", "Event signage"] },
-    { icon: <FaVectorSquare/>, title: "Vector Illustration", copy: "Custom iconography and illustrations to replace generic stock photos and own your unique look.", bullets: ["Icon sets", "Character design", "Isometrics"] },
-    { icon: <FaImage/>, title: "Photo Manipulation", copy: "High-end retouching, composites, and product mockups that make your inventory look professional.", bullets: ["Product editing", "Compositing", "Color correction"] },
-    { icon: <FaBezierCurve/>, title: "Presentation Design", copy: "Pitch decks and sales presentations that keep audiences engaged and communicate value clearly.", bullets: ["Pitch decks", "Data visualization", "Template systems"] },
-    { icon: <FaShapes/>, title: "Packaging Design", copy: "Shelf-popping structural design and labeling that communicates quality and complies with regulations.", bullets: ["Label design", "Box die-cuts", "3D Mockups"] },
+    {
+      icon: <FaPenNib />,
+      title: "Brand Identity",
+      copy: "More than just a logo. We build cohesive visual systems: typography, color palettes, and voice guides.",
+      bullets: ["Logo design", "Brand guidelines", "Visual strategy"],
+    },
+    {
+      icon: <FaDesktop />,
+      title: "UI/UX Design",
+      copy: "User-centric interfaces for web and mobile. We design clean, accessible, and high-converting experiences.",
+      bullets: ["Wireframing", "High-fidelity UI", "Interactive prototypes"],
+    },
+    {
+      icon: <FaLayerGroup />,
+      title: "Social Media Kits",
+      copy: "Stop the scroll with consistent, on-brand creatives for Instagram, LinkedIn, and Twitter.",
+      bullets: ["Post templates", "Story assets", "Carousel design"],
+    },
+    {
+      icon: <FaBookOpen />,
+      title: "Marketing Print",
+      copy: "Tangible assets that leave a mark. Brochures, flyers, and business cards ready for high-quality print.",
+      bullets: ["Brochures & Flyers", "Packaging design", "Event signage"],
+    },
+    {
+      icon: <FaVectorSquare />,
+      title: "Vector Illustration",
+      copy: "Custom iconography and illustrations to replace generic stock photos and own your unique look.",
+      bullets: ["Icon sets", "Character design", "Isometrics"],
+    },
+    {
+      icon: <FaImage />,
+      title: "Photo Manipulation",
+      copy: "High-end retouching, composites, and product mockups that make your inventory look professional.",
+      bullets: ["Product editing", "Compositing", "Color correction"],
+    },
+    {
+      icon: <FaBezierCurve />,
+      title: "Presentation Design",
+      copy: "Pitch decks and sales presentations that keep audiences engaged and communicate value clearly.",
+      bullets: ["Pitch decks", "Data visualization", "Template systems"],
+    },
+    {
+      icon: <FaShapes />,
+      title: "Packaging Design",
+      copy: "Shelf-popping structural design and labeling that communicates quality and complies with regulations.",
+      bullets: ["Label design", "Box die-cuts", "3D Mockups"],
+    },
   ];
 
   /** ===== Program scope (Adapted from SEO scope) ===== */
   const scope = [
-    { title: "Brand Strategy", bullets: ["Market research", "Competitor visual audit", "Moodboarding", "Tone of voice"] },
-    { title: "Digital Assets", bullets: ["Social media templates", "Email newsletter design", "Web banners/ads", "App icons"] },
-    { title: "Print Collateral", bullets: ["Stationery (Cards, Letterheads)", "Merchandise", "Large format (Billboards)", "Packaging"] },
-    { title: "User Interface", bullets: ["Design systems", "Component libraries", "Responsive layouts", "Accessibility checks"] },
-    { title: "Maintenance", bullets: ["Asset management", "Template updates", "Regular creative refreshes"] },
+    {
+      title: "Brand Strategy",
+      bullets: [
+        "Market research",
+        "Competitor visual audit",
+        "Moodboarding",
+        "Tone of voice",
+      ],
+    },
+    {
+      title: "Digital Assets",
+      bullets: [
+        "Social media templates",
+        "Email newsletter design",
+        "Web banners/ads",
+        "App icons",
+      ],
+    },
+    {
+      title: "Print Collateral",
+      bullets: [
+        "Stationery (Cards, Letterheads)",
+        "Merchandise",
+        "Large format (Billboards)",
+        "Packaging",
+      ],
+    },
+    {
+      title: "User Interface",
+      bullets: [
+        "Design systems",
+        "Component libraries",
+        "Responsive layouts",
+        "Accessibility checks",
+      ],
+    },
+    {
+      title: "Maintenance",
+      bullets: [
+        "Asset management",
+        "Template updates",
+        "Regular creative refreshes",
+      ],
+    },
   ];
 
   /** ===== Tiers (Adapted from Influencer tiers) ===== */
@@ -40,14 +131,29 @@ const GraphicDesign = () => {
     { tier: "Enterprise", desc: "Comprehensive design system & retainer" },
   ];
 
-  const stack = ["Adobe Photoshop", "Adobe Illustrator", "Figma", "Adobe InDesign", "Canva (Client Handoff)", "After Effects", "Sketch", "Procreate"];
+  const stack = [
+    "Adobe Photoshop",
+    "Adobe Illustrator",
+    "Figma",
+    "Adobe InDesign",
+    "Canva (Client Handoff)",
+    "After Effects",
+    "Sketch",
+    "Procreate",
+  ];
 
   const steps = [
-    { t: "Brief", d: "Understanding your audience, goals, and aesthetic preferences." },
+    {
+      t: "Brief",
+      d: "Understanding your audience, goals, and aesthetic preferences.",
+    },
     { t: "Research", d: "Competitor analysis and visual moodboarding." },
     { t: "Concept", d: "Drafting initial sketches and exploring directions." },
     { t: "Iterate", d: "Refining the chosen concept based on your feedback." },
-    { t: "Polish", d: "Final detailing, color proofing, and accessibility checks." },
+    {
+      t: "Polish",
+      d: "Final detailing, color proofing, and accessibility checks.",
+    },
     { t: "Handoff", d: "Delivery of all source files and exported assets." },
   ];
 
@@ -61,12 +167,29 @@ const GraphicDesign = () => {
     "Mockups for usage context",
   ];
 
-  const metrics = ["Brand Consistency", "Click-Through Rate (Ads)", "Engagement Lift", "Visual Recall", "Conversion Rate (UI)", "Print Quality Accuracy"];
+  const metrics = [
+    "Brand Consistency",
+    "Click-Through Rate (Ads)",
+    "Engagement Lift",
+    "Visual Recall",
+    "Conversion Rate (UI)",
+    "Print Quality Accuracy",
+  ];
 
   /* ===== Sticky rail / scroll-spy ===== */
-  const ids = useMemo(() => [
-    "services", "scope", "tiers", "process", "stack", "deliverables", "metrics", "cta"
-  ], []);
+  const ids = useMemo(
+    () => [
+      "services",
+      "scope",
+      "tiers",
+      "process",
+      "stack",
+      "deliverables",
+      "metrics",
+      "cta",
+    ],
+    []
+  );
 
   const labels = {
     services: "Services",
@@ -76,17 +199,21 @@ const GraphicDesign = () => {
     stack: "Toolkit",
     deliverables: "Deliverables",
     metrics: "Impact",
-    cta: "Start"
+    cta: "Start",
   };
 
   const [active, setActive] = useState(ids[0]);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      (entries) =>
+        entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
       { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 }
     );
-    ids.forEach((id) => { const el = document.getElementById(id); if (el) obs.observe(el); });
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
     return () => obs.disconnect();
   }, [ids]);
 
@@ -99,8 +226,13 @@ const GraphicDesign = () => {
     }
   };
 
-  // Centralized Telegram URL
-  const telegramHref = getTelegramUrl?.({ preferApp: false }) || "https://t.me/";
+  // ✅ Generate WhatsApp URL safely
+  const whatsappHref = getWhatsAppUrl
+    ? getWhatsAppUrl({
+        message: "Hi! I am interested in Graphic Design services.",
+        preferApp: false,
+      })
+    : "#";
 
   return (
     <main className="design_services">
@@ -127,19 +259,24 @@ const GraphicDesign = () => {
           ))}
         </ul>
         <div className="ppc2-ctaRail">
+          {/* ✅ UPDATED: Talk on WhatsApp Button */}
           <a
             className="ppc2-btn ppctg"
-            href={telegramHref}
+            href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => {
-              e.preventDefault();
-              openTelegram?.();
+              if (openWhatsApp) {
+                e.preventDefault();
+                openWhatsApp({
+                  message: "Hi! I am interested in Graphic Design services.",
+                });
+              }
             }}
-            aria-label="Connect on Telegram"
+            aria-label="Connect on WhatsApp"
           >
-            <FaTelegramPlane />
-            <span>Talk on Telegram</span>
+            <FaWhatsapp />
+            <span>Talk on WhatsApp</span>
           </a>
         </div>
       </aside>
@@ -149,11 +286,20 @@ const GraphicDesign = () => {
         {/* HERO */}
         <header className="design__hero">
           <span className="design__eyebrow">Creative & Visual Strategy</span>
-          <h1>Design that speaks. <br/>Identity that sells.</h1>
-          <p>From pixel-perfect UI to print-ready packaging. We craft visual systems that elevate your brand authority and drive engagement.</p>
+          <h1>
+            Design that speaks. <br />
+            Identity that sells.
+          </h1>
+          <p>
+            From pixel-perfect UI to print-ready packaging. We craft visual
+            systems that elevate your brand authority and drive engagement.
+          </p>
 
           <div className="design__hero-cta">
-            <button className="btn btn--primary" onClick={() => navigate("/contact")}>
+            <button
+              className="btn btn--primary"
+              onClick={() => navigate("/contact")}
+            >
               Start a Project <FaAngleRight />
             </button>
           </div>
@@ -169,7 +315,11 @@ const GraphicDesign = () => {
               </div>
               <p className="design__copy">{s.copy}</p>
               <ul className="design__list">
-                {s.bullets.map((b) => <li key={b}><FaCheckCircle/> {b}</li>)}
+                {s.bullets.map((b) => (
+                  <li key={b}>
+                    <FaCheckCircle /> {b}
+                  </li>
+                ))}
               </ul>
             </article>
           ))}
@@ -179,7 +329,10 @@ const GraphicDesign = () => {
         <section id="scope" className="design__scope">
           <div className="design__head">
             <h3>Design Capabilities</h3>
-            <p>A full-spectrum studio handling everything from initial concept to final production.</p>
+            <p>
+              A full-spectrum studio handling everything from initial concept to
+              final production.
+            </p>
           </div>
           <div className="scope__grid">
             {scope.map((g) => (
@@ -187,7 +340,9 @@ const GraphicDesign = () => {
                 <h4>{g.title}</h4>
                 <ul>
                   {g.bullets.map((b) => (
-                    <li key={b}><FaCheckCircle/> <span>{b}</span></li>
+                    <li key={b}>
+                      <FaCheckCircle /> <span>{b}</span>
+                    </li>
                   ))}
                 </ul>
               </article>
@@ -199,7 +354,10 @@ const GraphicDesign = () => {
         <section id="tiers" className="design__influencer">
           <div className="design__head">
             <h3>Engagement Models</h3>
-            <p>Flexible options suited for startups, scale-ups, and enterprise needs.</p>
+            <p>
+              Flexible options suited for startups, scale-ups, and enterprise
+              needs.
+            </p>
           </div>
           <div className="infl__grid">
             {tiers.map((t) => (
@@ -234,10 +392,16 @@ const GraphicDesign = () => {
         <section id="stack" className="design__stack">
           <div className="design__head">
             <h3>Industry Standard Tools</h3>
-            <p>We use the best tools to ensure compatibility and scalability.</p>
+            <p>
+              We use the best tools to ensure compatibility and scalability.
+            </p>
           </div>
           <ul className="design__chips">
-            {stack.map((x) => <li className="design__chip" key={x}>{x}</li>)}
+            {stack.map((x) => (
+              <li className="design__chip" key={x}>
+                {x}
+              </li>
+            ))}
           </ul>
         </section>
 
@@ -248,10 +412,17 @@ const GraphicDesign = () => {
             <p>organized, editable, and ready-to-use assets.</p>
           </div>
           <ul className="design__list design__list--cards">
-            {deliverables.map((d) => <li key={d}><FaCheckCircle/> {d}</li>)}
+            {deliverables.map((d) => (
+              <li key={d}>
+                <FaCheckCircle /> {d}
+              </li>
+            ))}
           </ul>
           <div className="design__deliver-cta">
-            <button className="btn btn--primary" onClick={() => navigate("/contact")}>
+            <button
+              className="btn btn--primary"
+              onClick={() => navigate("/contact")}
+            >
               View File Standards <FaAngleRight />
             </button>
           </div>
@@ -264,7 +435,11 @@ const GraphicDesign = () => {
             <p>Great design isn't just decoration; it drives metrics.</p>
           </div>
           <ul className="design__chips">
-            {metrics.map((k) => <li key={k} className="design__chip">{k}</li>)}
+            {metrics.map((k) => (
+              <li key={k} className="design__chip">
+                {k}
+              </li>
+            ))}
           </ul>
         </section>
 
@@ -273,9 +448,15 @@ const GraphicDesign = () => {
           <div className="design__cta-inner">
             <div className="design__cta-copy">
               <h3>Ready to upgrade your brand?</h3>
-              <p>Tell us your vision—we'll create the visuals that tell your story.</p>
+              <p>
+                Tell us your vision—we'll create the visuals that tell your
+                story.
+              </p>
             </div>
-            <button className="btn btn--primary" onClick={() => navigate("/contact")}>
+            <button
+              className="btn btn--primary"
+              onClick={() => navigate("/contact")}
+            >
               Contact Design Team <FaAngleRight />
             </button>
           </div>

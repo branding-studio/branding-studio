@@ -1,4 +1,3 @@
-// Contact.jsx — Light, pro split layout with sticky rail + accessible form (10px root sizing)
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -83,7 +82,10 @@ export default function Contact() {
         message: "",
         website: "",
       });
-      window?.dataLayer?.push({ event: "contact_submit", origin: "contact-v4" });
+      window?.dataLayer?.push({
+        event: "contact_submit",
+        origin: "contact-v4",
+      });
     } catch (err) {
       console.error(err);
       toast.error("Something went wrong. Please try again.");
@@ -103,7 +105,9 @@ export default function Contact() {
         >
           <FontAwesomeIcon icon={faCircleQuestion} />
           <span>{q}</span>
-          <span className="cv4-faq-caret" aria-hidden="true">▾</span>
+          <span className="cv4-faq-caret" aria-hidden="true">
+            ▾
+          </span>
         </button>
         <div className="cv4-faq-a">
           <p>{a}</p>
@@ -120,8 +124,8 @@ export default function Contact() {
           <span className="cv4-pill">Let’s work together</span>
           <h1>Tell us what you’re building</h1>
           <p className="cv4-lead">
-            Share a quick brief and we’ll respond with scope options, timelines, and the
-            next right step—no fluff, just practical guidance.
+            Share a quick brief and we’ll respond with scope options, timelines,
+            and the next right step—no fluff, just practical guidance.
           </p>
           <ul className="cv4-points" role="list">
             <li>
@@ -304,7 +308,9 @@ export default function Contact() {
                 <FontAwesomeIcon icon={faPaperPlane} />{" "}
                 {sending ? "Sending…" : "Send message"}
               </button>
-              <span className="cv4-note">We usually reply within one business day.</span>
+              <span className="cv4-note">
+                We usually reply within one business day.
+              </span>
             </div>
           </form>
 
@@ -329,11 +335,12 @@ export default function Contact() {
           </div>
         </motion.section>
 
-        {/* STICKY RAIL */}
+        {/* STICKY RAIL (SIDEBAR) */}
         <motion.aside className="cv4-card cv4-rail" {...fx(0.16)}>
+          
           <div className="cv4-rail-group">
             <h4>
-              <FontAwesomeIcon icon={faPhone} /> Contact
+              <FontAwesomeIcon icon={faPhone} /> Phone
             </h4>
             <a
               className="cv4-rail-link"
@@ -342,6 +349,13 @@ export default function Contact() {
             >
               {phone || "—"}
             </a>
+          </div>
+
+          {/* ✅ 2. Separate Email */}
+          <div className="cv4-rail-group">
+            <h4>
+              <FontAwesomeIcon icon={faEnvelope} /> Email
+            </h4>
             <a
               className="cv4-rail-link"
               href={email ? `mailto:${email}` : "#"}
@@ -377,11 +391,11 @@ export default function Contact() {
         </motion.aside>
       </div>
 
-      {/* MAP (optional; easy to remove) */}
+      
       <motion.div className="cv4-map" {...fx(0.2)}>
         <iframe
-          title="Our location"
-          src={`https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1133.4349689740786!2d82.68855341570786!3d26.05460732842823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1755008614848!5m2!1sen!2sin`}
+          title="Branding Studio Location"
+          src="https://maps.google.com/maps?q=Indradhanu+Market+Nayapalli+Bhubaneswar&t=&z=13&ie=UTF8&iwloc=&output=embed"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           allowFullScreen

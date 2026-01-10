@@ -1,66 +1,157 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  FaHashtag, FaCalendarAlt, FaComments, FaChartLine, FaBullhorn, FaUsers,
-  FaPaintBrush, FaSearch, FaPlayCircle, FaImages, FaAngleRight, FaCheckCircle,
-  FaShieldAlt, FaTrophy, FaInstagram, FaFacebook, FaLinkedin, FaYoutube,
-  FaPinterestP, FaRedditAlien, FaTelegramPlane, FaTwitter
+  FaHashtag,
+  FaCalendarAlt,
+  FaComments,
+  FaChartLine,
+  FaBullhorn,
+  FaUsers,
+  FaPaintBrush,
+  FaSearch,
+  FaPlayCircle,
+  FaImages,
+  FaAngleRight,
+  FaCheckCircle,
+  FaShieldAlt,
+  FaTrophy,
+  FaInstagram,
+  FaFacebook,
+  FaLinkedin,
+  FaYoutube,
+  FaPinterestP,
+  FaRedditAlien,
+  FaTelegramPlane,
+  FaTwitter,
+  FaWhatsapp, // ✅ Added FaWhatsapp
 } from "react-icons/fa";
 import "./Smo.css";
 import { useLocalContext } from "../../../context/LocalContext";
 
 const Smo = () => {
   const navigate = useNavigate();
-  const { openTelegram, getTelegramUrl } = useLocalContext();
+  // ✅ Switch to WhatsApp helpers
+  const { openWhatsApp, getWhatsAppUrl } = useLocalContext();
 
   /* ===== Core services ===== */
   const services = [
-    { icon: <FaTrophy />, title: "Strategy & Playbooks", copy: "Positioning, tone, and content pillars mapped to goals—brand-safe and scalable.", bullets: ["Audience & competitors", "Pillars & themes", "Voice & guardrails"] },
-    { icon: <FaPaintBrush />, title: "Content & Creatives", copy: "Reels, carousels, banners, and shorts—native-first design for each platform.", bullets: ["Templates & kits", "Hook-first copy", "CTA overlays"] },
-    { icon: <FaHashtag />, title: "Social SEO & Hashtags", copy: "Search-friendly captions, tags, and structure for discoverability.", bullets: ["Keyword mapping", "Hashtag clusters", "Alt text & naming"] },
-    { icon: <FaCalendarAlt />, title: "Calendar & Publishing", copy: "Consistent, automated posting with campaign themes and launch windows.", bullets: ["Monthly calendar", "Best-time scheduling", "UTM hygiene"] },
-    { icon: <FaComments />, title: "Community & Moderation", copy: "Faster replies and safer comments with macros and escalation rules.", bullets: ["Response macros", "Crisis playbook", "Spam filtering"] },
-    { icon: <FaUsers />, title: "Influencers & UGC", copy: "Creator collabs and rights-ready UGC to boost credibility and reach.", bullets: ["Creator shortlist", "Briefs & approvals", "Usage rights"] },
-    { icon: <FaShieldAlt />, title: "Reputation & Reviews", copy: "Proactive review asks and on-brand responses across listings.", bullets: ["Listing setup", "Review funnels", "Policy-safe replies"] },
-    { icon: <FaSearch />, title: "Listening & Trends", copy: "Track mentions, share-of-voice, and trends to join the right conversations.", bullets: ["Keyword alerts", "Competitor SOV", "Trend picks"] },
-    { icon: <FaChartLine />, title: "Analytics & Reporting", copy: "Clarity on what works—growth, reach, saves, clicks, and assisted conversions.", bullets: ["Looker dashboards", "Post cohort views", "Monthly insights"] },
-    { icon: <FaBullhorn />, title: "Paid Assist (Boosts)", copy: "Light paid support for winners—only boosts and whitelisting (no pricing here).", bullets: ["Top-post boosts", "Spark/whitelist", "Creative variants"] },
+    {
+      icon: <FaTrophy />,
+      title: "Strategy & Playbooks",
+      copy: "Positioning, tone, and content pillars mapped to goals—brand-safe and scalable.",
+      bullets: ["Audience & competitors", "Pillars & themes", "Voice & guardrails"],
+    },
+    {
+      icon: <FaPaintBrush />,
+      title: "Content & Creatives",
+      copy: "Reels, carousels, banners, and shorts—native-first design for each platform.",
+      bullets: ["Templates & kits", "Hook-first copy", "CTA overlays"],
+    },
+    {
+      icon: <FaHashtag />,
+      title: "Social SEO & Hashtags",
+      copy: "Search-friendly captions, tags, and structure for discoverability.",
+      bullets: ["Keyword mapping", "Hashtag clusters", "Alt text & naming"],
+    },
+    {
+      icon: <FaCalendarAlt />,
+      title: "Calendar & Publishing",
+      copy: "Consistent, automated posting with campaign themes and launch windows.",
+      bullets: ["Monthly calendar", "Best-time scheduling", "UTM hygiene"],
+    },
+    {
+      icon: <FaComments />,
+      title: "Community & Moderation",
+      copy: "Faster replies and safer comments with macros and escalation rules.",
+      bullets: ["Response macros", "Crisis playbook", "Spam filtering"],
+    },
+    {
+      icon: <FaUsers />,
+      title: "Influencers & UGC",
+      copy: "Creator collabs and rights-ready UGC to boost credibility and reach.",
+      bullets: ["Creator shortlist", "Briefs & approvals", "Usage rights"],
+    },
+    {
+      icon: <FaShieldAlt />,
+      title: "Reputation & Reviews",
+      copy: "Proactive review asks and on-brand responses across listings.",
+      bullets: ["Listing setup", "Review funnels", "Policy-safe replies"],
+    },
+    {
+      icon: <FaSearch />,
+      title: "Listening & Trends",
+      copy: "Track mentions, share-of-voice, and trends to join the right conversations.",
+      bullets: ["Keyword alerts", "Competitor SOV", "Trend picks"],
+    },
+    {
+      icon: <FaChartLine />,
+      title: "Analytics & Reporting",
+      copy: "Clarity on what works—growth, reach, saves, clicks, and assisted conversions.",
+      bullets: ["Looker dashboards", "Post cohort views", "Monthly insights"],
+    },
+    {
+      icon: <FaBullhorn />,
+      title: "Paid Assist (Boosts)",
+      copy: "Light paid support for winners—only boosts and whitelisting (no pricing here).",
+      bullets: ["Top-post boosts", "Spark/whitelist", "Creative variants"],
+    },
   ];
 
   /* ===== Platform packages (from image) ===== */
   const packages = [
     {
-      icon: <FaInstagram />, name: "Instagram Marketing",
+      icon: <FaInstagram />,
+      name: "Instagram Marketing",
       badges: ["45 Posts", "10 Reels", "Daily Stories"],
       bullets: [
-        "Festival posts or reels", "Create highlights", "Comments pinning",
-        "Messages reply", "Regular profile optimization", "Instagram account analytics"
-      ]
+        "Festival posts or reels",
+        "Create highlights",
+        "Comments pinning",
+        "Messages reply",
+        "Regular profile optimization",
+        "Instagram account analytics",
+      ],
     },
     {
-      icon: <FaFacebook />, name: "Facebook Marketing",
+      icon: <FaFacebook />,
+      name: "Facebook Marketing",
       badges: ["45 Posts", "10 Reels", "Daily Stories"],
       bullets: [
-        "Festival posts or reels", "Create highlights", "Comments pinning",
-        "Messages reply", "Facebook groups interaction", "Regular profile optimization", "Facebook account analytics"
-      ]
+        "Festival posts or reels",
+        "Create highlights",
+        "Comments pinning",
+        "Messages reply",
+        "Facebook groups interaction",
+        "Regular profile optimization",
+        "Facebook account analytics",
+      ],
     },
     {
-      icon: <FaLinkedin />, name: "LinkedIn Marketing",
+      icon: <FaLinkedin />,
+      name: "LinkedIn Marketing",
       badges: ["Informative & tech posts", "Blog publishing"],
       bullets: [
-        "Festival posts or reels", "Create highlights", "Daily connections",
-        "Comments pinning", "Messages reply", "Groups interaction",
-        "Regular profile optimization", "LinkedIn account analytics"
-      ]
+        "Festival posts or reels",
+        "Create highlights",
+        "Daily connections",
+        "Comments pinning",
+        "Messages reply",
+        "Groups interaction",
+        "Regular profile optimization",
+        "LinkedIn account analytics",
+      ],
     },
     {
-      icon: <FaYoutube />, name: "YouTube Marketing",
+      icon: <FaYoutube />,
+      name: "YouTube Marketing",
       badges: ["YouTube Shorts"],
       bullets: [
-        "Channel hygiene basics", "Title/thumbnail templates", "Comment moderation",
-        "Playlists & end screens", "Monthly analytics snapshot"
-      ]
+        "Channel hygiene basics",
+        "Title/thumbnail templates",
+        "Comment moderation",
+        "Playlists & end screens",
+        "Monthly analytics snapshot",
+      ],
     },
   ];
 
@@ -122,16 +213,42 @@ const Smo = () => {
   ];
 
   const policies = [
-    { title: "Brand Safety", copy: "Guardrails for tone, topics, and visuals across platforms." },
-    { title: "Moderation Rules", copy: "Macros, triage lanes, and escalation paths for risky comments." },
-    { title: "Creator Rights", copy: "Usage rights, whitelisting terms, and disclosures for UGC/influencers." },
-    { title: "Crisis Playbook", copy: "Clear owners, response timelines, and approval flow." },
-    { title: "Compliance", copy: "Platform policies and ad disclosures (where applicable)." },
+    {
+      title: "Brand Safety",
+      copy: "Guardrails for tone, topics, and visuals across platforms.",
+    },
+    {
+      title: "Moderation Rules",
+      copy: "Macros, triage lanes, and escalation paths for risky comments.",
+    },
+    {
+      title: "Creator Rights",
+      copy: "Usage rights, whitelisting terms, and disclosures for UGC/influencers.",
+    },
+    {
+      title: "Crisis Playbook",
+      copy: "Clear owners, response timelines, and approval flow.",
+    },
+    {
+      title: "Compliance",
+      copy: "Platform policies and ad disclosures (where applicable).",
+    },
   ];
 
   /* ===== Sticky rail / scroll-spy ===== */
   const ids = useMemo(
-    () => ["services","packages","formats","process","stack","deliver","kpis","policies","ads","cta"],
+    () => [
+      "services",
+      "packages",
+      "formats",
+      "process",
+      "stack",
+      "deliver",
+      "kpis",
+      "policies",
+      "ads",
+      "cta",
+    ],
     []
   );
   const labels = {
@@ -150,10 +267,14 @@ const Smo = () => {
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      (entries) =>
+        entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
       { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 }
     );
-    ids.forEach((id) => { const el = document.getElementById(id); if (el) obs.observe(el); });
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
     return () => obs.disconnect();
   }, [ids]);
 
@@ -166,8 +287,13 @@ const Smo = () => {
     }
   };
 
-  // Centralized Telegram URL for right-click/copy; click uses openTelegram()
-  const telegramHref = getTelegramUrl?.({ preferApp: false }) || "https://t.me/";
+  // ✅ Generate WhatsApp URL safely
+  const whatsappHref = getWhatsAppUrl
+    ? getWhatsAppUrl({
+        message: "Hi! I am interested in SMO services.",
+        preferApp: false,
+      })
+    : "#";
 
   return (
     <main className="smo_services">
@@ -194,19 +320,22 @@ const Smo = () => {
           ))}
         </ul>
         <div className="ppc2-ctaRail">
+          {/* ✅ UPDATED: Talk on WhatsApp Button */}
           <a
             className="ppc2-btn ppctg"
-            href={telegramHref}
+            href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => {
               e.preventDefault();
-              openTelegram?.();
+              openWhatsApp?.({
+                message: "Hi! I am interested in SMO services.",
+              });
             }}
-            aria-label="Connect on Telegram"
+            aria-label="Connect on WhatsApp"
           >
-            <FaTelegramPlane />
-            <span>Talk on Telegram</span>
+            <FaWhatsapp />
+            <span>Talk on WhatsApp</span>
           </a>
         </div>
       </aside>
@@ -215,17 +344,32 @@ const Smo = () => {
       <div className="smo__main">
         {/* HERO */}
         <header className="smo__hero">
-          <span className="smo__eyebrow">Social Media Marketing & Optimization</span>
+          <span className="smo__eyebrow">
+            Social Media Marketing & Optimization
+          </span>
           <h1>Grow reach. Earn saves. Drive clicks.</h1>
-          <p>We plan, design, and publish native-first content that earns attention, builds community, and nudges action—without spammy tactics.</p>
+          <p>
+            We plan, design, and publish native-first content that earns
+            attention, builds community, and nudges action—without spammy
+            tactics.
+          </p>
 
           <div className="smo__badges">
-            <span><FaPlayCircle /> Reels/Shorts ready</span>
-            <span><FaHashtag /> Social SEO</span>
-            <span><FaChartLine /> Measurable KPIs</span>
+            <span>
+              <FaPlayCircle /> Reels/Shorts ready
+            </span>
+            <span>
+              <FaHashtag /> Social SEO
+            </span>
+            <span>
+              <FaChartLine /> Measurable KPIs
+            </span>
           </div>
 
-          <button className="btn btn--primary" onClick={() => navigate("/contact")}>
+          <button
+            className="btn btn--primary"
+            onClick={() => navigate("/contact")}
+          >
             Get SMO Plan <FaAngleRight />
           </button>
         </header>
@@ -240,7 +384,11 @@ const Smo = () => {
               </div>
               <p className="smo__copy">{s.copy}</p>
               <ul className="smo__list">
-                {s.bullets.map((b) => <li key={b}><FaCheckCircle /> {b}</li>)}
+                {s.bullets.map((b) => (
+                  <li key={b}>
+                    <FaCheckCircle /> {b}
+                  </li>
+                ))}
               </ul>
             </article>
           ))}
@@ -260,11 +408,15 @@ const Smo = () => {
                   <h4>{p.name}</h4>
                 </header>
                 <ul className="pkg__badges">
-                  {p.badges.map((b) => <li key={b}>{b}</li>)}
+                  {p.badges.map((b) => (
+                    <li key={b}>{b}</li>
+                  ))}
                 </ul>
                 <ul className="pkg__list">
                   {p.bullets.map((b) => (
-                    <li key={b}><FaCheckCircle /> <span>{b}</span></li>
+                    <li key={b}>
+                      <FaCheckCircle /> <span>{b}</span>
+                    </li>
                   ))}
                 </ul>
               </article>
@@ -280,12 +432,16 @@ const Smo = () => {
           </div>
           <ul className="smo__chips">
             {formats.map((f) => (
-              <li className="smo__chip" key={f.t}><i>{f.i}</i> {f.t}</li>
+              <li className="smo__chip" key={f.t}>
+                <i>{f.i}</i> {f.t}
+              </li>
             ))}
           </ul>
           <ul className="smo__chips smo__chips--platforms">
             {platforms.map((p) => (
-              <li className="smo__chip" key={p.t}><i>{p.i}</i> {p.t}</li>
+              <li className="smo__chip" key={p.t}>
+                <i>{p.i}</i> {p.t}
+              </li>
             ))}
           </ul>
         </section>
@@ -313,11 +469,21 @@ const Smo = () => {
         <section id="stack" className="smo__stack">
           <div className="smo__head">
             <h3>Tools & Collaboration</h3>
-            <p>We work in your stack—drive, figma, scheduler, and dashboards.</p>
+            <p>
+              We work in your stack—drive, figma, scheduler, and dashboards.
+            </p>
           </div>
           <ul className="smo__chips">
-            {["Figma templates","Meta Business Suite","Hootsuite/Buffer","Looker/GA4","Sheets/Notion"].map((x) => (
-              <li className="smo__chip" key={x}>{x}</li>
+            {[
+              "Figma templates",
+              "Meta Business Suite",
+              "Hootsuite/Buffer",
+              "Looker/GA4",
+              "Sheets/Notion",
+            ].map((x) => (
+              <li className="smo__chip" key={x}>
+                {x}
+              </li>
             ))}
           </ul>
         </section>
@@ -329,10 +495,17 @@ const Smo = () => {
             <p>Tangible assets and routines that keep social humming.</p>
           </div>
           <ul className="smo__list smo__list--cards">
-            {deliverables.map((d) => <li key={d}><FaCheckCircle /> {d}</li>)}
+            {deliverables.map((d) => (
+              <li key={d}>
+                <FaCheckCircle /> {d}
+              </li>
+            ))}
           </ul>
           <div className="smo__deliver-cta">
-            <button className="btn btn--primary" onClick={() => navigate("/contact")}>
+            <button
+              className="btn btn--primary"
+              onClick={() => navigate("/contact")}
+            >
               See deliverables checklist <FaAngleRight />
             </button>
           </div>
@@ -345,7 +518,11 @@ const Smo = () => {
             <p>We measure impact, not vanity alone.</p>
           </div>
           <ul className="smo__chips">
-            {kpis.map((k) => <li key={k} className="smo__chip">{k}</li>)}
+            {kpis.map((k) => (
+              <li key={k} className="smo__chip">
+                {k}
+              </li>
+            ))}
           </ul>
         </section>
 
@@ -358,7 +535,9 @@ const Smo = () => {
           <div className="smo__policy-cards">
             {policies.map((p) => (
               <article className="smo__policy" key={p.title}>
-                <div className="smo__policy-icon"><FaShieldAlt /></div>
+                <div className="smo__policy-icon">
+                  <FaShieldAlt />
+                </div>
                 <div>
                   <h4>{p.title}</h4>
                   <p>{p.copy}</p>
@@ -375,7 +554,11 @@ const Smo = () => {
             <p>When organic winners deserve a push.</p>
           </div>
           <ul className="smo__list smo__ads-list">
-            {paidAds.map((x) => <li key={x}><FaCheckCircle /> {x}</li>)}
+            {paidAds.map((x) => (
+              <li key={x}>
+                <FaCheckCircle /> {x}
+              </li>
+            ))}
           </ul>
         </section>
 
@@ -384,9 +567,14 @@ const Smo = () => {
           <div className="smo__cta-inner">
             <div className="smo__cta-copy">
               <h3>Ready to level up your social?</h3>
-              <p>Tell us your goals—get a clear calendar and creative kit.</p>
+              <p>
+                Tell us your goals—get a clear calendar and creative kit.
+              </p>
             </div>
-            <button className="btn btn--primary" onClick={() => navigate("/contact")}>
+            <button
+              className="btn btn--primary"
+              onClick={() => navigate("/contact")}
+            >
               Talk to SMO Team <FaAngleRight />
             </button>
           </div>

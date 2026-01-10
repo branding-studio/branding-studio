@@ -2,10 +2,31 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  FaBolt, FaCheckCircle, FaMobileAlt, FaSearch, FaRocket, FaShieldAlt, FaTachometerAlt,
-  FaFigma, FaReact, FaWordpress, FaServer, FaPaintBrush,
-  FaDatabase, FaCloud, FaLock, FaProjectDiagram, FaSyncAlt, FaCogs, FaRobot, FaBug,
-  FaFilePdf, FaTerminal, FaAngleRight, FaTelegramPlane
+  FaBolt,
+  FaCheckCircle,
+  FaMobileAlt,
+  FaSearch,
+  FaRocket,
+  FaShieldAlt,
+  FaTachometerAlt,
+  FaFigma,
+  FaReact,
+  FaWordpress,
+  FaServer,
+  FaPaintBrush,
+  FaDatabase,
+  FaCloud,
+  FaLock,
+  FaProjectDiagram,
+  FaSyncAlt,
+  FaCogs,
+  FaRobot,
+  FaBug,
+  FaFilePdf,
+  FaTerminal,
+  FaAngleRight,
+  FaTelegramPlane,
+  FaWhatsapp, // ✅ Added FaWhatsapp
 } from "react-icons/fa";
 import "./Webdev.css";
 import { useLocalContext } from "../../../context/LocalContext";
@@ -13,15 +34,35 @@ import { useLocalContext } from "../../../context/LocalContext";
 /* Anim */
 const fadeUp = (i = 0, d = 0.55) => ({
   hidden: { opacity: 0, y: 26 },
-  visible: { opacity: 1, y: 0, transition: { duration: d, delay: i * 0.08, ease: [0.25, 0.8, 0.25, 1] } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: d, delay: i * 0.08, ease: [0.25, 0.8, 0.25, 1] },
+  },
 });
 
 /* Content */
 const process = [
-  { icon: <FaFigma />, title: "UX & Wireframes", copy: "User flows, low-fi wireframes, and a flexible component grid that maps to your goals." },
-  { icon: <FaPaintBrush />, title: "Visual Design", copy: "Brand-aligned UI, motion micro-interactions, and a modular design system." },
-  { icon: <FaReact />, title: "Build & Integrate", copy: "React/Next.js or WordPress build, with APIs, CMS, forms, and analytics wired in." },
-  { icon: <FaTachometerAlt />, title: "Optimize & Ship", copy: "Core Web Vitals, SEO, accessibility, security hardening, then launch + monitor." },
+  {
+    icon: <FaFigma />,
+    title: "UX & Wireframes",
+    copy: "User flows, low-fi wireframes, and a flexible component grid that maps to your goals.",
+  },
+  {
+    icon: <FaPaintBrush />,
+    title: "Visual Design",
+    copy: "Brand-aligned UI, motion micro-interactions, and a modular design system.",
+  },
+  {
+    icon: <FaReact />,
+    title: "Build & Integrate",
+    copy: "React/Next.js or WordPress build, with APIs, CMS, forms, and analytics wired in.",
+  },
+  {
+    icon: <FaTachometerAlt />,
+    title: "Optimize & Ship",
+    copy: "Core Web Vitals, SEO, accessibility, security hardening, then launch + monitor.",
+  },
 ];
 
 const stack = [
@@ -34,30 +75,110 @@ const stack = [
 ];
 
 const outcomes = [
-  { icon: <FaBolt />, title: "Lightning-Fast", copy: "Sub-2.5s LCP, snappy interactions, and optimized assets." },
-  { icon: <FaMobileAlt />, title: "Mobile-First", copy: "Designed for thumbs, tested on real devices, built to scale." },
-  { icon: <FaSearch />, title: "SEO-Ready", copy: "Semantic HTML, schema, redirects, XML sitemap, and clean URLs." },
-  { icon: <FaRocket />, title: "Conversion-First", copy: "Clear offers, frictionless forms, social proof, and CRO patterns." },
-  { icon: <FaShieldAlt />, title: "Secure by Default", copy: "Hardened stack, headers, reCAPTCHA, and vulnerability checks." },
-  { icon: <FaCheckCircle />, title: "Easy to Manage", copy: "Reusable sections, CMS handoff, and docs your team will use." },
+  {
+    icon: <FaBolt />,
+    title: "Lightning-Fast",
+    copy: "Sub-2.5s LCP, snappy interactions, and optimized assets.",
+  },
+  {
+    icon: <FaMobileAlt />,
+    title: "Mobile-First",
+    copy: "Designed for thumbs, tested on real devices, built to scale.",
+  },
+  {
+    icon: <FaSearch />,
+    title: "SEO-Ready",
+    copy: "Semantic HTML, schema, redirects, XML sitemap, and clean URLs.",
+  },
+  {
+    icon: <FaRocket />,
+    title: "Conversion-First",
+    copy: "Clear offers, frictionless forms, social proof, and CRO patterns.",
+  },
+  {
+    icon: <FaShieldAlt />,
+    title: "Secure by Default",
+    copy: "Hardened stack, headers, reCAPTCHA, and vulnerability checks.",
+  },
+  {
+    icon: <FaCheckCircle />,
+    title: "Easy to Manage",
+    copy: "Reusable sections, CMS handoff, and docs your team will use.",
+  },
 ];
 
 const backend = [
-  { icon: <FaServer />, title: "API Layer", bullets: ["Node.js (Express/Nest)", "REST / GraphQL / tRPC", "Versioning & rate limits"] },
-  { icon: <FaDatabase />, title: "Data & ORM", bullets: ["Postgres / MySQL / Mongo", "Prisma / TypeORM", "Migrations & backups"] },
-  { icon: <FaLock />, title: "Auth & Security", bullets: ["JWT / OAuth / SSO", "RBAC & audit logs", "OWASP hardening"] },
-  { icon: <FaSyncAlt />, title: "Queues & Realtime", bullets: ["Redis + BullMQ", "Webhooks / WebSockets", "CRON & workers"] },
-  { icon: <FaCloud />, title: "Infra & DevOps", bullets: ["Docker & CI/CD", "Vercel / AWS", "Observability & alerts"] },
-  { icon: <FaProjectDiagram />, title: "Integrations", bullets: ["Stripe / PayPal", "SendGrid / Twilio", "CMS / CRM APIs"] },
+  {
+    icon: <FaServer />,
+    title: "API Layer",
+    bullets: [
+      "Node.js (Express/Nest)",
+      "REST / GraphQL / tRPC",
+      "Versioning & rate limits",
+    ],
+  },
+  {
+    icon: <FaDatabase />,
+    title: "Data & ORM",
+    bullets: [
+      "Postgres / MySQL / Mongo",
+      "Prisma / TypeORM",
+      "Migrations & backups",
+    ],
+  },
+  {
+    icon: <FaLock />,
+    title: "Auth & Security",
+    bullets: ["JWT / OAuth / SSO", "RBAC & audit logs", "OWASP hardening"],
+  },
+  {
+    icon: <FaSyncAlt />,
+    title: "Queues & Realtime",
+    bullets: ["Redis + BullMQ", "Webhooks / WebSockets", "CRON & workers"],
+  },
+  {
+    icon: <FaCloud />,
+    title: "Infra & DevOps",
+    bullets: ["Docker & CI/CD", "Vercel / AWS", "Observability & alerts"],
+  },
+  {
+    icon: <FaProjectDiagram />,
+    title: "Integrations",
+    bullets: ["Stripe / PayPal", "SendGrid / Twilio", "CMS / CRM APIs"],
+  },
 ];
 
 const puppeteerServices = [
-  { icon: <FaRobot />, title: "Visual QA", bullets: ["Screenshots across breakpoints", "DOM/state assertions"] },
-  { icon: <FaBug />, title: "Flow Tests", bullets: ["Signup & checkout", "Form validation & errors"] },
-  { icon: <FaFilePdf />, title: "PDF & Docs", bullets: ["HTML → PDF invoices", "Batch receipts & tickets"] },
-  { icon: <FaCogs />, title: "Ops Automation", bullets: ["CMS ops macros", "Bulk updates (with permissions)"] },
-  { icon: <FaTachometerAlt />, title: "Vitals Snapshots", bullets: ["INP/LCP capture", "Warm-cache checks"] },
-  { icon: <FaTerminal />, title: "CLI & Schedules", bullets: ["CRON jobs", "Serverless triggers"] },
+  {
+    icon: <FaRobot />,
+    title: "Visual QA",
+    bullets: ["Screenshots across breakpoints", "DOM/state assertions"],
+  },
+  {
+    icon: <FaBug />,
+    title: "Flow Tests",
+    bullets: ["Signup & checkout", "Form validation & errors"],
+  },
+  {
+    icon: <FaFilePdf />,
+    title: "PDF & Docs",
+    bullets: ["HTML → PDF invoices", "Batch receipts & tickets"],
+  },
+  {
+    icon: <FaCogs />,
+    title: "Ops Automation",
+    bullets: ["CMS ops macros", "Bulk updates (with permissions)"],
+  },
+  {
+    icon: <FaTachometerAlt />,
+    title: "Vitals Snapshots",
+    bullets: ["INP/LCP capture", "Warm-cache checks"],
+  },
+  {
+    icon: <FaTerminal />,
+    title: "CLI & Schedules",
+    bullets: ["CRON jobs", "Serverless triggers"],
+  },
 ];
 
 const puppeteerSnippet = `import puppeteer from 'puppeteer';
@@ -76,19 +197,43 @@ const puppeteerSnippet = `import puppeteer from 'puppeteer';
 
 export default function Webdev() {
   const navigate = useNavigate();
-  const { openTelegram, getTelegramUrl } = useLocalContext();
+  // ✅ Switch to WhatsApp helpers
+  const { openWhatsApp, getWhatsAppUrl } = useLocalContext();
 
   /* ===== Sticky rail + scroll spy ===== */
-  const ids = useMemo(() => ["hero","outcomes","process","stack","backend","automation","cta"], []);
-  const labels = { hero:"Intro", outcomes:"Outcomes", process:"Process", stack:"Tools", backend:"Backend", automation:"Automation", cta:"Start" };
+  const ids = useMemo(
+    () => [
+      "hero",
+      "outcomes",
+      "process",
+      "stack",
+      "backend",
+      "automation",
+      "cta",
+    ],
+    []
+  );
+  const labels = {
+    hero: "Intro",
+    outcomes: "Outcomes",
+    process: "Process",
+    stack: "Tools",
+    backend: "Backend",
+    automation: "Automation",
+    cta: "Start",
+  };
   const [active, setActive] = useState(ids[0]);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      (entries) =>
+        entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
       { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 }
     );
-    ids.forEach((id) => { const el = document.getElementById(id); if (el) obs.observe(el); });
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
     return () => obs.disconnect();
   }, [ids]);
 
@@ -101,8 +246,13 @@ export default function Webdev() {
     }
   };
 
-  // Centralized Telegram URL for right-click/copy (click uses openTelegram)
-  const telegramHref = getTelegramUrl?.({ preferApp: false }) || "https://t.me/";
+  // ✅ Generate WhatsApp URL safely
+  const whatsappHref = getWhatsAppUrl
+    ? getWhatsAppUrl({
+        message: "Hi! I am interested in Web Development services.",
+        preferApp: false,
+      })
+    : "#";
 
   return (
     <main className="webdev services-grid">
@@ -129,21 +279,25 @@ export default function Webdev() {
           ))}
         </ul>
 
-        {/* Telegram CTA using centralized helpers */}
+        {/* ✅ UPDATED: Talk on WhatsApp Button */}
         <div className="ppc2-ctaRail">
           <a
             className="ppc2-btn ppctg"
-            href={telegramHref}
+            href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => {
-              e.preventDefault();
-              openTelegram?.();
+              if (openWhatsApp) {
+                e.preventDefault();
+                openWhatsApp({
+                  message: "Hi! I am interested in Web Development services.",
+                });
+              }
             }}
-            aria-label="Connect on Telegram"
+            aria-label="Connect on WhatsApp"
           >
-            <FaTelegramPlane />
-            <span>Talk on Telegram</span>
+            <FaWhatsapp />
+            <span>Talk on WhatsApp</span>
           </a>
         </div>
       </aside>
@@ -160,16 +314,25 @@ export default function Webdev() {
             variants={fadeUp(0)}
           >
             <span className="wd-pill">Web Development</span>
-            <h1>Fast, Conversion-First <span>Websites &amp; Landing Pages</span></h1>
+            <h1>
+              Fast, Conversion-First <span>Websites &amp; Landing Pages</span>
+            </h1>
             <p>
-              We design and build modern websites that load fast, rank well, and convert—
-              powered by React/Next.js or WordPress, with clean APIs and Core Web Vitals tuning.
+              We design and build modern websites that load fast, rank well, and
+              convert— powered by React/Next.js or WordPress, with clean APIs
+              and Core Web Vitals tuning.
             </p>
             <div className="wd-cta-row">
-              <button className="btn btn--primary" onClick={() => navigate("/contact")}>
+              <button
+                className="btn btn--primary"
+                onClick={() => navigate("/contact")}
+              >
                 Get a Free Build Plan <FaAngleRight />
               </button>
-              <button className="btn btn--ghost" onClick={() => navigate("/our-strategies")}>
+              <button
+                className="btn btn--ghost"
+                onClick={() => navigate("/our-strategies")}
+              >
                 See How We Work
               </button>
             </div>
@@ -186,11 +349,21 @@ export default function Webdev() {
         <section id="outcomes" className="webdev__outcomes">
           <div className="wd-section-head">
             <h2>Built for performance, designed to convert</h2>
-            <p>Everything we ship is measurable, maintainable, and marketing-ready.</p>
+            <p>
+              Everything we ship is measurable, maintainable, and
+              marketing-ready.
+            </p>
           </div>
           <div className="wd-grid">
             {outcomes.map((o, i) => (
-              <motion.article key={o.title} className="wd-card" variants={fadeUp(i)} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.25 }}>
+              <motion.article
+                key={o.title}
+                className="wd-card"
+                variants={fadeUp(i)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.25 }}
+              >
                 <div className="wd-ico">{o.icon}</div>
                 <h3>{o.title}</h3>
                 <p>{o.copy}</p>
@@ -203,11 +376,20 @@ export default function Webdev() {
         <section id="process" className="webdev__process">
           <div className="wd-section-head">
             <h2>Our build process</h2>
-            <p>Transparent from kickoff to launch—so you always know what’s next.</p>
+            <p>
+              Transparent from kickoff to launch—so you always know what’s next.
+            </p>
           </div>
           <ol className="wd-steps">
             {process.map((s, i) => (
-              <motion.li key={s.title} className="wd-step" variants={fadeUp(i)} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.25 }}>
+              <motion.li
+                key={s.title}
+                className="wd-step"
+                variants={fadeUp(i)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.25 }}
+              >
                 <div className="wd-step-ico">{s.icon}</div>
                 <div className="wd-step-body">
                   <h4>{s.title}</h4>
@@ -237,16 +419,28 @@ export default function Webdev() {
         <section id="backend" className="webdev__backend">
           <div className="wd-section-head">
             <h2>Backend & Data</h2>
-            <p>Strong foundations—clean APIs, reliable data, secure auth, and production-ready infra.</p>
+            <p>
+              Strong foundations—clean APIs, reliable data, secure auth, and
+              production-ready infra.
+            </p>
           </div>
           <div className="bd-grid">
             {backend.map((b, i) => (
-              <motion.article key={b.title} className="bd-card" variants={fadeUp(i)} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.25 }}>
+              <motion.article
+                key={b.title}
+                className="bd-card"
+                variants={fadeUp(i)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.25 }}
+              >
                 <div className="bd-ico">{b.icon}</div>
                 <h3>{b.title}</h3>
                 <ul>
                   {b.bullets.map((x) => (
-                    <li key={x}><FaCheckCircle /> {x}</li>
+                    <li key={x}>
+                      <FaCheckCircle /> {x}
+                    </li>
                   ))}
                 </ul>
               </motion.article>
@@ -258,17 +452,29 @@ export default function Webdev() {
         <section id="automation" className="webdev__automation">
           <div className="wd-section-head">
             <h2>Automation & QA (Puppeteer)</h2>
-            <p>Headless browser scripts for visual QA, flows, PDFs, and repeatable ops—safe and permissioned.</p>
+            <p>
+              Headless browser scripts for visual QA, flows, PDFs, and
+              repeatable ops—safe and permissioned.
+            </p>
           </div>
 
           <div className="auto-grid">
             {puppeteerServices.map((a, i) => (
-              <motion.article key={a.title} className="auto-card" variants={fadeUp(i)} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.25 }}>
+              <motion.article
+                key={a.title}
+                className="auto-card"
+                variants={fadeUp(i)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.25 }}
+              >
                 <div className="auto-ico">{a.icon}</div>
                 <h3>{a.title}</h3>
                 <ul>
                   {a.bullets.map((x) => (
-                    <li key={x}><FaCheckCircle /> {x}</li>
+                    <li key={x}>
+                      <FaCheckCircle /> {x}
+                    </li>
                   ))}
                 </ul>
               </motion.article>
@@ -280,15 +486,24 @@ export default function Webdev() {
               <strong>Example: screenshot + PDF generator</strong>
               <small>Run as a CI job or serverless function</small>
             </div>
-            <pre className="code"><code>{puppeteerSnippet}</code></pre>
+            <pre className="code">
+              <code>{puppeteerSnippet}</code>
+            </pre>
             <p className="auto-note">
-              Use only on your own sites or with written permission. Respect robots.txt and terms of service.
+              Use only on your own sites or with written permission. Respect
+              robots.txt and terms of service.
             </p>
             <div className="auto-cta">
-              <button className="btn btn--primary" onClick={() => navigate("/contact")}>
+              <button
+                className="btn btn--primary"
+                onClick={() => navigate("/contact")}
+              >
                 Ask about Automation <FaAngleRight />
               </button>
-              <button className="btn btn--ghost" onClick={() => navigate("/our-strategies")}>
+              <button
+                className="btn btn--ghost"
+                onClick={() => navigate("/our-strategies")}
+              >
                 See QA Workflow
               </button>
             </div>
@@ -300,13 +515,22 @@ export default function Webdev() {
           <div className="wd-cta-inner">
             <div className="wd-cta-copy">
               <h3>Ready to build something fast?</h3>
-              <p>Tell us your goals—get a free plan with timelines and budget ranges.</p>
+              <p>
+                Tell us your goals—get a free plan with timelines and budget
+                ranges.
+              </p>
             </div>
             <div className="wd-cta-actions">
-              <button className="btn btn--primary" onClick={() => navigate("/contact")}>
+              <button
+                className="btn btn--primary"
+                onClick={() => navigate("/contact")}
+              >
                 Get My Plan <FaAngleRight />
               </button>
-              <button className="btn btn--ghost" onClick={() => navigate("/our-strategies")}>
+              <button
+                className="btn btn--ghost"
+                onClick={() => navigate("/our-strategies")}
+              >
                 Explore Our Approach
               </button>
             </div>

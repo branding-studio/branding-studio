@@ -1,13 +1,12 @@
 import React from "react";
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaMailchimp } from "react-icons/fa";
+import { FaInstagram, FaYoutube, FaEnvelope } from "react-icons/fa";
 import "./TopHeader.css";
 import { useLocalContext } from "../../../context/LocalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const TopHeader = () => {
-
-    const {webinfo} = useLocalContext();
+  const { webinfo } = useLocalContext();
 
   return (
     <div className="top-header">
@@ -17,17 +16,29 @@ const TopHeader = () => {
         </a>
       </div>
       <div className="top-header__right">
-        <a href="https://facebook.com" target="_blank" rel="noreferrer">
-          <FaFacebookF />
+        {/* 1. YouTube */}
+        <a
+          href="https://www.youtube.com/@brandingstudioteam"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="YouTube"
+        >
+          <FaYoutube />
         </a>
-        <a href="https://twitter.com" target="_blank" rel="noreferrer">
-          <FaTwitter />
-        </a>
-        <a href="https://instagram.com" target="_blank" rel="noreferrer">
+
+        {/* 2. Instagram */}
+        <a
+          href="https://www.instagram.com/brandingstudio.in/"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Instagram"
+        >
           <FaInstagram />
         </a>
-        <a href="https://linkedin.com" target="_blank" rel="noreferrer">
-          <FaLinkedinIn />
+
+        {/* 3. Mail Icon */}
+        <a href={`mailto:${webinfo.email}`} aria-label="Email">
+          <FaEnvelope />
         </a>
       </div>
     </div>

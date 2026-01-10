@@ -1,34 +1,105 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// FIX: Removed FaClapperboard, Added FaCamera
+
 import {
-  FaVideo, FaFilm, FaMicrophoneAlt, FaPhotoVideo, FaCut, FaMagic,
-  FaCheckCircle, FaTelegramPlane, FaAngleRight, FaPlayCircle, FaCamera
+  FaVideo,
+  FaFilm,
+  FaMicrophoneAlt,
+  FaPhotoVideo,
+  FaCut,
+  FaMagic,
+  FaCheckCircle,
+  FaWhatsapp,
+  FaAngleRight,
+  FaPlayCircle,
+  FaCamera,
 } from "react-icons/fa";
-import "./Filmmaking.css"; 
+import "./Filmmaking.css";
 import { useLocalContext } from "../../../context/LocalContext";
 
 const Filmmaking = () => {
   const navigate = useNavigate();
-  const { openTelegram, getTelegramUrl } = useLocalContext();
+  // ✅ Switched to WhatsApp helpers
+  const { openWhatsApp, getWhatsAppUrl } = useLocalContext();
 
   /** ===== Services ===== */
   const services = [
-    { icon: <FaFilm/>, title: "Ad Films & TVCs", copy: "High-impact commercials designed to grab attention in the first 3 seconds and drive brand recall.", bullets: ["Script to Screen", "TV & Social formats", "High-end production"] },
-    { icon: <FaVideo/>, title: "Corporate Films", copy: "Tell your company's story. We produce interviews, office tours, and culture videos that build trust.", bullets: ["Founder interviews", "Company profiles", "CSR documentation"] },
-    // FIX: Used FaCamera here instead of FaClapperboard
-    { icon: <FaCamera/>, title: "Product Cinematography", copy: "Make your product the hero. Studio-grade lighting and motion control to showcase details flawlessly.", bullets: ["360° rotation", "Macro shots", "Lifestyle integration"] },
-    { icon: <FaPhotoVideo/>, title: "Event Coverage", copy: "Capture the energy of your events. We turn conferences and launch parties into dynamic highlight reels.", bullets: ["Multi-cam setup", "Same-day edits", "Live streaming"] },
-    { icon: <FaMagic/>, title: "VFX & Motion Graphics", copy: "Add that extra layer of magic. From simple title animations to complex 3D compositing.", bullets: ["2D/3D Animation", "Green screen keying", "Logo intros"] },
-    { icon: <FaMicrophoneAlt/>, title: "Sound Design", copy: "Audio is half the experience. We provide professional voiceovers, foley, and licensed scores.", bullets: ["Voiceover recording", "Audio mixing", "SFX libraries"] },
+    {
+      icon: <FaFilm />,
+      title: "Ad Films & TVCs",
+      copy: "High-impact commercials designed to grab attention in the first 3 seconds and drive brand recall.",
+      bullets: ["Script to Screen", "TV & Social formats", "High-end production"],
+    },
+    {
+      icon: <FaVideo />,
+      title: "Corporate Films",
+      copy: "Tell your company's story. We produce interviews, office tours, and culture videos that build trust.",
+      bullets: ["Founder interviews", "Company profiles", "CSR documentation"],
+    },
+    {
+      icon: <FaCamera />,
+      title: "Product Cinematography",
+      copy: "Make your product the hero. Studio-grade lighting and motion control to showcase details flawlessly.",
+      bullets: ["360° rotation", "Macro shots", "Lifestyle integration"],
+    },
+    {
+      icon: <FaPhotoVideo />,
+      title: "Event Coverage",
+      copy: "Capture the energy of your events. We turn conferences and launch parties into dynamic highlight reels.",
+      bullets: ["Multi-cam setup", "Same-day edits", "Live streaming"],
+    },
+    {
+      icon: <FaMagic />,
+      title: "VFX & Motion Graphics",
+      copy: "Add that extra layer of magic. From simple title animations to complex 3D compositing.",
+      bullets: ["2D/3D Animation", "Green screen keying", "Logo intros"],
+    },
+    {
+      icon: <FaMicrophoneAlt />,
+      title: "Sound Design",
+      copy: "Audio is half the experience. We provide professional voiceovers, foley, and licensed scores.",
+      bullets: ["Voiceover recording", "Audio mixing", "SFX libraries"],
+    },
   ];
 
   /** ===== Scope ===== */
   const scope = [
-    { title: "Pre-Production", bullets: ["Scriptwriting", "Storyboarding", "Location scouting", "Casting & Crewing"] },
-    { title: "Production", bullets: ["4K/6K Cinema Cameras", "Professional Lighting", "Directing", "Set Design"] },
-    { title: "Post-Production", bullets: ["Offline/Online Editing", "Color Grading (DI)", "Sound Mixing", "VFX & CGI"] },
-    { title: "Delivery", bullets: ["Multi-format export", "Social cuts (9:16)", "Broadcast standards", "Archival"] },
+    {
+      title: "Pre-Production",
+      bullets: [
+        "Scriptwriting",
+        "Storyboarding",
+        "Location scouting",
+        "Casting & Crewing",
+      ],
+    },
+    {
+      title: "Production",
+      bullets: [
+        "4K/6K Cinema Cameras",
+        "Professional Lighting",
+        "Directing",
+        "Set Design",
+      ],
+    },
+    {
+      title: "Post-Production",
+      bullets: [
+        "Offline/Online Editing",
+        "Color Grading (DI)",
+        "Sound Mixing",
+        "VFX & CGI",
+      ],
+    },
+    {
+      title: "Delivery",
+      bullets: [
+        "Multi-format export",
+        "Social cuts (9:16)",
+        "Broadcast standards",
+        "Archival",
+      ],
+    },
   ];
 
   /** ===== Tiers ===== */
@@ -38,7 +109,15 @@ const Filmmaking = () => {
     { tier: "Cinema", desc: "Documentaries & TV Commercials" },
   ];
 
-  const stack = ["Adobe Premiere Pro", "DaVinci Resolve", "After Effects", "Final Cut Pro", "Cinema 4D", "RED / Arri Cameras", "Sony FX Series"];
+  const stack = [
+    "Adobe Premiere Pro",
+    "DaVinci Resolve",
+    "After Effects",
+    "Final Cut Pro",
+    "Cinema 4D",
+    "RED / Arri Cameras",
+    "Sony FX Series",
+  ];
 
   const steps = [
     { t: "Concept", d: "Brainstorming the core idea and script development." },
@@ -59,12 +138,29 @@ const Filmmaking = () => {
     "Music License Docs",
   ];
 
-  const metrics = ["Viewer Retention", "Brand Recall", "Shareability", "Conversion Rate", "Click-Through Rate", "Watch Time"];
+  const metrics = [
+    "Viewer Retention",
+    "Brand Recall",
+    "Shareability",
+    "Conversion Rate",
+    "Click-Through Rate",
+    "Watch Time",
+  ];
 
   /* ===== Sticky rail / scroll-spy ===== */
-  const ids = useMemo(() => [
-    "services", "scope", "tiers", "process", "stack", "deliverables", "metrics", "cta"
-  ], []);
+  const ids = useMemo(
+    () => [
+      "services",
+      "scope",
+      "tiers",
+      "process",
+      "stack",
+      "deliverables",
+      "metrics",
+      "cta",
+    ],
+    []
+  );
 
   const labels = {
     services: "Services",
@@ -74,17 +170,21 @@ const Filmmaking = () => {
     stack: "Gear & Soft",
     deliverables: "Deliverables",
     metrics: "Impact",
-    cta: "Start"
+    cta: "Start",
   };
 
   const [active, setActive] = useState(ids[0]);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      (entries) =>
+        entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
       { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 }
     );
-    ids.forEach((id) => { const el = document.getElementById(id); if (el) obs.observe(el); });
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
     return () => obs.disconnect();
   }, [ids]);
 
@@ -94,8 +194,13 @@ const Filmmaking = () => {
     el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  // Safe check for context
-  const telegramHref = getTelegramUrl ? getTelegramUrl({ preferApp: false }) : "https://t.me/";
+  // Safe check for context URL generation
+  const whatsappHref = getWhatsAppUrl
+    ? getWhatsAppUrl({
+        message: "Hi! I am interested in filmmaking services.",
+        preferApp: false,
+      })
+    : "#";
 
   return (
     <main className="film_services">
@@ -121,19 +226,22 @@ const Filmmaking = () => {
           ))}
         </ul>
         <div className="ppc2-ctaRail">
+          {/* ✅ UPDATED: Talk on WhatsApp Button */}
           <a
             className="ppc2-btn ppctg"
-            href={telegramHref}
+            href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => {
-               if(openTelegram) {
-                 e.preventDefault();
-                 openTelegram();
-               }
+              if (openWhatsApp) {
+                e.preventDefault();
+                openWhatsApp({
+                  message: "Hi! I am interested in filmmaking services.",
+                });
+              }
             }}
           >
-            <FaTelegramPlane /> <span>Talk on Telegram</span>
+            <FaWhatsapp /> <span>Talk on WhatsApp</span>
           </a>
         </div>
       </aside>
@@ -143,11 +251,22 @@ const Filmmaking = () => {
         {/* HERO */}
         <header className="film__hero">
           <span className="film__eyebrow">Cinematic & Commercial</span>
-          <h1>Stories that move.<br/>Visuals that sell.</h1>
-          <p>From 15-second ads to full-scale brand documentaries. We create studio-grade video content that captivates audiences and elevates your brand.</p>
+          <h1>
+            Stories that move.
+            <br />
+            Visuals that sell.
+          </h1>
+          <p>
+            From 15-second ads to full-scale brand documentaries. We create
+            studio-grade video content that captivates audiences and elevates
+            your brand.
+          </p>
 
           <div className="film__hero-cta">
-            <button className="btn btn--primary" onClick={() => navigate("/contact")}>
+            <button
+              className="btn btn--primary"
+              onClick={() => navigate("/contact")}
+            >
               Start Production <FaAngleRight />
             </button>
           </div>
@@ -163,7 +282,11 @@ const Filmmaking = () => {
               </div>
               <p className="film__copy">{s.copy}</p>
               <ul className="film__list">
-                {s.bullets.map((b) => <li key={b}><FaCheckCircle/> {b}</li>)}
+                {s.bullets.map((b) => (
+                  <li key={b}>
+                    <FaCheckCircle /> {b}
+                  </li>
+                ))}
               </ul>
             </article>
           ))}
@@ -180,7 +303,11 @@ const Filmmaking = () => {
               <article key={g.title} className="scope__card">
                 <h4>{g.title}</h4>
                 <ul>
-                  {g.bullets.map((b) => <li key={b}><FaCheckCircle/> <span>{b}</span></li>)}
+                  {g.bullets.map((b) => (
+                    <li key={b}>
+                      <FaCheckCircle /> <span>{b}</span>
+                    </li>
+                  ))}
                 </ul>
               </article>
             ))}
@@ -226,10 +353,16 @@ const Filmmaking = () => {
         <section id="stack" className="film__stack">
           <div className="film__head">
             <h3>Studio Gear & Tech</h3>
-            <p>We use cinema-grade equipment and industry standard software.</p>
+            <p>
+              We use cinema-grade equipment and industry standard software.
+            </p>
           </div>
           <ul className="film__chips">
-            {stack.map((x) => <li className="film__chip" key={x}>{x}</li>)}
+            {stack.map((x) => (
+              <li className="film__chip" key={x}>
+                {x}
+              </li>
+            ))}
           </ul>
         </section>
 
@@ -240,7 +373,11 @@ const Filmmaking = () => {
             <p>Mastered assets ready for broadcast and social.</p>
           </div>
           <ul className="film__list film__list--cards">
-            {deliverables.map((d) => <li key={d}><FaCheckCircle/> {d}</li>)}
+            {deliverables.map((d) => (
+              <li key={d}>
+                <FaCheckCircle /> {d}
+              </li>
+            ))}
           </ul>
         </section>
 
@@ -251,7 +388,11 @@ const Filmmaking = () => {
             <p>Video is the highest converting medium. Here is what matters.</p>
           </div>
           <ul className="film__chips">
-            {metrics.map((k) => <li key={k} className="film__chip">{k}</li>)}
+            {metrics.map((k) => (
+              <li key={k} className="film__chip">
+                {k}
+              </li>
+            ))}
           </ul>
         </section>
 
@@ -262,7 +403,10 @@ const Filmmaking = () => {
               <h3>Ready to roll camera?</h3>
               <p>Let's create a visual experience that defines your brand.</p>
             </div>
-            <button className="btn btn--primary" onClick={() => navigate("/contact")}>
+            <button
+              className="btn btn--primary"
+              onClick={() => navigate("/contact")}
+            >
               Book a Shoot <FaAngleRight />
             </button>
           </div>

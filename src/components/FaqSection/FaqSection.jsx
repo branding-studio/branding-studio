@@ -5,7 +5,7 @@ import { FaChevronDown } from "react-icons/fa";
 
 const faqData = [
   {
-    question: "Why should I choose your agency?",
+    question: "Why should I choose your company?",
     answer:
       "We blend creativity with performance marketing. Every campaign is tracked end-to-end with GA4 + GTM so you get both transparency and results.",
   },

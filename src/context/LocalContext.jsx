@@ -32,34 +32,34 @@ const normalizeWaNumber = (raw = "") => String(raw).replace(/[^\d]/g, "");
 const encodeMsg = (msg = "") => encodeURIComponent(String(msg));
 
 export const LocalProvider = ({ children }) => {
+  // ✅ FIX 1: Initialize with your default number so it's never empty on load
   const [currentTFN, setCurrentTFN] = useState({
-    intlFormat: "",
-    localFormat: "",
+    intlFormat: "7788001422",
+    localFormat: "7788001422",
   });
 
   const [webinfo, setwebinfo] = useState({
     name: "Branding Studio",
-    phone: "",
-    phonecall: "",
-    logo:
-      "https://brandingstudio.in/wp-content/uploads/2024/08/NEW-BS-LOGOOOO-1-copy-2-scaled.png",
-    email: "contact@digiborr.com",
+    phone: "7788001422",
+    phonecall: "7788001422",
+    logo: "https://brandingstudio.in/wp-content/uploads/2024/08/NEW-BS-LOGOOOO-1-copy-2-scaled.png",
+    email: "brandingstudio.team@gmail.com",
     address:
-      "19, Ashoka Rd, Janpath, Connaught Place, New Delhi, Delhi 110001, India",
-    addressCity: "New Delhi",
+      "1st Floor, F-4F - 53/2, Indradhanu Market, Complex, Nayapalli, Bhubaneswar",
+    addressCity: "Odisha",
 
     /**
      * 🔹 Default Telegram handle
      * Examples: "darioharmon" (no leading @)
      */
-    telegramHandle: "darioharmon",
+    telegramHandle: "",
 
     /**
      * 🔹 Default WhatsApp number
      * IMPORTANT: include country code, digits only preferred.
      * Example: "919876543210"
      */
-    whatsappNumber: "91XXXXXXXXXX",
+    whatsappNumber: "917788001422",
   });
 
   // Fetch TFN from Firebase
@@ -76,8 +76,8 @@ export const LocalProvider = ({ children }) => {
             localFormat: data.numberLocal || "",
           });
         } else {
-          console.log("No such document!");
-          setCurrentTFN({ intlFormat: "", localFormat: "" });
+          console.log("No such document! Keeping default numbers.");
+          // ✅ FIX 2: Removed the line that set it to empty strings on failure
         }
       } catch (error) {
         console.error("Error fetching TFN: ", error);
@@ -91,8 +91,9 @@ export const LocalProvider = ({ children }) => {
   useEffect(() => {
     setwebinfo((prev) => ({
       ...prev,
-      phone: currentTFN.localFormat,
-      phonecall: currentTFN.intlFormat,
+      // ✅ FIX 3: Safety check - if currentTFN is empty, keep the existing hardcoded number
+      phone: currentTFN.localFormat || prev.phone,
+      phonecall: currentTFN.intlFormat || prev.phonecall,
     }));
   }, [currentTFN]);
 
@@ -103,7 +104,8 @@ export const LocalProvider = ({ children }) => {
     const h = (handle || webinfo.telegramHandle || "").replace(/^@/, "").trim();
     if (!h) return "";
 
-    const useApp = typeof preferApp === "boolean" ? preferApp : isLikelyMobile();
+    const useApp =
+      typeof preferApp === "boolean" ? preferApp : isLikelyMobile();
     return useApp
       ? `tg://resolve?domain=${encodeURIComponent(h)}`
       : `https://t.me/${encodeURIComponent(h)}`;
@@ -164,11 +166,13 @@ export const LocalProvider = ({ children }) => {
     const msg = message ? `?text=${encodeMsg(message)}` : "";
 
     // If preferApp not provided, default to app link on mobile browsers.
-    const useApp = typeof preferApp === "boolean" ? preferApp : isLikelyMobile();
+    const useApp =
+      typeof preferApp === "boolean" ? preferApp : isLikelyMobile();
 
     // Mobile app deep link:
     // Note: wa:// works on many devices, but not all browsers.
-    if (useApp) return `wa://send?phone=${n}${message ? `&text=${encodeMsg(message)}` : ""}`;
+    if (useApp)
+      return `wa://send?phone=${n}${message ? `&text=${encodeMsg(message)}` : ""}`;
 
     // Web link:
     return `https://wa.me/${n}${msg}`;
