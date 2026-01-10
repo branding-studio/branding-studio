@@ -144,23 +144,21 @@ const Footer = () => {
             <h5>Solutions</h5>
             <ul>
               <li>
-                <a href="/services/google-ads-ppc">Google Ads (PPC)</a>
+                <a href="/services/film-making">Flim Making</a>
               </li>
-              <li>
-                <a href="/services/seo">SEO Services</a>
-              </li>
-              <li>
+               <li>
                 <a href="/services/smo">Social Media (SMO)</a>
               </li>
               <li>
-                <a href="/services/video-editing">Video Editing</a>
+                <a href="/services/graphic-design">Graphic Designing</a>
               </li>
               <li>
                 <a href="/services/website-development">Web Development</a>
               </li>
               <li>
-                <a href="/services/ethical-hacking">Ethical Hacking</a>
+                <a href="/services/seo">SEO Services</a>
               </li>
+              
             </ul>
           </div>
           <div>

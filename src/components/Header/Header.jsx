@@ -38,7 +38,7 @@ const Header = () => {
   const menuItems = [
     { text: "Home", path: "/" },
     { text: "Services", path: "/services" },
-    { text: "Pricing", path: "/pricing" }, 
+    { text: "Pricing", path: "/pricing" },
     { text: "Our Strategies", path: "/our-strategies" },
     { text: "Blogs", path: "/blogs" },
     { text: "Contact Us", path: "/contact" },
@@ -50,6 +50,7 @@ const Header = () => {
 
       <header className={`apple-header ${scrolled ? "scrolled" : ""}`}>
         <div className="apple-container">
+          {/* Main Desktop Logo */}
           <div className="apple-logo" onClick={() => handleNavigate("/")}>
             <img src={webinfo.logo} alt={webinfo.name || "Logo"} />
           </div>
@@ -96,9 +97,24 @@ const Header = () => {
           </div>
         </div>
 
+        {/* Mobile Menu Overlay */}
         <div className={`apple-mobile-overlay ${menuOpen ? "open" : ""}`}>
           <div className="apple-mobile-header">
-            <div className="mobile-logo-text">{webinfo.name || "Menu"}</div>
+            
+            {/* ✅ CHANGE: Replaced Text with Logo Image */}
+            <div 
+              className="mobile-logo-container" 
+              onClick={() => handleNavigate("/")}
+              style={{ cursor: 'pointer' }} 
+            >
+               <img 
+                 src={webinfo.logo} 
+                 alt={webinfo.name || "Logo"} 
+                 className="mobile-logo-img"
+                 style={{ height: '40px', width: 'auto', objectFit: 'contain' }} 
+               />
+            </div>
+
             <button type="button" className="close-btn" onClick={() => setMenuOpen(false)}>
               <FaTimes />
             </button>

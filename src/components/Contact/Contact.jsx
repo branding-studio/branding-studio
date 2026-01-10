@@ -265,7 +265,7 @@ export default function Contact() {
                   id="phone"
                   name="phone"
                   type="tel"
-                  placeholder="+91 98765 43210"
+                  placeholder="+91 9*********"
                   autoComplete="tel"
                   inputMode="tel"
                   value={form.phone}

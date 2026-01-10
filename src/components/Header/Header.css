@@ -31,13 +31,16 @@
   max-width: 1240px;
   margin: 0 auto;
   height: 100%;
-  padding: 0 80px !important;
+  
+  /* ✅ CHANGED: Reduced padding to align logo with page content */
+  padding: 0 24px !important; 
+  
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* --- Logo --- */
+/* --- Desktop Logo --- */
 .apple-logo {
   cursor: pointer;
   display: flex;
@@ -112,7 +115,7 @@
   cursor: pointer;
 }
 
-/* --- Responsive --- */
+/* --- Responsive Breakpoint --- */
 @media (max-width: 900px) {
   .apple-nav {
     display: none;
@@ -125,7 +128,7 @@
   }
 }
 
-/* --- Mobile Drawer --- */
+/* --- Mobile Drawer (Slider) --- */
 .apple-mobile-overlay {
   position: fixed;
   top: 0;
@@ -153,11 +156,17 @@
   border-bottom: 1px solid #f0f0f0;
 }
 
-.mobile-logo-text {
-  color: #000;
-  font-weight: 800;
-  font-size: 18px;
-  letter-spacing: -0.01em;
+/* --- Mobile Logo Image Styles --- */
+.mobile-logo-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.mobile-logo-img {
+  max-height: 42px; /* Adjusts to fit header height */
+  width: auto;
+  object-fit: contain;
 }
 
 .close-btn {
@@ -166,6 +175,8 @@
   color: #000;
   font-size: 28px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 /* Mobile links */
@@ -217,7 +228,7 @@
   color: #2997ff;
 }
 
-/* Small devices tuning */
+/* --- Small Devices Tuning --- */
 @media (max-width: 420px) {
   .apple-header {
     height: 60px;
@@ -225,8 +236,8 @@
   .apple-logo img {
     height: 32px;
   }
-  .mobile-logo-text {
-    font-size: 17px;
+  .mobile-logo-img {
+    max-height: 32px; 
   }
   .apple-mobile-links span {
     font-size: 26px;
