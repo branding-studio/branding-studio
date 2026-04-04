@@ -195,8 +195,8 @@
 .io-core small {
   display: block;
   margin-top: 6px;
-  font-size: 0.8rem;
-  font-weight: 800;
+  font-size: 8px;
+  font-weight: 600;
   letter-spacing: 0.2em;
   color: #5d5fef;
   text-transform: uppercase;

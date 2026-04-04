@@ -149,9 +149,9 @@ export default function ImpactOrbit() {
 
             {/* Center Hub */}
             <div className="io-core">
-              <strong>{webinfo?.name || "Branding Studio"}</strong>
-              <small>HUB</small>
-            </div>
+  <strong>{webinfo?.name || "Branding Studio"}</strong>
+  <small>We Think, You Grow</small>
+</div>
           </div>
         </motion.div>
       </div>

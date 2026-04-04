@@ -515,3 +515,12 @@
   .one-click--brand .card--small,
   .one-click--brand .card--wide{ grid-column: span 12; }
 }
+
+.card__header {
+  display: flex;
+  align-items: center;
+}
+
+.card__eyebrow {
+  margin-left: 18px;
+}

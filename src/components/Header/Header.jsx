@@ -42,6 +42,7 @@ const Header = () => {
     { text: "Our Strategies", path: "/our-strategies" },
     { text: "Gallery", path: "/gallery" },
     { text: "Contact Us", path: "/contact" },
+    { text: "Our Team", path: "/team" },
   ];
 
   return (

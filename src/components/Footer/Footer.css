@@ -574,3 +574,15 @@
   .btn{ padding: .7rem 1.1rem; }
   .socials a{ --s: 34px; }
 }
+
+/* Force WhatsApp icon inside newsletter button */
+.newsletter button::before,
+.newsletter button::after {
+  content: none !important;
+}
+
+.newsletter button svg {
+  display: block !important;
+  color: #fff !important;
+  font-size: 18px;
+}

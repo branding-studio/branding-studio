@@ -41,7 +41,7 @@ export default function FaqSection() {
   return (
     <section className="faq-section">
       <div className="faq-header">
-        <span className="faq-pill">Support Hub</span>
+        <span className="faq-pill">Client Support</span>
         <h2>Your Questions, Answered</h2>
         <p>
           Everything you need to know about our services, processes, and

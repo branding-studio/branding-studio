@@ -13,6 +13,7 @@ import Terms from "../components/Terms/Terms";
 import ScrollToTopButton from "../components/ScrollToTopButton/ScrollToTopButton";
 import Pricing from "../components/Pricing/Pricing";
 import Gallery from "../components/Gallery/Gallery";
+import Team from "../components/Team/Team";
 
 // admin
 import AdminLayout from "./AdminLayout";
@@ -125,6 +126,7 @@ const Container = () => {
             <Route path="/disclaimer" element={<Disclaimer />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-and-condition" element={<Terms />} />
+            <Route path="/team" element={<Team />} />
             
             {/* Admin redirect for clean UX */}
             <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />

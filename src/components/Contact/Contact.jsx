@@ -318,23 +318,27 @@ export default function Contact() {
 
           {/* FAQ */}
           <div className="cv4-faq">
-            <h3>Questions people ask</h3>
-            <FaqItem
-              i={0}
-              q="Can you share an estimate before a full brief?"
-              a="Yes. Share a rough scope and we’ll send a ballpark with ranges and assumptions."
-            />
-            <FaqItem
-              i={1}
-              q="Do you work with WordPress and React both?"
-              a="Yes. We recommend based on content needs, performance goals, and your in-house skills."
-            />
-            <FaqItem
-              i={2}
-              q="How soon can we start?"
-              a="Discovery can start this week. Build slots depend on scope; we’ll propose realistic dates."
-            />
-          </div>
+  <h3>Questions people ask</h3>
+
+  <FaqItem
+    i={0}
+    q="Can you share an estimate before a full brief?"
+    a="Yes. Share your goals and basic requirements, and we'll provide a rough estimate. After understanding your brand in detail, we’ll share a complete proposal with timeline and deliverables."
+  />
+
+  <FaqItem
+    i={1}
+    q="Do you provide both branding and digital marketing services?"
+    a="Yes. We offer end-to-end solutions including branding, graphic design, content creation, social media management, ad campaigns, and growth strategy."
+  />
+
+  <FaqItem
+    i={2}
+    q="How soon can we start?"
+    a="We usually begin within 24–72 hours after onboarding. Our team quickly aligns on strategy and starts execution."
+  />
+
+</div>
         </motion.section>
 
         {/* STICKY RAIL (SIDEBAR) */}

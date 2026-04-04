@@ -125,7 +125,7 @@ const About = () => {
         <div className="hero-wrap">
           <span className="pill">About {brand}</span>
           <h1>
-            We turn marketing into a <span className="focus">repeatable growth system</span>.
+            We turn marketing into a <span className="focus">repeatable growth system</span>
           </h1>
           <p className="lead">
             Fewer moving parts, stronger signals, and a roadmap you can trust. From

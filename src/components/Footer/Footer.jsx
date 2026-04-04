@@ -89,7 +89,7 @@ const Footer = () => {
               pattern="^\+?[0-9\s-]{8,15}$"
             />
 
-            <button type="submit" aria-label="Subscribe">
+            <button type="submit" aria-label="Subscribe" className="newsletter__btn">
               <FontAwesomeIcon icon={faWhatsapp} />
             </button>
           </form>

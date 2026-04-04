@@ -60,15 +60,56 @@ h1,h2,h3,h4,h5{ letter-spacing:-0.015em; }
 /* ============ SNAPSHOT STRIP ============ */
 .snapshot{ width:var(--container); margin:1.1rem auto 0; display:flex; gap:.6rem; flex-wrap:wrap;  }
 .snapshot .chip{ display:inline-flex; align-items:center; gap:.4rem; padding:.6rem .85rem; border:1px solid var(--border); background:var(--panel); border-radius:999px; font-weight:700; font-size:1.28rem; }
-
+.snapshot .chip svg {
+  font-size: 1.25rem;
+}
 /* ============ TIMELINE ============ */
-.timeline{ width:var(--container); margin:2.2rem auto 0; }
-.timeline h2{ font-size:2.8rem; margin:0 0 .6rem; }
-.steps{ list-style:none; margin:0; padding:0; border-left:2px dashed var(--border); padding-left:1.2rem; }
-.steps li{ position:relative; margin:.9rem 0; font-size: 1.4rem; }
-.steps .dot{ position:absolute; left:-10px; top:6px; width:12px; height:12px; border-radius:50%; background:var(--brand); }
-.step-body h3{ margin:0 0 .2rem; font-size:1.6rem; }
-.step-body p{ margin:0; color:var(--muted); }
+.timeline {
+  width: var(--container);
+  margin: 2.2rem auto 0;
+}
+
+.timeline h2 {
+  font-size: 2.8rem;
+  margin: 0 0 .8rem;
+}
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1.2rem;
+  border-left: 2px dashed var(--border);
+}
+
+.steps li {
+  position: relative;
+  margin: 1.1rem 0;
+  padding-left: .6rem;
+}
+
+.steps .dot {
+  position: absolute;
+  left: -1.55rem;
+  top: .55rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.08);
+}
+
+.step-body h3 {
+  margin: 0 0 .25rem;
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+.step-body p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.28rem;
+  line-height: 1.7;
+}
 
 /* ============ OS GRID ============ */
 .os-grid{ width:var(--container); margin:2.4rem auto 0; }
@@ -77,18 +118,45 @@ h1,h2,h3,h4,h5{ letter-spacing:-0.015em; }
 .os-grid .grid{ margin-top:1rem; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.9rem; }
 .os-card{ background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:1.1rem; box-shadow:var(--shadow-1); transition:transform .18s ease, box-shadow .18s ease; }
 .os-card:hover{ box-shadow:var(--shadow-2); }
-.os-icon{ width:52px; height:52px; border-radius:12px; display:grid; place-items:center; color:#fff; font-size:1.25rem; margin-bottom:.7rem; }
+.os-icon{
+  width:60px;
+  height:60px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-size:1.45rem;
+  margin-bottom:.8rem;
+}
 .os-card h4{ margin:0 0 .2rem; font-size:1.6rem; }
 .os-card p{ color:var(--muted); font-size:1.28rem; }
 .tags{ margin-top:.6rem; display:flex; gap:.4rem; flex-wrap:wrap; }
 .tag{ padding:.4rem .7rem; background:var(--panel-quiet); border:1px dashed var(--border); border-radius:999px; font-weight:700; font-size:1rem; }
 
+
+.faq-item .faq-q svg{
+  color:var(--brand);
+  font-size:1.15rem;
+}
+
+.btn svg {
+  font-size: 1.05em;
+}
 /* ============ DIFFERENTIATORS ============ */
 .diff{ width:var(--container); margin:2.4rem auto 0; }
 .diff h2{ font-size:2.8rem; margin:0 0 .6rem; }
 .diff-list{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; }
 .diff-item{ display:grid; grid-template-columns:42px 1fr; gap:.8rem; background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:.9rem; box-shadow:var(--shadow-1); }
-.diff-icon{ width:42px; height:42px; border-radius:10px; display:grid; place-items:center; background:#eef2ff; color:var(--brand); font-size:1.05rem; }
+.diff-icon{
+  width:48px;
+  height:48px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  background:#eef2ff;
+  color:var(--brand);
+  font-size:1.2rem;
+}
 .diff-copy h5{ margin:0 0 .2rem; font-size:1.52rem; }
 .diff-copy p{ margin:0; color:var(--muted); font-size:1.4rem; }
 
@@ -139,4 +207,86 @@ h1,h2,h3,h4,h5{ letter-spacing:-0.015em; }
   .quotes{ grid-template-columns:1fr; }
   .os-grid .grid{ grid-template-columns:1fr; }
   .ribbon{ grid-template-columns:1fr; }
+}
+
+
+/* =========================================
+   ICON SIZE POLISH (FINAL)
+========================================= */
+
+/* Snapshot strip icons */
+.snapshot .chip svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* OS Grid Icons */
+.os-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.os-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Differentiator Section Icons */
+.diff-item {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 1rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: var(--shadow-1);
+}
+
+.diff-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: #eef2ff;
+  color: var(--brand);
+}
+
+.diff-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* FAQ Icons */
+.faq-item .faq-q svg {
+  color: var(--brand);
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+/* Button Icons */
+.btn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Timeline Dot Polish */
+.steps .dot {
+  position: absolute;
+  left: -1.55rem;
+  top: .55rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.08);
 }
