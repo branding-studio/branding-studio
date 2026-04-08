@@ -11,18 +11,76 @@ import {
   FaChartLine,
   FaExchangeAlt,
   FaFileAlt,
-  FaTelegramPlane,
   FaAngleRight,
   FaCheckCircle,
-  FaWhatsapp, // ✅ Added FaWhatsapp
+  FaWhatsapp,
+  FaPlayCircle,
+  FaImage,
 } from "react-icons/fa";
 import "./Seo.css";
 import { useLocalContext } from "../../../context/LocalContext";
 
 const Seo = () => {
   const navigate = useNavigate();
-  // ✅ Switch to WhatsApp helpers
   const { openWhatsApp, getWhatsAppUrl } = useLocalContext();
+  const [sampleFilter, setSampleFilter] = useState("all");
+
+  /** ===== Samples ===== */
+  const samples = [
+    {
+      id: 1,
+      type: "photo",
+      title: "Keyword Ranking Growth Snapshot",
+      category: "Ranking Report",
+      thumb: "/assets/samples/seo-photo-1.jpg",
+      link: "/assets/samples/seo-photo-1.jpg",
+    },
+    {
+      id: 2,
+      type: "photo",
+      title: "Search Console Performance Graph",
+      category: "GSC Analytics",
+      thumb: "/assets/samples/seo-photo-2.jpg",
+      link: "/assets/samples/seo-photo-2.jpg",
+    },
+    {
+      id: 3,
+      type: "video",
+      title: "SEO Audit Walkthrough",
+      category: "Audit Demo",
+      thumb: "/assets/samples/seo-video-1.jpg",
+      link: "https://www.youtube.com/",
+    },
+    {
+      id: 4,
+      type: "photo",
+      title: "Technical SEO Checklist View",
+      category: "Technical SEO",
+      thumb: "/assets/samples/seo-photo-3.jpg",
+      link: "/assets/samples/seo-photo-3.jpg",
+    },
+    {
+      id: 5,
+      type: "video",
+      title: "Local SEO Results Preview",
+      category: "Local SEO",
+      thumb: "/assets/samples/seo-video-2.jpg",
+      link: "https://www.youtube.com/",
+    },
+    {
+      id: 6,
+      type: "photo",
+      title: "Traffic Improvement Dashboard",
+      category: "Analytics Report",
+      thumb: "/assets/samples/seo-photo-4.jpg",
+      link: "/assets/samples/seo-photo-4.jpg",
+    },
+  ];
+
+  const filteredSamples =
+    sampleFilter === "all"
+      ? samples
+      : samples.filter((item) => item.type === sampleFilter);
 
   /** ===== Services ===== */
   const services = [
@@ -88,7 +146,7 @@ const Seo = () => {
     },
   ];
 
-  /** ===== Program scope (from image) ===== */
+  /** ===== Scope ===== */
   const scope = [
     {
       title: "On-Page SEO",
@@ -133,7 +191,7 @@ const Seo = () => {
     },
   ];
 
-  /** ===== Influencer tiers (from image) ===== */
+  /** ===== Influencer tiers ===== */
   const influencer = [
     { tier: "Micro", desc: "10k–15k followers" },
     { tier: "Macro", desc: "100k–1M followers" },
@@ -180,9 +238,9 @@ const Seo = () => {
     "Leads/revenue attribution",
   ];
 
-  /* ===== Sticky rail / scroll-spy ===== */
   const ids = useMemo(
     () => [
+      "samples",
       "services",
       "program-scope",
       "influencer",
@@ -194,7 +252,9 @@ const Seo = () => {
     ],
     []
   );
+
   const labels = {
+    samples: "Samples",
     services: "Services",
     "program-scope": "SEO Program",
     influencer: "Influencer",
@@ -204,6 +264,7 @@ const Seo = () => {
     kpis: "KPIs",
     cta: "Start",
   };
+
   const [active, setActive] = useState(ids[0]);
 
   useEffect(() => {
@@ -228,7 +289,6 @@ const Seo = () => {
     }
   };
 
-  // ✅ Generate WhatsApp URL safely
   const whatsappHref = getWhatsAppUrl
     ? getWhatsAppUrl({
         message: "Hi! I am interested in SEO services.",
@@ -238,7 +298,6 @@ const Seo = () => {
 
   return (
     <main className="seo_services">
-      {/* Sticky rail */}
       <aside className="seo__rail" aria-label="Page sections">
         <div className="rail__brand">
           <div className="rail__logo">SEO</div>
@@ -247,6 +306,7 @@ const Seo = () => {
             <small>Technical + Content</small>
           </div>
         </div>
+
         <ul className="rail__nav">
           {ids.map((id) => (
             <li key={id}>
@@ -260,8 +320,8 @@ const Seo = () => {
             </li>
           ))}
         </ul>
+
         <div className="ppc2-ctaRail">
-          {/* ✅ UPDATED: Talk on WhatsApp Button */}
           <a
             className="ppc2-btn ppctg"
             href={whatsappHref}
@@ -283,9 +343,7 @@ const Seo = () => {
         </div>
       </aside>
 
-      {/* Main column */}
       <div className="seo__main">
-        {/* HERO */}
         <header className="seo__hero">
           <span className="seo__eyebrow">Search Engine Optimization</span>
           <h1>Rank higher. Grow organic traffic—sustainably.</h1>
@@ -304,7 +362,64 @@ const Seo = () => {
           </div>
         </header>
 
-        {/* SERVICES */}
+        <section id="samples" className="seo__samples">
+          <div className="seo__head">
+            <h3>Our Work Samples</h3>
+            <p>
+              Explore selected SEO audits, ranking reports, analytics views,
+              technical checklists, and search growth result samples.
+            </p>
+          </div>
+
+          <div className="seo__sample-filters">
+            <button
+              className={`seo__filter-btn ${sampleFilter === "all" ? "is-active" : ""}`}
+              onClick={() => setSampleFilter("all")}
+            >
+              All
+            </button>
+            <button
+              className={`seo__filter-btn ${sampleFilter === "video" ? "is-active" : ""}`}
+              onClick={() => setSampleFilter("video")}
+            >
+              Videos
+            </button>
+            <button
+              className={`seo__filter-btn ${sampleFilter === "photo" ? "is-active" : ""}`}
+              onClick={() => setSampleFilter("photo")}
+            >
+              Photos
+            </button>
+          </div>
+
+          <div className="seo__samples-grid">
+            {filteredSamples.map((item) => (
+              <a
+                key={item.id}
+                href={item.link}
+                target="_blank"
+                rel="noreferrer"
+                className="seo__sample-card"
+              >
+                <div className="seo__sample-thumb">
+                  <img src={item.thumb} alt={item.title} />
+                  <div className="seo__sample-overlay">
+                    {item.type === "video" ? <FaPlayCircle /> : <FaImage />}
+                  </div>
+                </div>
+
+                <div className="seo__sample-content">
+                  <span className="seo__sample-type">{item.category}</span>
+                  <h4>{item.title}</h4>
+                  <button type="button" className="seo__sample-btn">
+                    {item.type === "video" ? "Watch Sample" : "View Sample"}
+                  </button>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
         <section id="services" className="seo__grid">
           {services.map((s) => (
             <article key={s.title} className="seo__card">
@@ -324,7 +439,6 @@ const Seo = () => {
           ))}
         </section>
 
-        {/* PROGRAM SCOPE */}
         <section id="program-scope" className="seo__scope">
           <div className="seo__head">
             <h3>SEO Program Scope</h3>
@@ -349,7 +463,6 @@ const Seo = () => {
           </div>
         </section>
 
-        {/* INFLUENCER */}
         <section id="influencer" className="seo__influencer">
           <div className="seo__head">
             <h3>Influencer Marketing</h3>
@@ -368,7 +481,6 @@ const Seo = () => {
           </div>
         </section>
 
-        {/* PROCESS */}
         <section id="process" className="seo__process">
           <div className="seo__head">
             <h3>How we work</h3>
@@ -387,7 +499,6 @@ const Seo = () => {
           </ol>
         </section>
 
-        {/* STACK */}
         <section id="stack" className="seo__stack">
           <div className="seo__head">
             <h3>Tools & stack</h3>
@@ -402,7 +513,6 @@ const Seo = () => {
           </ul>
         </section>
 
-        {/* DELIVERABLES */}
         <section id="deliverables" className="seo__deliver">
           <div className="seo__head">
             <h3>What you get</h3>
@@ -425,7 +535,6 @@ const Seo = () => {
           </div>
         </section>
 
-        {/* KPIs */}
         <section id="kpis" className="seo__kpis">
           <div className="seo__head">
             <h3>Metrics that matter</h3>
@@ -440,7 +549,6 @@ const Seo = () => {
           </ul>
         </section>
 
-        {/* CTA */}
         <section id="cta" className="seo__cta">
           <div className="seo__cta-inner">
             <div className="seo__cta-copy">

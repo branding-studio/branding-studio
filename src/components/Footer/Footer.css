@@ -1,7 +1,5 @@
 /* =========================
    Footer.css (NEW DESIGN)
-   ✅ Font sizes kept SAME as your current file
-   ✅ Only design / spacing / effects updated
    ========================= */
 
 .footerx{
@@ -29,7 +27,6 @@
   font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
-/* subtle grain */
 .footerx::before{
   content:"";
   position:absolute;
@@ -43,26 +40,25 @@
 }
 
 /* =========================
-   Disclaimer (new bar style)
+   Disclaimer
    ========================= */
 .footerx__disclaimer{
   display:flex;
   align-items:center;
   gap:.8rem;
-
-  padding: .9rem 8.5rem; /* keep your spacing scale */
+  padding: .9rem 8.5rem;
   font-size: 1.26rem;
-
   background:
     linear-gradient(90deg,
       color-mix(in oklab, var(--primary-color) 30%, transparent),
       color-mix(in oklab, var(--accent-color) 24%, transparent));
   border-bottom: 1px solid rgba(255,255,255,.08);
-
   color: var(--text-light);
 }
+
 .footerx__disclaimer svg{ opacity:.95; }
 .footerx__disclaimer p{ margin:0; }
+
 .footerx__disclaimer a{
   color: var(--text-light);
   text-decoration: underline;
@@ -70,13 +66,12 @@
 }
 
 /* =========================
-   CTA Ribbon (more premium)
+   CTA Ribbon
    ========================= */
 .footerx__cta{
   position: relative;
   padding: 22px clamp(16px, 5vw, 40px);
   border-bottom: 1px solid rgba(255,255,255,0.08);
-
   background:
     radial-gradient(800px 240px at 20% 0%,
       rgba(255,255,255,.06),
@@ -84,11 +79,9 @@
     linear-gradient(90deg,
       color-mix(in oklab, var(--primary-color) 14%, transparent),
       transparent 65%);
-
   overflow:hidden;
 }
 
-/* slim highlight line */
 .footerx__cta::after{
   content:"";
   position:absolute;
@@ -106,12 +99,10 @@
 .footerx__cta-inner{
   max-width: 100%;
   margin: 0 4.5rem;
-
   display: grid;
   grid-template-columns: 1.1fr auto;
   align-items: center;
   gap: 16px;
-
   position: relative;
   z-index: 1;
 }
@@ -123,6 +114,7 @@
   font-weight: 800;
   letter-spacing: -0.15px;
 }
+
 .footerx__cta-copy p{
   margin: 0;
   color: var(--ink-dim);
@@ -136,23 +128,19 @@
   flex-wrap: wrap;
 }
 
-
-
-
-/* buttons: same font-size, new look */
+/* =========================
+   Buttons
+   ========================= */
 .btn{
   display:inline-flex;
   align-items:center;
   gap:.6rem;
-
   font-weight:700;
   cursor:pointer;
   text-decoration:none;
-
   border-radius:999px;
   padding:.8rem 1.3rem;
   border: 1px solid transparent;
-
   transition: transform .2s ease, filter .2s ease, background .2s ease, border-color .2s ease;
   will-change: transform;
 }
@@ -166,6 +154,7 @@
     0 14px 34px rgba(0,0,0,.28),
     0 1px 0 rgba(255,255,255,.14) inset;
 }
+
 .btn--primary:hover{
   transform: translateY(-2px);
   filter: saturate(1.05);
@@ -177,35 +166,29 @@
   color: #fff;
   box-shadow: 0 10px 26px rgba(0,0,0,.18);
 }
+
 .btn--ghost:hover{
   transform: translateY(-2px);
   background: rgba(255,255,255,.10);
 }
 
-
-
-/* WhatsApp button (green) */
+/* WhatsApp CTA */
 .wp-action .btn-wp{
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: .6rem;
-
   border-radius: 999px;
   padding: .8rem 1.3rem;
-
   border: 1px solid rgba(255,255,255,.14);
-  background: linear-gradient(135deg, #25D366, #128C7E); /* WhatsApp green */
+  background: linear-gradient(135deg, #25D366, #128C7E);
   color: #ffffff;
-
   font-weight: 700;
   cursor: pointer;
   text-decoration: none;
-
   box-shadow:
     0 14px 34px rgba(0,0,0,.28),
     0 1px 0 rgba(255,255,255,.14) inset;
-
   transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
   will-change: transform;
 }
@@ -230,19 +213,17 @@
 }
 
 /* =========================
-   Main Grid (same structure, new card styling)
+   Main Grid
    ========================= */
 .footerx__main{
   max-width: 100%;
   margin: 0 4.5rem;
   padding: 28px clamp(16px, 5vw, 40px) 46px;
-
   display:grid;
   grid-template-columns: minmax(260px, 1.1fr) 1.2fr minmax(260px, .9fr);
   gap: 20px;
 }
 
-/* Glass cards (upgraded) */
 .fcard{
   position: relative;
   background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
@@ -250,16 +231,13 @@
   border-radius: 18px;
   backdrop-filter: var(--card-blur);
   -webkit-backdrop-filter: var(--card-blur);
-
   box-shadow:
     0 18px 46px rgba(0,0,0,.18),
     0 1px 0 rgba(255,255,255,.10) inset;
-
   padding: 18px 18px;
   overflow: hidden;
 }
 
-/* gradient border sheen */
 .fcard::before{
   content:"";
   position:absolute;
@@ -279,7 +257,7 @@
   opacity: .85;
 }
 
-.fcard li{ font-size: 1.5rem; } /* keep same */
+.fcard li{ font-size: 1.5rem; }
 
 /* =========================
    Brand card
@@ -305,65 +283,87 @@
   line-height: 1.55;
 }
 
-/* Newsletter (new field look, same sizes) */
 .newsletter{
   margin-top: 12px;
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 46px;
   border-radius: 999px;
-  overflow:hidden;
-
+  overflow: hidden;
   background: rgba(0,0,0,.18);
   border: 1px solid rgba(255,255,255,.14);
-
   box-shadow: 0 12px 28px rgba(0,0,0,.18);
 }
 
 .newsletter input{
-  flex:1;
-  padding: 12px 14px;
-  border:none;
-  outline:none;
+  flex: 1;
+  height: 100%;
+  padding: 0 16px;
+  border: none;
+  outline: none;
   background: transparent;
   color: #eaf1ff;
   font-size: 14px;
 }
-.newsletter input::placeholder{ color:#9ab0cd; }
 
-.newsletter button{
-  display:grid;
-  place-items:center;
-  background:
-    radial-gradient(120% 120% at 20% 10%, rgba(255,255,255,.25), transparent 55%),
-    var(--primary-color);
-  color:#fff;
-  border:none;
-  padding: 16px 16px;
-  height: 100%;
-  cursor:pointer;
+.newsletter input::placeholder{
+  color:#9ab0cd;
 }
 
-/* Socials (new hover glow) */
+.newsletter button{
+  all: unset;
+}
+
+.newsletter input::placeholder{
+  color:#9ab0cd;
+}
+
+.newsletter button{
+  all: unset;
+}
+
+
+
+@media (max-width: 380px){
+  .newsletter input{
+    height: 42px;
+    padding: 0 12px;
+  }
+
+  .newsletter__btn{
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+  }
+
+  .newsletter__btn svg{
+    font-size: 15px;
+  }
+}
+
+/* =========================
+   Socials
+   ========================= */
 .socials{
   display:flex;
   gap: 10px;
   margin-top: 12px;
 }
+
 .socials a{
   --s: 36px;
   width: var(--s);
   height: var(--s);
-
   display:grid;
   place-items:center;
   border-radius: 50%;
-
   color: var(--ink);
   background: rgba(255,255,255,.06);
   border: 1px solid rgba(255,255,255,.10);
-
   transition: transform .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease;
 }
+
 .socials a:hover{
   transform: translateY(-2px);
   color:#fff;
@@ -372,7 +372,7 @@
 }
 
 /* =========================
-   Links (new column separation look)
+   Links
    ========================= */
 .fcard--links{
   display:grid;
@@ -383,7 +383,7 @@
 .fcard--links h5{
   color:#fff;
   margin: 2px 0 10px;
-  font-size: 1.35rem; /* keep */
+  font-size: 1.35rem;
   letter-spacing: .2px;
 }
 
@@ -398,23 +398,24 @@
 .fcard--links a{
   color: var(--ink-dim);
   text-decoration:none;
-  font-size: 1.28rem; /* keep */
+  font-size: 1.28rem;
   transition: color .2s ease, transform .2s ease;
   display: inline-flex;
   gap: .6rem;
 }
+
 .fcard--links a:hover{
   color:#fff;
   transform: translateX(2px);
 }
 
 /* =========================
-   Contact (cleaner + structured)
+   Contact
    ========================= */
 .fcard--contact h5{
   color:#fff;
   margin: 4px 0 12px;
-  font-size: 1.35rem; /* keep */
+  font-size: 1.35rem;
 }
 
 .contact-list{
@@ -427,43 +428,45 @@
   display:flex;
   align-items:center;
   gap: 10px;
-
   color: var(--ink);
   margin: 9px 0;
-  font-size: 1.3rem; /* keep */
+  font-size: 1.3rem;
 }
+
 .contact-list a{
   color: var(--ink);
   text-decoration:none;
 }
-.contact-list a:hover{ text-decoration: underline; }
 
-/* Badges (new pill styling) */
+.contact-list a:hover{
+  text-decoration: underline;
+}
+
 .badges{
   display:flex;
   gap: 8px;
   flex-wrap: wrap;
 }
+
 .badges span{
   background: rgba(255,255,255,.07);
   border: 1px solid rgba(255,255,255,.12);
   color:#fff;
   padding: .38rem .75rem;
   border-radius: 999px;
-  font-size: 1.15rem; /* keep */
+  font-size: 1.15rem;
   display:inline-flex;
   align-items:center;
   gap: .45rem;
 }
 
 /* =========================
-   Trust row (new segmented bar)
+   Trust row
    ========================= */
 .footerx__trust{
   max-width: 100%;
   margin: 0 6rem;
   padding: 10px clamp(16px, 5vw, 40px) 22px;
-
   display:grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
@@ -475,7 +478,6 @@
   border-radius: 14px;
   padding: 12px 14px;
   text-align:center;
-
   box-shadow: 0 12px 32px rgba(0,0,0,.16);
 }
 
@@ -483,32 +485,30 @@
   display:block;
   color:#fff;
   font-weight: 900;
-  font-size: 1.6rem; /* keep */
+  font-size: 1.6rem;
   letter-spacing: -0.2px;
 }
+
 .trust-item span{
   color: var(--ink-dim);
-  font-size: 1.2rem; /* keep */
+  font-size: 1.2rem;
 }
 
 /* =========================
-   Bottom (new separated bar)
+   Bottom
    ========================= */
 .footerx__bottom{
   width: 100%;
   margin: 0 auto;
   padding: 16px 90px 28px;
-
   border-top: 1px solid rgba(255,255,255,.08);
   background: rgba(0,0,0,.12);
-
   display:flex;
   align-items:center;
   justify-content: space-between;
   flex-wrap: wrap;
-
   color:#8ba0bd;
-  font-size: 1.4rem; /* keep */
+  font-size: 1.4rem;
 }
 
 .legal-mini{
@@ -518,32 +518,51 @@
   padding: 0;
   margin: 0;
 }
+
 .legal-mini a{
   color:#8ba0bd;
   text-decoration:none;
   transition: color .2s ease;
 }
-.legal-mini a:hover{ color:#fff; }
+
+.legal-mini a:hover{
+  color:#fff;
+}
 
 /* =========================
-   Breakpoints (same logic)
+   Breakpoints
    ========================= */
 @media (max-width: 1100px){
-  .footerx__main{ grid-template-columns: 1fr 1fr; }
-  .fcard--links{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .footerx__main{
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .fcard--links{
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
 }
 
 @media (max-width: 900px){
-  .footerx__disclaimer{ padding: 1rem 2rem; }
+  .footerx__disclaimer{
+    padding: 1rem 2rem;
+  }
 
   .footerx__cta-inner{
     grid-template-columns: 1fr;
     gap: 10px;
   }
-  .footerx__cta-actions{ justify-content: flex-start; }
 
-  .footerx__main{ grid-template-columns: 1fr; }
-  .footerx__trust{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .footerx__cta-actions{
+    justify-content: flex-start;
+  }
+
+  .footerx__main{
+    grid-template-columns: 1fr;
+  }
+
+  .footerx__trust{
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
 
   .footerx__trust,
   .footerx__cta-inner,
@@ -558,31 +577,46 @@
   }
 }
 
+@media (max-width: 768px){
+  .newsletter input{
+    height: 44px;
+    padding: 0 44px 0 14px;
+  }
+
+  .newsletter__btn{
+    right: 10px;
+  }
+
+  .newsletter__btn svg{
+    font-size: 16px;
+  }
+}
+
 @media (max-width: 520px){
-  .fcard--links{ grid-template-columns: 1fr; }
-  .socials{ justify-content: flex-start; }
-  .newsletter button{ padding: 0 14px; }
-  .footerx__bottom > .container{
-    flex-direction: column;
-    gap: 8px;
-    text-align:center;
+  .fcard--links{
+    grid-template-columns: 1fr;
+  }
+
+  .socials{
+    justify-content: flex-start;
   }
 }
 
 @media (max-width: 380px){
-  .newsletter input{ padding: 10px 12px; }
-  .btn{ padding: .7rem 1.1rem; }
-  .socials a{ --s: 34px; }
-}
+  .newsletter input{
+    height: 42px;
+    padding: 0 42px 0 12px;
+  }
 
-/* Force WhatsApp icon inside newsletter button */
-.newsletter button::before,
-.newsletter button::after {
-  content: none !important;
-}
+  .btn{
+    padding: .7rem 1.1rem;
+  }
 
-.newsletter button svg {
-  display: block !important;
-  color: #fff !important;
-  font-size: 18px;
+  .socials a{
+    --s: 34px;
+  }
+
+  .newsletter__btn svg{
+    font-size: 15px;
+  }
 }

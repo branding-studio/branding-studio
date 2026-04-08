@@ -18,10 +18,10 @@ const Services = () => {
   const services = useMemo(
     () => [
       {
-        label: "Film Making",
+        label: "Content Creation",
         icon: <FaVideo />,
         to: "/services/film-making",
-        desc: "Ad films, brand stories & cinematic content",
+        desc: "Creative shoots, reels, ad films & high-impact brand content",
         tone: "a",
         img: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
@@ -142,7 +142,7 @@ const Services = () => {
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
               <span className="wks-services__spark" aria-hidden="true" />
-              Branding Studio
+              Branding Studios
             </motion.div>
 
             <motion.h2

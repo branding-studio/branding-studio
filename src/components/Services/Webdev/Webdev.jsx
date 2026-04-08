@@ -25,8 +25,10 @@ import {
   FaFilePdf,
   FaTerminal,
   FaAngleRight,
-  FaTelegramPlane,
-  FaWhatsapp, // ✅ Added FaWhatsapp
+  FaWhatsapp,
+  FaPlayCircle,
+  FaImage,
+  FaLaptopCode,
 } from "react-icons/fa";
 import "./Webdev.css";
 import { useLocalContext } from "../../../context/LocalContext";
@@ -197,13 +199,69 @@ const puppeteerSnippet = `import puppeteer from 'puppeteer';
 
 export default function Webdev() {
   const navigate = useNavigate();
-  // ✅ Switch to WhatsApp helpers
   const { openWhatsApp, getWhatsAppUrl } = useLocalContext();
+  const [sampleFilter, setSampleFilter] = useState("all");
 
-  /* ===== Sticky rail + scroll spy ===== */
+  const samples = [
+    {
+      id: 1,
+      type: "photo",
+      title: "Business Website Landing Page",
+      category: "Landing Page",
+      thumb: "/assets/samples/web-photo-1.jpg",
+      link: "/assets/samples/web-photo-1.jpg",
+    },
+    {
+      id: 2,
+      type: "photo",
+      title: "Dashboard UI Mockup",
+      category: "Dashboard Design",
+      thumb: "/assets/samples/web-photo-2.jpg",
+      link: "/assets/samples/web-photo-2.jpg",
+    },
+    {
+      id: 3,
+      type: "video",
+      title: "Website Walkthrough Demo",
+      category: "Web Preview",
+      thumb: "/assets/samples/web-video-1.jpg",
+      link: "https://www.youtube.com/",
+    },
+    {
+      id: 4,
+      type: "photo",
+      title: "Mobile Responsive Preview",
+      category: "Responsive UI",
+      thumb: "/assets/samples/web-photo-3.jpg",
+      link: "/assets/samples/web-photo-3.jpg",
+    },
+    {
+      id: 5,
+      type: "video",
+      title: "Interactive Website Demo",
+      category: "UI Motion",
+      thumb: "/assets/samples/web-video-2.jpg",
+      link: "https://www.youtube.com/",
+    },
+    {
+      id: 6,
+      type: "photo",
+      title: "E-commerce Product Page",
+      category: "E-commerce",
+      thumb: "/assets/samples/web-photo-4.jpg",
+      link: "/assets/samples/web-photo-4.jpg",
+    },
+  ];
+
+  const filteredSamples =
+    sampleFilter === "all"
+      ? samples
+      : samples.filter((item) => item.type === sampleFilter);
+
   const ids = useMemo(
     () => [
       "hero",
+      "samples",
       "outcomes",
       "process",
       "stack",
@@ -213,8 +271,10 @@ export default function Webdev() {
     ],
     []
   );
+
   const labels = {
     hero: "Intro",
+    samples: "Samples",
     outcomes: "Outcomes",
     process: "Process",
     stack: "Tools",
@@ -222,6 +282,7 @@ export default function Webdev() {
     automation: "Automation",
     cta: "Start",
   };
+
   const [active, setActive] = useState(ids[0]);
 
   useEffect(() => {
@@ -246,7 +307,6 @@ export default function Webdev() {
     }
   };
 
-  // ✅ Generate WhatsApp URL safely
   const whatsappHref = getWhatsAppUrl
     ? getWhatsAppUrl({
         message: "Hi! I am interested in Web Development services.",
@@ -256,7 +316,6 @@ export default function Webdev() {
 
   return (
     <main className="webdev services-grid">
-      {/* Sticky rail */}
       <aside className="wd__rail" aria-label="Page sections">
         <div className="rail__brand">
           <div className="rail__logo">WD</div>
@@ -265,6 +324,7 @@ export default function Webdev() {
             <small>Sites & Landing Pages</small>
           </div>
         </div>
+
         <ul className="rail__nav">
           {ids.map((id) => (
             <li key={id}>
@@ -279,7 +339,6 @@ export default function Webdev() {
           ))}
         </ul>
 
-        {/* ✅ UPDATED: Talk on WhatsApp Button */}
         <div className="ppc2-ctaRail">
           <a
             className="ppc2-btn ppctg"
@@ -302,9 +361,7 @@ export default function Webdev() {
         </div>
       </aside>
 
-      {/* Main column */}
       <div className="wd__main">
-        {/* HERO */}
         <section id="hero" className="webdev__hero">
           <motion.div
             className="webdev__hero-inner"
@@ -345,7 +402,64 @@ export default function Webdev() {
           </motion.div>
         </section>
 
-        {/* OUTCOMES */}
+        <section id="samples" className="wd__samples">
+          <div className="wd-section-head">
+            <h2>Our Work Samples</h2>
+            <p>
+              Explore selected websites, landing pages, dashboards, responsive
+              previews, and interactive web project samples.
+            </p>
+          </div>
+
+          <div className="wd__sample-filters">
+            <button
+              className={`wd__filter-btn ${sampleFilter === "all" ? "is-active" : ""}`}
+              onClick={() => setSampleFilter("all")}
+            >
+              All
+            </button>
+            <button
+              className={`wd__filter-btn ${sampleFilter === "video" ? "is-active" : ""}`}
+              onClick={() => setSampleFilter("video")}
+            >
+              Videos
+            </button>
+            <button
+              className={`wd__filter-btn ${sampleFilter === "photo" ? "is-active" : ""}`}
+              onClick={() => setSampleFilter("photo")}
+            >
+              Photos
+            </button>
+          </div>
+
+          <div className="wd__samples-grid">
+            {filteredSamples.map((item) => (
+              <a
+                key={item.id}
+                href={item.link}
+                target="_blank"
+                rel="noreferrer"
+                className="wd__sample-card"
+              >
+                <div className="wd__sample-thumb">
+                  <img src={item.thumb} alt={item.title} />
+                  <div className="wd__sample-overlay">
+                    {item.type === "video" ? <FaPlayCircle /> : <FaImage />}
+                  </div>
+                </div>
+
+                <div className="wd__sample-content">
+                  <span className="wd__sample-type">{item.category}</span>
+                  <h4>{item.title}</h4>
+                  <button type="button" className="wd__sample-btn">
+                    {item.type === "video" ? "Watch Sample" : "View Sample"}
+                  </button>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
         <section id="outcomes" className="webdev__outcomes">
           <div className="wd-section-head">
             <h2>Built for performance, designed to convert</h2>
@@ -372,7 +486,6 @@ export default function Webdev() {
           </div>
         </section>
 
-        {/* PROCESS */}
         <section id="process" className="webdev__process">
           <div className="wd-section-head">
             <h2>Our build process</h2>
@@ -400,7 +513,6 @@ export default function Webdev() {
           </ol>
         </section>
 
-        {/* STACK */}
         <section id="stack" className="webdev__stack">
           <div className="wd-section-head">
             <h2>Tech we love</h2>
@@ -415,7 +527,6 @@ export default function Webdev() {
           </div>
         </section>
 
-        {/* BACKEND & DATA */}
         <section id="backend" className="webdev__backend">
           <div className="wd-section-head">
             <h2>Backend & Data</h2>
@@ -448,7 +559,6 @@ export default function Webdev() {
           </div>
         </section>
 
-        {/* AUTOMATION & QA */}
         <section id="automation" className="webdev__automation">
           <div className="wd-section-head">
             <h2>Automation & QA (Puppeteer)</h2>
@@ -510,7 +620,6 @@ export default function Webdev() {
           </div>
         </section>
 
-        {/* CTA */}
         <section id="cta" className="webdev__cta">
           <div className="wd-cta-inner">
             <div className="wd-cta-copy">

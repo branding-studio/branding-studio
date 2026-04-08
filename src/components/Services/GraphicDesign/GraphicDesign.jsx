@@ -10,19 +10,76 @@ import {
   FaBookOpen,
   FaBezierCurve,
   FaCheckCircle,
-  FaTelegramPlane,
   FaAngleRight,
-  FaLightbulb,
   FaShapes,
-  FaWhatsapp, // ✅ Added FaWhatsapp
+  FaWhatsapp,
+  FaPlayCircle,
 } from "react-icons/fa";
 import "./GraphicDesign.css";
 import { useLocalContext } from "../../../context/LocalContext";
 
 const GraphicDesign = () => {
   const navigate = useNavigate();
-  // ✅ Switch to WhatsApp helpers
   const { openWhatsApp, getWhatsAppUrl } = useLocalContext();
+
+  const [sampleFilter, setSampleFilter] = useState("all");
+
+  /** ===== Samples ===== */
+  const samples = [
+    {
+      id: 1,
+      type: "photo",
+      title: "Premium Poster Design",
+      category: "Poster Creative",
+      thumb: "/assets/samples/design-photo-1.jpg",
+      link: "/assets/samples/design-photo-1.jpg",
+    },
+    {
+      id: 2,
+      type: "photo",
+      title: "Brand Identity Board",
+      category: "Branding",
+      thumb: "/assets/samples/design-photo-2.jpg",
+      link: "/assets/samples/design-photo-2.jpg",
+    },
+    {
+      id: 3,
+      type: "video",
+      title: "Logo Reveal Animation",
+      category: "Motion Design",
+      thumb: "/assets/samples/design-video-1.jpg",
+      link: "https://www.youtube.com/",
+    },
+    {
+      id: 4,
+      type: "photo",
+      title: "Social Media Creative Set",
+      category: "Social Kit",
+      thumb: "/assets/samples/design-photo-3.jpg",
+      link: "/assets/samples/design-photo-3.jpg",
+    },
+    {
+      id: 5,
+      type: "video",
+      title: "UI Walkthrough Preview",
+      category: "UI Showcase",
+      thumb: "/assets/samples/design-video-2.jpg",
+      link: "https://www.youtube.com/",
+    },
+    {
+      id: 6,
+      type: "photo",
+      title: "Packaging Mockup",
+      category: "Packaging Design",
+      thumb: "/assets/samples/design-photo-4.jpg",
+      link: "/assets/samples/design-photo-4.jpg",
+    },
+  ];
+
+  const filteredSamples =
+    sampleFilter === "all"
+      ? samples
+      : samples.filter((item) => item.type === sampleFilter);
 
   /** ===== Services ===== */
   const services = [
@@ -76,7 +133,7 @@ const GraphicDesign = () => {
     },
   ];
 
-  /** ===== Program scope (Adapted from SEO scope) ===== */
+  /** ===== Scope ===== */
   const scope = [
     {
       title: "Brand Strategy",
@@ -124,7 +181,7 @@ const GraphicDesign = () => {
     },
   ];
 
-  /** ===== Tiers (Adapted from Influencer tiers) ===== */
+  /** ===== Tiers ===== */
   const tiers = [
     { tier: "Startup", desc: "Essential identity & social kit" },
     { tier: "Growth", desc: "Full web UI & marketing collateral" },
@@ -179,6 +236,7 @@ const GraphicDesign = () => {
   /* ===== Sticky rail / scroll-spy ===== */
   const ids = useMemo(
     () => [
+      "samples",
       "services",
       "scope",
       "tiers",
@@ -192,6 +250,7 @@ const GraphicDesign = () => {
   );
 
   const labels = {
+    samples: "Samples",
     services: "Services",
     scope: "Design Scope",
     tiers: "Tiers",
@@ -226,7 +285,6 @@ const GraphicDesign = () => {
     }
   };
 
-  // ✅ Generate WhatsApp URL safely
   const whatsappHref = getWhatsAppUrl
     ? getWhatsAppUrl({
         message: "Hi! I am interested in Graphic Design services.",
@@ -236,7 +294,6 @@ const GraphicDesign = () => {
 
   return (
     <main className="design_services">
-      {/* Sticky rail */}
       <aside className="design__rail" aria-label="Page sections">
         <div className="rail__brand">
           <div className="rail__logo">DSGN</div>
@@ -245,6 +302,7 @@ const GraphicDesign = () => {
             <small>Visuals + Strategy</small>
           </div>
         </div>
+
         <ul className="rail__nav">
           {ids.map((id) => (
             <li key={id}>
@@ -258,8 +316,8 @@ const GraphicDesign = () => {
             </li>
           ))}
         </ul>
+
         <div className="ppc2-ctaRail">
-          {/* ✅ UPDATED: Talk on WhatsApp Button */}
           <a
             className="ppc2-btn ppctg"
             href={whatsappHref}
@@ -281,9 +339,7 @@ const GraphicDesign = () => {
         </div>
       </aside>
 
-      {/* Main column */}
       <div className="design__main">
-        {/* HERO */}
         <header className="design__hero">
           <span className="design__eyebrow">Creative & Visual Strategy</span>
           <h1>
@@ -305,7 +361,64 @@ const GraphicDesign = () => {
           </div>
         </header>
 
-        {/* SERVICES */}
+        <section id="samples" className="design__samples">
+          <div className="design__head">
+            <h3>Our Work Samples</h3>
+            <p>
+              Explore selected branding work, poster creatives, social design
+              kits, packaging mockups, and motion-based visual samples.
+            </p>
+          </div>
+
+          <div className="design__sample-filters">
+            <button
+              className={`design__filter-btn ${sampleFilter === "all" ? "is-active" : ""}`}
+              onClick={() => setSampleFilter("all")}
+            >
+              All
+            </button>
+            <button
+              className={`design__filter-btn ${sampleFilter === "video" ? "is-active" : ""}`}
+              onClick={() => setSampleFilter("video")}
+            >
+              Videos
+            </button>
+            <button
+              className={`design__filter-btn ${sampleFilter === "photo" ? "is-active" : ""}`}
+              onClick={() => setSampleFilter("photo")}
+            >
+              Photos
+            </button>
+          </div>
+
+          <div className="design__samples-grid">
+            {filteredSamples.map((item) => (
+              <a
+                key={item.id}
+                href={item.link}
+                target="_blank"
+                rel="noreferrer"
+                className="design__sample-card"
+              >
+                <div className="design__sample-thumb">
+                  <img src={item.thumb} alt={item.title} />
+                  <div className="design__sample-overlay">
+                    {item.type === "video" ? <FaPlayCircle /> : <FaImage />}
+                  </div>
+                </div>
+
+                <div className="design__sample-content">
+                  <span className="design__sample-type">{item.category}</span>
+                  <h4>{item.title}</h4>
+                  <button type="button" className="design__sample-btn">
+                    {item.type === "video" ? "Watch Sample" : "View Sample"}
+                  </button>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
         <section id="services" className="design__grid">
           {services.map((s) => (
             <article key={s.title} className="design__card">
@@ -325,7 +438,6 @@ const GraphicDesign = () => {
           ))}
         </section>
 
-        {/* SCOPE */}
         <section id="scope" className="design__scope">
           <div className="design__head">
             <h3>Design Capabilities</h3>
@@ -350,7 +462,6 @@ const GraphicDesign = () => {
           </div>
         </section>
 
-        {/* TIERS (Formerly Influencer) */}
         <section id="tiers" className="design__influencer">
           <div className="design__head">
             <h3>Engagement Models</h3>
@@ -369,7 +480,6 @@ const GraphicDesign = () => {
           </div>
         </section>
 
-        {/* PROCESS */}
         <section id="process" className="design__process">
           <div className="design__head">
             <h3>Creative Process</h3>
@@ -388,7 +498,6 @@ const GraphicDesign = () => {
           </ol>
         </section>
 
-        {/* STACK */}
         <section id="stack" className="design__stack">
           <div className="design__head">
             <h3>Industry Standard Tools</h3>
@@ -405,7 +514,6 @@ const GraphicDesign = () => {
           </ul>
         </section>
 
-        {/* DELIVERABLES */}
         <section id="deliverables" className="design__deliver">
           <div className="design__head">
             <h3>What you receive</h3>
@@ -428,7 +536,6 @@ const GraphicDesign = () => {
           </div>
         </section>
 
-        {/* IMPACT (Formerly KPIs) */}
         <section id="metrics" className="design__kpis">
           <div className="design__head">
             <h3>Design Impact</h3>
@@ -443,7 +550,6 @@ const GraphicDesign = () => {
           </ul>
         </section>
 
-        {/* CTA */}
         <section id="cta" className="design__cta">
           <div className="design__cta-inner">
             <div className="design__cta-copy">

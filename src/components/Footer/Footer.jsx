@@ -69,30 +69,26 @@ const Footer = () => {
         <div className="fcard fcard--brand">
           <div className="brand">
             <div className="brand__text">
-              <img src="/assests/logo/branding-logo.png" alt="Branding Studio" />
-              <p>Performance marketing, made simple—and measurable.</p>
+              <img src="/assets/logo/favicon.png" alt="Branding Studios" className="footer-brand-logo" />
+              <p>Performance marketing, made simple and measurable.</p>
             </div>
           </div>
 
           {/* Newsletter */}
           <form
-            className="newsletter"
-            onSubmit={(e) => e.preventDefault()}
-            aria-label="Subscribe to our newsletter"
-          >
-            <input
-              type="tel"
-              placeholder="Send Message"
-              aria-label="WhatsApp number"
-              required
-              inputMode="tel"
-              pattern="^\+?[0-9\s-]{8,15}$"
-            />
-
-            <button type="submit" aria-label="Subscribe" className="newsletter__btn">
-              <FontAwesomeIcon icon={faWhatsapp} />
-            </button>
-          </form>
+  className="newsletter"
+  onSubmit={(e) => e.preventDefault()}
+  aria-label="Send message"
+>
+  <input
+    type="text"
+    placeholder="Send Message"
+    aria-label="Send message"
+  />
+  <span className="newsletter__icon" aria-hidden="true">
+    <FontAwesomeIcon icon={faWhatsapp} />
+  </span>
+</form>
 
           {/* Socials */}
           <div className="socials" aria-label="Social links">
@@ -110,7 +106,7 @@ const Footer = () => {
 
             {/* Instagram */}
             <a
-              href="https://www.instagram.com/brandingstudio.in/"
+              href="https://www.instagram.com/brandingstudios.in/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -145,7 +141,7 @@ const Footer = () => {
           <div>
             <h5>Solutions</h5>
             <ul>
-              <li><a href="/services/film-making">Film Making</a></li>
+              <li><a href="/services/film-making">Content Creation</a></li>
               <li><a href="/services/smo">Social Media (SMO)</a></li>
               <li><a href="/services/graphic-design">Graphic Designing</a></li>
               <li><a href="/services/website-development">Web Development</a></li>

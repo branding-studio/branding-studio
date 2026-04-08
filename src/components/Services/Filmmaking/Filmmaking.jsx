@@ -6,21 +6,79 @@ import {
   FaFilm,
   FaMicrophoneAlt,
   FaPhotoVideo,
-  FaCut,
   FaMagic,
   FaCheckCircle,
   FaWhatsapp,
   FaAngleRight,
-  FaPlayCircle,
   FaCamera,
+  FaPlayCircle,
+  FaImage,
 } from "react-icons/fa";
 import "./Filmmaking.css";
 import { useLocalContext } from "../../../context/LocalContext";
 
 const Filmmaking = () => {
   const navigate = useNavigate();
-  // ✅ Switched to WhatsApp helpers
   const { openWhatsApp, getWhatsAppUrl } = useLocalContext();
+
+  /** ===== Samples ===== */
+  const [sampleFilter, setSampleFilter] = useState("all");
+
+  const samples = [
+    {
+      id: 1,
+      type: "video",
+      title: "Fashion Brand Ad Film",
+      category: "Ad Film",
+      thumb: "/assets/samples/film-video-1.jpg",
+      link: "https://www.youtube.com/",
+    },
+    {
+      id: 2,
+      type: "video",
+      title: "Restaurant Promo Reel",
+      category: "Promo Reel",
+      thumb: "/assets/samples/film-video-2.jpg",
+      link: "https://www.youtube.com/",
+    },
+    {
+      id: 3,
+      type: "photo",
+      title: "Product Shoot Setup",
+      category: "Behind the Scenes",
+      thumb: "/assets/samples/film-photo-1.jpg",
+      link: "/assets/samples/film-photo-1.jpg",
+    },
+    {
+      id: 4,
+      type: "photo",
+      title: "Brand Campaign Still",
+      category: "Campaign Visual",
+      thumb: "/assets/samples/film-photo-2.jpg",
+      link: "/assets/samples/film-photo-2.jpg",
+    },
+    {
+      id: 5,
+      type: "video",
+      title: "Corporate Introduction Film",
+      category: "Corporate Film",
+      thumb: "/assets/samples/film-video-3.jpg",
+      link: "https://www.youtube.com/",
+    },
+    {
+      id: 6,
+      type: "photo",
+      title: "Lighting & Set Direction",
+      category: "Production Still",
+      thumb: "/assets/samples/film-photo-3.jpg",
+      link: "/assets/samples/film-photo-3.jpg",
+    },
+  ];
+
+  const filteredSamples =
+    sampleFilter === "all"
+      ? samples
+      : samples.filter((item) => item.type === sampleFilter);
 
   /** ===== Services ===== */
   const services = [
@@ -150,6 +208,7 @@ const Filmmaking = () => {
   /* ===== Sticky rail / scroll-spy ===== */
   const ids = useMemo(
     () => [
+      "samples",
       "services",
       "scope",
       "tiers",
@@ -163,6 +222,7 @@ const Filmmaking = () => {
   );
 
   const labels = {
+    samples: "Samples",
     services: "Services",
     scope: "Production Scope",
     tiers: "Packages",
@@ -194,7 +254,6 @@ const Filmmaking = () => {
     el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  // Safe check for context URL generation
   const whatsappHref = getWhatsAppUrl
     ? getWhatsAppUrl({
         message: "Hi! I am interested in filmmaking services.",
@@ -204,15 +263,15 @@ const Filmmaking = () => {
 
   return (
     <main className="film_services">
-      {/* Sticky rail */}
       <aside className="film__rail" aria-label="Page sections">
         <div className="rail__brand">
-          <div className="rail__logo">FLM</div>
+          <div className="rail__logo">CC</div>
           <div>
-            <strong>Filmmaking</strong>
-            <small>Production House</small>
+            <strong>Content Creation</strong>
+            <small>Photo • Video • Reels</small>
           </div>
         </div>
+
         <ul className="rail__nav">
           {ids.map((id) => (
             <li key={id}>
@@ -225,8 +284,8 @@ const Filmmaking = () => {
             </li>
           ))}
         </ul>
+
         <div className="ppc2-ctaRail">
-          {/* ✅ UPDATED: Talk on WhatsApp Button */}
           <a
             className="ppc2-btn ppctg"
             href={whatsappHref}
@@ -236,7 +295,7 @@ const Filmmaking = () => {
               if (openWhatsApp) {
                 e.preventDefault();
                 openWhatsApp({
-                  message: "Hi! I am interested in filmmaking services.",
+                  message: "Hi! I am interested in content creation services.",
                 });
               }
             }}
@@ -246,20 +305,18 @@ const Filmmaking = () => {
         </div>
       </aside>
 
-      {/* Main column */}
       <div className="film__main">
-        {/* HERO */}
         <header className="film__hero">
-          <span className="film__eyebrow">Cinematic & Commercial</span>
+          <span className="film__eyebrow">Content Creation & Production</span>
           <h1>
-            Stories that move.
+            Content that captures.
             <br />
-            Visuals that sell.
+           Visuals that convert.
           </h1>
           <p>
-            From 15-second ads to full-scale brand documentaries. We create
-            studio-grade video content that captivates audiences and elevates
-            your brand.
+            From reels and ad shoots to product photos, promo videos, and branded
+            campaigns — we create high-impact content that helps your brand stand
+            out and perform across platforms.
           </p>
 
           <div className="film__hero-cta">
@@ -267,12 +324,69 @@ const Filmmaking = () => {
               className="btn btn--primary"
               onClick={() => navigate("/contact")}
             >
-              Start Production <FaAngleRight />
+              Start Content Project <FaAngleRight />
             </button>
           </div>
         </header>
 
-        {/* SERVICES */}
+        <section id="samples" className="film__samples">
+          <div className="film__head">
+            <h3>Our Content Samples</h3>
+            <p>
+              Explore selected photo and video samples including reels, ad shoots,
+              product visuals, promo edits, and branded campaign content.
+            </p>
+          </div>
+
+          <div className="film__sample-filters">
+            <button
+              className={`film__filter-btn ${sampleFilter === "all" ? "is-active" : ""}`}
+              onClick={() => setSampleFilter("all")}
+            >
+              All
+            </button>
+            <button
+              className={`film__filter-btn ${sampleFilter === "video" ? "is-active" : ""}`}
+              onClick={() => setSampleFilter("video")}
+            >
+              Videos
+            </button>
+            <button
+              className={`film__filter-btn ${sampleFilter === "photo" ? "is-active" : ""}`}
+              onClick={() => setSampleFilter("photo")}
+            >
+              Photos
+            </button>
+          </div>
+
+          <div className="film__samples-grid">
+            {filteredSamples.map((item) => (
+              <a
+                key={item.id}
+                href={item.link}
+                target="_blank"
+                rel="noreferrer"
+                className="film__sample-card"
+              >
+                <div className="film__sample-thumb">
+                  <img src={item.thumb} alt={item.title} />
+                  <div className="film__sample-overlay">
+                    {item.type === "video" ? <FaPlayCircle /> : <FaImage />}
+                  </div>
+                </div>
+
+                <div className="film__sample-content">
+                  <span className="film__sample-type">{item.category}</span>
+                  <h4>{item.title}</h4>
+                  <button type="button" className="film__sample-btn">
+                    {item.type === "video" ? "Watch Sample" : "View Sample"}
+                  </button>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
         <section id="services" className="film__grid">
           {services.map((s) => (
             <article key={s.title} className="film__card">
@@ -292,11 +406,10 @@ const Filmmaking = () => {
           ))}
         </section>
 
-        {/* SCOPE */}
         <section id="scope" className="film__scope">
           <div className="film__head">
-            <h3>Production Capabilities</h3>
-            <p>End-to-end management of the entire production pipeline.</p>
+            <h3>Content Capabilities</h3>
+            <p>End-to-end planning, shooting, editing, and delivery for modern brand content.</p>
           </div>
           <div className="scope__grid">
             {scope.map((g) => (
@@ -314,11 +427,10 @@ const Filmmaking = () => {
           </div>
         </section>
 
-        {/* TIERS */}
         <section id="tiers" className="film__influencer">
           <div className="film__head">
-            <h3>Production Levels</h3>
-            <p>Scaled solutions for startups, agencies, and enterprises.</p>
+            <h3>Content Packages</h3>
+            <p>Flexible content solutions for startups, growing brands, and enterprise campaigns.</p>
           </div>
           <div className="infl__grid">
             {tiers.map((t) => (
@@ -330,11 +442,10 @@ const Filmmaking = () => {
           </div>
         </section>
 
-        {/* PROCESS */}
         <section id="process" className="film__process">
           <div className="film__head">
-            <h3>The Workflow</h3>
-            <p>A structured approach to creative chaos.</p>
+            <h3>How We Create</h3>
+            <p>A clear workflow for planning, producing, and delivering high-performing content.</p>
           </div>
           <ol className="film__steps">
             {steps.map((s, i) => (
@@ -349,12 +460,11 @@ const Filmmaking = () => {
           </ol>
         </section>
 
-        {/* STACK */}
         <section id="stack" className="film__stack">
           <div className="film__head">
-            <h3>Studio Gear & Tech</h3>
+            <h3>Tools, Gear & Editing Stack</h3>
             <p>
-              We use cinema-grade equipment and industry standard software.
+              We use professional cameras, lighting, and editing tools to create polished content for every platform.
             </p>
           </div>
           <ul className="film__chips">
@@ -366,11 +476,10 @@ const Filmmaking = () => {
           </ul>
         </section>
 
-        {/* DELIVERABLES */}
         <section id="deliverables" className="film__deliver">
           <div className="film__head">
             <h3>What you receive</h3>
-            <p>Mastered assets ready for broadcast and social.</p>
+            <p>Final content assets ready for social media, ads, websites, and brand campaigns.</p>
           </div>
           <ul className="film__list film__list--cards">
             {deliverables.map((d) => (
@@ -381,11 +490,10 @@ const Filmmaking = () => {
           </ul>
         </section>
 
-        {/* IMPACT */}
         <section id="metrics" className="film__kpis">
           <div className="film__head">
-            <h3>Video ROI</h3>
-            <p>Video is the highest converting medium. Here is what matters.</p>
+            <h3>Content Performance</h3>
+            <p>Great content should do more than look good — it should drive attention, engagement, and action.</p>
           </div>
           <ul className="film__chips">
             {metrics.map((k) => (
@@ -396,18 +504,17 @@ const Filmmaking = () => {
           </ul>
         </section>
 
-        {/* CTA */}
         <section id="cta" className="film__cta">
           <div className="film__cta-inner">
             <div className="film__cta-copy">
-              <h3>Ready to roll camera?</h3>
-              <p>Let's create a visual experience that defines your brand.</p>
+              <h3>Ready to create standout content?</h3>
+              <p>Let’s build photo and video content that strengthens your brand and drives results.</p>
             </div>
             <button
               className="btn btn--primary"
               onClick={() => navigate("/contact")}
             >
-              Book a Shoot <FaAngleRight />
+              Book a Content Call<FaAngleRight />
             </button>
           </div>
         </section>

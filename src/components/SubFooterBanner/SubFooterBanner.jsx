@@ -4,13 +4,12 @@ import { FaCheckCircle } from "react-icons/fa";
 import "./SubFooterBanner.css";
 
 const SubFooterBanner = ({
-  kicker = "Need quick tech help?",
+  kicker = "Need help growing your brand?",
   title = "Chat with Support on WhatsApp — Get Help in Minutes",
-  blurb =
-    "Device issues, app errors, Wi-Fi problems, setup help — we’ll guide you step-by-step and fix it fast.",
+  blurb = 
+    "Get expert guidance on marketing, branding, and digital growth — tailored strategies that deliver real results.",
   points = [
     "Quick WhatsApp support",
-    "Secure troubleshooting guidance",
     "Clear step-by-step resolution",
   ],
   ctaLabel = "WhatsApp Now",

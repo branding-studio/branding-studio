@@ -52,30 +52,29 @@ const OneClickSection = forwardRef((_, ref) => {
             <div className="card__icon card__icon--circle" aria-hidden="true">
               <FaVideo />
             </div>
-            <div className="card__eyebrow">Film Making</div>
+            <div className="card__eyebrow">Content Creation</div>
           </div>
 
           <div className="card__body">
-            <h3>High-impact videos that look premium and sell</h3>
+            <h3>High-impact content that looks premium and performs</h3>
             <p>
-              End-to-end production for brands — scripting, shooting, editing, color, subtitles and
-              platform-ready exports. Designed for conversions on reels, ads and landing pages.
+              End-to-end content creation for brands — from scripting and shoots to editing, reels,
+              ad creatives, and platform-ready visual storytelling built to engage and convert.
             </p>
-
             <div className="industries" role="group" aria-label="What you get">
               <h5>What you get</h5>
               <div className="chips">
-                <span className="chip chip--tag"><FaCheckCircle /> Script + Storyboard</span>
-                <span className="chip chip--tag"><FaCheckCircle /> Shoot Plan</span>
-                <span className="chip chip--tag"><FaCheckCircle /> Editing + Color</span>
-                <span className="chip chip--tag"><FaCheckCircle /> Reels Pack</span>
+                <span className="chip chip--tag"><FaCheckCircle /> Content Strategy</span>
+                <span className="chip chip--tag"><FaCheckCircle /> Shoot Planning</span>
+                <span className="chip chip--tag"><FaCheckCircle /> Editing + Delivery</span>
+                <span className="chip chip--tag"><FaCheckCircle /> Reels + Ads</span>
               </div>
             </div>
           </div>
 
           <div className="card__footer split">
             <button className="card__btn" onClick={() => navigate("/services/film-making")}>
-              Explore Film Making <FaArrowRight />
+              Explore Content Creation <FaArrowRight />
             </button>
 
             <div className="kpi" aria-label="Typical delivery timeline">

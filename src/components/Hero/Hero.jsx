@@ -38,15 +38,15 @@ const Hero = () => {
   const navigate = useNavigate();
   const { webinfo, openWhatsApp } = useLocalContext();
 
-  const brand = webinfo?.name || "Branding Studio";
+  const brand = webinfo?.name || "Branding Studios";
   const heroImage = webinfo?.heroImage || DEFAULT_HERO_IMG;
 
   const services = [
     {
-      label: "Film Making",
+      label: "Content Creation",
       icon: <FaVideo />,
       to: "/services/film-making",
-      desc: "Ad films, reels & brand stories",
+      desc: "Reels, ad videos & brand storytelling",
     },
     {
       label: "Social Media Marketing",
@@ -148,7 +148,7 @@ const Hero = () => {
           <motion.div className="mk-right" variants={fadeUp} transition={{ delay: 0.06 }}>
             <div className="mk-media">
               <div className="mk-media-frame">
-                <img src={heroImage} alt="Branding Studio hero visual" className="mk-photo" loading="eager" />
+                <img src={heroImage} alt="Branding Studios hero visual" className="mk-photo" loading="eager" />
                 <div className="mk-media-shine" aria-hidden="true" />
               </div>
 

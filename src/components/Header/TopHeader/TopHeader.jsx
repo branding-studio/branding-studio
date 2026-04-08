@@ -28,7 +28,7 @@ const TopHeader = () => {
 
         {/* 2. Instagram */}
         <a
-          href="https://www.instagram.com/brandingstudio.in/"
+          href="https://www.instagram.com/brandingstudios.in/"
           target="_blank"
           rel="noreferrer"
           aria-label="Instagram"

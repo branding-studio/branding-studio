@@ -8,7 +8,7 @@ const leadershipTeam = [
     image:
       "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1200&q=80",
     description:
-      "Leading Branding Studio with vision, creativity, and a strong focus on building brands that grow.",
+      "Leading Branding Studios with vision, creativity, and a strong focus on building brands that grow.",
   },
   {
     name: "Co-Founder Name",
@@ -64,7 +64,7 @@ const Team = () => {
     <section className="team-page">
       <div className="team-page__container">
         <div className="team-hero">
-          <span className="team-badge">Branding Studio • Our Team</span>
+          <span className="team-badge">Branding Studios • Our Team</span>
           <h1>Meet the Team Behind the Brand</h1>
           <p>
             The people who bring strategy, creativity, storytelling, and
@@ -74,7 +74,7 @@ const Team = () => {
 
         <div className="team-section-head">
           <span>Leadership</span>
-          <h2>The people shaping Branding Studio</h2>
+          <h2>The people shaping Branding Studios</h2>
         </div>
 
         <div className="leadership-grid">

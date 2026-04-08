@@ -574,7 +574,7 @@ const Pricing = () => {
   <div ref={pdfRef} className="pdf-quotation">
     <div className="pdf-quotation__header">
       <div>
-        <h1>Branding Studio</h1>
+        <h1>Branding Studios</h1>
         <p>Custom Quotation</p>
       </div>
       <div className="pdf-quotation__meta">
@@ -648,7 +648,7 @@ const Pricing = () => {
     </div>
 
     <div className="pdf-quotation__footer">
-      <p>Thank you for choosing Branding Studio.</p>
+      <p>Thank you for choosing Branding Studios.</p>
       <p>brandingstudio.team@gmail.com</p>
     </div>
   </div>

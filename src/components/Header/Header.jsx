@@ -28,7 +28,7 @@ const Header = () => {
 
   const handleWhatsApp = () => {
     openWhatsApp?.({
-      message: `Hi ${webinfo?.name || "Branding Studio"}, I’d like to connect.`,
+      message: `Hi ${webinfo?.name || "Branding Studios"}, I’d like to connect.`,
       preferApp: true,
     });
   };
@@ -50,7 +50,7 @@ const Header = () => {
       <header className={`apple-header ${scrolled ? "scrolled" : ""}`}>
         <div className="apple-container">
           <div className="apple-logo" onClick={() => handleNavigate("/")}>
-            <img src="/assets/logo/branding-logo.png" alt="Branding Studio" />
+            <img src="/assets/logo/branding-logo.png" alt="Branding Studios" />
           </div>
 
           <nav className="apple-nav">
@@ -100,7 +100,7 @@ const Header = () => {
             >
               <img
                 src="/assets/logo/branding-logo.png"
-                alt="Branding Studio"
+                alt="Branding Studios"
                 className="mobile-logo-img"
               />
             </div>

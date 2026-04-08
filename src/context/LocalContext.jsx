@@ -39,11 +39,11 @@ export const LocalProvider = ({ children }) => {
   });
 
   const [webinfo, setwebinfo] = useState({
-    name: "Branding Studio",
+    name: "Branding Studios",
     phone: "7788001422",
     phonecall: "7788001422",
     logo: "https://brandingstudio.in/wp-content/uploads/2024/08/NEW-BS-LOGOOOO-1-copy-2-scaled.png",
-    email: "brandingstudio.team@gmail.com",
+    email: "brandingstudio.business@gmail.com",
     address:
       "1st Floor, F-4F - 53/2, Indradhanu Market, Complex, Nayapalli, Bhubaneswar",
     addressCity: "Odisha",
@@ -66,7 +66,7 @@ export const LocalProvider = ({ children }) => {
   useEffect(() => {
     const fetchTFN = async () => {
       try {
-        const docRef = doc(db, "siteNumbers", "weboku.com");
+        const docRef = doc(db, "siteNumbers", "brandingstudios.com");
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {

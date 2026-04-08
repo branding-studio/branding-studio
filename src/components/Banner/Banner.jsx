@@ -9,7 +9,7 @@ const Banner = () => {
   const navigate = useNavigate();
   const { openWhatsApp, webinfo } = useLocalContext();
 
-  const brand = webinfo?.name || "Branding Studio";
+  const brand = webinfo?.name || "Branding Studios";
 
   return (
     <section className="elevate-banner">

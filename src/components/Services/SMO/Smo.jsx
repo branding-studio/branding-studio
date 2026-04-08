@@ -23,15 +23,74 @@ import {
   FaRedditAlien,
   FaTelegramPlane,
   FaTwitter,
-  FaWhatsapp, // ✅ Added FaWhatsapp
+  FaWhatsapp,
+  FaImage,
 } from "react-icons/fa";
 import "./Smo.css";
 import { useLocalContext } from "../../../context/LocalContext";
 
 const Smo = () => {
   const navigate = useNavigate();
-  // ✅ Switch to WhatsApp helpers
   const { openWhatsApp, getWhatsAppUrl } = useLocalContext();
+
+  const [sampleFilter, setSampleFilter] = useState("all");
+
+  /* ===== Samples ===== */
+  const samples = [
+    {
+      id: 1,
+      type: "video",
+      title: "Instagram Reel Campaign",
+      category: "Reel Strategy",
+      thumb: "/assets/samples/smo-video-1.jpg",
+      link: "https://www.youtube.com/",
+    },
+    {
+      id: 2,
+      type: "photo",
+      title: "Carousel Creative Set",
+      category: "Static Design",
+      thumb: "/assets/samples/smo-photo-1.jpg",
+      link: "/assets/samples/smo-photo-1.jpg",
+    },
+    {
+      id: 3,
+      type: "video",
+      title: "Brand Awareness Promo",
+      category: "Social Campaign",
+      thumb: "/assets/samples/smo-video-2.jpg",
+      link: "https://www.youtube.com/",
+    },
+    {
+      id: 4,
+      type: "photo",
+      title: "Festival Post Series",
+      category: "Content Calendar",
+      thumb: "/assets/samples/smo-photo-2.jpg",
+      link: "/assets/samples/smo-photo-2.jpg",
+    },
+    {
+      id: 5,
+      type: "video",
+      title: "UGC + Performance Cut",
+      category: "Paid Assist",
+      thumb: "/assets/samples/smo-video-3.jpg",
+      link: "https://www.youtube.com/",
+    },
+    {
+      id: 6,
+      type: "photo",
+      title: "Engagement Story Pack",
+      category: "Stories Design",
+      thumb: "/assets/samples/smo-photo-3.jpg",
+      link: "/assets/samples/smo-photo-3.jpg",
+    },
+  ];
+
+  const filteredSamples =
+    sampleFilter === "all"
+      ? samples
+      : samples.filter((item) => item.type === sampleFilter);
 
   /* ===== Core services ===== */
   const services = [
@@ -97,7 +156,7 @@ const Smo = () => {
     },
   ];
 
-  /* ===== Platform packages (from image) ===== */
+  /* ===== Platform packages ===== */
   const packages = [
     {
       icon: <FaInstagram />,
@@ -238,6 +297,7 @@ const Smo = () => {
   /* ===== Sticky rail / scroll-spy ===== */
   const ids = useMemo(
     () => [
+      "samples",
       "services",
       "packages",
       "formats",
@@ -251,7 +311,9 @@ const Smo = () => {
     ],
     []
   );
+
   const labels = {
+    samples: "Samples",
     services: "Services",
     packages: "Packages",
     formats: "Formats & Platforms",
@@ -263,6 +325,7 @@ const Smo = () => {
     ads: "Paid Ads",
     cta: "Start",
   };
+
   const [active, setActive] = useState(ids[0]);
 
   useEffect(() => {
@@ -287,7 +350,6 @@ const Smo = () => {
     }
   };
 
-  // ✅ Generate WhatsApp URL safely
   const whatsappHref = getWhatsAppUrl
     ? getWhatsAppUrl({
         message: "Hi! I am interested in SMO services.",
@@ -297,7 +359,6 @@ const Smo = () => {
 
   return (
     <main className="smo_services">
-      {/* Sticky rail */}
       <aside className="smo__rail" aria-label="Page sections">
         <div className="rail__brand">
           <div className="rail__logo">SMO</div>
@@ -306,6 +367,7 @@ const Smo = () => {
             <small>Native-first content</small>
           </div>
         </div>
+
         <ul className="rail__nav">
           {ids.map((id) => (
             <li key={id}>
@@ -319,8 +381,8 @@ const Smo = () => {
             </li>
           ))}
         </ul>
+
         <div className="ppc2-ctaRail">
-          {/* ✅ UPDATED: Talk on WhatsApp Button */}
           <a
             className="ppc2-btn ppctg"
             href={whatsappHref}
@@ -340,9 +402,7 @@ const Smo = () => {
         </div>
       </aside>
 
-      {/* Main column */}
       <div className="smo__main">
-        {/* HERO */}
         <header className="smo__hero">
           <span className="smo__eyebrow">
             Social Media Marketing & Optimization
@@ -374,7 +434,64 @@ const Smo = () => {
           </button>
         </header>
 
-        {/* SERVICES */}
+        <section id="samples" className="smo__samples">
+          <div className="smo__head">
+            <h3>Our Work Samples</h3>
+            <p>
+              Explore selected social media campaigns, reels, post creatives,
+              and content assets built for reach, engagement, and conversion.
+            </p>
+          </div>
+
+          <div className="smo__sample-filters">
+            <button
+              className={`smo__filter-btn ${sampleFilter === "all" ? "is-active" : ""}`}
+              onClick={() => setSampleFilter("all")}
+            >
+              All
+            </button>
+            <button
+              className={`smo__filter-btn ${sampleFilter === "video" ? "is-active" : ""}`}
+              onClick={() => setSampleFilter("video")}
+            >
+              Videos
+            </button>
+            <button
+              className={`smo__filter-btn ${sampleFilter === "photo" ? "is-active" : ""}`}
+              onClick={() => setSampleFilter("photo")}
+            >
+              Photos
+            </button>
+          </div>
+
+          <div className="smo__samples-grid">
+            {filteredSamples.map((item) => (
+              <a
+                key={item.id}
+                href={item.link}
+                target="_blank"
+                rel="noreferrer"
+                className="smo__sample-card"
+              >
+                <div className="smo__sample-thumb">
+                  <img src={item.thumb} alt={item.title} />
+                  <div className="smo__sample-overlay">
+                    {item.type === "video" ? <FaPlayCircle /> : <FaImage />}
+                  </div>
+                </div>
+
+                <div className="smo__sample-content">
+                  <span className="smo__sample-type">{item.category}</span>
+                  <h4>{item.title}</h4>
+                  <button type="button" className="smo__sample-btn">
+                    {item.type === "video" ? "Watch Sample" : "View Sample"}
+                  </button>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
         <section id="services" className="smo__grid">
           {services.map((s) => (
             <article className="smo__card" key={s.title}>
@@ -394,7 +511,6 @@ const Smo = () => {
           ))}
         </section>
 
-        {/* PACKAGES */}
         <section id="packages" className="smo__packages">
           <div className="smo__head">
             <h3>Platform Packages</h3>
@@ -424,7 +540,6 @@ const Smo = () => {
           </div>
         </section>
 
-        {/* FORMATS & PLATFORMS */}
         <section id="formats" className="smo__stack">
           <div className="smo__head">
             <h3>Formats & Platforms</h3>
@@ -446,7 +561,6 @@ const Smo = () => {
           </ul>
         </section>
 
-        {/* PROCESS */}
         <section id="process" className="smo__process">
           <div className="smo__head">
             <h3>How we work</h3>
@@ -465,7 +579,6 @@ const Smo = () => {
           </ol>
         </section>
 
-        {/* TOOLS */}
         <section id="stack" className="smo__stack">
           <div className="smo__head">
             <h3>Tools & Collaboration</h3>
@@ -488,7 +601,6 @@ const Smo = () => {
           </ul>
         </section>
 
-        {/* DELIVERABLES */}
         <section id="deliver" className="smo__deliver">
           <div className="smo__head">
             <h3>What you get</h3>
@@ -511,7 +623,6 @@ const Smo = () => {
           </div>
         </section>
 
-        {/* KPIs */}
         <section id="kpis" className="smo__kpis">
           <div className="smo__head">
             <h3>Metrics that matter</h3>
@@ -526,7 +637,6 @@ const Smo = () => {
           </ul>
         </section>
 
-        {/* POLICIES */}
         <section id="policies" className="smo__policies">
           <div className="smo__head">
             <h3>Brand safety & policies</h3>
@@ -547,7 +657,6 @@ const Smo = () => {
           </div>
         </section>
 
-        {/* PAID ADS */}
         <section id="ads" className="smo__ads">
           <div className="smo__head">
             <h3>Paid Ads Support</h3>
@@ -562,7 +671,6 @@ const Smo = () => {
           </ul>
         </section>
 
-        {/* CTA */}
         <section id="cta" className="smo__cta">
           <div className="smo__cta-inner">
             <div className="smo__cta-copy">

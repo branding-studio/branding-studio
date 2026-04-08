@@ -400,7 +400,7 @@ export default function Contact() {
       
       <motion.div className="cv4-map" {...fx(0.2)}>
         <iframe
-          title="Branding Studio Location"
+          title="Branding Studios Location"
           src="https://maps.google.com/maps?q=Indradhanu+Market+Nayapalli+Bhubaneswar&t=&z=13&ie=UTF8&iwloc=&output=embed"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"

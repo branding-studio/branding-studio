@@ -15,9 +15,9 @@ import { useLocalContext } from "../../context/LocalContext";
 const services = [
   { 
     icon: <FaVideo />, 
-    label: "Film Making", 
-    hint: "Ads & Cinematic", 
-    path: "/services/film-making" 
+    label: "Content Creation", 
+    hint: "Reels, Ads & Shoots", 
+    path: "/services/film-making"
   },
   { 
     icon: <FaHashtag />, 
@@ -149,7 +149,7 @@ export default function ImpactOrbit() {
 
             {/* Center Hub */}
             <div className="io-core">
-  <strong>{webinfo?.name || "Branding Studio"}</strong>
+  <strong>{webinfo?.name || "Branding Studios"}</strong>
   <small>We Think, You Grow</small>
 </div>
           </div>
@@ -182,11 +182,11 @@ export default function ImpactOrbit() {
           viewport={{ once: true }}
         >
           <div className="io-card-head">
-            <FaVideo /> Visual Storytelling
+            <FaVideo /> Content Creation
           </div>
           <p>
-            We don’t just post; we produce. Ad films, cinematic reels, and brand shoots that capture
-            attention instantly.
+            We create content that performs. Reels, ad shoots, brand videos, and platform-ready
+  visuals designed to grab attention instantly.
           </p>
         </motion.div>
 
