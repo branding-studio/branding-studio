@@ -20,7 +20,6 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // ✅ Simplified Navigation (Direct Route)
   const handleNavigate = (path) => {
     setMenuOpen(false);
     navigate(path);
@@ -34,7 +33,6 @@ const Header = () => {
     });
   };
 
-  // ✅ Updated Pricing Path to standard route
   const menuItems = [
     { text: "Home", path: "/" },
     { text: "Services", path: "/services" },
@@ -51,9 +49,8 @@ const Header = () => {
 
       <header className={`apple-header ${scrolled ? "scrolled" : ""}`}>
         <div className="apple-container">
-          {/* Main Desktop Logo */}
           <div className="apple-logo" onClick={() => handleNavigate("/")}>
-            <img src={webinfo.logo} alt={webinfo.name || "Logo"} />
+            <img src="/assets/logo/branding-logo.png" alt="Branding Studio" />
           </div>
 
           <nav className="apple-nav">
@@ -72,7 +69,6 @@ const Header = () => {
             <button
               type="button"
               className="apple-icon-btn whatsapp"
-              aria-label="Connect on WhatsApp"
               onClick={handleWhatsApp}
             >
               <FaWhatsapp />
@@ -82,7 +78,6 @@ const Header = () => {
               type="button"
               className="apple-icon-btn call"
               onClick={() => (window.location.href = `tel:${webinfo.phonecall}`)}
-              aria-label="Call Us"
             >
               <FaPhoneAlt />
             </button>
@@ -91,39 +86,39 @@ const Header = () => {
               type="button"
               className="apple-menu-toggle"
               onClick={() => setMenuOpen(true)}
-              aria-label="Open menu"
             >
               <FaBars />
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu Overlay */}
         <div className={`apple-mobile-overlay ${menuOpen ? "open" : ""}`}>
           <div className="apple-mobile-header">
-            
-            {/* ✅ CHANGE: Replaced Text with Logo Image */}
-            <div 
-              className="mobile-logo-container" 
+            <div
+              className="mobile-logo-container"
               onClick={() => handleNavigate("/")}
-              style={{ cursor: 'pointer' }} 
             >
-               <img 
-                 src={webinfo.logo} 
-                 alt={webinfo.name || "Logo"} 
-                 className="mobile-logo-img"
-                 style={{ height: '40px', width: 'auto', objectFit: 'contain' }} 
-               />
+              <img
+                src="/assets/logo/branding-logo.png"
+                alt="Branding Studio"
+                className="mobile-logo-img"
+              />
             </div>
 
-            <button type="button" className="close-btn" onClick={() => setMenuOpen(false)}>
+            <button
+              className="close-btn"
+              onClick={() => setMenuOpen(false)}
+            >
               <FaTimes />
             </button>
           </div>
 
           <div className="apple-mobile-links">
             {menuItems.map((item) => (
-              <span key={item.text} onClick={() => handleNavigate(item.path)}>
+              <span
+                key={item.text}
+                onClick={() => handleNavigate(item.path)}
+              >
                 {item.text}
               </span>
             ))}
@@ -142,7 +137,10 @@ const Header = () => {
               <FaWhatsapp /> Connect on WhatsApp
             </a>
 
-            <a href={`tel:${webinfo.phonecall}`} className="mobile-action-link">
+            <a
+              href={`tel:${webinfo.phonecall}`}
+              className="mobile-action-link"
+            >
               <FaPhoneAlt /> {webinfo.phone || "Call Us"}
             </a>
           </div>

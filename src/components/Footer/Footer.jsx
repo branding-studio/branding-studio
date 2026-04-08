@@ -69,7 +69,7 @@ const Footer = () => {
         <div className="fcard fcard--brand">
           <div className="brand">
             <div className="brand__text">
-              <img src={webinfo.logo} alt={brand} />
+              <img src="/assests/logo/branding-logo.png" alt="Branding Studio" />
               <p>Performance marketing, made simple—and measurable.</p>
             </div>
           </div>
