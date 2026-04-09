@@ -56,8 +56,13 @@
   color: var(--text-light);
 }
 
-.footerx__disclaimer svg{ opacity:.95; }
-.footerx__disclaimer p{ margin:0; }
+.footerx__disclaimer svg{
+  opacity:.95;
+}
+
+.footerx__disclaimer p{
+  margin:0;
+}
 
 .footerx__disclaimer a{
   color: var(--text-light);
@@ -257,7 +262,9 @@
   opacity: .85;
 }
 
-.fcard li{ font-size: 1.5rem; }
+.fcard li{
+  font-size: 1.5rem;
+}
 
 /* =========================
    Brand card
@@ -283,63 +290,83 @@
   line-height: 1.55;
 }
 
+/* =========================
+   Newsletter / Message Box
+   ========================= */
 .newsletter{
   margin-top: 12px;
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
-  height: 46px;
+  min-height: 52px;
   border-radius: 999px;
-  overflow: hidden;
   background: rgba(0,0,0,.18);
   border: 1px solid rgba(255,255,255,.14);
-  box-shadow: 0 12px 28px rgba(0,0,0,.18);
+  box-shadow:
+    0 12px 28px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.05);
+  overflow: hidden;
 }
 
 .newsletter input{
   flex: 1;
-  height: 100%;
-  padding: 0 16px;
+  width: 100%;
+  height: 52px;
+  padding: 0 58px 0 16px;
   border: none;
   outline: none;
   background: transparent;
   color: #eaf1ff;
   font-size: 14px;
+  line-height: 1;
 }
 
 .newsletter input::placeholder{
   color:#9ab0cd;
 }
 
-.newsletter button{
-  all: unset;
+.newsletter__icon{
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow:
+    0 8px 18px rgba(18, 140, 126, 0.32),
+    inset 0 1px 0 rgba(255,255,255,.22);
+  transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
 }
 
-.newsletter input::placeholder{
-  color:#9ab0cd;
+.newsletter__icon:hover{
+  transform: translateY(-50%) scale(1.06);
+  filter: saturate(1.05);
+  box-shadow:
+    0 12px 22px rgba(18, 140, 126, 0.42),
+    inset 0 1px 0 rgba(255,255,255,.24);
 }
 
-.newsletter button{
-  all: unset;
+.newsletter__icon:active{
+  transform: translateY(-50%) scale(.98);
 }
 
+.newsletter__icon:focus-visible{
+  box-shadow:
+    0 0 0 4px rgba(37, 211, 102, .20),
+    0 12px 22px rgba(18, 140, 126, 0.42);
+}
 
-
-@media (max-width: 380px){
-  .newsletter input{
-    height: 42px;
-    padding: 0 12px;
-  }
-
-  .newsletter__btn{
-    width: 42px;
-    height: 42px;
-    flex: 0 0 42px;
-  }
-
-  .newsletter__btn svg{
-    font-size: 15px;
-  }
+.newsletter__icon svg{
+  font-size: 17px;
 }
 
 /* =========================
@@ -393,7 +420,9 @@
   padding: 0;
 }
 
-.fcard--links li{ margin: 8px 0; }
+.fcard--links li{
+  margin: 8px 0;
+}
 
 .fcard--links a{
   color: var(--ink-dim);
@@ -578,16 +607,22 @@
 }
 
 @media (max-width: 768px){
+  .newsletter{
+    min-height: 48px;
+  }
+
   .newsletter input{
-    height: 44px;
-    padding: 0 44px 0 14px;
+    height: 48px;
+    padding: 0 54px 0 14px;
   }
 
-  .newsletter__btn{
-    right: 10px;
+  .newsletter__icon{
+    width: 34px;
+    height: 34px;
+    right: 7px;
   }
 
-  .newsletter__btn svg{
+  .newsletter__icon svg{
     font-size: 16px;
   }
 }
@@ -603,9 +638,24 @@
 }
 
 @media (max-width: 380px){
+  .newsletter{
+    min-height: 44px;
+  }
+
   .newsletter input{
-    height: 42px;
-    padding: 0 42px 0 12px;
+    height: 44px;
+    padding: 0 50px 0 12px;
+    font-size: 13px;
+  }
+
+  .newsletter__icon{
+    width: 32px;
+    height: 32px;
+    right: 6px;
+  }
+
+  .newsletter__icon svg{
+    font-size: 15px;
   }
 
   .btn{
@@ -614,9 +664,5 @@
 
   .socials a{
     --s: 34px;
-  }
-
-  .newsletter__btn svg{
-    font-size: 15px;
   }
 }

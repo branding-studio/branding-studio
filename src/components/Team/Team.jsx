@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Team.css";
+import { db } from "../../firebase/firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
 
 const leadershipTeam = [
   {
@@ -20,46 +22,34 @@ const leadershipTeam = [
   },
 ];
 
-const coreTeam = [
-  {
-    name: "Video Editor Name",
-    role: "Video Editor",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    name: "Social Media Manager Name",
-    role: "Social Media Manager",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    name: "Graphic Designer Name",
-    role: "Graphic Designer",
-    image:
-      "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    name: "Cinematographer Name",
-    role: "Cinematographer",
-    image:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    name: "HR Name",
-    role: "HR",
-    image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    name: "Office Manager Name",
-    role: "Office Manager",
-    image:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80",
-  },
-];
-
 const Team = () => {
+  const [coreTeam, setCoreTeam] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTeam = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, "team"));
+
+        const data = snapshot.docs
+          .map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+          .filter((member) => member.type === "core" && member.isVisible === true)
+          .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+
+        setCoreTeam(data);
+      } catch (error) {
+        console.error("Error fetching team:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTeam();
+  }, []);
+
   return (
     <section className="team-page">
       <div className="team-page__container">
@@ -98,20 +88,26 @@ const Team = () => {
           <h2>The specialists turning ideas into impact</h2>
         </div>
 
-        <div className="team-grid">
-          {coreTeam.map((member, index) => (
-            <div className="team-card" key={index}>
-              <div className="team-card__image">
-                <img src={member.image} alt={member.name} />
-              </div>
+        {loading ? (
+          <div className="team-loading">Loading team members...</div>
+        ) : coreTeam.length === 0 ? (
+          <div className="team-loading">No core team members found.</div>
+        ) : (
+          <div className="team-grid">
+            {coreTeam.map((member) => (
+              <div className="team-card" key={member.id}>
+                <div className="team-card__image">
+                  <img src={member.imageUrl} alt={member.name} />
+                </div>
 
-              <div className="team-card__content">
-                <h3>{member.name}</h3>
-                <p>{member.role}</p>
+                <div className="team-card__content">
+                  <h3>{member.name}</h3>
+                  <p>{member.role}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         <div className="team-cta">
           <span className="team-badge">Work With Us</span>

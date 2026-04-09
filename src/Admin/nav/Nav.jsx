@@ -24,11 +24,11 @@ const Nav = () => {
   const [blogCount, setBlogCount] = useState(0);
   const [collapsed, setCollapsed] = useState(false);
 
-  // hydrate collapse from localStorage
   useEffect(() => {
     const saved = localStorage.getItem("adminSidebarCollapsed");
     if (saved) setCollapsed(saved === "1");
   }, []);
+
   const toggleCollapsed = () =>
     setCollapsed((prev) => {
       const next = !prev;
@@ -51,11 +51,11 @@ const Nav = () => {
   const isActive = (path) =>
     location.pathname === path || location.pathname.startsWith(path + "/");
 
-  // derive display + initials for footer
   const display = useMemo(
     () => admin?.displayName || admin?.name || admin?.email || "Admin",
     [admin]
   );
+
   const initials = useMemo(() => {
     const parts = String(display).split(" ").filter(Boolean);
     const first = parts[0]?.[0] || "A";
@@ -70,6 +70,8 @@ const Nav = () => {
       : []),
     { name: "Blogs", path: "/admin/blog", icon: faFileAlt, count: blogCount },
     { name: "Messages", path: "/admin/manage-contacts", icon: faContactBook },
+    { name: "Manage Team", path: "/admin/manage-team", icon: faUser },
+    { name: "Manage Gallery", path: "/admin/manage-gallery", icon: faFileAlt }
     // { name: "Comments", path: "/admin/manage-comments", icon: faUser },
   ];
 

@@ -20,6 +20,8 @@ import AdminLayout from "./AdminLayout";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import AdminLogin from "../Admin/Signin/AdminLogin";
 import Dashboard from "../Admin/dashboard/Dashboard";
+import ManageTeam from "../Admin/ManageTeam/ManageTeam";
+import ManageGallery from "../Admin/ManageGallery/ManageGallery";
 import BlogDash from "../Admin/blog/BlogDash";
 import ReadBlog from "../Admin/blog/ReadBlog";
 import BlogEditForm from "../Admin/blog/BlogEditForm";
@@ -161,6 +163,8 @@ const Container = () => {
              <Route element={<RequireRole roles={['master','all','editor']} />}>
                     <Route path="/admin/manage-contacts" element={<ManageMessages />} />
                     <Route path="/admin/manage-comments" element={<ManageComment />} />
+                    <Route path="/admin/manage-team" element={<ManageTeam />} />
+                    <Route path="/admin/manage-gallery" element={<ManageGallery />} />
              </Route>
 
           {/* 403 */}

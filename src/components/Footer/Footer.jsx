@@ -86,8 +86,8 @@ const Footer = () => {
     aria-label="Send message"
   />
   <span className="newsletter__icon" aria-hidden="true">
-    <FontAwesomeIcon icon={faWhatsapp} />
-  </span>
+  <FontAwesomeIcon icon={faWhatsapp} />
+</span>
 </form>
 
           {/* Socials */}
