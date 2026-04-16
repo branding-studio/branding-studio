@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./ManageTeam.css";
 import { db } from "../../firebase/firebaseConfig";
 import {
@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 
 const initialForm = {
+  type: "core",
   name: "",
   role: "",
   description: "",
@@ -29,8 +30,49 @@ const ManageTeam = () => {
   const [fetching, setFetching] = useState(true);
   const [editingId, setEditingId] = useState(null);
   const [message, setMessage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState("");
+  const imageInputRef = useRef(null);
 
   const teamRef = collection(db, "team");
+  const isLeadershipType = form.type === "founder" || form.type === "cofounder";
+
+  const compressImage = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          const maxDimension = 480;
+          const scale = Math.min(1, maxDimension / Math.max(img.width, img.height));
+          const canvas = document.createElement("canvas");
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+
+          const ctx = canvas.getContext("2d");
+          if (!ctx) {
+            reject(new Error("Canvas is not supported in this browser."));
+            return;
+          }
+
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const optimizedDataUrl = canvas.toDataURL("image/jpeg", 0.68);
+
+          if (optimizedDataUrl.length > 300000) {
+            reject(
+              new Error("Photo is still too large after compression. Please use a smaller image.")
+            );
+            return;
+          }
+
+          resolve(optimizedDataUrl);
+        };
+        img.onerror = () => reject(new Error("Selected file is not a valid image."));
+        img.src = reader.result;
+      };
+      reader.onerror = () => reject(new Error("Failed to read image file."));
+      reader.readAsDataURL(file);
+    });
 
   const fetchTeamMembers = async () => {
     try {
@@ -72,17 +114,29 @@ const ManageTeam = () => {
 
   const isValid = useMemo(() => {
     return (
+      form.type &&
       form.name.trim() &&
       form.role.trim() &&
-      form.imageUrl.trim() &&
+      (form.imageUrl.trim() || selectedImage) &&
       Number.isFinite(Number(form.sortOrder))
     );
-  }, [form]);
+  }, [form, selectedImage]);
 
   const resetForm = () => {
     setForm(initialForm);
     setEditingId(null);
     setMessage(null);
+    setSelectedImage(null);
+    setPreviewImage("");
+    if (imageInputRef.current) {
+      imageInputRef.current.value = "";
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files?.[0] || null;
+    setSelectedImage(file);
+    setPreviewImage(file ? URL.createObjectURL(file) : form.imageUrl || "");
   };
 
   const handleSubmit = async (e) => {
@@ -97,19 +151,34 @@ const ManageTeam = () => {
       return;
     }
 
-    const payload = {
-      name: form.name.trim(),
-      role: form.role.trim(),
-      description: form.description.trim(),
-      imageUrl: form.imageUrl.trim(),
-      isVisible: !!form.isVisible,
-      sortOrder: Number(form.sortOrder) || 1,
-      type: "core",
-      updatedAt: serverTimestamp(),
-    };
-
     try {
       setLoading(true);
+      let uploadedImageUrl = form.imageUrl.trim();
+
+      if (selectedImage) {
+        uploadedImageUrl = await compressImage(selectedImage);
+      }
+
+      const payload = {
+        type: form.type,
+        name: form.name.trim(),
+        role: form.role.trim(),
+        description: form.type === "core" ? "" : form.description.trim(),
+        imageUrl: uploadedImageUrl,
+        isVisible: !!form.isVisible,
+        sortOrder: Number(form.sortOrder) || 1,
+        updatedAt: serverTimestamp(),
+      };
+
+      const duplicateLeadership = teamMembers.find(
+        (member) => member.type === form.type && member.id !== editingId
+      );
+
+      if ((form.type === "founder" || form.type === "cofounder") && duplicateLeadership) {
+        throw new Error(
+          `A ${form.type === "founder" ? "Founder" : "Co-Founder"} already exists. Please edit the existing entry instead of adding a new one.`
+        );
+      }
 
       if (editingId) {
         await updateDoc(doc(db, "team", editingId), payload);
@@ -128,13 +197,19 @@ const ManageTeam = () => {
         });
       }
 
-      resetForm();
       await fetchTeamMembers();
+      resetForm();
+      setMessage({
+        type: "success",
+        text: editingId
+          ? "Team member updated successfully."
+          : "Team member added successfully.",
+      });
     } catch (error) {
       console.error("Save failed:", error);
       setMessage({
         type: "error",
-        text: "Something went wrong while saving.",
+        text: error?.message || "Something went wrong while saving.",
       });
     } finally {
       setLoading(false);
@@ -144,6 +219,7 @@ const ManageTeam = () => {
   const handleEdit = (member) => {
     setEditingId(member.id);
     setForm({
+      type: member.type || "core",
       name: member.name || "",
       role: member.role || "",
       description: member.description || "",
@@ -151,6 +227,8 @@ const ManageTeam = () => {
       isVisible: member.isVisible ?? true,
       sortOrder: member.sortOrder ?? 1,
     });
+    setSelectedImage(null);
+    setPreviewImage(member.imageUrl || "");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -196,8 +274,7 @@ const ManageTeam = () => {
       <header className="mt-header">
         <h2>Manage Team</h2>
         <p>
-          Add, update, hide, or delete core team members. Founder and Co-Founder
-          stay hardcoded on the public page.
+          Add, update, hide, or delete Founder, Co-Founder, and Core Team members.
         </p>
       </header>
 
@@ -205,6 +282,20 @@ const ManageTeam = () => {
         <div className="mt-grid">
           <div className="mt-card">
             <h3 className="mt-card-title">Team Member Details</h3>
+
+            <div className="mt-field">
+              <label htmlFor="type">Team Section *</label>
+              <select
+                id="type"
+                name="type"
+                value={form.type}
+                onChange={handleChange}
+              >
+                <option value="core">Core Team</option>
+                <option value="founder">Founder</option>
+                <option value="cofounder">Co-Founder</option>
+              </select>
+            </div>
 
             <div className="mt-field">
               <label htmlFor="name">Name *</label>
@@ -246,28 +337,33 @@ const ManageTeam = () => {
             </div>
 
             <div className="mt-field">
-              <label htmlFor="imageUrl">Photo URL *</label>
+              <label htmlFor="teamPhoto">Photo *</label>
               <input
-                id="imageUrl"
-                name="imageUrl"
-                type="text"
-                placeholder="https://example.com/team-member.jpg"
-                value={form.imageUrl}
-                onChange={handleChange}
+                id="teamPhoto"
+                name="teamPhoto"
+                type="file"
+                accept="image/*"
+                ref={imageInputRef}
+                onChange={handleImageChange}
               />
+              <p className="mt-field-help">
+                Choose an image from your system. It will be uploaded automatically.
+              </p>
             </div>
 
-            <div className="mt-field">
-              <label htmlFor="description">Description (optional)</label>
-              <textarea
-                id="description"
-                name="description"
-                rows={4}
-                placeholder="Short description..."
-                value={form.description}
-                onChange={handleChange}
-              />
-            </div>
+            {isLeadershipType ? (
+              <div className="mt-field">
+                <label htmlFor="description">Description (optional)</label>
+                <textarea
+                  id="description"
+                  name="description"
+                  rows={4}
+                  placeholder="Short description..."
+                  value={form.description}
+                  onChange={handleChange}
+                />
+              </div>
+            ) : null}
 
             <div className="mt-check">
               <input
@@ -286,8 +382,8 @@ const ManageTeam = () => {
 
             <div className="mt-preview-card">
               <div className="mt-preview-image">
-                {form.imageUrl ? (
-                  <img src={form.imageUrl} alt={form.name || "Preview"} />
+                {previewImage || form.imageUrl ? (
+                  <img src={previewImage || form.imageUrl} alt={form.name || "Preview"} />
                 ) : (
                   <div className="mt-preview-placeholder">No Image</div>
                 )}
@@ -295,8 +391,15 @@ const ManageTeam = () => {
 
               <div className="mt-preview-content">
                 <h4>{form.name || "Team Member Name"}</h4>
+                <p className="mt-preview-role-tag">
+                  {form.type === "founder"
+                    ? "Founder"
+                    : form.type === "cofounder"
+                    ? "Co-Founder"
+                    : "Core Team"}
+                </p>
                 <p className="mt-preview-role">{form.role || "Role / Designation"}</p>
-                {form.description ? (
+                {isLeadershipType && form.description ? (
                   <p className="mt-preview-desc">{form.description}</p>
                 ) : null}
                 <span className={`mt-visibility ${form.isVisible ? "show" : "hide"}`}>
@@ -338,7 +441,7 @@ const ManageTeam = () => {
       <section className="mt-saved">
         <div className="mt-saved-head">
           <h3>Saved Team Members</h3>
-          <p>These members will appear in the Core Team section.</p>
+          <p>These members will appear in the Leadership or Core Team sections.</p>
         </div>
 
         {fetching ? (
@@ -355,6 +458,13 @@ const ManageTeam = () => {
 
                 <div className="mt-member-body">
                   <h4>{member.name}</h4>
+                  <span className={`mt-member-type mt-member-type--${member.type || "core"}`}>
+                    {member.type === "founder"
+                      ? "Founder"
+                      : member.type === "cofounder"
+                      ? "Co-Founder"
+                      : "Core Team"}
+                  </span>
                   <p>{member.role}</p>
 
                   <div className="mt-member-meta">

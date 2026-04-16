@@ -28,6 +28,7 @@ import {
 } from "react-icons/fa";
 import "./Smo.css";
 import { useLocalContext } from "../../../context/LocalContext";
+import { useManagedServiceSamples } from "../../../utils/serviceSamples";
 
 const Smo = () => {
   const navigate = useNavigate();
@@ -36,56 +37,7 @@ const Smo = () => {
   const [sampleFilter, setSampleFilter] = useState("all");
 
   /* ===== Samples ===== */
-  const samples = [
-    {
-      id: 1,
-      type: "video",
-      title: "Instagram Reel Campaign",
-      category: "Reel Strategy",
-      thumb: "/assets/samples/smo-video-1.jpg",
-      link: "https://www.youtube.com/",
-    },
-    {
-      id: 2,
-      type: "photo",
-      title: "Carousel Creative Set",
-      category: "Static Design",
-      thumb: "/assets/samples/smo-photo-1.jpg",
-      link: "/assets/samples/smo-photo-1.jpg",
-    },
-    {
-      id: 3,
-      type: "video",
-      title: "Brand Awareness Promo",
-      category: "Social Campaign",
-      thumb: "/assets/samples/smo-video-2.jpg",
-      link: "https://www.youtube.com/",
-    },
-    {
-      id: 4,
-      type: "photo",
-      title: "Festival Post Series",
-      category: "Content Calendar",
-      thumb: "/assets/samples/smo-photo-2.jpg",
-      link: "/assets/samples/smo-photo-2.jpg",
-    },
-    {
-      id: 5,
-      type: "video",
-      title: "UGC + Performance Cut",
-      category: "Paid Assist",
-      thumb: "/assets/samples/smo-video-3.jpg",
-      link: "https://www.youtube.com/",
-    },
-    {
-      id: 6,
-      type: "photo",
-      title: "Engagement Story Pack",
-      category: "Stories Design",
-      thumb: "/assets/samples/smo-photo-3.jpg",
-      link: "/assets/samples/smo-photo-3.jpg",
-    },
-  ];
+  const samples = useManagedServiceSamples("smo");
 
   const filteredSamples =
     sampleFilter === "all"

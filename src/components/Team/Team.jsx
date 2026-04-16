@@ -3,26 +3,44 @@ import "./Team.css";
 import { db } from "../../firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 
-const leadershipTeam = [
+const fallbackLeadershipTeam = [
   {
-    name: "Founder Name",
+    id: "founder-fallback",
+    type: "founder",
+    name: "Arabinda Swain",
     role: "Founder",
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "/assets/team/arabinda-swain.jpg",
     description:
       "Leading Branding Studios with vision, creativity, and a strong focus on building brands that grow.",
   },
   {
-    name: "Co-Founder Name",
+    id: "cofounder-fallback",
+    type: "cofounder",
+    name: "Namrata Hotaa",
     role: "Co-Founder / CEO",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "/assets/team/namrata-hotaa.jpg",
     description:
       "Driving operations, strategy, and client success with a sharp eye on quality and business growth.",
   },
 ];
 
+const fallbackCoreTeam = [
+  {
+    id: "priyanka-lenka",
+    name: "Priyanka Lenka",
+    role: "HR",
+    imageUrl: "/assets/team/priyanka-lenka.jpg",
+  },
+  {
+    id: "norbert-ekka",
+    name: "Norbert Ekka",
+    role: "Video Editor",
+    imageUrl: "/assets/team/norbert-ekka.jpg",
+  },
+];
+
 const Team = () => {
+  const [leadershipTeam, setLeadershipTeam] = useState([]);
   const [coreTeam, setCoreTeam] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -35,11 +53,22 @@ const Team = () => {
           .map((doc) => ({
             id: doc.id,
             ...doc.data(),
-          }))
-          .filter((member) => member.type === "core" && member.isVisible === true)
+          }));
+
+        const visibleMembers = data.filter((member) => member.isVisible === true);
+
+        const leadershipData = visibleMembers
+          .filter(
+            (member) => member.type === "founder" || member.type === "cofounder"
+          )
           .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
 
-        setCoreTeam(data);
+        const coreData = visibleMembers
+          .filter((member) => member.type === "core")
+          .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+
+        setLeadershipTeam(leadershipData);
+        setCoreTeam(coreData);
       } catch (error) {
         console.error("Error fetching team:", error);
       } finally {
@@ -49,6 +78,10 @@ const Team = () => {
 
     fetchTeam();
   }, []);
+
+  const visibleLeadershipTeam =
+    leadershipTeam.length > 0 ? leadershipTeam : fallbackLeadershipTeam;
+  const visibleCoreTeam = coreTeam.length > 0 ? coreTeam : fallbackCoreTeam;
 
   return (
     <section className="team-page">
@@ -68,10 +101,10 @@ const Team = () => {
         </div>
 
         <div className="leadership-grid">
-          {leadershipTeam.map((member, index) => (
-            <div className="leadership-card" key={index}>
+          {visibleLeadershipTeam.map((member) => (
+            <div className="leadership-card" key={member.id}>
               <div className="leadership-card__image">
-                <img src={member.image} alt={member.name} />
+                <img src={member.imageUrl} alt={member.name} />
               </div>
 
               <div className="leadership-card__content">
@@ -90,11 +123,9 @@ const Team = () => {
 
         {loading ? (
           <div className="team-loading">Loading team members...</div>
-        ) : coreTeam.length === 0 ? (
-          <div className="team-loading">No core team members found.</div>
         ) : (
           <div className="team-grid">
-            {coreTeam.map((member) => (
+            {visibleCoreTeam.map((member) => (
               <div className="team-card" key={member.id}>
                 <div className="team-card__image">
                   <img src={member.imageUrl} alt={member.name} />

@@ -19,6 +19,7 @@ import {
 } from "react-icons/fa";
 import "./Seo.css";
 import { useLocalContext } from "../../../context/LocalContext";
+import { useManagedServiceSamples } from "../../../utils/serviceSamples";
 
 const Seo = () => {
   const navigate = useNavigate();
@@ -26,56 +27,7 @@ const Seo = () => {
   const [sampleFilter, setSampleFilter] = useState("all");
 
   /** ===== Samples ===== */
-  const samples = [
-    {
-      id: 1,
-      type: "photo",
-      title: "Keyword Ranking Growth Snapshot",
-      category: "Ranking Report",
-      thumb: "/assets/samples/seo-photo-1.jpg",
-      link: "/assets/samples/seo-photo-1.jpg",
-    },
-    {
-      id: 2,
-      type: "photo",
-      title: "Search Console Performance Graph",
-      category: "GSC Analytics",
-      thumb: "/assets/samples/seo-photo-2.jpg",
-      link: "/assets/samples/seo-photo-2.jpg",
-    },
-    {
-      id: 3,
-      type: "video",
-      title: "SEO Audit Walkthrough",
-      category: "Audit Demo",
-      thumb: "/assets/samples/seo-video-1.jpg",
-      link: "https://www.youtube.com/",
-    },
-    {
-      id: 4,
-      type: "photo",
-      title: "Technical SEO Checklist View",
-      category: "Technical SEO",
-      thumb: "/assets/samples/seo-photo-3.jpg",
-      link: "/assets/samples/seo-photo-3.jpg",
-    },
-    {
-      id: 5,
-      type: "video",
-      title: "Local SEO Results Preview",
-      category: "Local SEO",
-      thumb: "/assets/samples/seo-video-2.jpg",
-      link: "https://www.youtube.com/",
-    },
-    {
-      id: 6,
-      type: "photo",
-      title: "Traffic Improvement Dashboard",
-      category: "Analytics Report",
-      thumb: "/assets/samples/seo-photo-4.jpg",
-      link: "/assets/samples/seo-photo-4.jpg",
-    },
-  ];
+  const samples = useManagedServiceSamples("seo");
 
   const filteredSamples =
     sampleFilter === "all"

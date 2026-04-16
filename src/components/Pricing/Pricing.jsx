@@ -1,9 +1,11 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./Pricing.css";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
 
-const pricingData = {
+const defaultPricingData = {
   "Social Media Marketing": [
     {
       name: "Starter SM Mgt.",
@@ -117,6 +119,44 @@ const Pricing = () => {
   const [selectedServices, setSelectedServices] = useState([]);
   const [previewServiceName, setPreviewServiceName] = useState("");
   const [pendingService, setPendingService] = useState("");
+  const [pricingData, setPricingData] = useState(defaultPricingData);
+
+  useEffect(() => {
+    const loadPricing = async () => {
+      try {
+        const snap = await getDoc(doc(db, "pricing_settings", "main"));
+        const categories = snap.data()?.categories;
+
+        if (!Array.isArray(categories) || categories.length === 0) {
+          return;
+        }
+
+        const normalizedData = categories.reduce((acc, category) => {
+          if (!category?.name || !Array.isArray(category.services)) {
+            return acc;
+          }
+
+          acc[category.name] = category.services
+            .filter((service) => service?.name && Number.isFinite(Number(service.price)))
+            .map((service) => ({
+              name: service.name,
+              price: Number(service.price),
+              desc: service.desc || "",
+            }));
+
+          return acc;
+        }, {});
+
+        if (Object.keys(normalizedData).length > 0) {
+          setPricingData(normalizedData);
+        }
+      } catch (error) {
+        console.error("Failed to load pricing settings:", error);
+      }
+    };
+
+    loadPricing();
+  }, []);
 
   const serviceOptions = useMemo(() => {
     if (!selectedCategory) return [];
@@ -125,7 +165,9 @@ const Pricing = () => {
 
   const activePreviewService = useMemo(() => {
     if (!previewServiceName) return null;
-    return serviceOptions.find((item) => item.name === previewServiceName) || null;
+    return (
+      serviceOptions.find((item) => item.name === previewServiceName) || null
+    );
   }, [previewServiceName, serviceOptions]);
 
   const totalPrice = useMemo(() => {
@@ -135,47 +177,44 @@ const Pricing = () => {
     );
   }, [selectedServices]);
 
+  const gstAmount = useMemo(() => {
+    return Math.round(totalPrice * 0.18);
+  }, [totalPrice]);
+
+  const grandTotal = useMemo(() => {
+    return totalPrice + gstAmount;
+  }, [totalPrice, gstAmount]);
+
   const handleInputChange = (e) => {
-  const { name, value } = e.target;
+    const { name, value } = e.target;
 
-  let formattedValue = value;
+    let formattedValue = value;
 
-  // Auto Capitalize text fields
-  if (
-    [
-      "companyName",
-      "businessCategory",
-      "name",
-      "position",
-      "address"
-    ].includes(name)
-  ) {
-    formattedValue =
-      value.charAt(0).toUpperCase() + value.slice(1);
-  }
-
-  // Phone number logic
-  if (name === "number") {
-    // remove everything except digits
-    let digits = value.replace(/\D/g, "");
-
-    // remove 91 if user types again
-    if (digits.startsWith("91")) {
-      digits = digits.slice(2);
+    if (
+      ["companyName", "businessCategory", "name", "position", "address"].includes(
+        name
+      )
+    ) {
+      formattedValue = value.charAt(0).toUpperCase() + value.slice(1);
     }
 
-    // allow only 10 digits
-    digits = digits.slice(0, 10);
+    if (name === "number") {
+      let digits = value.replace(/\D/g, "");
 
-    formattedValue = digits ? `+91 ${digits}` : "";
-  }
+      if (digits.startsWith("91")) {
+        digits = digits.slice(2);
+      }
 
-  setFormData((prev) => ({
-    ...prev,
-    [name]: formattedValue,
-  }));
-};
-  
+      digits = digits.slice(0, 10);
+      formattedValue = digits ? `+91 ${digits}` : "";
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: formattedValue,
+    }));
+  };
+
   const addService = (serviceName) => {
     if (!serviceName) return;
 
@@ -235,38 +274,38 @@ const Pricing = () => {
   };
 
   const generatePDF = async () => {
-  if (!pdfRef.current) return;
+    if (!pdfRef.current) return;
 
-  const canvas = await html2canvas(pdfRef.current, {
-    scale: 2,
-    useCORS: true,
-    backgroundColor: "#ffffff",
-  });
+    const canvas = await html2canvas(pdfRef.current, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: "#ffffff",
+    });
 
-  const imgData = canvas.toDataURL("image/png");
-  const pdf = new jsPDF("p", "mm", "a4");
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
 
-  const pdfWidth = 210;
-  const pdfHeight = 297;
-  const imgWidth = pdfWidth;
-  const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    const pdfWidth = 210;
+    const pdfHeight = 297;
+    const imgWidth = pdfWidth;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-  let heightLeft = imgHeight;
-  let position = 0;
+    let heightLeft = imgHeight;
+    let position = 0;
 
-  pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-  heightLeft -= pdfHeight;
-
-  while (heightLeft > 0) {
-    position = heightLeft - imgHeight;
-    pdf.addPage();
     pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
     heightLeft -= pdfHeight;
-  }
 
-  pdf.save(`quotation-${formData.companyName || "branding-studio"}.pdf`);
-};
-  
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pdfHeight;
+    }
+
+    pdf.save(`quotation-${formData.companyName || "branding-studio"}.pdf`);
+  };
+
   const handleGenerateQuotation = async () => {
     const requiredFields = [
       formData.companyName,
@@ -295,34 +334,33 @@ const Pricing = () => {
   };
 
   const isFormComplete =
-  formData.companyName &&
-  formData.businessCategory &&
-  formData.name &&
-  formData.position &&
-  formData.mailId &&
-  formData.number &&
-  formData.address &&
-  formData.monthlyBudgetRange;
+    formData.companyName &&
+    formData.businessCategory &&
+    formData.name &&
+    formData.position &&
+    formData.mailId &&
+    formData.number &&
+    formData.address &&
+    formData.monthlyBudgetRange;
 
   return (
     <section className="pricing-page">
       <div className="pricing-page__topbar">
-  <div className="pricing-page__topbar-left">
-    <span className="pricing-page__badge">Package Calculator</span>
-    <h1 className="pricing-page__mini-title">Build Your Custom Package</h1>
-    <p className="pricing-page__mini-subtitle">
-      Select services, set quantity, and generate a quotation.
-    </p>
-  </div>
+        <div className="pricing-page__topbar-left">
+          <span className="pricing-page__badge">Package Calculator</span>
+          <h1 className="pricing-page__mini-title">Build Your Custom Package</h1>
+          <p className="pricing-page__mini-subtitle">
+            Select services, set quantity, and generate a quotation.
+          </p>
+        </div>
 
-  <div className="pricing-page__topbar-right">
-    <span>Date: {new Date().toLocaleDateString()}</span>
-    <span>Category: {selectedCategory || "Not Selected"}</span>
-  </div>
-</div>
+        <div className="pricing-page__topbar-right">
+          <span>Date: {new Date().toLocaleDateString()}</span>
+          <span>Category: {selectedCategory || "Not Selected"}</span>
+        </div>
+      </div>
 
-<div className="pricing-page__shell">
-
+      <div className="pricing-page__shell">
         <div className="pricing-page__grid">
           <div className="pricing-card pricing-card--form">
             <div className="pricing-card__head">
@@ -390,14 +428,14 @@ const Pricing = () => {
             </div>
 
             {!isFormComplete ? (
-  <div className="pricing-note">
-    Please fill all client details to generate quotation.
-  </div>
-) : (
-  <div className="pricing-note success">
-    ✓ Client details completed
-  </div>
-)}
+              <div className="pricing-note">
+                Please fill all client details to generate quotation.
+              </div>
+            ) : (
+              <div className="pricing-note success">
+                ✓ Client details completed
+              </div>
+            )}
           </div>
 
           <div className="pricing-card pricing-card--content">
@@ -494,7 +532,7 @@ const Pricing = () => {
                   <h3>Your Custom Package Summary</h3>
                 </div>
                 <div className="pricing-total-chip">
-                  Total: ₹{totalPrice.toLocaleString("en-IN")}/-
+                  Total with GST: ₹{grandTotal.toLocaleString("en-IN")}/-
                 </div>
               </div>
 
@@ -554,8 +592,19 @@ const Pricing = () => {
               </div>
 
               <div className="pricing-summary__footer">
-                <div className="pricing-summary__final">
-                  Total Package Price: ₹{totalPrice.toLocaleString("en-IN")}/-
+                <div className="pricing-summary__totals">
+                  <div className="pricing-summary__line">
+                    <span>Subtotal</span>
+                    <strong>₹{totalPrice.toLocaleString("en-IN")}/-</strong>
+                  </div>
+                  <div className="pricing-summary__line">
+                    <span>GST (18%)</span>
+                    <strong>₹{gstAmount.toLocaleString("en-IN")}/-</strong>
+                  </div>
+                  <div className="pricing-summary__final">
+                    <span>Total Package Price</span>
+                    <strong>₹{grandTotal.toLocaleString("en-IN")}/-</strong>
+                  </div>
                 </div>
 
                 <button
@@ -571,88 +620,135 @@ const Pricing = () => {
       </div>
 
       <div className="pdf-only-wrapper">
-  <div ref={pdfRef} className="pdf-quotation">
-    <div className="pdf-quotation__header">
-      <div>
-        <h1>Branding Studios</h1>
-        <p>Custom Quotation</p>
+        <div ref={pdfRef} className="pdf-quotation">
+          <div className="pdf-quotation__header">
+            <div className="pdf-quotation__brand">
+              <img
+                src="/assets/logo/branding-logo.png"
+                alt="Brandingstudio logo"
+                className="pdf-quotation__logo"
+              />
+            </div>
+            <div className="pdf-quotation__meta">
+              <p>
+                <strong>Date:</strong> {new Date().toLocaleDateString()}
+              </p>
+              <p>
+                <strong>Category:</strong> {selectedCategory || "Not Selected"}
+              </p>
+            </div>
+          </div>
+
+          <div className="pdf-quotation__section">
+            <h2>Client Details</h2>
+            <div className="pdf-quotation__client-grid">
+              <div>
+                <strong>Company Name:</strong> {formData.companyName || "-"}
+              </div>
+              <div>
+                <strong>Business Category:</strong>{" "}
+                {formData.businessCategory || "-"}
+              </div>
+              <div>
+                <strong>Name:</strong> {formData.name || "-"}
+              </div>
+              <div>
+                <strong>Position:</strong> {formData.position || "-"}
+              </div>
+              <div>
+                <strong>Email:</strong> {formData.mailId || "-"}
+              </div>
+              <div>
+                <strong>Phone:</strong> {formData.number || "-"}
+              </div>
+              <div>
+                <strong>Address:</strong> {formData.address || "-"}
+              </div>
+              <div>
+                <strong>Budget Range:</strong>{" "}
+                {formData.monthlyBudgetRange || "-"}
+              </div>
+            </div>
+          </div>
+
+          <div className="pdf-quotation__section">
+            <h2>Selected Services</h2>
+
+            <table className="pdf-quotation__table">
+              <thead>
+                <tr>
+                  <th>Service</th>
+                  <th>Price</th>
+                  <th>Qty</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {selectedServices.length === 0 ? (
+                  <tr>
+                    <td colSpan="4">No services selected.</td>
+                  </tr>
+                ) : (
+                  selectedServices.map((service, index) => (
+                    <tr key={`${service.name}-${index}`}>
+                      <td>
+                        <div className="pdf-quotation__service-name">
+                          {service.name}
+                        </div>
+                        <div className="pdf-quotation__service-desc">
+                          {service.desc}
+                        </div>
+                      </td>
+                      <td>₹{service.price.toLocaleString("en-IN")}</td>
+                      <td>{service.quantity}</td>
+                      <td>
+                        ₹
+                        {(service.price * service.quantity).toLocaleString(
+                          "en-IN"
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="pdf-quotation__total">
+            <div className="pdf-quotation__total-breakdown">
+              <span>Subtotal: ₹{totalPrice.toLocaleString("en-IN")}/-</span>
+              <span>GST (18%): ₹{gstAmount.toLocaleString("en-IN")}/-</span>
+            </div>
+            <strong>₹{grandTotal.toLocaleString("en-IN")}/-</strong>
+          </div>
+
+          <div className="pdf-quotation__section">
+            <h2>Terms & Conditions</h2>
+            <ul className="pdf-quotation__terms">
+              <li>Quotation is valid for 7 days from the issue date.</li>
+              <li>50% advance may be required before project start.</li>
+              <li>Final delivery timelines depend on scope and approvals.</li>
+              <li>
+                Third-party ad spend, influencer charges, and production
+                expenses are separate unless mentioned.
+              </li>
+              <li>
+                Any additional revisions or scope changes may affect the final
+                pricing.
+              </li>
+              <li>
+                All prices mentioned above are exclusive of applicable taxes
+                (18% GST).
+              </li>
+            </ul>
+          </div>
+
+          <div className="pdf-quotation__footer">
+            <p>Thank you for choosing Brandingstudio.</p>
+            <p>brandingstudio.team@gmail.com</p>
+          </div>
+        </div>
       </div>
-      <div className="pdf-quotation__meta">
-        <p><strong>Date:</strong> {new Date().toLocaleDateString()}</p>
-        <p><strong>Category:</strong> {selectedCategory || "Not Selected"}</p>
-      </div>
-    </div>
-
-    <div className="pdf-quotation__section">
-      <h2>Client Details</h2>
-      <div className="pdf-quotation__client-grid">
-        <div><strong>Company Name:</strong> {formData.companyName || "-"}</div>
-        <div><strong>Business Category:</strong> {formData.businessCategory || "-"}</div>
-        <div><strong>Name:</strong> {formData.name || "-"}</div>
-        <div><strong>Position:</strong> {formData.position || "-"}</div>
-        <div><strong>Email:</strong> {formData.mailId || "-"}</div>
-        <div><strong>Phone:</strong> {formData.number || "-"}</div>
-        <div><strong>Address:</strong> {formData.address || "-"}</div>
-        <div><strong>Budget Range:</strong> {formData.monthlyBudgetRange || "-"}</div>
-      </div>
-    </div>
-
-    <div className="pdf-quotation__section">
-      <h2>Selected Services</h2>
-
-      <table className="pdf-quotation__table">
-        <thead>
-          <tr>
-            <th>Service</th>
-            <th>Price</th>
-            <th>Qty</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {selectedServices.length === 0 ? (
-            <tr>
-              <td colSpan="4">No services selected.</td>
-            </tr>
-          ) : (
-            selectedServices.map((service, index) => (
-              <tr key={`${service.name}-${index}`}>
-                <td>
-                  <div className="pdf-quotation__service-name">{service.name}</div>
-                  <div className="pdf-quotation__service-desc">{service.desc}</div>
-                </td>
-                <td>₹{service.price.toLocaleString("en-IN")}</td>
-                <td>{service.quantity}</td>
-                <td>₹{(service.price * service.quantity).toLocaleString("en-IN")}</td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
-    </div>
-
-    <div className="pdf-quotation__total">
-      <span>Total Package Price</span>
-      <strong>₹{totalPrice.toLocaleString("en-IN")}/-</strong>
-    </div>
-
-    <div className="pdf-quotation__section">
-      <h2>Terms & Conditions</h2>
-      <ul className="pdf-quotation__terms">
-        <li>Quotation is valid for 7 days from the issue date.</li>
-        <li>50% advance may be required before project start.</li>
-        <li>Final delivery timelines depend on scope and approvals.</li>
-        <li>Third-party ad spend, influencer charges, and production expenses are separate unless mentioned.</li>
-        <li>Any additional revisions or scope changes may affect the final pricing.</li>
-      </ul>
-    </div>
-
-    <div className="pdf-quotation__footer">
-      <p>Thank you for choosing Branding Studios.</p>
-      <p>brandingstudio.team@gmail.com</p>
-    </div>
-  </div>
-</div>
     </section>
   );
 };

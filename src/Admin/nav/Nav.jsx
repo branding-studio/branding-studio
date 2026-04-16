@@ -4,24 +4,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
   faFileAlt,
-  faContactBook,
   faUser,
   faUserGear,
   faBars,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { useBlogContext } from "../../context/BlogContext";
 import { useAdminContext } from "../../context/AdminContext";
 import "./Nav.css";
 
 const Nav = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { fetchBlogs } = useBlogContext();
   const { admin } = useAdminContext();
   const isMaster = admin?.role === "master";
 
-  const [blogCount, setBlogCount] = useState(0);
   const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
@@ -35,18 +31,6 @@ const Nav = () => {
       localStorage.setItem("adminSidebarCollapsed", next ? "1" : "0");
       return next;
     });
-
-  useEffect(() => {
-    const loadBlogs = async () => {
-      try {
-        const blogs = await fetchBlogs();
-        setBlogCount(blogs.length);
-      } catch (err) {
-        console.error("Failed to fetch blog count", err);
-      }
-    };
-    loadBlogs();
-  }, [fetchBlogs]);
 
   const isActive = (path) =>
     location.pathname === path || location.pathname.startsWith(path + "/");
@@ -68,10 +52,14 @@ const Nav = () => {
     ...(isMaster
       ? [{ name: "Admin", path: "/admin/manage-admin", icon: faUserGear }]
       : []),
-    { name: "Blogs", path: "/admin/blog", icon: faFileAlt, count: blogCount },
-    { name: "Messages", path: "/admin/manage-contacts", icon: faContactBook },
     { name: "Manage Team", path: "/admin/manage-team", icon: faUser },
-    { name: "Manage Gallery", path: "/admin/manage-gallery", icon: faFileAlt }
+    { name: "Manage Gallery", path: "/admin/manage-gallery", icon: faFileAlt },
+    { name: "Manage Pricing", path: "/admin/manage-pricing", icon: faFileAlt },
+    {
+      name: "Manage Samples",
+      path: "/admin/manage-service-samples",
+      icon: faFileAlt,
+    }
     // { name: "Comments", path: "/admin/manage-comments", icon: faUser },
   ];
 

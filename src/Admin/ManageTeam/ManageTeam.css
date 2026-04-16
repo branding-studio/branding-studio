@@ -76,6 +76,7 @@
 }
 
 .mt-field input,
+.mt-field select,
 .mt-field textarea{
   width: 100%;
   border: 1px solid #d9dfeb;
@@ -89,6 +90,7 @@
 }
 
 .mt-field input:focus,
+.mt-field select:focus,
 .mt-field textarea:focus{
   border-color: #a8b4ff;
   background: #fff;
@@ -98,6 +100,13 @@
 .mt-field textarea{
   resize: vertical;
   min-height: 110px;
+}
+
+.mt-field-help{
+  margin: 8px 4px 0;
+  font-size: 1.2rem;
+  color: var(--muted);
+  line-height: 1.5;
 }
 
 .mt-check{
@@ -163,6 +172,15 @@
   font-size: 1.45rem;
   color: #666b7c;
   font-weight: 600;
+}
+
+.mt-preview-role-tag{
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand);
 }
 
 .mt-preview-desc{
@@ -318,6 +336,28 @@
   font-size: 1.7rem;
   color: #171424;
   font-weight: 900;
+}
+
+.mt-member-type{
+  display: inline-flex;
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.mt-member-type--founder,
+.mt-member-type--cofounder{
+  background: rgba(91, 92, 226, 0.12);
+  color: var(--brand);
+}
+
+.mt-member-type--core{
+  background: rgba(15, 23, 42, 0.08);
+  color: var(--ink);
 }
 
 .mt-member-body p{

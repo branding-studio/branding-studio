@@ -16,6 +16,7 @@ import {
 } from "react-icons/fa";
 import "./Filmmaking.css";
 import { useLocalContext } from "../../../context/LocalContext";
+import { useManagedServiceSamples } from "../../../utils/serviceSamples";
 
 const Filmmaking = () => {
   const navigate = useNavigate();
@@ -24,56 +25,7 @@ const Filmmaking = () => {
   /** ===== Samples ===== */
   const [sampleFilter, setSampleFilter] = useState("all");
 
-  const samples = [
-    {
-      id: 1,
-      type: "video",
-      title: "Fashion Brand Ad Film",
-      category: "Ad Film",
-      thumb: "/assets/samples/film-video-1.jpg",
-      link: "https://www.youtube.com/",
-    },
-    {
-      id: 2,
-      type: "video",
-      title: "Restaurant Promo Reel",
-      category: "Promo Reel",
-      thumb: "/assets/samples/film-video-2.jpg",
-      link: "https://www.youtube.com/",
-    },
-    {
-      id: 3,
-      type: "photo",
-      title: "Product Shoot Setup",
-      category: "Behind the Scenes",
-      thumb: "/assets/samples/film-photo-1.jpg",
-      link: "/assets/samples/film-photo-1.jpg",
-    },
-    {
-      id: 4,
-      type: "photo",
-      title: "Brand Campaign Still",
-      category: "Campaign Visual",
-      thumb: "/assets/samples/film-photo-2.jpg",
-      link: "/assets/samples/film-photo-2.jpg",
-    },
-    {
-      id: 5,
-      type: "video",
-      title: "Corporate Introduction Film",
-      category: "Corporate Film",
-      thumb: "/assets/samples/film-video-3.jpg",
-      link: "https://www.youtube.com/",
-    },
-    {
-      id: 6,
-      type: "photo",
-      title: "Lighting & Set Direction",
-      category: "Production Still",
-      thumb: "/assets/samples/film-photo-3.jpg",
-      link: "/assets/samples/film-photo-3.jpg",
-    },
-  ];
+  const samples = useManagedServiceSamples("filmmaking");
 
   const filteredSamples =
     sampleFilter === "all"

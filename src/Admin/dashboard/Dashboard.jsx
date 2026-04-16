@@ -1,151 +1,104 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { collection, getDocs, orderBy, query, limit, getCountFromServer } from "firebase/firestore";
-import { db } from "../../firebase/firebaseConfig";
 import { useAdminContext } from "../../context/AdminContext";
-import { useBlogContext } from "../../context/BlogContext";
 import "./Dashboard.css";
 
-const formatDate = (v) => {
-  if (!v) return "-";
-  const d = typeof v?.toDate === "function" ? v.toDate() : (typeof v === "string" ? new Date(v) : v);
-  return isNaN(d?.getTime()) ? "-" : d.toLocaleDateString();
-};
+const dashboardSections = [
+  {
+    title: "Manage Team",
+    desc: "Update founder, co-founder, and core team members shown on the website.",
+    path: "/admin/manage-team",
+  },
+  {
+    title: "Manage Gallery",
+    desc: "Add or remove gallery visuals that appear on the public website.",
+    path: "/admin/manage-gallery",
+  },
+  {
+    title: "Manage Pricing",
+    desc: "Control categories, services, and pricing values for the pricing page.",
+    path: "/admin/manage-pricing",
+  },
+  {
+    title: "Manage Samples",
+    desc: "Edit the sample videos and visuals shown inside each service detail page.",
+    path: "/admin/manage-service-samples",
+  },
+];
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { admin } = useAdminContext(); // 'master' | 'all' | 'editor' | 'viewer'
+  const { admin } = useAdminContext();
   const isMaster = admin?.role === "master";
-  const { fetchCategories } = useBlogContext();
-
-  const [totalBlogs, setTotalBlogs] = useState(0);
-  const [categoriesCount, setCategoriesCount] = useState(0);
-  const [recentBlogs, setRecentBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const blogsColRef = useMemo(() => collection(db, "_blogs"), []);
-
-  useEffect(()=>{
-        document.title = "Admin | Manage Dashboard"
-      },[])
 
   useEffect(() => {
-    const load = async () => {
-      try {
-        // total blog count
-        const snapCount = await getCountFromServer(blogsColRef);
-        setTotalBlogs(snapCount.data().count || 0);
-
-        // recent 10 blogs
-        const qRecent = query(blogsColRef, orderBy("createdAt", "desc"), limit(10));
-        const snap = await getDocs(qRecent);
-        const items = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-        setRecentBlogs(items);
-
-        // categories count via context
-        try {
-          const cats = await fetchCategories();
-          setCategoriesCount(Array.isArray(cats) ? cats.length : 0);
-        } catch {
-          // fallback: distinct categories from the fetched list (approx)
-          const distinct = new Set(items.map((b) => b.category).filter(Boolean));
-          setCategoriesCount(distinct.size);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-    load();
-  }, [blogsColRef, fetchCategories]);
-
-  const handlePrimaryAction = () => {
-    if (isMaster) {
-      navigate("/admin/manage-admin");
-    } else {
-      navigate("/admin/blog");
-    }
-  };
+    document.title = "Admin | Manage Dashboard";
+  }, []);
 
   return (
     <div className="dashboard">
-      {/* Top section: stats + primary action */}
-      <div className="dash-top">
-        <div className="stats-grid">
-          <div className="stat-card">
-            <div className="stat-icon" aria-hidden>📝</div>
-            <div className="stat-content">
-              <div className="stat-label">Total Blogs</div>
-              <div className="stat-value">{loading ? "…" : totalBlogs}</div>
-            </div>
-          </div>
-
-          <div className="stat-card">
-            <div className="stat-icon" aria-hidden>📂</div>
-            <div className="stat-content">
-              <div className="stat-label">Categories</div>
-              <div className="stat-value">{loading ? "…" : categoriesCount}</div>
-            </div>
-          </div>
+      <section className="dash-hero">
+        <div className="dash-hero__content">
+          <span className="dash-hero__eyebrow">Admin Dashboard</span>
+          <h2>Website content controls</h2>
+          <p>
+            From here you can manage the important website sections without
+            touching the code.
+          </p>
         </div>
 
-        <div className="dash-actions">
-          <button className="btn primary" onClick={handlePrimaryAction}>
-            {isMaster ? "Manage Admin" : "Manage Blog"}
+        {isMaster && (
+          <button
+            type="button"
+            className="btn primary"
+            onClick={() => navigate("/admin/manage-admin")}
+          >
+            Manage Admin
           </button>
-          <button className="btn ghost" onClick={() => navigate("/admin/blog")}>
-            See All Blogs
-          </button>
-        </div>
-      </div>
-
-      {/* Recent table */}
-      <div className="panel">
-        <div className="panel-head">
-          <h3>Recent Blogs</h3>
-          <span className="panel-sub">{loading ? "" : `${recentBlogs.length} shown`}</span>
-        </div>
-
-        {loading ? (
-          <div className="muted">Loading…</div>
-        ) : recentBlogs.length === 0 ? (
-          <div className="empty">
-            <div className="empty-card">
-              <h4>No blogs yet</h4>
-              <p>Create your first post to see it here.</p>
-              <button className="btn primary" onClick={() => navigate("/admin/blog")}>Create Blog</button>
-            </div>
-          </div>
-        ) : (
-          <div className="table-wrap">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Category</th>
-                  <th>Author</th>
-                  <th>Date</th>
-                  <th className="th-id">ID</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentBlogs.map((b) => (
-                  <tr key={b.id}>
-                    <td className="title-cell">
-                      <span className="title">{b.title || "-"}</span>
-                    </td>
-                    <td>
-                      <span className="pill">{b.category || "-"}</span>
-                    </td>
-                    <td>{b.author || "-"}</td>
-                    <td>{formatDate(b.createdAt || b.formattedDate)}</td>
-                    <td className="id-cell">{b.id}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         )}
-      </div>
+      </section>
+
+      <section className="dash-overview">
+        <div className="overview-card">
+          <div className="overview-card__label">Logged in as</div>
+          <div className="overview-card__value">
+            {admin?.displayName || admin?.name || "Admin"}
+          </div>
+        </div>
+
+        <div className="overview-card">
+          <div className="overview-card__label">Role</div>
+          <div className="overview-card__value">{admin?.role || "-"}</div>
+        </div>
+
+        <div className="overview-card">
+          <div className="overview-card__label">Available sections</div>
+          <div className="overview-card__value">{dashboardSections.length}</div>
+        </div>
+      </section>
+
+      <section className="dash-sections">
+        <div className="dash-sections__head">
+          <h3>Quick Access</h3>
+          <p>Open the section you want to manage.</p>
+        </div>
+
+        <div className="dash-grid">
+          {dashboardSections.map((section) => (
+            <article className="dash-card" key={section.path}>
+              <h4>{section.title}</h4>
+              <p>{section.desc}</p>
+              <button
+                type="button"
+                className="btn ghost"
+                onClick={() => navigate(section.path)}
+              >
+                Open Section
+              </button>
+            </article>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };

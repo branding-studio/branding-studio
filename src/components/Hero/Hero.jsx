@@ -8,7 +8,7 @@ import "./Hero.css";
 import { FaShareAlt, FaSearch, FaLaptopCode, FaVideo, FaPalette } from "react-icons/fa";
 
 const DEFAULT_HERO_IMG =
-  "https://brandingstudio.in/wp-content/uploads/2025/04/Untitled-Instagram-Post-45-5.gif";
+  "https://www.pixartprinting.co.uk/blog/wp-content/uploads/2024/12/Marketing-Strategy.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 22 },

@@ -1,0 +1,261 @@
+.manage-service-samples {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 28px 22px 44px;
+}
+
+.mss-header h2 {
+  margin: 0 0 4px;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.mss-header p {
+  margin: 0 0 18px;
+  font-size: 1.45rem;
+  color: #667085;
+}
+
+.mss-layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.mss-sidebar,
+.mss-card {
+  background: #fff;
+  border: 1px solid #e6eaf2;
+  border-radius: 24px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.mss-sidebar {
+  padding: 18px;
+  position: sticky;
+  top: 18px;
+}
+
+.mss-sidebar h3,
+.mss-card-head h3 {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.mss-service-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.mss-service-btn {
+  width: 100%;
+  border: 1px solid #d9dfeb;
+  background: #f8fafc;
+  border-radius: 18px;
+  padding: 14px 16px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111827;
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+
+.mss-service-btn:hover {
+  transform: translateY(-1px);
+  border-color: #c7d2fe;
+  background: #fff;
+}
+
+.mss-service-btn.active {
+  border-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.mss-main {
+  display: grid;
+  gap: 18px;
+}
+
+.mss-card {
+  padding: 18px;
+}
+
+.mss-card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.mss-card-head p {
+  margin: 4px 0 0;
+  font-size: 1.3rem;
+  color: #667085;
+  max-width: 720px;
+}
+
+.mss-sample-list {
+  display: grid;
+  gap: 14px;
+}
+
+.mss-sample-card {
+  border: 1px solid #e6eaf2;
+  border-radius: 20px;
+  padding: 16px;
+  background: #fbfcff;
+}
+
+.mss-sample-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.mss-sample-head h4 {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.mss-grid-2 {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 14px;
+}
+
+.mss-field {
+  margin-bottom: 14px;
+}
+
+.mss-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.mss-field input,
+.mss-field select {
+  width: 100%;
+  border: 1px solid #d9dfeb;
+  background: #f6f8fc;
+  border-radius: 18px;
+  padding: 14px;
+  font-size: 1.45rem;
+  color: #0f172a;
+  outline: none;
+}
+
+.mss-field input:focus,
+.mss-field select:focus {
+  border-color: #a8b4ff;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(91, 92, 226, 0.1);
+}
+
+.mss-alert,
+.mss-empty {
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.mss-empty {
+  border: 1px dashed #d9dfeb;
+  background: #fff;
+  color: #667085;
+  text-align: center;
+}
+
+.mss-alert.success {
+  background: #ecfdf3;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.mss-alert.error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.mss-actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, #5b5ce2, #7a5cff);
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(91, 92, 226, 0.22);
+}
+
+.btn.danger {
+  background: #ef4444;
+  color: #fff;
+}
+
+.btn.small {
+  padding: 9px 14px;
+  font-size: 1.25rem;
+}
+
+@media (max-width: 980px) {
+  .mss-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .mss-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .manage-service-samples {
+    padding: 18px 14px 36px;
+  }
+
+  .mss-card-head,
+  .mss-sample-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mss-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}

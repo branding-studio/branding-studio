@@ -32,6 +32,7 @@ import {
 } from "react-icons/fa";
 import "./Webdev.css";
 import { useLocalContext } from "../../../context/LocalContext";
+import { useManagedServiceSamples } from "../../../utils/serviceSamples";
 
 /* Anim */
 const fadeUp = (i = 0, d = 0.55) => ({
@@ -202,56 +203,7 @@ export default function Webdev() {
   const { openWhatsApp, getWhatsAppUrl } = useLocalContext();
   const [sampleFilter, setSampleFilter] = useState("all");
 
-  const samples = [
-    {
-      id: 1,
-      type: "photo",
-      title: "Business Website Landing Page",
-      category: "Landing Page",
-      thumb: "/assets/samples/web-photo-1.jpg",
-      link: "/assets/samples/web-photo-1.jpg",
-    },
-    {
-      id: 2,
-      type: "photo",
-      title: "Dashboard UI Mockup",
-      category: "Dashboard Design",
-      thumb: "/assets/samples/web-photo-2.jpg",
-      link: "/assets/samples/web-photo-2.jpg",
-    },
-    {
-      id: 3,
-      type: "video",
-      title: "Website Walkthrough Demo",
-      category: "Web Preview",
-      thumb: "/assets/samples/web-video-1.jpg",
-      link: "https://www.youtube.com/",
-    },
-    {
-      id: 4,
-      type: "photo",
-      title: "Mobile Responsive Preview",
-      category: "Responsive UI",
-      thumb: "/assets/samples/web-photo-3.jpg",
-      link: "/assets/samples/web-photo-3.jpg",
-    },
-    {
-      id: 5,
-      type: "video",
-      title: "Interactive Website Demo",
-      category: "UI Motion",
-      thumb: "/assets/samples/web-video-2.jpg",
-      link: "https://www.youtube.com/",
-    },
-    {
-      id: 6,
-      type: "photo",
-      title: "E-commerce Product Page",
-      category: "E-commerce",
-      thumb: "/assets/samples/web-photo-4.jpg",
-      link: "/assets/samples/web-photo-4.jpg",
-    },
-  ];
+  const samples = useManagedServiceSamples("webdev");
 
   const filteredSamples =
     sampleFilter === "all"

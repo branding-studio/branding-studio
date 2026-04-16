@@ -17,6 +17,7 @@ import {
 } from "react-icons/fa";
 import "./GraphicDesign.css";
 import { useLocalContext } from "../../../context/LocalContext";
+import { useManagedServiceSamples } from "../../../utils/serviceSamples";
 
 const GraphicDesign = () => {
   const navigate = useNavigate();
@@ -25,56 +26,7 @@ const GraphicDesign = () => {
   const [sampleFilter, setSampleFilter] = useState("all");
 
   /** ===== Samples ===== */
-  const samples = [
-    {
-      id: 1,
-      type: "photo",
-      title: "Premium Poster Design",
-      category: "Poster Creative",
-      thumb: "/assets/samples/design-photo-1.jpg",
-      link: "/assets/samples/design-photo-1.jpg",
-    },
-    {
-      id: 2,
-      type: "photo",
-      title: "Brand Identity Board",
-      category: "Branding",
-      thumb: "/assets/samples/design-photo-2.jpg",
-      link: "/assets/samples/design-photo-2.jpg",
-    },
-    {
-      id: 3,
-      type: "video",
-      title: "Logo Reveal Animation",
-      category: "Motion Design",
-      thumb: "/assets/samples/design-video-1.jpg",
-      link: "https://www.youtube.com/",
-    },
-    {
-      id: 4,
-      type: "photo",
-      title: "Social Media Creative Set",
-      category: "Social Kit",
-      thumb: "/assets/samples/design-photo-3.jpg",
-      link: "/assets/samples/design-photo-3.jpg",
-    },
-    {
-      id: 5,
-      type: "video",
-      title: "UI Walkthrough Preview",
-      category: "UI Showcase",
-      thumb: "/assets/samples/design-video-2.jpg",
-      link: "https://www.youtube.com/",
-    },
-    {
-      id: 6,
-      type: "photo",
-      title: "Packaging Mockup",
-      category: "Packaging Design",
-      thumb: "/assets/samples/design-photo-4.jpg",
-      link: "/assets/samples/design-photo-4.jpg",
-    },
-  ];
+  const samples = useManagedServiceSamples("graphicDesign");
 
   const filteredSamples =
     sampleFilter === "all"
