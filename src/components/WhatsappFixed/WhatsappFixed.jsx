@@ -4,19 +4,18 @@ import { FaWhatsapp } from "react-icons/fa";
 import { useLocalContext } from "../../context/LocalContext";
 
 const WhatsappFixed = ({
-  number, // optional override (digits with country code)
-  message = "Hi! I need help.", // optional prefilled message
+  number, 
+  message = "Hi! I need help.", 
   label = "Chat",
   position = "right",
   topOffset = "50%",
   hrefOverride,
   showLabelMdUp = true,
   pulse = true,
-  preferApp, // optional: true/false (if not provided, context helper uses mobile heuristic)
+  preferApp, 
 }) => {
   const { openWhatsApp, getWhatsAppUrl, webinfo = {} } = useLocalContext();
 
-  // Build WhatsApp URL: priority = explicit override → prop → context fallback
   const whatsappUrl =
     hrefOverride ||
     (number
@@ -24,7 +23,7 @@ const WhatsappFixed = ({
           message ? `?text=${encodeURIComponent(message)}` : ""
         }`
       : null) ||
-    getWhatsAppUrl?.({ message, preferApp: false }) || // web-friendly href
+    getWhatsAppUrl?.({ message, preferApp: false }) || 
     "https://wa.me/";
 
   const displayNumber =

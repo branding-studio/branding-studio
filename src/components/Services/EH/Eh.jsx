@@ -76,7 +76,6 @@ const Eh = () => {
     "8. Retest Notes & Closure",
   ];
 
-  /* ===== Sticky quick-nav (scrollspy) ===== */
   const sections = useMemo(
     () => [
       { id: "services", label: "Services" },
@@ -111,12 +110,10 @@ const Eh = () => {
     }
   };
 
-  // Safe href for right-click/copy; openTelegram handles app/web fallback on click.
   const telegramHref = getTelegramUrl?.({ preferApp: false }) || "https://t.me/";
 
   return (
     <main className="eh">
-      {/* Sticky rail / quick-nav */}
       <aside className="eh__rail" aria-label="Page sections">
         <div className="rail__brand">
           <div className="rail__logo"><FaShieldAlt /></div>
@@ -146,7 +143,7 @@ const Eh = () => {
             rel="noopener noreferrer"
             onClick={(e) => {
               e.preventDefault();
-              openTelegram?.(); // centralized handler from context
+              openTelegram?.(); 
             }}
             aria-label={`Connect on Telegram${webinfo.telegramHandle ? ` @${webinfo.telegramHandle}` : ""}`}
           >
@@ -157,7 +154,6 @@ const Eh = () => {
       </aside>
 
       <div className="eh__main">
-        {/* HERO */}
         <header className="eh__hero">
           <span className="eh__eyebrow">Security Services</span>
           <h1>Ethical Hacking & Offensive Security</h1>
@@ -183,7 +179,6 @@ const Eh = () => {
           </div>
         </header>
 
-        {/* SERVICES */}
         <section id="services" className="eh__grid">
           {services.map((s) => (
             <article className="eh__card" key={s.title}>
@@ -197,12 +192,10 @@ const Eh = () => {
                   <li key={b}><FaCheckCircle /> {b}</li>
                 ))}
               </ul>
-              {/* <div className="eh__ribbon"><FaExclamationTriangle /> Safe, authorized testing only</div> */}
             </article>
           ))}
         </section>
 
-        {/* PROCESS */}
         <section id="process" className="eh__process">
           <div className="eh__head">
             <h3>How engagements run</h3>
@@ -221,7 +214,6 @@ const Eh = () => {
           </ol>
         </section>
 
-        {/* SCOPE & RULES */}
         <section id="scope" className="eh__scope">
           <div className="eh__head">
             <h3>Scope & Rules</h3>
@@ -254,7 +246,6 @@ const Eh = () => {
           </div>
         </section>
 
-        {/* METHODS & TOOLING */}
         <section id="methods" className="eh__methods">
           <div className="eh__head">
             <h3>Methods & Tooling</h3>
@@ -279,7 +270,6 @@ const Eh = () => {
           </p>
         </section>
 
-        {/* REPORTING & EVIDENCE */}
         <section id="reporting" className="eh__reporting">
           <div className="eh__head">
             <h3>Reporting & Evidence</h3>
@@ -295,7 +285,6 @@ const Eh = () => {
           </div>
         </section>
 
-        {/* DELIVERABLES */}
         <section id="deliver" className="eh__deliver">
           <div className="eh__head">
             <h3>What you get</h3>
@@ -306,7 +295,6 @@ const Eh = () => {
           </ul>
         </section>
 
-        {/* FINAL CTA */}
         <section id="cta" className="eh__cta-bar">
           <div className="eh__cta-inner">
             <div className="eh__cta-copy">

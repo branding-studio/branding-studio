@@ -14,7 +14,6 @@ const PricingCalculator = () => {
         </div>
 
         <div className="pricing-calculator__grid">
-          {/* Left Form */}
           <div className="pricing-calculator__form-box">
             <h3>Fill the Details for Calculate Package</h3>
 
@@ -32,7 +31,6 @@ const PricingCalculator = () => {
             </p>
           </div>
 
-          {/* Right Content */}
           <div className="pricing-calculator__content-box">
             <div className="pricing-calculator__select-section">
               <h3>Choose the services you need.</h3>

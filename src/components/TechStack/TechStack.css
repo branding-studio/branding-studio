@@ -1,4 +1,4 @@
-/* Section background like the screenshot: light, subtle wave */
+
 .subscribe-band {
   position: relative;
   padding: 60px 24px 120px;
@@ -7,8 +7,6 @@
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
-/* --- faint brand logos row --- */
-/* ---- Center-mode carousel (SMOOTH + CENTERED) ---- */
 .brand-carousel-center {
   position: relative;
   width: 100%;
@@ -53,7 +51,6 @@
   object-fit: contain;
 }
 
-/* Active in the middle */
 .brand-pill.is-active {
   width: 170px;
   height: 88px;
@@ -66,7 +63,7 @@
 .brand-pill.is-active img{
   min-width: 140px !important;
 }
-/* Subtle edge fades so sides feel recessed */
+
 .edge-fade {
   position: absolute;
   top: 0;
@@ -86,7 +83,6 @@
   left: 0;
 }
 
-/* Responsive tweaks */
 @media (max-width: 768px) {
   .brand-carousel-center { height: 96px; }
   .brand-pill { width: 140px; height: 50px; }
@@ -97,8 +93,6 @@
   .brand-pill { width: 120px; height: 46px; }
 }
 
-
-/* --- rounded subscribe card --- */
 .subscribe-card {
   position: relative;
   max-width: 900px;
@@ -112,7 +106,6 @@
   text-align: center;
 }
 
-/* tiny purple "Our Services" vibe */
 .sub-eyebrow {
   font-size: 12px;
   font-weight: 700;
@@ -131,7 +124,6 @@
   line-height: 1.35;
 }
 
-/* form like screenshot */
 .subscribe-form {
   margin: 0 auto;
   max-width: 520px;
@@ -175,7 +167,6 @@
   opacity: .95;
 }
 
-/* floating paper-plane button on right */
 .float-plane {
   position: absolute;
   right: 18px;
@@ -200,7 +191,6 @@
 
 .float-plane svg { font-size: 18px; }
 
-/* responsive tweaks */
 @media (max-width: 640px) {
   .subscribe-band { padding: 66px 16px 90px; }
   .center-pill{

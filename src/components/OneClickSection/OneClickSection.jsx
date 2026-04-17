@@ -1,4 +1,4 @@
-// OneClickSection.jsx (same content, minor structure upgrades)
+
 import React, { forwardRef } from "react";
 import "./OneClickSection.css";
 import {
@@ -46,7 +46,6 @@ const OneClickSection = forwardRef((_, ref) => {
         whileInView="animate"
         viewport={{ once: true, amount: 0.3 }}
       >
-        {/* FEATURE — Film Making */}
         <motion.div className="card card--wide card--feature film" variants={cardVariant} whileHover={hoverLift}>
           <div className="card__header">
             <div className="card__icon card__icon--circle" aria-hidden="true">
@@ -84,7 +83,6 @@ const OneClickSection = forwardRef((_, ref) => {
           </div>
         </motion.div>
 
-        {/* SEO — TALL */}
         <motion.div className="card card--tall seo" variants={cardVariant} whileHover={hoverLift}>
           <div className="card__pill"><FaSearch /> SEO</div>
 
@@ -105,7 +103,6 @@ const OneClickSection = forwardRef((_, ref) => {
           </div>
         </motion.div>
 
-        {/* Social Media — SMALL */}
         <motion.div className="card card--small smo" variants={cardVariant} whileHover={hoverLift}>
           <div className="card__pill"><FaShareAlt /> Social Media</div>
 
@@ -121,7 +118,6 @@ const OneClickSection = forwardRef((_, ref) => {
           </div>
         </motion.div>
 
-        {/* Web Dev — WIDE */}
         <motion.div className="card card--wide webdev" variants={cardVariant} whileHover={hoverLift}>
           <div className="card__header" style={{ gap: "1rem" }}>
             <div className="card__icon card__icon--circle card__icon--outline" aria-hidden="true">
@@ -152,7 +148,6 @@ const OneClickSection = forwardRef((_, ref) => {
           </div>
         </motion.div>
 
-        {/* Design — TALL */}
         <motion.div className="card card--tall design" variants={cardVariant} whileHover={hoverLift}>
           <div className="card__pill"><FaPalette /> Design</div>
 

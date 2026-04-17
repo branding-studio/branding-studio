@@ -1,6 +1,4 @@
-/* =========================
-   Tokens (keep using vars, just not inside @media)
-   ========================= */
+
 :root{
   --maxw: 134rem;
 
@@ -22,9 +20,6 @@
   --shadow-lg: 0 18px 44px rgba(15, 23, 42, .12);
 }
 
-/* =========================
-   Base
-   ========================= */
 .terms{
     width: 100%;
   color: var(--text);
@@ -38,9 +33,6 @@
   text-rendering: optimizeLegibility;
 }
 
-/* =========================
-   Header
-   ========================= */
 .terms-header{
   width: min(var(--maxw), 100%);
   margin: 0 auto 1.6rem;
@@ -71,9 +63,6 @@
   line-height: 1.6;
 }
 
-/* =========================
-   Grid
-   ========================= */
 .terms-grid{
   width: min(var(--maxw), 100%);
   margin: 0 auto;
@@ -83,9 +72,6 @@
   align-items: start;
 }
 
-/* =========================
-   Cards / Containers
-   ========================= */
 .terms-card{
   background: #fff;
   border: 1px solid color-mix(in oklab, var(--text) 10%, transparent);
@@ -93,7 +79,6 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* TOC */
 .terms-aside{ position: sticky; top: 1.6rem; height: fit-content; }
 .terms-toc{ padding: 1.6rem 1.6rem 1.2rem; }
 .terms-toc h3{
@@ -129,9 +114,6 @@
 }
 .terms-toc a:hover{ border-color: color-mix(in oklab, var(--primary) 30%, transparent); }
 
-/* =========================
-   Content
-   ========================= */
 .terms-content .terms-card{
   padding: clamp(1.6rem, 2.2vw, 2.2rem);
 }
@@ -141,7 +123,7 @@
   font-size: clamp(1.8rem, .8vw + 1rem, 2.2rem);
   font-weight: 900;
   letter-spacing: -0.01em;
-  scroll-margin-top: 8rem; /* anchor offset */
+  scroll-margin-top: 8rem; 
 }
 .terms-section p{
   margin: 0 0 .8rem;
@@ -158,7 +140,6 @@
 }
 .terms-section li{ margin: .3rem 0; }
 
-/* Callout */
 .terms-callout{
   margin: .6rem 0 1rem;
   padding: 1.0rem 1.2rem;
@@ -168,38 +149,28 @@
   color: var(--text);
   box-shadow: var(--shadow-sm);
 }
-
-/* Links inside content */
 .terms-content a{
   color: var(--primary-500);
   text-decoration: none;
   border-bottom: 1.5px solid color-mix(in oklab, var(--primary-500) 40%, transparent);
 }
 .terms-content a:hover{ border-color: var(--primary-500); }
-
-/* =========================
-   Responsive (numeric breakpoints)
-   ========================= */
-
 .terms-grid > * { min-width: 0; }
 .terms-content, .terms-card { min-width: 0; }
 
-/* Kill accidental inner scroll on the TOC at all narrow widths */
 @media (max-width: 1024px){
   .terms-grid{ grid-template-columns: 1fr !important; }
-  .terms-aside{ position: static !important; } /* avoid nested scrollbars */
+  .terms-aside{ position: static !important; } 
   .terms-toc ol{
     max-height: none !important;
     overflow: visible !important;
   }
 }
 
-/* Large phones / small tablets — tighten padding */
 @media (max-width: 768px){
   .terms-content .terms-card{ padding: 1.6rem !important; }
 }
 
-/* Phones (≤640px) — make TOC chips and guarantee no overflow */
 @media (max-width: 640px){
   .terms{
     padding: max(1.6rem, env(safe-area-inset-top)) 1.6rem 2.4rem;
@@ -211,7 +182,7 @@
   .terms-toc ol{
     /* display:none; */
     gap: .8rem;
-    overflow-x: scroll;   /* horizontal scroll only if needed */
+    overflow-x: scroll;   
     overflow-y: visible !important;
     max-height: none !important;
     padding-bottom: .6rem;
@@ -225,25 +196,19 @@
     padding: .5rem .9rem;
     border-radius: 999px;
     background: #fff;
-    white-space: nowrap;   /* prevent chip wrap */
+    white-space: nowrap;  
   }
   .terms-section h2{ scroll-margin-top: 6rem; }
 }
 
-/* Really small phones */
 @media (max-width: 400px){
   .terms-title{ font-size: clamp(2.0rem, 6vw, 2.6rem); }
   .terms-card{ border-radius: var(--radius-lg); }
 }
 
-/* Safety: images/media never overflow */
 .terms img, .terms video, .terms iframe { max-width: 100%; height: auto; }
-
-/* Optional: if a parent somewhere sets overflow hidden, allow content to scroll normally */
 .terms { overflow-x: hidden; }
-/* =========================
-   Accessibility & motion
-   ========================= */
+
 .terms a:focus-visible{
   outline: none;
   box-shadow: 0 0 0 4px rgba(250, 204, 21, .35), 0 0 0 1.5px #eab308;
@@ -254,9 +219,6 @@
   *{ transition: none !important; animation: none !important; }
 }
 
-/* =========================
-   Print (clean output)
-   ========================= */
 @media print{
   .terms{ background: #fff !important; padding: 0 !important; }
   .terms-header, .terms-grid{ width: 100% !important; margin: 0 !important; }

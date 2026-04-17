@@ -21,7 +21,7 @@ const ReadBlog = () => {
         console.log("Fetched blogs:", blogs.map(b => b.title)); // Debugging
         console.log("Decoded title from URL:", decodedTitle); // Debugging
   
-        // Normalize title to avoid space or case mismatches
+       
         const matchedBlog = blogs.find(blog => 
           blog.title.trim().toLowerCase() === decodedTitle.trim().toLowerCase()
         );

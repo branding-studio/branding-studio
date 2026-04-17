@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom"; // 1. Import Link
+import { Link } from "react-router-dom"; 
 import {
   FaVideo,
   FaHashtag,
@@ -11,7 +11,6 @@ import {
 import "./ImpactOrbit.css";
 import { useLocalContext } from "../../context/LocalContext";
 
-// 2. Added 'path' to each service
 const services = [
   { 
     icon: <FaVideo />, 
@@ -67,13 +66,11 @@ export default function ImpactOrbit() {
 
   return (
     <section className="impact-orbit" aria-label="Impact Orbit">
-      {/* Background Elements */}
       <div className="io-glow io-glow--1" />
       <div className="io-glow io-glow--2" />
       <div className="io-dots" aria-hidden="true" />
 
       <div className="io-grid">
-        {/* --- LEFT SIDE: TEXT --- */}
         <motion.div
           className="io-copy"
           initial="hidden"
@@ -104,7 +101,6 @@ export default function ImpactOrbit() {
           </div>
         </motion.div>
 
-        {/* --- RIGHT SIDE: ORBIT --- */}
         <motion.div
           className="io-visual"
           initial="hidden"
@@ -114,22 +110,17 @@ export default function ImpactOrbit() {
         >
           <div className="io-orbit-frame">
             
-            {/* Wave Ripples */}
             <div className="io-wave" style={{ animationDelay: "0s" }} />
             <div className="io-wave" style={{ animationDelay: "1s" }} />
             <div className="io-wave" style={{ animationDelay: "2s" }} />
 
-            {/* Orbit Ring */}
             <div className="io-orbit-ring" aria-hidden="true" />
 
-            {/* Orbit Animation */}
             <div className="io-orbit-anim">
               {services.map((s, i) => (
                 <div key={s.label} className="io-node" style={{ "--i": i }}>
                   <div className="io-node-counter">
                     
-                    {/* 3. Changed div to Link here */}
-                    {/* Added inline style to remove default blue link color/underline */}
                     <Link 
                       to={s.path} 
                       className="io-node-inner" 
@@ -147,7 +138,6 @@ export default function ImpactOrbit() {
               ))}
             </div>
 
-            {/* Center Hub */}
             <div className="io-core">
   <strong>{webinfo?.name || "Branding Studios"}</strong>
   <small>We Think, You Grow</small>
@@ -156,7 +146,6 @@ export default function ImpactOrbit() {
         </motion.div>
       </div>
 
-      {/* KPI BAR */}
       <motion.div
         className="io-kpi-bar"
         initial="hidden"
@@ -172,7 +161,6 @@ export default function ImpactOrbit() {
         ))}
       </motion.div>
 
-      {/* --- BOTTOM CARDS (.io-deck) --- */}
       <div className="io-deck">
         <motion.div
           className="io-card"

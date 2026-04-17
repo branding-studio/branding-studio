@@ -16,7 +16,6 @@ const TopHeader = () => {
         </a>
       </div>
       <div className="top-header__right">
-        {/* 1. YouTube */}
         <a
           href="https://www.youtube.com/@brandingstudioteam"
           target="_blank"
@@ -26,7 +25,6 @@ const TopHeader = () => {
           <FaYoutube />
         </a>
 
-        {/* 2. Instagram */}
         <a
           href="https://www.instagram.com/brandingstudios.in/"
           target="_blank"
@@ -36,7 +34,6 @@ const TopHeader = () => {
           <FaInstagram />
         </a>
 
-        {/* 3. Mail Icon */}
         <a href={`mailto:${webinfo.email}`} aria-label="Email">
           <FaEnvelope />
         </a>

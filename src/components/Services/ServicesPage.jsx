@@ -35,7 +35,6 @@ const ServicesPage = () => {
   const { serviceId } = useParams();
   const { webinfo } = useLocalContext();
 
-  // ---- your same data (unchanged) ----
     const serviceData = [
 
     {
@@ -646,13 +645,6 @@ const ServicesPage = () => {
   }
 }
 
-
-
-
-
-
-
-
   ];
   const service = serviceData.find((s) => s.id === serviceId);
   if (!service) return <div className="svcpg-wrap"><h1>Service Not Found</h1></div>;
@@ -667,7 +659,6 @@ const ServicesPage = () => {
 
   return (
     <div className="svcpg-wrap">
-      {/* HERO */}
       <motion.header className="svcpg-hero" {...fadeUp(.05)}>
         <div className="svcpg-hero-inner">
           <div className="svcpg-hero-text">
@@ -700,7 +691,6 @@ const ServicesPage = () => {
         </div>
       </motion.header>
 
-      {/* SUBCATEGORIES */}
       {service.subcategories && (
         <motion.section className="svcpg-subcats" {...fadeUp(.05)}>
           <h3>Explore Related Services</h3>
@@ -720,7 +710,6 @@ const ServicesPage = () => {
         </motion.section>
       )}
 
-      {/* MAIN SPLIT */}
       <section className="svcpg-main">
         <motion.article className="svcpg-about glass" {...fadeUp(.1)}>
           <h2>About the Service</h2>
@@ -752,7 +741,6 @@ const ServicesPage = () => {
         </motion.figure>
       </section>
 
-      {/* GROWTH */}
       {service.growth && (
         <motion.section className="svcpg-growth" {...fadeUp(.1)}>
           <h2><FontAwesomeIcon icon={faChartLine} /> {service.growth.title}</h2>
@@ -782,7 +770,6 @@ const ServicesPage = () => {
         </motion.section>
       )}
 
-      {/* TESTIMONIALS */}
       <motion.section className="svcpg-testis" {...fadeUp(.1)}>
         <h2>What Our Clients Say</h2>
         <div className="tgrid">

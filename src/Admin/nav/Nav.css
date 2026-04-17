@@ -1,8 +1,8 @@
 :root{
-  --sb-bg: #0b1220;         /* base */
-  --sb-surface: #0f172a;    /* panels / hover */
+  --sb-bg: #0b1220;       
+  --sb-surface: #0f172a;  
   --sb-hover: #111c2e;
-  --sb-active: #14b8a6;     /* active accent (teal) */
+  --sb-active: #14b8a6;     
   --sb-text: #cbd5e1;
   --sb-heading: #e2e8f0;
   --sb-muted: #94a3b8;
@@ -14,10 +14,10 @@
   --radius: 12px;
 }
 
-/* Sidebar Container */
+
 .admin-sidebar {
   position: fixed;
-  inset: 0 auto 0 0; /* top:0; bottom:0; left:0 */
+  inset: 0 auto 0 0; 
   width: var(--sb-width);
   background: linear-gradient(180deg, var(--sb-bg), #0b1530 60%, #0b1220 100%);
   color: var(--sb-text);
@@ -32,7 +32,7 @@
 
 .admin-sidebar.is-collapsed { width: var(--sb-width-collapsed); }
 
-/* Header Section */
+
 .admin-sidebar-header {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -81,10 +81,10 @@
   letter-spacing: .02em;
 }
 
-/* Collapse visuals */
+
 .admin-sidebar.is-collapsed .brand-name { display: none; }
 
-/* Navigation List */
+
 .admin-nav-list {
   list-style: none;
   margin: 80px 8px;
@@ -98,7 +98,7 @@
 .admin-nav-list::-webkit-scrollbar { width: 8px; }
 .admin-nav-list::-webkit-scrollbar-thumb { background: #15223a; border-radius: 10px; }
 
-/* Individual Nav Item */
+
 .admin-nav-item { position: relative; }
 
 .admin-nav-link {
@@ -143,7 +143,7 @@
 .admin-nav-icon { font-size: 16px; color: #e2e8f0; }
 .nav-text { white-space: nowrap; }
 
-/* Badge */
+
 .nav-badge {
   background-color: #e11d48;
   color: white;
@@ -160,14 +160,14 @@
   display: inline-block;
 }
 
-/* Collapsed behaviors */
+
 .admin-sidebar.is-collapsed .admin-nav-link {
   grid-template-columns: 24px auto;
   justify-content: center;
 }
 .admin-sidebar.is-collapsed .nav-text { display: none; }
 
-/* Footer */
+
 .admin-sidebar-footer {
   border-top: 1px solid var(--sb-border);
   padding: 12px 14px;
@@ -207,7 +207,7 @@
   text-transform: capitalize;
 }
 
-/* Responsive: make it full-width drawer on small screens if needed */
+
 @media (max-width: 760px) {
   .admin-sidebar {
     width: var(--sb-width-collapsed);

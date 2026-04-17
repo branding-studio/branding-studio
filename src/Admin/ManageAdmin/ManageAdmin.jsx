@@ -52,7 +52,7 @@ const ManageAdmin = () => {
     },[])
   
 
-  // Secondary app/auth so current session (master) stays logged in
+
   const secondaryApp = useMemo(() => {
     const name = "SecondaryApp";
     const existing = getApps().find(a => a.name === name);
@@ -82,7 +82,7 @@ const ManageAdmin = () => {
     }
     setSubmitting(true);
     try {
-      // 1) Create new user in SECONDARY auth (won’t affect your master session)
+
       const cred = await createUserWithEmailAndPassword(
         secondaryAuth,
         email.trim(),
@@ -90,10 +90,9 @@ const ManageAdmin = () => {
       );
       const uid = cred.user.uid;
 
-      // (optional) immediately sign out secondary auth so it keeps no active session
       await signOut(secondaryAuth).catch(() => {});
 
-      // 2) Write admin doc using the CURRENT (master) session & Firestore
+      
       const payload = {
         email: email.trim(),
         name: name.trim(),

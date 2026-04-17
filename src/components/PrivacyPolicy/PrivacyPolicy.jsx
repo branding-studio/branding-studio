@@ -12,7 +12,6 @@ const PrivacyPolicy = () => {
 
   return (
     <section className="privacy" role="main">
-      {/* Header */}
       <header className="privacy-header">
         <p className="privacy-kicker">Legal</p>
         <h1 className="privacy-title">Privacy Policy</h1>
@@ -23,9 +22,7 @@ const PrivacyPolicy = () => {
         <p className="privacy-meta">Last updated: 31 Aug 2025</p>
       </header>
 
-      {/* Grid: TOC + Body */}
       <div className="privacy-grid">
-        {/* Sticky table of contents */}
         <aside className="privacy-aside" aria-label="Table of contents">
           <nav className="privacy-card privacy-toc">
             <h3>On this page</h3>
@@ -48,7 +45,6 @@ const PrivacyPolicy = () => {
           </nav>
         </aside>
 
-        {/* Main content */}
         <article className="privacy-content">
           <div className="privacy-card">
             <section id="intro" className="privacy-section">

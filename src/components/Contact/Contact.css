@@ -1,13 +1,10 @@
-/* ======================
-   ROOT & BASE (10px root)
-   ====================== */
-html { font-size: 62.5%; } /* 1rem = 10px */
+
+html { font-size: 62.5%; }
 :root {
   --cv4-bg: var(--bg, #ffffff);
   --cv4-bg-muted: var(--bg-muted, #f6f8fc);
   --cv4-panel: var(--panel, #ffffff);
   --cv4-panel-quiet: var(--panel-quiet, #f9fbff);
-
   --cv4-text: var(--text, #0f172a);
   --cv4-muted: var(--muted, #475569);
   --cv4-border: var(--border, #e5e7eb);
@@ -15,11 +12,9 @@ html { font-size: 62.5%; } /* 1rem = 10px */
   /* --cv4-brand: var(--brand, #1e40af);
   --cv4-brand-600: var(--brand-600, #2e4fc7);
   --cv4-accent: var(--accent, #0ea5e9); */
-
-  /* WhatsApp theme */
-  --cv4-brand: #25D366;       /* WhatsApp Green */
-  --cv4-brand-600: #1FA855;   /* darker green */
-  --cv4-accent: #128C7E;      /* WhatsApp teal */
+  --cv4-brand: #25D366;       
+  --cv4-brand-600: #1FA855;   
+  --cv4-accent: #128C7E;      
   --cv4-success: #25D366; 
 
   /* --cv4-success: var(--success, #10b981); */
@@ -33,12 +28,12 @@ html { font-size: 62.5%; } /* 1rem = 10px */
 
   --cv4-container: min(136rem, 92vw);
 
-  /* type scale */
-  --cv4-body: 1.6rem;        /* 16px */
-  --cv4-body-sm: 1.4rem;     /* 14px */
-  --cv4-body-lg: 1.7rem;     /* 17px */
-  --cv4-label: 1.6rem;       /* 16px strong labels */
-  --cv4-button: 1.6rem;      /* 16px buttons */
+ 
+  --cv4-body: 1.6rem;        
+  --cv4-body-sm: 1.4rem;     
+  --cv4-body-lg: 1.7rem;     
+  --cv4-label: 1.6rem;       
+  --cv4-button: 1.6rem;      
   --cv4-h4: clamp(1.8rem, .6vw + 1.4rem, 2.2rem);
   --cv4-h3: clamp(2.2rem, .8vw + 1.6rem, 2.6rem);
   --cv4-h1: clamp(3.2rem, 4vw, 4.4rem);
@@ -56,9 +51,6 @@ html { font-size: 62.5%; } /* 1rem = 10px */
   line-height: 1.6;
 }
 
-/* ======================
-   HERO
-   ====================== */
 .cv4-hero {
   width: var(--cv4-container);
   margin: 0 auto clamp(1.2rem, 2vw, 2rem);
@@ -75,7 +67,7 @@ html { font-size: 62.5%; } /* 1rem = 10px */
   background: var(--cv4-panel-quiet);
   border-radius: 999px;
   font-weight: 800;
-  font-size: 1.2rem; /* 12px */
+  font-size: 1.2rem; 
   letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--cv4-brand);
@@ -128,11 +120,10 @@ html { font-size: 62.5%; } /* 1rem = 10px */
   align-items: center;
   gap: .8rem;
   font-weight: 800;
-  font-size: 1.6rem; /* 16px */
+  font-size: 1.6rem; 
 }
 .cv4-points svg { color: var(--cv4-success); }
 
-/* quick rail */
 .cv4-hero-rail {
   background: linear-gradient(#0f172a, #0f172a) padding-box,
               linear-gradient(90deg, var(--cv4-brand), var(--cv4-accent)) border-box;
@@ -180,9 +171,6 @@ html { font-size: 62.5%; } /* 1rem = 10px */
   opacity: .55; pointer-events: none;
 }
 
-/* ======================
-   SUPPORT STRIP
-   ====================== */
 .cv4-support {
   width: var(--cv4-container);
   margin: 0 auto clamp(1.4rem, 2vw, 2rem);
@@ -217,9 +205,6 @@ html { font-size: 62.5%; } /* 1rem = 10px */
   font-size: 1.6rem;
 }
 
-/* ======================
-   MAIN GRID
-   ====================== */
 .cv4-grid {
   width: var(--cv4-container);
   margin: 0 auto clamp(1.2rem, 2vw, 1.8rem);
@@ -238,7 +223,6 @@ html { font-size: 62.5%; } /* 1rem = 10px */
   font-size: var(--cv4-body);
 }
 
-/* form */
 .cv4-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -305,7 +289,6 @@ html { font-size: 62.5%; } /* 1rem = 10px */
 
 .cv4-note { color: var(--cv4-muted); font-size: 1.4rem; }
 
-/* rail */
 .cv4-rail { position: sticky; top: 1.2rem; height: fit-content; }
 .cv4-rail-group + .cv4-rail-group { margin-top: 1.2rem; }
 .cv4-rail h4 {
@@ -321,7 +304,6 @@ html { font-size: 62.5%; } /* 1rem = 10px */
 .cv4-rail-link[aria-disabled="true"] { opacity: .55; pointer-events: none; }
 .cv4-rail-cta { margin-top: 1.2rem; }
 
-/* FAQ */
 .cv4-faq { margin-top: 1.6rem; }
 .cv4-faq h3 {
   margin: 0 0 .8rem; font-size: var(--cv4-h3); font-weight: 900;
@@ -341,7 +323,6 @@ html { font-size: 62.5%; } /* 1rem = 10px */
 .cv4-faq-item.open .cv4-faq-a { max-height: 32rem; padding: .2rem 1.4rem 1.2rem; }
 .cv4-faq-a p { margin: 0; color: var(--cv4-muted); font-size: 1.6rem; }
 
-/* MAP */
 .cv4-map {
   width: var(--cv4-container);
   margin: 1.6rem auto 0;
@@ -354,9 +335,6 @@ html { font-size: 62.5%; } /* 1rem = 10px */
   display: block; width: 100%; height: clamp(40vh, 28rem, 52vh); border: 0;
 }
 
-/* ======================
-   RESPONSIVE
-   ====================== */
 @media (max-width: 1024px) {
   .cv4-hero { grid-template-columns: 1fr; }
   .cv4-hero-rail { margin-top: .8rem; }
@@ -373,7 +351,6 @@ html { font-size: 62.5%; } /* 1rem = 10px */
   .cv4-btn { width: 100%; justify-content: center; }
 }
 
-/* Motion accessibility */
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }

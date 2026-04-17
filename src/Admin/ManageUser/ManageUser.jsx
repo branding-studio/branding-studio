@@ -22,7 +22,7 @@ const ManageUser = () => {
 
     try {
       await deleteUser(userId);
-      loadUsers(); // Refresh after deletion
+      loadUsers(); 
     } catch {
       toast.error("Error deleting user.");
     }

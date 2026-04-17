@@ -45,7 +45,7 @@ export default function Contact() {
     phone: "",
     subject: "",
     message: "",
-    website: "", // honeypot
+    website: "", 
   });
 
   const onChange = (e) =>
@@ -56,7 +56,7 @@ export default function Contact() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (form.website) return; // honeypot trap
+    if (form.website) return; 
 
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       toast.error("Please fill out Name, Email, and Message.");
@@ -212,12 +212,9 @@ export default function Contact() {
         </article>
       </motion.section>
 
-      {/* MAIN GRID */}
       <div className="cv4-grid">
-        {/* FORM */}
         <motion.section className="cv4-card" {...fx(0.12)}>
           <form onSubmit={onSubmit} noValidate>
-            {/* Honeypot */}
             <input
               className="cv4-hp"
               type="text"
@@ -316,7 +313,6 @@ export default function Contact() {
             </div>
           </form>
 
-          {/* FAQ */}
           <div className="cv4-faq">
   <h3>Questions people ask</h3>
 
@@ -341,7 +337,6 @@ export default function Contact() {
 </div>
         </motion.section>
 
-        {/* STICKY RAIL (SIDEBAR) */}
         <motion.aside className="cv4-card cv4-rail" {...fx(0.16)}>
           
           <div className="cv4-rail-group">
@@ -357,7 +352,6 @@ export default function Contact() {
             </a>
           </div>
 
-          {/* ✅ 2. Separate Email */}
           <div className="cv4-rail-group">
             <h4>
               <FontAwesomeIcon icon={faEnvelope} /> Email

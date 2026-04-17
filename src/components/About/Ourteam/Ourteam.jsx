@@ -66,18 +66,13 @@ const Ourteam = ({ members = defaultMembers, title = "Our Team", subtitle = "The
       <div className="team-grid">
         {members.map((m) => (
           <article className="team-card" key={m.email || m.name}>
-            {/* Avatar */}
             <div className="avatar" aria-hidden="true">
-              {/* If you have images later: <img src={m.photo} alt={`${m.name} avatar`} /> */}
               <div className="avatar-fallback">{initialsOf(m.name)}</div>
             </div>
 
-            {/* Info */}
             <h3 className="name">{m.name}</h3>
             <p className="role">{m.role}</p>
             {m.bio && <p className="bio">{m.bio}</p>}
-
-            {/* Links (optional) */}
             {(m.links || m.email) && (
               <div className="socials">
                 {m.links?.linkedin && (

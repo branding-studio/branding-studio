@@ -25,7 +25,6 @@
   --container:min(1180px,92vw);
 }
 
-/* ============ Base ============ */
 html { font-size: 17px; }
 @media (min-width:1200px){ html{ font-size:18px; } }
 
@@ -36,14 +35,12 @@ h1,h2,h3,h4,h5{ letter-spacing:-0.015em; }
 
 .muted{ color:rgb(224, 222, 222); font-size:1.6rem; }
 
-/* Buttons */
 .btn{ display:inline-flex; align-items:center; gap:.6rem; padding:1rem 1.3rem; border-radius:12px; font-weight:800; text-decoration:none; border:1px solid transparent; transition:.18s ease; font-size:1.4rem; }
 .btn-primary{ background:var(--brand); color:#fff; box-shadow:var(--shadow-1); }
 .btn-primary:hover{ background:var(--brand-600); transform:translateY(-1px); }
 .btn-quiet{ background:transparent; color:var(--text); border-color:var(--border); }
 .btn-quiet:hover{ background:var(--panel-quiet); transform:translateY(-1px); }
 
-/* ============ HERO ============ */
 .hero-v3{ width:var(--container); margin:0 auto; padding:4.6rem 0 2.2rem; }
 .hero-wrap{ max-width:880px; }
 .pill{ display:inline-block; padding:.6rem .9rem; border:1px solid var(--border); background:var(--panel-quiet); border-radius:999px; font-weight:700; font-size:1.28rem; }
@@ -57,13 +54,12 @@ h1,h2,h3,h4,h5{ letter-spacing:-0.015em; }
 .fact strong{ display:block; font-size:1.25rem; }
 .fact span{ color:var(--muted); font-size:1.6rem; }
 
-/* ============ SNAPSHOT STRIP ============ */
 .snapshot{ width:var(--container); margin:1.1rem auto 0; display:flex; gap:.6rem; flex-wrap:wrap;  }
 .snapshot .chip{ display:inline-flex; align-items:center; gap:.4rem; padding:.6rem .85rem; border:1px solid var(--border); background:var(--panel); border-radius:999px; font-weight:700; font-size:1.28rem; }
 .snapshot .chip svg {
   font-size: 1.25rem;
 }
-/* ============ TIMELINE ============ */
+
 .timeline {
   width: var(--container);
   margin: 2.2rem auto 0;
@@ -111,7 +107,6 @@ h1,h2,h3,h4,h5{ letter-spacing:-0.015em; }
   line-height: 1.7;
 }
 
-/* ============ OS GRID ============ */
 .os-grid{ width:var(--container); margin:2.4rem auto 0; }
 .os-grid h2{ font-size:2.8rem; margin:0 0 .4rem; }
 .os-grid .lead{ max-width:720px; font-size: 1.4rem; }
@@ -142,7 +137,7 @@ h1,h2,h3,h4,h5{ letter-spacing:-0.015em; }
 .btn svg {
   font-size: 1.05em;
 }
-/* ============ DIFFERENTIATORS ============ */
+
 .diff{ width:var(--container); margin:2.4rem auto 0; }
 .diff h2{ font-size:2.8rem; margin:0 0 .6rem; }
 .diff-list{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; }
@@ -160,13 +155,11 @@ h1,h2,h3,h4,h5{ letter-spacing:-0.015em; }
 .diff-copy h5{ margin:0 0 .2rem; font-size:1.52rem; }
 .diff-copy p{ margin:0; color:var(--muted); font-size:1.4rem; }
 
-/* ============ METRICS RIBBON ============ */
 .ribbon{ width:var(--container); margin:2.4rem auto 0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.8rem; }
 .kpi{ background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:1rem; text-align:center; }
 .kpi-value{ font-size:2.1rem; font-weight:900; }
 .kpi-label{ color:var(--muted); font-size:1.6rem; }
 
-/* ============ TESTIMONIALS ============ */
 .testimonials{ width:var(--container); margin:2.6rem auto 0; }
 .testimonials h2{ font-size:2.8rem; margin:0 0 .6rem; }
 .quotes{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.8rem; }
@@ -174,7 +167,6 @@ h1,h2,h3,h4,h5{ letter-spacing:-0.015em; }
 .quote p{ margin:0 0 .4rem; font-size:1.4rem; }
 .quote footer{ color:var(--muted); font-size:1.28rem; }
 
-/* ============ FAQ ============ */
 .faq{ width:var(--container); margin:2.6rem auto 0; }
 .faq h2{ font-size:2.8rem; margin:0 0 .6rem; }
 .faq-list{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; }
@@ -184,7 +176,6 @@ h1,h2,h3,h4,h5{ letter-spacing:-0.015em; }
 .faq-item .faq-a{ max-height:0; overflow:hidden; transition:max-height .22s ease; padding:0 1rem; font-size:1.6rem; }
 .faq-item.open .faq-a{ max-height:200px; padding-bottom:.9rem; color:var(--muted); }
 
-/* ============ CTA ============ */
 .cta{ width:var(--container); margin:2.6rem auto 3.2rem; }
 .cta-inner{ background:linear-gradient(90deg,var(--brand),var(--accent)); color:#fff; border-radius:var(--radius-lg); padding:1.6rem 1.3rem; display:grid; grid-template-columns:1fr auto; align-items:center; gap:1rem; }
 .cta h3{ margin:.1rem 0 .2rem; font-size:clamp(1.35rem,2.6vw,1.8rem); }
@@ -192,7 +183,6 @@ h1,h2,h3,h4,h5{ letter-spacing:-0.015em; }
 .cta .btn-quiet{ border-color:rgba(255,255,255,.6); color:#fff; }
 .cta .btn-quiet:hover{ background:rgba(255,255,255,.08); }
 
-/* ============ Responsive ============ */
 @media (max-width:1100px){
   .quotes{ grid-template-columns:1fr 1fr; }
   .faq-list{ grid-template-columns:1fr; }
@@ -209,19 +199,12 @@ h1,h2,h3,h4,h5{ letter-spacing:-0.015em; }
   .ribbon{ grid-template-columns:1fr; }
 }
 
-
-/* =========================================
-   ICON SIZE POLISH (FINAL)
-========================================= */
-
-/* Snapshot strip icons */
 .snapshot .chip svg {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
 }
 
-/* OS Grid Icons */
 .os-icon {
   width: 68px;
   height: 68px;
@@ -237,7 +220,6 @@ h1,h2,h3,h4,h5{ letter-spacing:-0.015em; }
   height: 28px;
 }
 
-/* Differentiator Section Icons */
 .diff-item {
   display: grid;
   grid-template-columns: 52px 1fr;
@@ -264,7 +246,6 @@ h1,h2,h3,h4,h5{ letter-spacing:-0.015em; }
   height: 24px;
 }
 
-/* FAQ Icons */
 .faq-item .faq-q svg {
   color: var(--brand);
   width: 22px;
@@ -272,14 +253,12 @@ h1,h2,h3,h4,h5{ letter-spacing:-0.015em; }
   flex-shrink: 0;
 }
 
-/* Button Icons */
 .btn svg {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
 }
 
-/* Timeline Dot Polish */
 .steps .dot {
   position: absolute;
   left: -1.55rem;

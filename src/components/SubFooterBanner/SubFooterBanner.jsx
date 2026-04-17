@@ -13,7 +13,7 @@ const SubFooterBanner = ({
     "Clear step-by-step resolution",
   ],
   ctaLabel = "WhatsApp Now",
-  whatsappNumber = "91XXXXXXXXXX", // ✅ put number with country code (no +, no spaces)
+  whatsappNumber = "91XXXXXXXXXX", 
   whatsappMessage = "Hi! I need tech support. Please help.", // optional
 }) => {
   const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(

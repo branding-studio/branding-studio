@@ -1,12 +1,4 @@
-/* =========================
-   OneClickSection.css (FULL)
-   Bento + glass + gradient-border
-   Layout preserved (wide/tall/small)
-   Optimized for: html{font-size:10px}
-   ========================= */
-
 .one-click--brand{
-  /* typography scale tuned for 10px root */
   --t-hero: clamp(2.4rem, 2.1rem + 0.9vw, 3.2rem);
   --t-h4:   clamp(1.9rem, 1.7rem + 0.6vw, 2.4rem);
   --t-h5:   clamp(1.65rem, 1.55rem + 0.45vw, 2.05rem);
@@ -33,21 +25,14 @@
   align-items: stretch;
 }
 
-/* =========================
-   Card base (glass)
-   ========================= */
 .one-click--brand .card{
   position: relative;
   overflow: hidden;
   border-radius: calc(var(--radius-md) + 6px);
   padding: 2.15rem;
-
-  /* glass */
   background: color-mix(in oklab, var(--text-light) 88%, transparent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-
-  /* gradient border via mask */
   border: 1px solid transparent;
   background-clip: padding-box;
 
@@ -63,7 +48,6 @@
   transform: translateZ(0);
 }
 
-/* gradient border layer */
 .one-click--brand .card::before{
   content:"";
   position:absolute;
@@ -85,7 +69,6 @@
   filter: blur(.2px);
 }
 
-/* subtle premium light sweep */
 .one-click--brand .card::after{
   content:"";
   position:absolute;
@@ -110,15 +93,11 @@
     0 1px 0 color-mix(in oklab, white 60%, transparent) inset;
 }
 
-/* Keep content above layers */
 .one-click--brand .card > *{
   position: relative;
   z-index: 1;
 }
 
-/* =========================
-   Header + type
-   ========================= */
 .one-click--brand .card__header{
   display:flex;
   align-items:center;
@@ -164,9 +143,6 @@
   margin: .35rem 0 0;
 }
 
-/* =========================
-   Icon (circle preserved, upgraded)
-   ========================= */
 .one-click--brand .card__icon{
   width: 62px;
   height: 62px;
@@ -178,14 +154,12 @@
   transition: transform .18s ease, filter .18s ease;
 }
 
-/* circle */
 .one-click--brand .card__icon--circle{
   border-radius: 999px;
   position: relative;
   box-shadow: 0 14px 30px color-mix(in oklab, var(--accent-color) 26%, transparent);
 }
 
-/* ring glow */
 .one-click--brand .card__icon--circle::after{
   content:"";
   position:absolute;
@@ -211,9 +185,6 @@
   box-shadow: none;
 }
 
-/* =========================
-   Pills
-   ========================= */
 .one-click--brand .card__pill{
   display:inline-flex;
   align-items:center;
@@ -223,31 +194,24 @@
   font-weight: 950;
   font-size: 1.2rem;
   letter-spacing: .15px;
-
   background: color-mix(in oklab, var(--primary-color) 10%, var(--text-light));
   color: var(--primary-color);
   border: 1px solid color-mix(in oklab, var(--primary-color) 24%, transparent);
 }
 
-/* =========================
-   Buttons
-   ========================= */
 .one-click--brand .card__btn{
   align-self:flex-start;
   display:inline-flex;
   align-items:center;
   gap:.8rem;
-
   padding: 1.05rem 1.6rem;
   border-radius: 999px;
   border: none;
   cursor: pointer;
-
   background: var(--accent-color-gradient);
   color: var(--text-light);
   font-weight: 950;
   font-size: var(--t-btn);
-
   box-shadow: 0 14px 30px color-mix(in oklab, var(--accent-color) 20%, transparent);
   transition: transform .16s ease, box-shadow .2s ease, filter .2s ease, background .2s ease, color .2s ease;
   position: relative;
@@ -267,7 +231,6 @@
   box-shadow: none;
 }
 
-/* hover ANY card => ghost becomes solid primary */
 .one-click--brand .card:hover .card__btn.ghost{
   background: var(--primary-color);
   color: var(--text-light);
@@ -275,7 +238,6 @@
   box-shadow: 0 18px 44px color-mix(in oklab, var(--primary-color) 20%, transparent);
 }
 
-/* Focus */
 .one-click--brand .card__btn:focus-visible{
   outline: none;
   box-shadow:
@@ -283,9 +245,6 @@
     0 18px 46px color-mix(in oklab, var(--text-dark) 14%, transparent);
 }
 
-/* =========================
-   Bullets
-   ========================= */
 .bullets{
   margin:.55rem 0 .75rem;
   padding:0;
@@ -311,9 +270,6 @@
   box-shadow: 0 0 0 4px color-mix(in oklab, var(--success-color) 18%, transparent);
 }
 
-/* =========================
-   Chips
-   ========================= */
 .industries{
   margin: 1.1rem 0 1.1rem;
   background: color-mix(in oklab, var(--text-light) 82%, var(--bg-muted));
@@ -357,9 +313,6 @@
   border-width: 1.6px;
 }
 
-/* =========================
-   Progress + footer split
-   ========================= */
 .progress{
   width:100%;
   height:.78rem;
@@ -387,7 +340,6 @@
   margin-top: 1.1rem;
 }
 
-/* KPI */
 .kpi{
   padding: .85rem 1.05rem;
   border-radius: 14px;
@@ -410,9 +362,6 @@
   color: color-mix(in oklab, var(--text-dark) 65%, var(--text-dark));
 }
 
-/* =========================
-   Feature card
-   ========================= */
 .one-click--brand .card--feature{
   color: var(--text-light);
   background:
@@ -434,7 +383,6 @@
   color: color-mix(in oklab, var(--text-light) 88%, black);
 }
 
-/* KPI inside feature */
 .one-click--brand .card--feature .kpi{
   border-color: color-mix(in oklab, white 22%, transparent);
   background: color-mix(in oklab, white 14%, transparent);
@@ -442,10 +390,6 @@
 }
 .one-click--brand .card--feature .kpi__value,
 .one-click--brand .card--feature .kpi__label{ color: var(--text-light); }
-
-/* =========================
-   Accent cards
-   ========================= */
 .one-click--brand .seo{ border-left: 6px solid var(--primary-color); }
 .one-click--brand .smo{
   background: color-mix(in oklab, var(--accent-color) 8%, var(--text-light));
@@ -457,7 +401,6 @@
   border-left: 6px solid color-mix(in oklab, var(--accent-color) 80%, var(--primary-color));
 }
 
-/* Big icon */
 .one-click--brand .card__big-ico{
   margin-top: 1rem;
   font-size: 3.25rem;
@@ -465,16 +408,10 @@
   color: color-mix(in oklab, var(--primary-color) 55%, var(--text-light));
 }
 
-/* =========================
-   Widths (12-col) preserved
-   ========================= */
 .one-click--brand .card--wide{ grid-column: span 7; }
 .one-click--brand .card--tall{ grid-column: span 3; }
 .one-click--brand .card--small{ grid-column: span 2; }
 
-/* =========================
-   Reduced motion
-   ========================= */
 @media (prefers-reduced-motion: reduce){
   .one-click--brand .card,
   .one-click--brand .card::before,
@@ -487,13 +424,9 @@
   .one-click--brand .card:hover{ transform:none; }
 }
 
-/* =========================
-   Responsive
-   ========================= */
 @media (max-width: 1100px){
   .one-click--brand{ padding: 3rem 3rem 4rem; }
   .one-click--brand .card{ padding: 2rem; }
-
   .one-click--brand .card--wide{ grid-column: span 12; }
   .one-click--brand .card--tall{ grid-column: span 6; }
   .one-click--brand .card--small{ grid-column: span 6; }

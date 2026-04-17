@@ -1,4 +1,4 @@
-// Services.jsx
+
 import React, { useMemo } from "react";
 import "./Services.css";
 import { motion, useReducedMotion } from "framer-motion";
@@ -61,7 +61,6 @@ const Services = () => {
     []
   );
 
-  /* Framer variants */
   const wrapV = useMemo(
     () => ({
       hidden: {},
@@ -167,7 +166,6 @@ const Services = () => {
             </motion.p>
           </header>
 
-          {/* GRID */}
           <motion.div
             className="wks-grid"
             variants={wrapV}
@@ -189,7 +187,7 @@ const Services = () => {
                 initial="rest"
                 animate="rest"
               >
-                {/* media */}
+
                 <div className="wks-tile__media" aria-hidden="true">
                   <motion.img
                     src={s.img}
@@ -202,7 +200,6 @@ const Services = () => {
                   <motion.div className="wks-tile__glow" variants={glowV} />
                 </div>
 
-                {/* top row */}
                 <div className="wks-tile__top">
                   <motion.div
                     className="wks-tile__icon"
@@ -217,13 +214,11 @@ const Services = () => {
                   <span className="wks-tile__chip">Studio-grade</span>
                 </div>
 
-                {/* body */}
                 <div className="wks-tile__body">
                   <h3 className="wks-tile__title">{s.label}</h3>
                   <p className="wks-tile__desc">{s.desc}</p>
                 </div>
 
-                {/* footer */}
                 <div className="wks-tile__foot">
                   <span className="wks-tile__meta">Learn • Build • Scale</span>
 

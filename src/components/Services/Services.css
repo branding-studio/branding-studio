@@ -1,10 +1,8 @@
-/* Services.css */
-/* ✅ Base: 1rem = 10px */
+
 html {
   font-size: 10px;
 }
 
-/* ---------- Section ---------- */
 .wks-services.v5 {
   position: relative;
   padding: clamp(3rem, 9vw, 0rem) 1.6rem;
@@ -15,7 +13,6 @@ html {
     linear-gradient(180deg, var(--bg-light), var(--bg-muted));
 }
 
-/* soft dotted texture */
 .wks-services.v5::before {
   content: "";
   position: absolute;
@@ -36,7 +33,6 @@ html {
   z-index: 1;
 }
 
-/* ---------- Header ---------- */
 .wks-services__head {
   text-align: center;
   margin-bottom: 3.2rem;
@@ -86,14 +82,12 @@ html {
   line-height: 1.7;
 }
 
-/* ---------- Grid ---------- */
 .wks-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 2.2rem;
 }
 
-/* Bento spans */
 .wks-tile { grid-column: span 4; }
 .wks-tile--a { grid-column: span 5; }
 .wks-tile--b { grid-column: span 4; }
@@ -101,7 +95,6 @@ html {
 .wks-tile--d { grid-column: span 7; }
 .wks-tile--e { grid-column: span 5; }
 
-/* ---------- Tile ---------- */
 .wks-tile {
   min-height: 26rem;
   position: relative;
@@ -133,7 +126,6 @@ html {
     0 0 0 .35rem rgba(99,102,241,.25);
 }
 
-/* ---------- Media layer ---------- */
 .wks-tile__media {
   position: absolute;
   inset: 0;
@@ -173,7 +165,6 @@ html {
   pointer-events: none;
 }
 
-/* content layers */
 .wks-tile__top,
 .wks-tile__body,
 .wks-tile__foot {
@@ -181,7 +172,6 @@ html {
   z-index: 1;
 }
 
-/* ---------- Top row ---------- */
 .wks-tile__top {
   display: flex;
   align-items: center;
@@ -211,7 +201,6 @@ html {
   border: .1rem solid rgba(255,255,255,.18);
 }
 
-/* ---------- Body ---------- */
 .wks-tile__body {
   margin-top: 1.6rem;
   max-width: 54rem;
@@ -231,7 +220,6 @@ html {
   color: rgba(255,255,255,.80);
 }
 
-/* ---------- Footer ---------- */
 .wks-tile__foot {
   margin-top: auto;
   padding-top: 1.6rem;
@@ -260,9 +248,6 @@ html {
   border: .1rem solid rgba(255,255,255,.22);
 }
 
-/* ✅ Add/replace these parts in Services.css */
-
-/* Make CTA look like a button (default) */
 .wks-tile__cta {
   display: inline-flex;
   align-items: center;
@@ -280,7 +265,6 @@ html {
   will-change: transform;
 }
 
-/* ✅ When hovering ANY card, CTA transforms + gets solid background */
 .wks-tile:hover .wks-tile__cta {
   transform: translateX(.4rem) translateY(-.1rem);
   background: var(--primary-color);
@@ -288,34 +272,27 @@ html {
   box-shadow: 0 1.2rem 2.4rem rgba(0,0,0,.22);
 }
 
-/* Optional: slightly brighter on active press */
 .wks-tile:active .wks-tile__cta {
   transform: translateX(.2rem) translateY(0);
   box-shadow: 0 .8rem 1.6rem rgba(0,0,0,.18);
 }
 
-/* Optional: keyboard accessibility (focus within card) */
 .wks-tile:focus-visible .wks-tile__cta {
   background: var(--primary-color);
   border-color: transparent;
 }
 
-/* ✅ If you want CTA color per-card tone (instead of primary), use this block */
 .wks-tile--a:hover .wks-tile__cta { background: #6366f1; }
 .wks-tile--b:hover .wks-tile__cta { background: #ec4899; }
 .wks-tile--c:hover .wks-tile__cta { background: #22c55e; }
 .wks-tile--d:hover .wks-tile__cta { background: #f59e0b; color: #111; }
 .wks-tile--e:hover .wks-tile__cta { background: #0ea5e9; }
-
-
-/* ---------- Tone gradients for icon ---------- */
 .wks-tile--a .wks-tile__icon { background: linear-gradient(135deg, #6366f1, #4338ca); }
 .wks-tile--b .wks-tile__icon { background: linear-gradient(135deg, #ec4899, #db2777); }
 .wks-tile--c .wks-tile__icon { background: linear-gradient(135deg, #22c55e, #16a34a); }
 .wks-tile--d .wks-tile__icon { background: linear-gradient(135deg, #f59e0b, #d97706); }
 .wks-tile--e .wks-tile__icon { background: linear-gradient(135deg, #0ea5e9, #0369a1); }
 
-/* ---------- Responsive ---------- */
 @media (max-width: 98rem) {
   .wks-grid { grid-template-columns: repeat(6, 1fr); }
   .wks-tile,

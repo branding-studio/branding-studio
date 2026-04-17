@@ -1,13 +1,4 @@
-/* src/components/Hero/Hero.css */
 
-/* =========================================================
-   NOTE:
-   Assumes html { font-size: 10px; }
-   1.6rem = 16px, 5.6rem = 56px etc.
-   Uses your existing project tokens (var(--primary-color), etc.)
-   ========================================================= */
-
-/* ===== Shell & background ===== */
 .mk-hero--v2 {
   width: 100%;
   position: relative;
@@ -33,7 +24,6 @@
   align-items: center;
 }
 
-/* ambient blobs */
 .mk-bg {
   position: absolute;
   pointer-events: none;
@@ -89,7 +79,6 @@
   }
 }
 
-/* dotted mist */
 .mk-grid-dots {
   position: absolute;
   inset: 0;
@@ -107,11 +96,6 @@
   background-position: 0 0, 8px 10px;
   mask-image: radial-gradient(760px 300px at 25% 15%, #000 40%, transparent 72%);
 }
-
-/* =========================================================
-   LEFT COLUMN — Premium / Professional
-   (This is the upgraded left-part design)
-   ========================================================= */
 
 .mk-left {
   z-index: 2;
@@ -265,7 +249,6 @@
   transform: translateY(-2px);
 }
 
-/* badges become “inline chips” */
 .mk-badges {
   margin-top: 2.1rem;
   display: flex;
@@ -299,7 +282,6 @@
   color: color-mix(in oklab, var(--text-dark) 62%, var(--text-light));
 }
 
-/* ===== Right column (media) ===== */
 .mk-right {
   z-index: 2;
 }
@@ -341,7 +323,6 @@
   opacity: 0.55;
 }
 
-/* KPI cards */
 .mk-kpi {
   position: absolute;
   display: flex;
@@ -404,7 +385,6 @@
   color: color-mix(in oklab, var(--text-dark) 60%, var(--text-light));
 }
 
-/* ===== Services ===== */
 .mk-services--v2 {
   max-width: 1380px;
   margin: 3.2rem auto 0;
@@ -453,7 +433,6 @@
   opacity: 0.95;
 }
 
-/* icon ring */
 .mk-ring {
   width: 52px;
   height: 52px;
@@ -494,7 +473,6 @@
   color: var(--accent-color);
 }
 
-/* ===== Responsive ===== */
 @media (max-width: 1100px) {
   .mk-hero--v2 {
     padding: 7rem 2rem 4.2rem;

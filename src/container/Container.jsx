@@ -73,7 +73,6 @@ const Shell = ({ children }) => {
        {!isAdmin && <ContactFormPopup />}
        {/* {!isAdmin && <TelegramFixed />} */}
         {!isAdmin && <WhatsappFixed />}
-      {/* Only show public site chrome when NOT in /admin */}
       {!isAdmin && (
         <div className="circle-bg">
           <div className="circle"></div><div className="circle"></div><div className="circle"></div>
@@ -85,8 +84,6 @@ const Shell = ({ children }) => {
       {!isAdmin && <Header />}
 
       {children}
-
-      {/* {!isAdmin && <TechStack />} */}
       {!isAdmin  &&  <SubFooterBanner />}
       {!isAdmin && <Footer />}
       {!isAdmin && <ScrollToTopButton />}
@@ -103,7 +100,6 @@ const Container = () => {
       <Shell>
         <MainContent>
           <Routes>
-            {/* Public routes */}
             <Route path="/" element={<Home />} />
             {/* <Route path="/services/:serviceId" element={<ServicePage />} />
             <Route path="/services/ads/:adsid" element={<AdsIllustration />} /> */}
@@ -112,8 +108,6 @@ const Container = () => {
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/blogs/:category/:slug" element={<Postpage />} />
             <Route path="/contact" element={<Contact />} />
-            
-            
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/services" element={<Services />} />
@@ -132,36 +126,24 @@ const Container = () => {
             <Route path="/terms-and-condition" element={<Terms />} />
             <Route path="/team" element={<Team />} />
             
-            {/* Admin redirect for clean UX */}
             <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
-
-            {/* Admin public route */}
             <Route path="/admin/login" element={<AdminLogin />} />
 
-            {/* Admin protected branch */}
             <Route element={<AdminPrivateRoute />}>
              <Route element={<AdminLayout />}>
-
-                   {/* Dashboard: any authenticated admin role */}
                 <Route path="/admin/dashboard" element={<Dashboard />} />
 
                      <Route element={<RequireRole roles={['master']} />}>
                    <Route path="/admin/manage-admin" element={<ManageAdmin />} />
                     </Route>
-
-                   {/* Blog — master, all, editor */}
                <Route element={<RequireRole roles={['master','all','editor']} />}>
                    <Route path="/admin/blog" element={<BlogDash />} />
                    <Route path="/admin/blog/:name" element={<ReadBlog />} />
                    <Route path="/admin/blog/edit" element={<BlogEditForm />} />
               </Route>
-
-                   {/* Users — master or all only */}
              <Route element={<RequireRole roles={['master','all']} />}>
                     <Route path="/admin/manage-users" element={<ManageUser />} />
              </Route>
-
-                    {/* Messages & Comments — master, all, editor */}
              <Route element={<RequireRole roles={['master','all','editor']} />}>
                     <Route path="/admin/manage-contacts" element={<ManageMessages />} />
                     <Route path="/admin/manage-comments" element={<ManageComment />} />
@@ -173,12 +155,10 @@ const Container = () => {
                       element={<ManageServiceSamples />}
                     />
              </Route>
-
-          {/* 403 */}
+             
             <Route path="/admin/forbidden" element={<Forbidden />} />
            </Route>
          </Route>
-          {/*End  Admin protected branch */}
 
         </Routes>
       </MainContent>

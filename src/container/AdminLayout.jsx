@@ -15,15 +15,12 @@ const AdminLayout = () => {
       document.title = "Admin | Dashboard"
     },[])
 
-  // Redirect /admin root
   if (location.pathname === "/admin") {
     return admin
       ? <Navigate to="/admin/dashboard" replace />
       : <Navigate to="/admin/login" replace />;
   }
 
-  
-  
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden" }}>

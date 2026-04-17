@@ -21,8 +21,6 @@ import { useManagedServiceSamples } from "../../../utils/serviceSamples";
 const Filmmaking = () => {
   const navigate = useNavigate();
   const { openWhatsApp, getWhatsAppUrl } = useLocalContext();
-
-  /** ===== Samples ===== */
   const [sampleFilter, setSampleFilter] = useState("all");
 
   const samples = useManagedServiceSamples("filmmaking");
@@ -32,7 +30,6 @@ const Filmmaking = () => {
       ? samples
       : samples.filter((item) => item.type === sampleFilter);
 
-  /** ===== Services ===== */
   const services = [
     {
       icon: <FaFilm />,
@@ -72,7 +69,6 @@ const Filmmaking = () => {
     },
   ];
 
-  /** ===== Scope ===== */
   const scope = [
     {
       title: "Pre-Production",
@@ -112,7 +108,6 @@ const Filmmaking = () => {
     },
   ];
 
-  /** ===== Tiers ===== */
   const tiers = [
     { tier: "Social", desc: "Reels & Shorts for rapid growth" },
     { tier: "Brand", desc: "High-value Ads & Corporate films" },
@@ -157,7 +152,6 @@ const Filmmaking = () => {
     "Watch Time",
   ];
 
-  /* ===== Sticky rail / scroll-spy ===== */
   const ids = useMemo(
     () => [
       "samples",

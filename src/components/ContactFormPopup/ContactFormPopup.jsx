@@ -1,4 +1,4 @@
-// ContactFormPopup.jsx
+
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -17,7 +17,7 @@ const ContactFormPopup = () => {
   const [isOpen, setIsOpen] = useState(false); // start closed; will open after 2s
   const [isDesktop, setIsDesktop] = useState(initialIsDesktop);
   const [submitting, setSubmitting] = useState(false);
-  const hasAutoOpened = useRef(false); // guard to run auto-open only once
+  const hasAutoOpened = useRef(false); 
   const autoOpenTimer = useRef(null);
 
   const [form, setForm] = useState({
@@ -27,14 +27,12 @@ const ContactFormPopup = () => {
     message: "",
   });
 
-  // Keep desktop flag in sync on resize
   useEffect(() => {
     const onResize = () => setIsDesktop(window.innerWidth >= 1280);
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Auto-open after 2s (desktop only); run once
   useEffect(() => {
     if (hasAutoOpened.current) return;
     if (!isDesktop) return;
@@ -55,7 +53,6 @@ const ContactFormPopup = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation (HTML required still applies)
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       toast.error("Please fill in all required fields.");
       return;
@@ -63,7 +60,6 @@ const ContactFormPopup = () => {
 
     try {
       setSubmitting(true);
-      // Save to context (and Firebase)
       const savedId = await addMessage({
         type: "contact",
         text: form.message.trim(),
@@ -76,7 +72,6 @@ const ContactFormPopup = () => {
       });
 
       toast.success("Thanks! We’ll get back to you within a day.");
-      // Reset + close
       setForm({ name: "", email: "", phone: "", message: "" });
       setIsOpen(false);
       console.log("Message saved with ID:", savedId);
@@ -165,8 +160,7 @@ const ContactFormPopup = () => {
         <button
           className="contact-popup-icon"
           aria-label="Open contact form"
-          onClick={() => {
-            // If user opens manually, mark as opened to stop the timer effect later
+          onClick={() => { 
             hasAutoOpened.current = true;
             setIsOpen(true);
           }}

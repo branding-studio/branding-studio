@@ -1,4 +1,4 @@
-// MessageContext.jsx
+
 import {
   createContext,
   useContext,
@@ -20,14 +20,13 @@ import {
   writeBatch,
   getDocs,
 } from "firebase/firestore";
-import db from "../firebase/firebaseConfig"; // <-- adjust path to your firebase init
+import db from "../firebase/firebaseConfig"; 
 
 const MessageContext = createContext(null);
 const STORAGE_KEY = "app_messages_v1";
 const collRef = collection(db, "messages");
 
-export const MessageProvider = ({ children,enableRead = false }) => {
-  // 1) Fast local cache for first paint
+export function MessageProvider({ children, enableRead = false }) {
   const [messages, setMessages] = useState(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -37,7 +36,6 @@ export const MessageProvider = ({ children,enableRead = false }) => {
     }
   });
 
-  // 2) Live Firestore subscription (authoritative)
   useEffect(() => {
     const q = query(collRef, orderBy("createdAt", "desc"));
     const unsub = onSnapshot(
@@ -53,20 +51,13 @@ export const MessageProvider = ({ children,enableRead = false }) => {
     return unsub;
   }, []);
 
-  // 3) Persist to localStorage as a cache
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
     } catch {
-      /* ignore quota errors */
     }
   }, [messages]);
 
-  // ======================
-  // Firestore-backed APIs
-  // ======================
-
-  // Add a message (returns doc ref id)
   const addMessage = useCallback(async (msg) => {
     const payload = {
       text: msg?.text ?? "",
@@ -84,7 +75,6 @@ export const MessageProvider = ({ children,enableRead = false }) => {
     return ref.id;
   }, []);
 
-  // Update an existing message
   const updateMessage = useCallback(async (id, updates) => {
     const ref = doc(db, "messages", id);
     await updateDoc(ref, {
@@ -93,15 +83,12 @@ export const MessageProvider = ({ children,enableRead = false }) => {
     });
   }, []);
 
-  // Delete one message
   const deleteMessage = useCallback(async (id) => {
     const ref = doc(db, "messages", id);
     await deleteDoc(ref);
   }, []);
 
-  // Clear all messages in the collection (careful!)
   const clearMessages = useCallback(async () => {
-    // Batch delete to avoid rate limits
     const q = query(collRef);
     const snap = await getDocs(q);
     const batch = writeBatch(db);
@@ -109,18 +96,13 @@ export const MessageProvider = ({ children,enableRead = false }) => {
     await batch.commit();
   }, []);
 
-  // Replace all messages with a given array
-  // (Deletes everything then writes the provided list)
   const saveMessages = useCallback(async (nextMessages) => {
     if (!Array.isArray(nextMessages)) return;
-
-    // 1) Delete all current
     const snap = await getDocs(query(collRef));
     const delBatch = writeBatch(db);
     snap.forEach((d) => delBatch.delete(d.ref));
     await delBatch.commit();
 
-    // 2) Add new ones
     const addOps = nextMessages.map((m) =>
       addDoc(collRef, {
         text: m?.text ?? "",
@@ -151,10 +133,10 @@ export const MessageProvider = ({ children,enableRead = false }) => {
   );
 
   return <MessageContext.Provider value={value}>{children}</MessageContext.Provider>;
-};
+}
 
-export const useMessageContext = () => {
+export function useMessageContext() {
   const ctx = useContext(MessageContext);
   if (!ctx) throw new Error("useMessageContext must be used within a MessageProvider");
   return ctx;
-};
+}

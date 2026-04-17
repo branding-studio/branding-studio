@@ -10,7 +10,7 @@
 }
 
 .top-header__email {
-  color: var(--primary-color); /* Yellow accent */
+  color: var(--primary-color); 
   text-decoration: none;
 }
 

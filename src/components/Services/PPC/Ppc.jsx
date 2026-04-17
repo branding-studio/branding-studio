@@ -15,10 +15,9 @@ const Ppc = () => {
   const navigate = useNavigate();
   const { openTelegram, getTelegramUrl } = useLocalContext();
 
-  const [active, setActive] = useState(null);     // for pill highlight
-  const [current, setCurrent] = useState(null);   // which group to render
+  const [active, setActive] = useState(null);   
+  const [current, setCurrent] = useState(null);  
 
-  // ====== DATA ======
   const groups = useMemo(
     () => [
       {
@@ -94,7 +93,6 @@ const Ppc = () => {
     { t: "Scale", d: "Expand high-ROAS segments & test new bets." },
   ];
 
-  /* ===== Pricing & Engagement ===== */
   const pricing = {
     setupLabel: "Setup + Domain + Hosting + Website",
     setupPrice: "₹50,000",
@@ -115,10 +113,8 @@ const Ppc = () => {
     "24/7 live support",
   ];
 
-  // ====== Single-section routing (hash-aware) ======
   const ids = useMemo(() => groups.map((g) => slugify(g.title)), [groups]);
 
-  // Initialize current to hash (if valid) else first group ("Tech & Finance")
   useEffect(() => {
     if (!ids.length || typeof window === "undefined") return;
     const hash = decodeURIComponent(window.location.hash.replace("#", ""));
@@ -128,7 +124,6 @@ const Ppc = () => {
     setActive(initial);
   }, [ids]);
 
-  // Listen to manual hash changes (e.g., back/forward)
   useEffect(() => {
     if (typeof window === "undefined") return;
     const onHash = () => {
@@ -136,7 +131,7 @@ const Ppc = () => {
       if (ids.includes(h)) {
         setCurrent(h);
         setActive(h);
-        // optional scroll to nav for better context
+
         const nav = document.querySelector(".ppc2-centerNav");
         if (nav) nav.scrollIntoView({ behavior: "smooth", block: "start" });
       }
@@ -164,17 +159,14 @@ const Ppc = () => {
     [groups, current]
   );
 
-  // Centralized Telegram URL for right-click/copy; openTelegram handles the click
   const telegramHref = getTelegramUrl?.({ preferApp: false }) || "https://t.me/";
 
-  // ====== RENDER ======
+
   return (
     <div className="ppc2-shell">
-      {/* Decorative background */}
       <div aria-hidden className="ppc2-backdrop" />
 
       <main className="ppc2-main">
-        {/* Hero */}
         <header className="ppc2-hero">
           <div className="ppc2-heroBadge">PPC & Lead Gen</div>
           <h1>Scale high-intent leads with creative + data</h1>
@@ -199,7 +191,6 @@ const Ppc = () => {
           </div>
         </header>
 
-        {/* Centered NAV (tabs) */}
         <nav className="ppc2-centerNav" aria-label="Sections" role="tablist">
           <ul className="ppc2-centerNavList">
             {groups.map((g) => {
@@ -240,7 +231,6 @@ const Ppc = () => {
           </a>
         </nav>
 
-        {/* Render ONLY the current group */}
         {currentGroup && (
           <section
             id={slugify(currentGroup.title)}
@@ -286,7 +276,6 @@ const Ppc = () => {
           </section>
         )}
 
-        {/* Networks */}
         <section className="ppc2-slab">
           <div className="ppc2-slabHead">
             <h3>Networks we run</h3>
@@ -301,7 +290,6 @@ const Ppc = () => {
           </ul>
         </section>
 
-        {/* Deliverables */}
         <section className="ppc2-slab">
           <div className="ppc2-slabHead">
             <h3>What you get</h3>
@@ -316,7 +304,6 @@ const Ppc = () => {
           </ul>
         </section>
 
-        {/* Process */}
         <section className="ppc2-steps">
           <div className="ppc2-slabHead">
             <h3>How we work</h3>
@@ -335,7 +322,6 @@ const Ppc = () => {
           </ol>
         </section>
 
-        {/* Pricing & Engagement */}
         <section id="plan-terms" className="ppc2-pricing">
           <div className="ppc2-slabHead">
             <h3>Pricing & Engagement</h3>
@@ -343,7 +329,6 @@ const Ppc = () => {
           </div>
 
           <div className="ppc2-pricingGrid">
-            {/* Price card */}
             <article className="ppc2-priceCard">
               <header className="ppc2-priceHead">
                 <h4>Plan</h4>
@@ -367,7 +352,6 @@ const Ppc = () => {
               </ul>
             </article>
 
-            {/* From your side */}
             <article className="ppc2-termsCard">
               <header className="ppc2-priceHead">
                 <h4>From your side</h4>
@@ -382,7 +366,6 @@ const Ppc = () => {
               </ul>
             </article>
 
-            {/* Notes */}
             <article className="ppc2-termsCard">
               <header className="ppc2-priceHead">
                 <h4>Engagement notes</h4>
@@ -420,7 +403,6 @@ const Ppc = () => {
           </div>
         </section>
 
-        {/* Bottom Callout */}
         <section className="ppc2-banner">
           <div className="ppc2-bannerIn">
             <div className="ppc2-bannerText">

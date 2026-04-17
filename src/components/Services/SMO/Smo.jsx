@@ -36,7 +36,6 @@ const Smo = () => {
 
   const [sampleFilter, setSampleFilter] = useState("all");
 
-  /* ===== Samples ===== */
   const samples = useManagedServiceSamples("smo");
 
   const filteredSamples =
@@ -44,7 +43,6 @@ const Smo = () => {
       ? samples
       : samples.filter((item) => item.type === sampleFilter);
 
-  /* ===== Core services ===== */
   const services = [
     {
       icon: <FaTrophy />,
@@ -108,7 +106,6 @@ const Smo = () => {
     },
   ];
 
-  /* ===== Platform packages ===== */
   const packages = [
     {
       icon: <FaInstagram />,
@@ -246,7 +243,6 @@ const Smo = () => {
     },
   ];
 
-  /* ===== Sticky rail / scroll-spy ===== */
   const ids = useMemo(
     () => [
       "samples",

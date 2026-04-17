@@ -18,7 +18,6 @@ const Disclaimer = () => {
 
   return (
     <section className="disc" role="main">
-      {/* Header */}
       <header className="disc-header">
         <p className="disc-kicker">Legal</p>
         <h1 className="disc-title">Website Disclaimer</h1>
@@ -29,7 +28,6 @@ const Disclaimer = () => {
         <p className="disc-meta">Last updated: {lastUpdated}</p>
       </header>
 
-      {/* Top TOC chips (mobile-first, scrollable) */}
       <nav className="disc-card disc-toc" aria-label="On this page">
         <h3>On this page</h3>
         <ul>
@@ -48,7 +46,6 @@ const Disclaimer = () => {
         </ul>
       </nav>
 
-      {/* Body */}
       <article className="disc-card disc-body">
         <section id="overview" className="disc-section">
           <h2>1. Overview</h2>

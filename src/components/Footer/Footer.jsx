@@ -24,7 +24,6 @@ const Footer = () => {
 
   return (
     <footer className="footerx" aria-label={`${brand} website footer`}>
-      {/* Disclaimer */}
       <div className="footerx__disclaimer" role="note" aria-live="polite">
         <FontAwesomeIcon icon={faCircleInfo} />
         <p>
@@ -33,7 +32,6 @@ const Footer = () => {
         </p>
       </div>
 
-      {/* CTA Ribbon */}
       <section className="footerx__cta">
         <div className="footerx__cta-inner">
           <div className="footerx__cta-copy">
@@ -42,7 +40,6 @@ const Footer = () => {
           </div>
 
           <div className="footerx__cta-actions wp-action">
-            {/* WhatsApp CTA Button */}
             <a
               className="btn btn-wp btn--primary"
               href="#"
@@ -63,9 +60,7 @@ const Footer = () => {
         </div>
       </section>
 
-      {/* Main */}
       <section className="footerx__main">
-        {/* Brand & Newsletter */}
         <div className="fcard fcard--brand">
           <div className="brand">
             <div className="brand__text">
@@ -73,8 +68,6 @@ const Footer = () => {
               <p>Performance marketing, made simple and measurable.</p>
             </div>
           </div>
-
-          {/* Newsletter */}
           <form
   className="newsletter"
   onSubmit={(e) => e.preventDefault()}
@@ -90,9 +83,7 @@ const Footer = () => {
 </span>
 </form>
 
-          {/* Socials */}
           <div className="socials" aria-label="Social links">
-            {/* WhatsApp */}
             <a
               href="#"
               aria-label="WhatsApp"
@@ -104,7 +95,6 @@ const Footer = () => {
               <FontAwesomeIcon icon={faWhatsapp} />
             </a>
 
-            {/* Instagram */}
             <a
               href="https://www.instagram.com/brandingstudios.in/"
               target="_blank"
@@ -114,7 +104,6 @@ const Footer = () => {
               <FontAwesomeIcon icon={faInstagram} />
             </a>
 
-            {/* YouTube */}
             <a
               href="https://www.youtube.com/@brandingstudioteam"
               target="_blank"
@@ -124,19 +113,16 @@ const Footer = () => {
               <FontAwesomeIcon icon={faYoutube} />
             </a>
 
-            {/* Phone */}
             <a href={`tel:${webinfo.phone}`} aria-label="Call Us">
               <FontAwesomeIcon icon={faPhone} />
             </a>
 
-            {/* Email */}
             <a href={`mailto:${webinfo.email}`} aria-label="Email Us">
               <FontAwesomeIcon icon={faEnvelope} />
             </a>
           </div>
         </div>
 
-        {/* Quick Links */}
         <nav className="fcard fcard--links" aria-label="Footer quick links">
           <div>
             <h5>Solutions</h5>
@@ -169,7 +155,6 @@ const Footer = () => {
           </div>
         </nav>
 
-        {/* Contact */}
         <div className="fcard fcard--contact" aria-label="Contact information">
           <h5>Contact</h5>
           <ul className="contact-list">
@@ -205,7 +190,6 @@ const Footer = () => {
         </div>
       </section>
 
-      {/* Trust Row */}
       <section className="footerx__trust">
         <div className="trust-item">
           <strong>2.8x</strong>
@@ -225,7 +209,6 @@ const Footer = () => {
         </div>
       </section>
 
-      {/* Bottom */}
       <div className="footerx__bottom">
         <p>
           © {new Date().getFullYear()} {brand}. All rights reserved.

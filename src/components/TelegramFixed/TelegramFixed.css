@@ -1,17 +1,13 @@
-/* ===========================
-   Telegram Fixed FAB (Light)
-   =========================== */
 
-/* Design tokens with safe fallbacks */
 :root {
-  --tgfab-bg: #229ed9;                      /* Telegram brand */
+  --tgfab-bg: #229ed9;                   
   --tgfab-bg-hover: #1b8aba;
   --tgfab-text: #ffffff;
   --tgfab-shadow: 0 12px 30px rgba(34, 158, 217, 0.35);
   --tgfab-shadow-hover: 0 14px 36px rgba(34, 158, 217, 0.45);
   --tgfab-ring: rgba(34, 158, 217, 0.4);
-  --tgfab-size: 52px;                       /* button height */
-  --tgfab-pad-inline: 1.1rem;               /* internal x padding */
+  --tgfab-size: 52px;                      
+  --tgfab-pad-inline: 1.1rem;             
   --tgfab-gap: 0.6rem;
   --tgfab-radius: 999px;
   --tgfab-z: 10000;
@@ -19,7 +15,6 @@
   --tgfab-font-size: 15px;
 }
 
-/* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
   :root {
     --tgfab-bg: #1a94cf;
@@ -31,23 +26,20 @@
   }
 }
 
-/* Wrapper handles position + safe-area insets */
 .tgfab-wrap {
   position: fixed;
   inset-inline-end: env(safe-area-inset-right);
   inset-inline-start: auto;
   transform: translateY(-50%);
   z-index: var(--tgfab-z);
-  pointer-events: none; /* container shouldn’t capture clicks */
+  pointer-events: none; 
 }
 
-/* Left/right positioning */
 .tgfab-wrap[data-position="left"] {
   inset-inline-start: env(safe-area-inset-left);
   inset-inline-end: auto;
 }
 
-/* The button itself */
 .tgfab {
   pointer-events: auto;
   display: inline-flex;
@@ -67,21 +59,17 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   will-change: transform, box-shadow, background-color;
   transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, filter .18s ease;
-  padding-block: 0; /* ensure exact height */
+  padding-block: 0; 
 }
 
-/* Icon size tuned to the pill height */
 .tgfab-ico {
   font-size: 1.35em;
 }
 
-/* Label visibility */
 .tgfab-label {
   white-space: nowrap;
 }
 
-/* On small screens, keep it compact (icon-only)
-   and reveal label at md+ via .md-up */
 .tgfab-label.md-up {
   display: none;
 }
@@ -92,7 +80,6 @@
   }
 }
 
-/* Hover/Active states */
 .tgfab:hover {
   transform: translateY(-2px);
   box-shadow: var(--tgfab-shadow-hover);
@@ -104,7 +91,6 @@
   filter: saturate(1.05);
 }
 
-/* Focus visibility (keyboard users) */
 .tgfab:focus-visible {
   outline: none;
   box-shadow:
@@ -112,7 +98,6 @@
     var(--tgfab-shadow-hover);
 }
 
-/* Subtle attention pulse (respects reduced motion) */
 @keyframes tgfab-pulse {
   0% { box-shadow: var(--tgfab-shadow); transform: translateY(0); }
   50% { box-shadow: 0 14px 36px rgba(34, 158, 217, 0.55); transform: translateY(-1px); }
@@ -123,13 +108,11 @@
   animation: tgfab-pulse 2.6s ease-in-out 1s infinite;
 }
 
-/* Reduce motion: disable animations */
 @media (prefers-reduced-motion: reduce) {
   .tgfab.pulse { animation: none; }
   .tgfab { transition: none; }
 }
 
-/* High-contrast users: stronger focus ring */
 @media (prefers-contrast: more) {
   .tgfab:focus-visible {
     box-shadow:
@@ -139,7 +122,6 @@
   }
 }
 
-/* Mobile / small viewports */
 @media (max-width: 640px) {
   :root {
     --tgfab-size: 48px;
@@ -147,11 +129,10 @@
   }
 
   .tgfab {
-    padding-inline: 0.95rem 1.2rem; /* more compact */
+    padding-inline: 0.95rem 1.2rem; 
   }
 }
 
-/* Safe-area breathing room on notched devices */
 .tgfab-wrap[data-position="right"] .tgfab {
   margin-inline-end: max(0.6rem, env(safe-area-inset-right));
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useBlogContext } from "../../context/BlogContext";
-import './BlogCateList.css'; // Optional: create CSS for styling
+import './BlogCateList.css';
 
 const BlogCateList = () => {
   const { fetchCategories } = useBlogContext();

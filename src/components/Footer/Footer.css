@@ -1,6 +1,4 @@
-/* =========================
-   Footer.css (NEW DESIGN)
-   ========================= */
+
 
 .footerx{
   --card-bg: rgba(255,255,255,0.06);
@@ -39,9 +37,6 @@
   pointer-events:none;
 }
 
-/* =========================
-   Disclaimer
-   ========================= */
 .footerx__disclaimer{
   display:flex;
   align-items:center;
@@ -70,9 +65,6 @@
   text-underline-offset: 2px;
 }
 
-/* =========================
-   CTA Ribbon
-   ========================= */
 .footerx__cta{
   position: relative;
   padding: 22px clamp(16px, 5vw, 40px);
@@ -133,9 +125,6 @@
   flex-wrap: wrap;
 }
 
-/* =========================
-   Buttons
-   ========================= */
 .btn{
   display:inline-flex;
   align-items:center;
@@ -217,9 +206,6 @@
     0 18px 44px rgba(0,0,0,.34);
 }
 
-/* =========================
-   Main Grid
-   ========================= */
 .footerx__main{
   max-width: 100%;
   margin: 0 4.5rem;
@@ -266,9 +252,6 @@
   font-size: 1.5rem;
 }
 
-/* =========================
-   Brand card
-   ========================= */
 .fcard--brand .brand{
   display:flex;
   align-items:center;
@@ -290,9 +273,6 @@
   line-height: 1.55;
 }
 
-/* =========================
-   Newsletter / Message Box
-   ========================= */
 .newsletter{
   margin-top: 12px;
   position: relative;
@@ -369,9 +349,6 @@
   font-size: 17px;
 }
 
-/* =========================
-   Socials
-   ========================= */
 .socials{
   display:flex;
   gap: 10px;
@@ -398,9 +375,6 @@
   box-shadow: 0 16px 40px rgba(0,0,0,.22);
 }
 
-/* =========================
-   Links
-   ========================= */
 .fcard--links{
   display:grid;
   grid-template-columns: repeat(3, 1fr);
@@ -438,9 +412,6 @@
   transform: translateX(2px);
 }
 
-/* =========================
-   Contact
-   ========================= */
 .fcard--contact h5{
   color:#fff;
   margin: 4px 0 12px;
@@ -489,9 +460,6 @@
   gap: .45rem;
 }
 
-/* =========================
-   Trust row
-   ========================= */
 .footerx__trust{
   max-width: 100%;
   margin: 0 6rem;
@@ -523,9 +491,6 @@
   font-size: 1.2rem;
 }
 
-/* =========================
-   Bottom
-   ========================= */
 .footerx__bottom{
   width: 100%;
   margin: 0 auto;
@@ -558,9 +523,6 @@
   color:#fff;
 }
 
-/* =========================
-   Breakpoints
-   ========================= */
 @media (max-width: 1100px){
   .footerx__main{
     grid-template-columns: 1fr 1fr;

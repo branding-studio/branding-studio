@@ -33,7 +33,6 @@
   line-height: 1.7;
 }
 
-/* Timeline container */
 .process-timeline {
   position: relative;
   max-width: 1000px;
@@ -43,7 +42,6 @@
   gap: 5rem;
 }
 
-/* Connector line */
 .process-timeline::before {
   content: "";
   position: absolute;
@@ -56,7 +54,6 @@
   border-radius: 3px;
 }
 
-/* Step layout */
 .process-step {
   position: relative;
   width: 50%;
@@ -109,7 +106,6 @@
   line-height: 1.6;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .process-timeline::before {
     left: 30px;

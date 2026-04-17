@@ -4,6 +4,7 @@ import {
   FaChevronRight,
   FaTimes,
   FaImages,
+  FaArrowRight,
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { db } from "../../firebase/firebaseConfig";
@@ -77,10 +78,29 @@ const Gallery = () => {
           <span className="gallery-badge">Our Recent Highlights</span>
           <h2>Moments, Milestones & Memories</h2>
           <p>
-            Explore our recent events, recognitions, awards, and standout moments
-            through a beautifully curated visual gallery.
+            Explore our recent events, recognitions, awards, and standout
+            moments through a beautifully curated visual gallery.
           </p>
         </div>
+
+        {!loading && projects.length > 0 && (
+          <div className="gallery-strip">
+            <div className="gallery-strip__label">Featured albums</div>
+            <div className="gallery-strip__items">
+              {projects.slice(0, 3).map((project) => (
+                <button
+                  type="button"
+                  key={project.id}
+                  className="gallery-strip__chip"
+                  onClick={() => openModal(project)}
+                >
+                  <span>{project.title}</span>
+                  <FaArrowRight />
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {loading && (
           <div className="gallery-loading-wrap">
@@ -95,12 +115,16 @@ const Gallery = () => {
         )}
 
         {!loading && projects.length > 0 && (
-          <div className="gallery-grid">
+          <div
+            className={`gallery-grid ${projects.length === 1 ? "gallery-grid--solo" : ""}`}
+          >
             <AnimatePresence>
               {projects.map((project, index) => (
                 <motion.article
                   key={project.id}
-                  className="gallery-card"
+                  className={`gallery-card ${
+                    index === 0 ? "gallery-card--featured" : ""
+                  }`}
                   initial={{ opacity: 0, y: 28 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.15 }}
@@ -131,6 +155,14 @@ const Gallery = () => {
                   </div>
 
                   <div className="card-info">
+                    <div className="card-meta-line">
+                      <span className="card-meta-pill">
+                        {Array.isArray(project.images) ? project.images.length : 0} visuals
+                      </span>
+                      <span className="card-meta-link">
+                        Open album <FaArrowRight />
+                      </span>
+                    </div>
                     <h3>{project.title}</h3>
                     <p>
                       {project.description || "Click to explore this gallery item."}

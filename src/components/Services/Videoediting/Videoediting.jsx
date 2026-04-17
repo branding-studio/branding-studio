@@ -140,12 +140,11 @@ const Videoediting = () => {
     }
   };
 
-  // Centralized Telegram URL for right-click/copy; click uses openTelegram()
+
   const telegramHref = getTelegramUrl?.({ preferApp: false }) || "https://t.me/";
 
   return (
     <main className="ve">
-      {/* Sticky rail */}
       <aside className="ve__rail" aria-label="Page sections">
         <div className="rail__brand">
           <div className="rail__logo">VID</div>
@@ -185,7 +184,6 @@ const Videoediting = () => {
         </div>
       </aside>
 
-      {/* Main column */}
       <div className="ve__main">
         {/* HERO */}
         <header className="ve__hero">
@@ -209,7 +207,6 @@ const Videoediting = () => {
           </div>
         </header>
 
-        {/* SERVICES */}
         <section id="services" className="ve__grid">
           {services.map((s) => (
             <article className="ve__card" key={s.title}>
@@ -234,7 +231,6 @@ const Videoediting = () => {
           ))}
         </section>
 
-        {/* PROCESS */}
         <section id="process" className="ve__process">
           <div className="ve__head">
             <h3>How we work</h3>
@@ -254,7 +250,6 @@ const Videoediting = () => {
           </ol>
         </section>
 
-        {/* STACK */}
         <section id="stack" className="ve__stack">
           <div className="ve__head">
             <h3>Tools & delivery</h3>
@@ -273,7 +268,6 @@ const Videoediting = () => {
           </div>
         </section>
 
-        {/* DELIVERABLES */}
         <section id="deliver" className="ve__deliver">
           <div className="ve__head">
             <h3>What you get</h3>
@@ -291,7 +285,6 @@ const Videoediting = () => {
           </div>
         </section>
 
-        {/* PRESETS (ratios + codecs) */}
         <section id="presets" className="ve__presets">
           <div className="ve__head">
             <h3>Presets & Exports</h3>
@@ -313,7 +306,7 @@ const Videoediting = () => {
           </div>
         </section>
 
-        {/* CTA */}
+       
         <section id="cta" className="ve__cta">
           <div className="ve__cta-inner">
             <div className="ve__cta-copy">

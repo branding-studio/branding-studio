@@ -111,8 +111,6 @@ const AdsIllustration = () => {
   
 </section>
 
-
-      {/* Services Section */}
      <section className="ads-services">
       <motion.div
        initial={{ opacity: 0, y: 30 }}
@@ -122,7 +120,6 @@ const AdsIllustration = () => {
   <p className="ads-subtitle">OUR SERVICES</p>
  <h2 className="ads-heading">What We Offer</h2>
   <p className="ads-description">
-    {/* You can keep or remove this description depending on need */}
     We provide tailored solutions to help your brand reach the right audience
     with the right message at the right time.
   </p>
@@ -148,8 +145,6 @@ const AdsIllustration = () => {
   </motion.div>
 </section>
 
-
-      {/* Process Section */}
      <section className="ads-process-section">
       <motion.div  initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

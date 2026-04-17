@@ -158,6 +158,27 @@
   outline: none;
 }
 
+.mss-help {
+  display: block;
+  margin-top: 6px;
+  color: #64748b;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.mss-preview {
+  margin-top: 8px;
+}
+
+.mss-preview img {
+  width: 180px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid #d9dfeb;
+  display: block;
+}
+
 .mss-field input:focus,
 .mss-field select:focus {
   border-color: #a8b4ff;

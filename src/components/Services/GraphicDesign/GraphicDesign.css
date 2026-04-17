@@ -1,6 +1,4 @@
-/* GraphicDesign.css */
 
-/* 1rem = 10px */
 html { font-size: 10px; }
 
 /* ===== Tokens ===== */
@@ -25,7 +23,6 @@ html { font-size: 10px; }
   --shadow-md: 0 18px 40px rgba(15,23,42,.10);
 }
 
-/* ===== Frame: sticky rail + main ===== */
 .design_services {
   position: relative;
   display: grid;
@@ -40,17 +37,15 @@ html { font-size: 10px; }
     linear-gradient(180deg, #fff, var(--wash));
 }
 
-/* Rail */
 .design__rail {
   position: sticky; top: 10px; align-self: start; height: calc(100dvh - 20px);
   padding: 16px; border-right: 1px solid var(--edge);
   background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.75));
   backdrop-filter: blur(10px) saturate(1.05);
   border-radius: 16px; box-shadow: var(--shadow-sm);
-  overflow-y: auto; /* Safety for small screens */
+  overflow-y: auto;
 }
 
-/* Shared Rail Elements */
 .rail__brand{ display:flex; gap:10px; align-items:center; margin-bottom:10px; }
 .rail__logo{ width:36px; height:36px; border-radius:10px; display:grid; place-items:center; color:#fff; font-weight:900; background: var(--grad); box-shadow: var(--shadow-sm); }
 .rail__brand strong{ display:block; line-height:1.1; font-size: 1.4rem; }
@@ -70,7 +65,6 @@ html { font-size: 10px; }
   border:1px solid transparent; box-shadow: 0 0 0 6px rgba(30,64,175,.10);
 }
 
-/* Rail Telegram Button Specifics */
 .ppc2-ctaRail { margin-top: 12px; }
 .ppc2-btn {
   display: flex; align-items: center; justify-content: center; gap: 8px;
@@ -80,13 +74,11 @@ html { font-size: 10px; }
 }
 .ppc2-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
 
-/* Main Column */
 .design__main {
   width: min(var(--container), 100%);
   padding-inline: var(--gutter);
 }
 
-/* ---------- HERO ---------- */
 .design__hero { padding: 24px 0 16px; text-align:left; }
 .design__eyebrow {
   display:inline-block; padding:.6rem 1.0rem; border-radius:999rem;
@@ -102,7 +94,6 @@ html { font-size: 10px; }
 .design__hero p { color:var(--muted); font-size:1.7rem; max-width:82rem; margin:0; }
 .design__hero-cta { margin-top:1.2rem; }
 
-/* Buttons */
 .btn {
   display:inline-flex; align-items:center; gap:.6rem; padding:1.0rem 1.6rem;
   border-radius:999rem; border:1px solid transparent; cursor:pointer;
@@ -112,7 +103,6 @@ html { font-size: 10px; }
 }
 .btn:hover { transform: translateY(-.2rem); box-shadow: var(--shadow-md); }
 
-/* ---------- SERVICES GRID ---------- */
 .design__grid {
   padding: 12px 0 24px;
   display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px;
@@ -133,8 +123,6 @@ html { font-size: 10px; }
 .design__list { list-style:none; padding:0; margin:0 0 12px; display:grid; gap:6px; }
 .design__list li { display:flex; gap:8px; align-items:flex-start; font-size:13.5px; color:var(--ink); }
 .design__list svg { color: var(--success); margin-top:2px; flex-shrink: 0; }
-
-/* ---------- PROGRAM SCOPE ---------- */
 .design__scope { padding: 4px 0 26px; }
 .design__head { text-align:left; margin: 0 0 12px; }
 .design__head h3 { margin:0; font-size:22px; font-weight:900; }
@@ -150,15 +138,12 @@ html { font-size: 10px; }
 .scope__card ul { list-style:none; padding:0; margin:0; display:grid; gap:7px; }
 .scope__card li { display:flex; gap:8px; align-items:flex-start; font-size:13px; }
 .scope__card li svg { color: var(--success); margin-top:2px; flex-shrink: 0; }
-
-/* ---------- TIERS (Influencer Style) ---------- */
 .design__influencer { padding: 0 0 26px; }
 .infl__grid { display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 .infl__card { background:#fff; border:1px solid var(--edge); border-radius:16px; padding:12px 14px; box-shadow: var(--shadow-sm); }
 .infl__tier { font-weight:900; font-size:16px; }
 .infl__desc { color:var(--muted); font-size:13.5px; }
 
-/* ---------- PROCESS ---------- */
 .design__process { padding: 0 0 28px; }
 .design__steps { list-style:none; padding:0; margin:0; display:grid; gap:12px; max-width:960px; }
 .design__step { display:flex; gap:12px; align-items:flex-start; background:#fff; border:1px solid var(--edge); border-radius:16px; padding:14px 16px; }
@@ -166,21 +151,17 @@ html { font-size: 10px; }
 .design__step h4 { margin:0 0 2px; font-size:16px; }
 .design__step p { margin:0; color:var(--muted); font-size:14.5px; }
 
-/* ---------- STACK ---------- */
 .design__stack { padding: 0 0 26px; }
 .design__chips { list-style:none; padding:0; margin:10px 0 0; display:flex; flex-wrap:wrap; gap:8px; }
 .design__chip { padding:8px 12px; border-radius:999px; background:#fff; border:1px solid var(--edge); font-weight:800; font-size:13px; color:var(--ink); }
 
-/* ---------- DELIVERABLES ---------- */
 .design__deliver { padding: 0 0 26px; }
 .design__deliver-cta { margin-top: 16px; }
 .design__list--cards { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 .design__list--cards li { background:#fff; border:1px solid var(--edge); border-radius:12px; padding:10px 12px; }
 
-/* ---------- IMPACT (KPIs) ---------- */
 .design__kpis { padding: 0 0 28px; }
 
-/* ---------- CTA ---------- */
 .design__cta { padding: 0 16px 52px; }
 .design__cta-inner {
   background:#fff; border:1px solid var(--edge); border-radius:20px; padding:18px;
@@ -189,7 +170,6 @@ html { font-size: 10px; }
 .design__cta-copy h3 { margin:0 0 2px; font-size:20px; font-weight:900; }
 .design__cta-copy p { margin:0; color:var(--muted); font-size:15px; }
 
-/* ---------- Responsive ---------- */
 @media (max-width: 1100px){
   .design_services { grid-template-columns: 1fr; width: 100%; padding: 10px 20px; }
   .design__rail { position: static; height: auto; display:grid; grid-auto-rows:min-content; }
@@ -201,7 +181,6 @@ html { font-size: 10px; }
   .design__cta-inner button { width: 100%; justify-content: center; }
 }
 
-/* ===== Samples Section ===== */
 .design__samples {
   padding: 0 0 26px;
 }

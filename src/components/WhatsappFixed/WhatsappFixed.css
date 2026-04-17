@@ -1,10 +1,6 @@
-/* ===========================
-   WhatsApp Fixed FAB (Light)
-   =========================== */
 
-/* Design tokens with safe fallbacks */
 :root{
-  --wafab-bg: #25D366;                      /* WhatsApp green */
+  --wafab-bg: #25D366;                   
   --wafab-bg-hover: #1fb85a;
   --wafab-text: #ffffff;
 
@@ -12,8 +8,8 @@
   --wafab-shadow-hover: 0 14px 36px rgba(37, 211, 102, 0.42);
   --wafab-ring: rgba(37, 211, 102, 0.35);
 
-  --wafab-size: 52px;                       /* button height */
-  --wafab-pad-inline: 1.1rem;               /* internal x padding */
+  --wafab-size: 52px;                      
+  --wafab-pad-inline: 1.1rem;              
   --wafab-gap: 0.6rem;
   --wafab-radius: 999px;
   --wafab-z: 10000;
@@ -22,7 +18,6 @@
   --wafab-font-size: 15px;
 }
 
-/* Dark mode adjustments */
 @media (prefers-color-scheme: dark){
   :root{
     --wafab-bg: #21c45f;
@@ -33,65 +28,49 @@
   }
 }
 
-/* Wrapper handles position + safe-area insets */
 .wafab-wrap{
   position: fixed;
   inset-inline-end: env(safe-area-inset-right);
   inset-inline-start: auto;
   transform: translateY(-50%);
   z-index: var(--wafab-z);
-  pointer-events: none; /* container shouldn’t capture clicks */
+  pointer-events: none; 
 }
 
-/* Left/right positioning */
 .wafab-wrap[data-position="left"]{
   inset-inline-start: env(safe-area-inset-left);
   inset-inline-end: auto;
 }
 
-/* The button itself */
 .wafab{
   pointer-events: auto;
   display: inline-flex;
   align-items: center;
   gap: var(--wafab-gap);
-
   height: var(--wafab-size);
   padding-inline: calc(var(--wafab-pad-inline) + 0.4rem) calc(var(--wafab-pad-inline) + 1.2rem);
   padding-block: 0;
-
   border-radius: var(--wafab-radius);
-
-  /* WhatsApp gradient + glossy highlight */
-   background: linear-gradient(135deg, #25D366, #27998c); 
-
+  background: linear-gradient(135deg, #25D366, #27998c); 
   color: var(--wafab-text);
   text-decoration: none;
-
   font-family: var(--wafab-font);
   font-weight: 800;
   font-size: var(--wafab-font-size);
   line-height: 1;
-
-  /* box-shadow: var(--wafab-shadow); */
   border: 1px solid rgba(255,255,255,0.10);
-
   will-change: transform, box-shadow, background-color, filter;
   transition: transform .18s ease, box-shadow .18s ease, filter .18s ease, background-color .18s ease;
 }
 
-/* Icon size tuned to the pill height */
 .wafab-ico{
   font-size: 1.35em;
 }
 
-/* Label visibility */
 .wafab-label{
   white-space: nowrap;
 }
 
-/* On small screens, keep it compact (icon-only)
-   and reveal label at md+ via .md-up */
 .wafab-label.md-up{
   display: none;
 }
@@ -99,7 +78,6 @@
   .wafab-label.md-up{ display: inline; }
 }
 
-/* Hover/Active */
 .wafab:hover{
   transform: translateY(-2px);
   box-shadow: var(--wafab-shadow-hover);
@@ -111,7 +89,6 @@
   filter: saturate(1.03);
 }
 
-/* Focus visibility */
 .wafab:focus-visible{
   outline: none;
   box-shadow:
@@ -119,7 +96,6 @@
     var(--wafab-shadow-hover);
 }
 
-/* Pulse */
 /* @keyframes wafab-pulse{
   0%   { box-shadow: var(--wafab-shadow); transform: translateY(0); }
   50%  { box-shadow: 0 14px 36px rgba(37, 211, 102, 0.55); transform: translateY(-1px); }
@@ -129,13 +105,11 @@
   animation: wafab-pulse 2.6s ease-in-out 1s infinite;
 } */
 
-/* Reduce motion */
 @media (prefers-reduced-motion: reduce){
   .wafab.pulse{ animation: none; }
   .wafab{ transition: none; }
 }
 
-/* High contrast users */
 @media (prefers-contrast: more){
   .wafab:focus-visible{
     box-shadow:
@@ -145,7 +119,6 @@
   }
 }
 
-/* Mobile / small viewports */
 @media (max-width: 640px){
   :root{
     --wafab-size: 48px;
@@ -156,7 +129,6 @@
   }
 }
 
-/* Safe-area breathing room on notched devices */
 .wafab-wrap[data-position="right"] .wafab{
   margin-inline-end: max(0.6rem, env(safe-area-inset-right));
 }

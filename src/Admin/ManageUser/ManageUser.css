@@ -65,7 +65,7 @@
   background-color: #dc2626;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .manage-users table,
   .manage-users thead,

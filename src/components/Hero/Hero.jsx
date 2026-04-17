@@ -1,4 +1,4 @@
-// src/components/Hero/Hero.jsx
+
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -144,7 +144,6 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* RIGHT */}
           <motion.div className="mk-right" variants={fadeUp} transition={{ delay: 0.06 }}>
             <div className="mk-media">
               <div className="mk-media-frame">
@@ -152,7 +151,6 @@ const Hero = () => {
                 <div className="mk-media-shine" aria-hidden="true" />
               </div>
 
-              {/* Mini KPI cards */}
               <motion.div className="mk-kpi mk-kpi--a" variants={floatIn}>
                 <div className="mk-kpi-icon">↗</div>
                 <div className="mk-kpi-text">
@@ -172,7 +170,6 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* SERVICES */}
         <motion.div className="mk-services mk-services--v2" variants={stagger} initial="hidden" animate="visible">
           {services.map((s) => (
             <motion.button

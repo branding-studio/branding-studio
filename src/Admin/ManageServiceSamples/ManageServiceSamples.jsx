@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./ManageServiceSamples.css";
-import { db } from "../../firebase/firebaseConfig";
+import { db, storage } from "../../firebase/firebaseConfig";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import {
   serviceSampleDefaults,
   serviceSampleLabels,
@@ -9,9 +10,31 @@ import {
 
 const serviceKeys = Object.keys(serviceSampleDefaults);
 
+const createSample = (id = `sample-${Date.now()}`) => ({
+  id,
+  type: "video",
+  source: "url",
+  title: "",
+  category: "",
+  thumb: "",
+  link: "",
+  mediaFile: null,
+  thumbFile: null,
+  thumbPreview: "",
+});
+
 const cloneDefaults = () =>
   serviceKeys.reduce((acc, key) => {
-    acc[key] = serviceSampleDefaults[key].map((sample) => ({ ...sample }));
+    acc[key] = serviceSampleDefaults[key].map((sample) => ({
+      ...createSample(sample.id),
+      type: sample.type === "photo" ? "photo" : "video",
+      source: "url",
+      title: sample.title || "",
+      category: sample.category || "",
+      thumb: sample.thumb || "",
+      link: sample.link || "",
+      thumbPreview: sample.thumb || "",
+    }));
     return acc;
   }, {});
 
@@ -22,17 +45,85 @@ const normalizeServices = (storedServices = {}) =>
     acc[key] =
       storedSamples.length > 0
         ? storedSamples.map((sample, index) => ({
-            id: sample.id || `${key}-${index + 1}`,
+            ...createSample(sample.id || `${key}-${index + 1}`),
             type: sample.type === "photo" ? "photo" : "video",
+            source: "url",
             title: sample.title || "",
             category: sample.category || "",
             thumb: sample.thumb || "",
             link: sample.link || "",
+            thumbPreview: sample.thumb || "",
           }))
-        : serviceSampleDefaults[key].map((sample) => ({ ...sample }));
+        : cloneDefaults()[key];
 
     return acc;
   }, {});
+
+const uploadFileToStorage = async (file, folder) => {
+  const sanitizedName = file.name.replace(/\s+/g, "-").toLowerCase();
+  const fileRef = ref(storage, `${folder}/${Date.now()}-${sanitizedName}`);
+  await uploadBytes(fileRef, file);
+  return getDownloadURL(fileRef);
+};
+
+const createVideoThumbnail = (file) =>
+  new Promise((resolve, reject) => {
+    const objectUrl = URL.createObjectURL(file);
+    const video = document.createElement("video");
+
+    video.preload = "metadata";
+    video.muted = true;
+    video.playsInline = true;
+    video.src = objectUrl;
+
+    const cleanup = () => {
+      URL.revokeObjectURL(objectUrl);
+    };
+
+    video.onloadeddata = () => {
+      try {
+        const canvas = document.createElement("canvas");
+        canvas.width = video.videoWidth || 640;
+        canvas.height = video.videoHeight || 360;
+        const ctx = canvas.getContext("2d");
+
+        if (!ctx) {
+          cleanup();
+          reject(new Error("Canvas is not supported in this browser."));
+          return;
+        }
+
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob(
+          (blob) => {
+            cleanup();
+            if (!blob) {
+              reject(new Error("Failed to generate a thumbnail for the selected video."));
+              return;
+            }
+
+            const thumbFile = new File([blob], `thumb-${Date.now()}.jpg`, {
+              type: "image/jpeg",
+            });
+            resolve({
+              file: thumbFile,
+              preview: URL.createObjectURL(blob),
+            });
+          },
+          "image/jpeg",
+          0.75
+        );
+      } catch (error) {
+        cleanup();
+        reject(error);
+      }
+    };
+
+    video.onerror = () => {
+      cleanup();
+      reject(new Error("Selected file is not a valid video."));
+    };
+  });
 
 const ManageServiceSamples = () => {
   const [services, setServices] = useState(cloneDefaults);
@@ -67,11 +158,11 @@ const ManageServiceSamples = () => {
     [services, activeService]
   );
 
-  const updateSample = (sampleId, field, value) => {
+  const updateSample = (sampleId, updates) => {
     setServices((prev) => ({
       ...prev,
       [activeService]: prev[activeService].map((sample) =>
-        sample.id === sampleId ? { ...sample, [field]: value } : sample
+        sample.id === sampleId ? { ...sample, ...updates } : sample
       ),
     }));
   };
@@ -79,17 +170,7 @@ const ManageServiceSamples = () => {
   const addSample = () => {
     setServices((prev) => ({
       ...prev,
-      [activeService]: [
-        ...prev[activeService],
-        {
-          id: `sample-${Date.now()}`,
-          type: "video",
-          title: "",
-          category: "",
-          thumb: "",
-          link: "",
-        },
-      ],
+      [activeService]: [...prev[activeService], createSample()],
     }));
   };
 
@@ -100,27 +181,117 @@ const ManageServiceSamples = () => {
     }));
   };
 
-  const handleSave = async () => {
-    const sanitized = serviceKeys.reduce((acc, key) => {
-      acc[key] = (services[key] || [])
-        .filter((sample) => sample.title.trim() && sample.thumb.trim() && sample.link.trim())
-        .map((sample) => ({
-          id: sample.id,
-          type: sample.type === "photo" ? "photo" : "video",
-          title: sample.title.trim(),
-          category: sample.category.trim(),
-          thumb: sample.thumb.trim(),
-          link: sample.link.trim(),
-        }));
-      return acc;
-    }, {});
+  const handleMediaFileChange = async (sampleId, file) => {
+    if (!file) {
+      updateSample(sampleId, { mediaFile: null });
+      return;
+    }
 
     try {
+      if (activeSamples.find((item) => item.id === sampleId)?.type === "video") {
+        const generatedThumb = await createVideoThumbnail(file);
+        updateSample(sampleId, {
+          mediaFile: file,
+          thumbFile: generatedThumb.file,
+          thumbPreview: generatedThumb.preview,
+        });
+      } else {
+        updateSample(sampleId, {
+          mediaFile: file,
+          thumbPreview: URL.createObjectURL(file),
+        });
+      }
+    } catch (error) {
+      console.error("Failed to process local media:", error);
+      setMessage({
+        type: "error",
+        text: error?.message || "Failed to process the selected file.",
+      });
+    }
+  };
+
+  const handleThumbFileChange = (sampleId, file) => {
+    updateSample(sampleId, {
+      thumbFile: file || null,
+      thumbPreview: file ? URL.createObjectURL(file) : "",
+    });
+  };
+
+  const handleSave = async () => {
+    try {
       setLoading(true);
+      setMessage(null);
+
+      const sanitized = {};
+
+      for (const key of serviceKeys) {
+        const builtSamples = [];
+
+        for (const sample of services[key] || []) {
+          const title = sample.title.trim();
+          const category = sample.category.trim();
+          const source = sample.source === "local" ? "local" : "url";
+          let thumb = sample.thumb.trim();
+          let link = sample.link.trim();
+
+          if (!title) continue;
+
+          if (source === "local") {
+            if (sample.type === "photo") {
+              if (!sample.mediaFile && !thumb && !link) continue;
+
+              if (sample.mediaFile) {
+                const photoUrl = await uploadFileToStorage(
+                  sample.mediaFile,
+                  `service-samples/${key}/photos`
+                );
+                thumb = photoUrl;
+                link = photoUrl;
+              }
+            } else {
+              if (!sample.mediaFile && !link) continue;
+
+              if (sample.mediaFile) {
+                link = await uploadFileToStorage(
+                  sample.mediaFile,
+                  `service-samples/${key}/videos`
+                );
+              }
+
+              if (sample.thumbFile) {
+                thumb = await uploadFileToStorage(
+                  sample.thumbFile,
+                  `service-samples/${key}/thumbs`
+                );
+              }
+            }
+          }
+
+          if (!thumb || !link) {
+            throw new Error(
+              `Please complete both thumbnail and media fields for "${title}".`
+            );
+          }
+
+          builtSamples.push({
+            id: sample.id,
+            type: sample.type === "photo" ? "photo" : "video",
+            title,
+            category,
+            thumb,
+            link,
+          });
+        }
+
+        sanitized[key] = builtSamples;
+      }
+
       await setDoc(doc(db, "service_samples", "main"), {
         services: sanitized,
         updatedAt: serverTimestamp(),
       });
+
+      setServices(normalizeServices(sanitized));
       setMessage({
         type: "success",
         text: "Service samples updated successfully.",
@@ -129,7 +300,7 @@ const ManageServiceSamples = () => {
       console.error("Failed to save service samples:", error);
       setMessage({
         type: "error",
-        text: "Failed to save service samples.",
+        text: error?.message || "Failed to save service samples.",
       });
     } finally {
       setLoading(false);
@@ -169,8 +340,8 @@ const ManageServiceSamples = () => {
               <div>
                 <h3>{serviceSampleLabels[activeService]} Samples</h3>
                 <p>
-                  Add image or video sample cards for this service page. Use a
-                  thumbnail image and the final link you want the card to open.
+                  Add image or video sample cards for this service page. You
+                  can either paste URLs or upload media from the system.
                 </p>
               </div>
               <button type="button" className="btn primary" onClick={addSample}>
@@ -206,7 +377,12 @@ const ManageServiceSamples = () => {
                         <select
                           value={sample.type}
                           onChange={(e) =>
-                            updateSample(sample.id, "type", e.target.value)
+                            updateSample(sample.id, {
+                              type: e.target.value,
+                              mediaFile: null,
+                              thumbFile: null,
+                              thumbPreview: sample.source === "url" ? sample.thumb : "",
+                            })
                           }
                         >
                           <option value="video">Video</option>
@@ -215,49 +391,135 @@ const ManageServiceSamples = () => {
                       </div>
 
                       <div className="mss-field">
+                        <label>Source</label>
+                        <select
+                          value={sample.source}
+                          onChange={(e) =>
+                            updateSample(sample.id, {
+                              source: e.target.value,
+                              mediaFile: null,
+                              thumbFile: null,
+                              thumbPreview: e.target.value === "url" ? sample.thumb : "",
+                              thumb: e.target.value === "url" ? sample.thumb : "",
+                              link: e.target.value === "url" ? sample.link : "",
+                            })
+                          }
+                        >
+                          <option value="url">URL</option>
+                          <option value="local">Upload from system</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="mss-grid-2">
+                      <div className="mss-field">
                         <label>Category</label>
                         <input
                           type="text"
                           value={sample.category}
                           onChange={(e) =>
-                            updateSample(sample.id, "category", e.target.value)
+                            updateSample(sample.id, { category: e.target.value })
+                          }
+                        />
+                      </div>
+
+                      <div className="mss-field">
+                        <label>Title</label>
+                        <input
+                          type="text"
+                          value={sample.title}
+                          onChange={(e) =>
+                            updateSample(sample.id, { title: e.target.value })
                           }
                         />
                       </div>
                     </div>
 
-                    <div className="mss-field">
-                      <label>Title</label>
-                      <input
-                        type="text"
-                        value={sample.title}
-                        onChange={(e) =>
-                          updateSample(sample.id, "title", e.target.value)
-                        }
-                      />
-                    </div>
+                    {sample.source === "url" ? (
+                      <>
+                        {sample.type === "photo" ? (
+                          <div className="mss-field">
+                            <label>Photo URL</label>
+                            <input
+                              type="text"
+                              value={sample.link}
+                              onChange={(e) =>
+                                updateSample(sample.id, {
+                                  link: e.target.value,
+                                  thumb: e.target.value,
+                                  thumbPreview: e.target.value,
+                                })
+                              }
+                            />
+                            <small className="mss-help">
+                              For photo URLs, the same image is used for both thumbnail and open link.
+                            </small>
+                          </div>
+                        ) : (
+                          <>
+                            <div className="mss-field">
+                              <label>Video URL</label>
+                              <input
+                                type="text"
+                                value={sample.link}
+                                onChange={(e) =>
+                                  updateSample(sample.id, { link: e.target.value })
+                                }
+                              />
+                            </div>
 
-                    <div className="mss-field">
-                      <label>Thumbnail URL</label>
-                      <input
-                        type="text"
-                        value={sample.thumb}
-                        onChange={(e) =>
-                          updateSample(sample.id, "thumb", e.target.value)
-                        }
-                      />
-                    </div>
+                            <div className="mss-field">
+                              <label>Thumbnail URL</label>
+                              <input
+                                type="text"
+                                value={sample.thumb}
+                                onChange={(e) =>
+                                  updateSample(sample.id, {
+                                    thumb: e.target.value,
+                                    thumbPreview: e.target.value,
+                                  })
+                                }
+                              />
+                            </div>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <div className="mss-field">
+                          <label>{sample.type === "photo" ? "Choose Photo" : "Choose Video"}</label>
+                          <input
+                            type="file"
+                            accept={sample.type === "photo" ? "image/*" : "video/*"}
+                            onChange={(e) =>
+                              handleMediaFileChange(sample.id, e.target.files?.[0] || null)
+                            }
+                          />
+                        </div>
 
-                    <div className="mss-field">
-                      <label>Open Link</label>
-                      <input
-                        type="text"
-                        value={sample.link}
-                        onChange={(e) =>
-                          updateSample(sample.id, "link", e.target.value)
-                        }
-                      />
-                    </div>
+                        {sample.type === "video" && (
+                          <div className="mss-field">
+                            <label>Thumbnail</label>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) =>
+                                handleThumbFileChange(sample.id, e.target.files?.[0] || null)
+                              }
+                            />
+                            <small className="mss-help">
+                              A thumbnail is auto-generated for uploaded videos. You can replace it here.
+                            </small>
+                          </div>
+                        )}
+                      </>
+                    )}
+
+                    {sample.thumbPreview ? (
+                      <div className="mss-preview">
+                        <img src={sample.thumbPreview} alt={sample.title || "Sample preview"} />
+                      </div>
+                    ) : null}
                   </article>
                 ))}
               </div>

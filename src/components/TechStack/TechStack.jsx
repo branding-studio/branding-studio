@@ -1,4 +1,4 @@
-// ...keep your imports
+
 import React, { useEffect, useState } from "react";
 import "./TechStack.css";
 import { motion } from "framer-motion";
@@ -16,32 +16,28 @@ const tools = [
 const TechStack = () => {
   const [active, setActive] = useState(0);
 
-  // auto-advance
   useEffect(() => {
     const t = setInterval(() => setActive((i) => (i + 1) % tools.length), 3000);
     return () => clearInterval(t);
   }, []);
 
-  // relative offset from active (-N..N)
   const offsetFromActive = (i) => {
     let d = i - active;
     const half = Math.floor(tools.length / 2);
     if (d > half) d -= tools.length;
     if (d < -half) d += tools.length;
-    return d; // -3..3 depending on length
+    return d;
     };
 
   return (
     <section className="subscribe-band">
-      {/* center-mode carousel */}
       <div className="brand-carousel-center">
         {tools.map((t, i) => {
           const off = offsetFromActive(i);
-          // map offset to position / scale / opacity
-          const x = off * 180;              // spacing between items
+          const x = off * 180;            
           const scale = off === 0 ? 1 : off === -1 || off === 1 ? 0.85 : 0.72;
           const opacity = off === 0 ? 1 : off === -1 || off === 1 ? 0.8 : 0.45;
-          const z = 100 - Math.abs(off);    // keep center on top
+          const z = 100 - Math.abs(off);   
 
           return (
             <motion.button
@@ -60,7 +56,6 @@ const TechStack = () => {
         })}
       </div>
 
-      {/* subscribe card – unchanged */}
       <motion.div
         className="subscribe-card"
         initial={{ opacity: 0, y: 24 }}
@@ -75,7 +70,6 @@ const TechStack = () => {
           className="subscribe-form"
           onSubmit={(e) => {
             e.preventDefault();
-            // handle submit
           }}
         >
           <input type="email" placeholder="Your email" required />

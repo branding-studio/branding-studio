@@ -1,9 +1,6 @@
-/* Filmmaking.css */
 
-/* 1rem = 10px */
 html { font-size: 10px; }
 
-/* ===== Tokens ===== */
 :root {
   --container: 120rem;
   --gutter: 1.8rem;
@@ -18,11 +15,9 @@ html { font-size: 10px; }
   --success: #16a34a;
   --shadow-sm: 0 8px 18px rgba(15, 23, 42, 0.06);
   --shadow-md: 0 18px 40px rgba(15, 23, 42, 0.1);
-  /* ✅ ADDED: WhatsApp Green Token (Optional but good for consistency) */
   --whatsapp-green: #25d366;
 }
 
-/* ===== Frame ===== */
 .film_services {
   position: relative;
   display: grid;
@@ -44,7 +39,6 @@ html { font-size: 10px; }
     linear-gradient(180deg, #fff, var(--wash));
 }
 
-/* Rail */
 .film__rail {
   position: sticky;
   top: 10px;
@@ -130,7 +124,6 @@ html { font-size: 10px; }
   margin-top: 12px;
 }
 
-/* ✅ UPDATED: Changed background to WhatsApp Green */
 .ppc2-btn {
   display: flex;
   align-items: center;
@@ -139,7 +132,7 @@ html { font-size: 10px; }
   width: 100%;
   padding: 10px;
   border-radius: 99rem;
-  background: #25d366; /* WhatsApp Green */
+  background: #25d366; 
   color: white;
   font-weight: 700;
   font-size: 1.3rem;
@@ -149,16 +142,14 @@ html { font-size: 10px; }
 .ppc2-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
-  background: #1ebc57; /* Slightly darker green on hover */
+  background: #1ebc57; 
 }
 
-/* Main Column */
 .film__main {
   width: min(var(--container), 100%);
   padding-inline: var(--gutter);
 }
 
-/* Hero */
 .film__hero {
   padding: 24px 0 16px;
   text-align: left;
@@ -193,7 +184,6 @@ html { font-size: 10px; }
   margin-top: 1.2rem;
 }
 
-/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -214,7 +204,6 @@ html { font-size: 10px; }
   box-shadow: var(--shadow-md);
 }
 
-/* Grid */
 .film__grid {
   padding: 12px 0 24px;
   display: grid;
@@ -280,7 +269,6 @@ html { font-size: 10px; }
   flex-shrink: 0;
 }
 
-/* Scope & Tiers */
 .film__scope,
 .film__influencer,
 .film__process,
@@ -367,7 +355,6 @@ html { font-size: 10px; }
   font-size: 13.5px;
 }
 
-/* Process */
 .film__steps {
   list-style: none;
   padding: 0;
@@ -406,7 +393,6 @@ html { font-size: 10px; }
   font-size: 14.5px;
 }
 
-/* Stack & Chips */
 .film__chips {
   list-style: none;
   padding: 0;
@@ -425,7 +411,6 @@ html { font-size: 10px; }
   color: var(--ink);
 }
 
-/* Deliverables */
 .film__list--cards {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
@@ -436,7 +421,6 @@ html { font-size: 10px; }
   padding: 10px 12px;
 }
 
-/* CTA */
 .film__cta {
   padding: 0 16px 52px;
 }
@@ -462,7 +446,6 @@ html { font-size: 10px; }
   font-size: 15px;
 }
 
-/* Responsive */
 @media (max-width: 1100px) {
   .film_services {
     grid-template-columns: 1fr;
@@ -493,7 +476,6 @@ html { font-size: 10px; }
   }
 }
 
-/* ===== Samples Section ===== */
 .film__samples {
   padding: 0 0 26px;
 }

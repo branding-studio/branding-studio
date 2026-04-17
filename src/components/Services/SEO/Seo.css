@@ -1,7 +1,6 @@
 /* 1rem = 10px */
 html { font-size: 10px; }
 
-/* ===== Tokens ===== */
 :root{
   --container: 120rem;
   --gutter: 1.8rem;
@@ -23,7 +22,6 @@ html { font-size: 10px; }
   --shadow-md: 0 18px 40px rgba(15,23,42,.10);
 }
 
-/* ===== Frame: sticky rail + main ===== */
 .seo_services{
   position: relative;
   display: grid;
@@ -38,7 +36,6 @@ html { font-size: 10px; }
     linear-gradient(180deg, #fff, var(--wash));
 }
 
-/* Rail */
 .seo__rail{
   position: sticky; top: 10px; align-self: start; height: calc(100dvh - 20px);
   padding: 16px; border-right: 1px solid var(--edge);
@@ -65,13 +62,11 @@ html { font-size: 10px; }
   border:1px solid transparent; box-shadow: 0 0 0 6px rgba(30,64,175,.10);
 }
 
-/* Main column */
 .seo__main{
   width: min(var(--container), 100%);
   padding-inline: var(--gutter);
 }
 
-/* ---------- HERO ---------- */
 .seo__hero{ padding: 24px 0 16px; text-align:left; }
 .seo__eyebrow{
   display:inline-block; padding:.6rem 1.0rem; border-radius:999rem;
@@ -87,7 +82,6 @@ html { font-size: 10px; }
 .seo__hero p{ color:var(--muted); font-size:1.7rem; max-width:82rem; margin:0; }
 .seo__hero-cta{ margin-top:1.2rem; }
 
-/* Buttons */
 .btn{
   display:inline-flex; align-items:center; gap:.6rem; padding:1.0rem 1.6rem;
   border-radius:999rem; border:1px solid transparent; cursor:pointer;
@@ -97,7 +91,6 @@ html { font-size: 10px; }
 }
 .btn:hover{ transform: translateY(-.2rem); box-shadow: var(--shadow-md); }
 
-/* ---------- SERVICES GRID ---------- */
 .seo__grid{
   padding: 12px 0 24px;
   display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px;
@@ -119,7 +112,6 @@ html { font-size: 10px; }
 .seo__list li{ display:flex; gap:8px; align-items:flex-start; font-size:13.5px; color:var(--ink); }
 .seo__list svg{ color: var(--success); margin-top:2px; }
 
-/* ---------- PROGRAM SCOPE ---------- */
 .seo__scope{ padding: 4px 0 26px; }
 .scope__grid{ display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 .scope__card{
@@ -132,14 +124,12 @@ html { font-size: 10px; }
 .scope__card li{ display:flex; gap:8px; align-items:flex-start; font-size:13px; }
 .scope__card li svg{ color: var(--success); margin-top:2px; }
 
-/* ---------- INFLUENCER ---------- */
 .seo__influencer{ padding: 0 0 26px; }
 .infl__grid{ display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 .infl__card{ background:#fff; border:1px solid var(--edge); border-radius:16px; padding:12px 14px; box-shadow: var(--shadow-sm); }
 .infl__tier{ font-weight:900; font-size:16px; }
 .infl__desc{ color:var(--muted); font-size:13.5px; }
 
-/* ---------- PROCESS ---------- */
 .seo__process{ padding: 0 0 28px; }
 .seo__head{ text-align:left; margin: 0 0 12px; }
 .seo__head h3{ margin:0; font-size:22px; font-weight:900; }
@@ -150,20 +140,17 @@ html { font-size: 10px; }
 .seo__step h4{ margin:0 0 2px; font-size:16px; }
 .seo__step p{ margin:0; color:var(--muted); font-size:14.5px; }
 
-/* ---------- STACK ---------- */
 .seo__stack{ padding: 0 0 26px; }
 .seo__chips{ list-style:none; padding:0; margin:10px 0 0; display:flex; flex-wrap:wrap; gap:8px; }
 .seo__chip{ padding:8px 12px; border-radius:999px; background:#fff; border:1px solid var(--edge); font-weight:800; font-size:13px; color:var(--ink); }
 
-/* ---------- DELIVERABLES ---------- */
 .seo__deliver{ padding: 0 0 26px; }
 .seo__list--cards{ grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 .seo__list--cards li{ background:#fff; border:1px solid var(--edge); border-radius:12px; padding:10px 12px; }
 
-/* ---------- KPIs ---------- */
 .seo__kpis{ padding: 0 0 28px; }
 
-/* ---------- CTA ---------- */
+
 .seo__cta{ padding: 0 16px 52px; }
 .seo__cta-inner{
   background:#fff; border:1px solid var(--edge); border-radius:20px; padding:18px;
@@ -172,7 +159,7 @@ html { font-size: 10px; }
 .seo__cta-copy h3{ margin:0 0 2px; font-size:20px; font-weight:900; }
 .seo__cta-copy p{ margin:0; color:var(--muted); font-size:15px; }
 
-/* ---------- Responsive ---------- */
+
 @media (max-width: 1100px){
   .seo_services{ grid-template-columns: 1fr; width: 100%; padding: 10px 20px; }
   .seo__rail{ position: static; height: auto; display:grid; grid-auto-rows:min-content; }
@@ -181,7 +168,6 @@ html { font-size: 10px; }
   .btn{ font-size:14.5px; }
 }
 
-/* ===== Samples Section ===== */
 .seo__samples {
   padding: 0 0 26px;
 }

@@ -95,6 +95,20 @@ const normalizeCategories = (categories = defaultCategories) =>
       : [],
   }));
 
+const hasIncompletePricingFields = (categories = []) =>
+  categories.some((category) => {
+    if (!category.name.trim()) return true;
+    if (!Array.isArray(category.services) || category.services.length === 0) return true;
+
+    return category.services.some(
+      (service) =>
+        !service.name.trim() ||
+        !service.desc.trim() ||
+        !Number.isFinite(Number(service.price)) ||
+        Number(service.price) <= 0
+    );
+  });
+
 const ManagePricing = () => {
   const [categories, setCategories] = useState(defaultCategories);
   const [activeCategoryId, setActiveCategoryId] = useState(defaultCategories[0].id);
@@ -135,6 +149,11 @@ const ManagePricing = () => {
   const activeCategory = useMemo(
     () => categories.find((category) => category.id === activeCategoryId) || categories[0],
     [categories, activeCategoryId]
+  );
+
+  const isPricingComplete = useMemo(
+    () => !hasIncompletePricingFields(categories),
+    [categories]
   );
 
   const updateCategory = (categoryId, updates) => {
@@ -226,39 +245,24 @@ const ManagePricing = () => {
   };
 
   const handleSave = async () => {
+    if (!isPricingComplete) {
+      setMessage({
+        type: "error",
+        text: "Please fill every category and service field before saving pricing.",
+      });
+      return;
+    }
+
     const sanitizedCategories = categories.map((category) => ({
       id: category.id,
       name: category.name.trim(),
-      services: category.services
-        .filter((service) => service.name.trim())
-        .map((service) => ({
+      services: category.services.map((service) => ({
           id: service.id,
           name: service.name.trim(),
           price: Number(service.price) || 0,
           desc: service.desc.trim(),
         })),
     }));
-
-    const hasInvalidCategory = sanitizedCategories.some((category) => !category.name);
-    const hasEmptyServices = sanitizedCategories.some(
-      (category) => category.services.length === 0
-    );
-
-    if (hasInvalidCategory) {
-      setMessage({
-        type: "error",
-        text: "Every pricing category needs a name.",
-      });
-      return;
-    }
-
-    if (hasEmptyServices) {
-      setMessage({
-        type: "error",
-        text: "Each category must have at least one service before saving.",
-      });
-      return;
-    }
 
     try {
       setLoading(true);
@@ -403,7 +407,7 @@ const ManagePricing = () => {
                             <label>Price</label>
                             <input
                               type="number"
-                              min="0"
+                              min="1"
                               value={service.price}
                               onChange={(e) =>
                                 updateService(
@@ -447,7 +451,7 @@ const ManagePricing = () => {
                   type="button"
                   className="btn primary"
                   onClick={handleSave}
-                  disabled={loading}
+                  disabled={loading || !isPricingComplete}
                 >
                   {loading ? "Saving..." : "Save Pricing"}
                 </button>

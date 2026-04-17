@@ -2,7 +2,7 @@
 .blog-dash {
   width: 100%;
   padding: 2.8rem 4rem;
-  background: #f8fafc; /* light slate-ish */
+  background: #f8fafc; 
 }
 
 /* Sticky header bar */
@@ -96,7 +96,7 @@
   border-color: #111827;
 }
 .pill-badge {
-  background: #0ea5e9; /* sky-500 */
+  background: #0ea5e9; 
   color: #fff;
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
@@ -154,7 +154,7 @@
   background: #f8fafc;
   padding: 1rem;
   margin-top: 1rem;
-  border-left: 4px solid var(--norton-yellow, #eab308); /* uses your project accent if present */
+  border-left: 4px solid var(--norton-yellow, #eab308); 
   border-radius: 0.8rem;
 }
 .seo-details p {

@@ -26,9 +26,6 @@ export const BlogProvider = ({ children }) => {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [allComments, setAllComments] = useState([]);
 
-  /* =========================
-     Categories
-     ========================= */
   const addCategory = useCallback(async (name) => {
     try {
       const id = slugify(name);
@@ -48,7 +45,6 @@ export const BlogProvider = ({ children }) => {
 
   const fetchCategories = useCallback(async () => {
     try {
-      // order newest first (by createdAt if it exists)
       const q = query(collection(db, "categories"));
       const snapshot = await getDocs(q);
       return snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
@@ -77,7 +73,6 @@ export const BlogProvider = ({ children }) => {
     }
   }, []);
 
-  // Supports object updates; if you really need rename by string, prefer storing a `slug` field instead of changing doc id.
   const updateCategory = useCallback(async (id, patch) => {
     try {
       await updateDoc(doc(db, "categories", id), {
@@ -93,10 +88,6 @@ export const BlogProvider = ({ children }) => {
     }
   }, []);
 
-  /* =========================
-     Blogs (single source of truth: _blogs)
-     Mirrors to categories/{id}/blogs for backward-compat
-     ========================= */
   const fetchBlogs = useCallback(async () => {
     try {
       const q = query(collection(db, "_blogs"), orderBy("createdAt", "desc"));
@@ -144,10 +135,7 @@ export const BlogProvider = ({ children }) => {
         updatedAt: serverTimestamp(),
       };
 
-      // Write to _blogs
       batch.set(globalRef, payload);
-
-      // Mirror to category subcollection (optional; keep until you remove old reads)
       const catRef = doc(db, `categories/${categoryId}/blogs`, globalRef.id);
       batch.set(catRef, payload);
 
@@ -165,7 +153,6 @@ export const BlogProvider = ({ children }) => {
     try {
       const batch = writeBatch(db);
       batch.delete(doc(db, "_blogs", blogId));
-      // Best-effort delete mirror
       if (categoryId) batch.delete(doc(db, `categories/${categoryId}/blogs`, blogId));
       await batch.commit();
       toast.success("Blog deleted");
@@ -178,19 +165,14 @@ export const BlogProvider = ({ children }) => {
 
   const updateBlog = useCallback(async (blogId, updatedData, newCategoryId) => {
     try {
-      // read current to detect category change
       const globalRef = doc(db, "_blogs", blogId);
       const snap = await getDoc(globalRef);
       if (!snap.exists()) throw new Error("Blog not found");
       const oldCategoryId = snap.data().category;
-
       const batch = writeBatch(db);
       const payload = { ...updatedData, updatedAt: serverTimestamp(), category: newCategoryId };
-
-      // Update global
       batch.update(globalRef, payload);
 
-      // Maintain mirrors (optional)
       if (oldCategoryId === newCategoryId) {
         const mirrorRef = doc(db, `categories/${oldCategoryId}/blogs`, blogId);
         batch.set(mirrorRef, payload, { merge: true });
@@ -210,9 +192,6 @@ export const BlogProvider = ({ children }) => {
     }
   }, []);
 
-  /* =========================
-     Comments
-     ========================= */
   const fetchComments = useCallback(async () => {
     try {
       const snap = await getDocs(collectionGroup(db, "comments"));

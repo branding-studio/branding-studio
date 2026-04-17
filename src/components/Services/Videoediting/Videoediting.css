@@ -1,7 +1,6 @@
 /* 1rem = 10px */
 html { font-size: 10px; }
 
-/* Safe tokens (shared with your other pages) */
 :root{
   --container: 120rem;
   --gutter: 1.8rem;
@@ -22,7 +21,6 @@ html { font-size: 10px; }
   --shadow-md: 0 18px 40px rgba(15,23,42,.10);
 }
 
-/* ===== Frame: sticky rail + main ===== */
 .ve{
   position: relative;
   display: grid;
@@ -37,7 +35,6 @@ html { font-size: 10px; }
     linear-gradient(180deg, #fff, #f6f7fb);
 }
 
-/* Sticky rail */
 .ve__rail{
   position: sticky; top: 10px; align-self: start; height: calc(100dvh - 20px);
   padding: 16px;
@@ -66,13 +63,11 @@ html { font-size: 10px; }
   border:1px solid transparent; box-shadow: 0 0 0 6px rgba(30,64,175,.10);
 }
 
-/* Main column wrapper */
 .ve__main{
   width: min(var(--container), 100%);
   padding-inline: var(--gutter);
 }
 
-/* ---------- HERO ---------- */
 .ve__hero{
   padding: 2.4rem 0 2.0rem;
   text-align: left;
@@ -113,7 +108,6 @@ html { font-size: 10px; }
 }
 .ve__hero-cta{ margin-top:.6rem; }
 
-/* ---------- GRID ---------- */
 .ve__grid{
   padding: .8rem 0 3.0rem;
   display:grid;
@@ -141,8 +135,6 @@ html { font-size: 10px; }
 .ve__list{ list-style:none; padding:0; margin:0 0 1.2rem; display:grid; gap:.4rem; }
 .ve__list li{ display:flex; gap:.6rem; align-items:center; font-size:1.3rem; color:var(--ink); }
 .ve__list svg{ color: var(--success); }
-
-/* Buttons */
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
   padding:1.0rem 1.6rem; border-radius:999rem; border:1px solid transparent;
@@ -157,7 +149,6 @@ html { font-size: 10px; }
 }
 .btn--ghost:hover{ background: color-mix(in oklab, var(--primary) 10%, #fff); transform: translateY(-.2rem); }
 
-/* ---------- PROCESS ---------- */
 .ve__process{ padding: 0 0 3.0rem; }
 .ve__head{ text-align:left; margin: 0 0 1.2rem; }
 .ve__head h3{ margin:0; font-size:2.2rem; font-weight:900; }
@@ -178,7 +169,6 @@ html { font-size: 10px; }
 .ve__step p{ margin:0; color:var(--muted); font-size:1.4rem; }
 .ve__step-ico{ position:absolute; right:1.2rem; top:1.2rem; font-size:1.6rem; color:var(--primary); }
 
-/* ---------- STACK ---------- */
 .ve__stack{ padding: 0 0 3.2rem; }
 .ve__chips{
   list-style:none; padding:0; margin:1.0rem 0 0;
@@ -193,7 +183,6 @@ html { font-size: 10px; }
 }
 .ve__socials span{ display:inline-flex; align-items:center; gap:.5rem; }
 
-/* ---------- DELIVERABLES ---------- */
 .ve__deliver{ padding: 0 0 3.0rem; }
 .ve__list--cards{
   grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
@@ -203,14 +192,12 @@ html { font-size: 10px; }
 }
 .ve__deliver-cta{ margin-top:1.2rem; }
 
-/* ---------- PRESETS ---------- */
 .ve__presets{ padding: 0 0 3.2rem; }
 .ve__preset-grids{
   display:grid; gap:1.2rem; grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
 }
 .ve__presets h4{ margin:.2rem 0; font-size:1.6rem; }
 
-/* ---------- CTA ---------- */
 .ve__cta{ padding: 0 1.6rem 5.2rem; }
 .ve__cta-inner{
   background:#fff; border:1px solid var(--edge); border-radius:2.0rem; padding:1.8rem;
@@ -220,7 +207,6 @@ html { font-size: 10px; }
 .ve__cta-copy h3{ margin:0 0 .2rem; font-size:2.0rem; font-weight:900; }
 .ve__cta-copy p{ margin:0; color:var(--muted); font-size:1.5rem; }
 
-/* ---------- Responsive ---------- */
 @media (max-width: 1100px){
   .ve{ grid-template-columns: 1fr; width: 100%; padding: 10px 20px; }
   .ve__rail{ position: static; height: auto; display:grid; grid-auto-rows:min-content; }

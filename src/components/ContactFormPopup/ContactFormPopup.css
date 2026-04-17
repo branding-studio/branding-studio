@@ -1,9 +1,9 @@
-/* Uses your :root variables */
+
 .contact-popup {
   position: fixed;
   right: 20px;
   bottom: 24px;
-  width: 380px; /* desktop default */
+  width: 380px; 
   background: #fff;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
@@ -115,7 +115,6 @@
   color: #64748b;
 }
 
-/* Collapsed launcher button */
 .contact-popup-icon {
   position: fixed;
   right: 14px;
@@ -141,11 +140,6 @@
   background: #0046ad;
 }
 
-/* =========================
-   Responsive adjustments
-   ========================= */
-
-/* Tablets & small laptops (≤ var(--break-lg), e.g., 1024px) */
 @media (max-width: 1024px) {
   .contact-popup {
     width: min(92vw, 360px);
@@ -166,7 +160,7 @@
   }
 }
 
-/* Phones (≤ var(--break-md), e.g., 768px) */
+
 @media (max-width: 768px) {
   .contact-popup {
     width: calc(100vw - 28px);
@@ -182,24 +176,21 @@
   .contact-popup-icon { width: 52px; height: 52px; font-size: 1.6rem; }
 }
 
-/* Very small devices (≤ 360px) */
+
 @media (max-width: 360px) {
   .contact-popup { width: calc(100vw - 20px); right: 10px; bottom: 12px; }
   .contact-popup-header { font-size: 1.4rem; }
   .contact-popup-icon { right: 12px; bottom: 12px; width: 50px; height: 50px; font-size: 1.5rem; }
 }
 
-/* Short viewports (landscape phones) */
 @media (max-height: 520px) and (max-width: 920px) {
   .contact-popup { max-height: calc(100vh - 40px); overflow: auto; }
 }
 
-/* Prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .contact-popup, .contact-popup-icon { animation: none !important; }
 }
 
-/* Animations */
 @keyframes slideUp {
   from { transform: translateY(40px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }

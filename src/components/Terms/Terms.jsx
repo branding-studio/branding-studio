@@ -12,7 +12,6 @@ const Terms = () => {
 
   return (
     <section className="terms" role="main">
-      {/* Header */}
       <header className="terms-header">
         <p className="terms-kicker">Legal</p>
         <h1 className="terms-title">Terms &amp; Conditions</h1>
@@ -22,9 +21,7 @@ const Terms = () => {
         </p>
       </header>
 
-      {/* Content Grid: TOC + Body */}
       <div className="terms-grid">
-        {/* Sticky TOC on desktop */}
         <aside className="terms-aside" aria-label="Table of contents">
           <nav className="terms-card terms-toc">
             <h3>On this page</h3>
@@ -53,7 +50,6 @@ const Terms = () => {
           </nav>
         </aside>
 
-        {/* Main body */}
         <article className="terms-content">
           <div className="terms-card">
             <section id="intro" className="terms-section">

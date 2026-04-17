@@ -1,7 +1,6 @@
 /* 1rem = 10px */
 html { font-size: 10px; }
 
-/* ===== Tokens ===== */
 :root{
   --container: 120rem;
   --gutter: 1.8rem;
@@ -22,7 +21,6 @@ html { font-size: 10px; }
   --shadow-md: 0 18px 40px rgba(15,23,42,.10);
 }
 
-/* ===== Frame: sticky rail + main ===== */
 .smo_services{
   position: relative;
   display: grid;
@@ -36,8 +34,6 @@ html { font-size: 10px; }
     radial-gradient(80rem 24rem at 110% -10%, color-mix(in oklab, var(--accent) 8%, transparent), transparent 60%),
     linear-gradient(180deg, #fff, var(--wash));
 }
-
-/* Rail */
 .smo__rail{
   position: sticky; top: 10px; align-self: start; height: calc(100dvh - 20px);
   padding: 16px; border-right: 1px solid var(--edge);
@@ -65,13 +61,11 @@ html { font-size: 10px; }
   border:1px solid transparent; box-shadow: 0 0 0 6px rgba(30,64,175,.10);
 }
 
-/* Main column */
 .smo__main{
   width: min(var(--container), 100%);
   padding-inline: var(--gutter);
 }
 
-/* ===== HERO ===== */
 .smo__hero{ padding: 24px 0 14px; text-align:left; }
 .smo__eyebrow{
   display:inline-block; padding:.6rem 1rem; border-radius:999rem;
@@ -93,7 +87,6 @@ html { font-size: 10px; }
   font-weight:800; font-size:1.25rem;
 }
 
-/* Buttons */
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
   padding:1.0rem 1.6rem; border-radius:999rem; border:1px solid transparent;
@@ -103,7 +96,6 @@ html { font-size: 10px; }
 }
 .btn:hover{ transform: translateY(-.2rem); box-shadow: var(--shadow-md); }
 
-/* ===== SERVICES GRID ===== */
 .smo__grid{
   padding: 10px 0 26px;
   display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px;
@@ -122,7 +114,7 @@ html { font-size: 10px; }
 .smo__list li{ display:flex; gap:8px; align-items:flex-start; font-size:13.5px; }
 .smo__list svg{ color: var(--success); margin-top:2px; }
 
-/* ===== PACKAGES ===== */
+
 .smo__packages{ padding: 0 0 28px; }
 .pkg__grid{ display:grid; gap:14px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 .pkg__card{
@@ -138,7 +130,6 @@ html { font-size: 10px; }
 .pkg__list li{ display:flex; gap:.6rem; align-items:flex-start; font-size:1.3rem; }
 .pkg__list svg{ color: var(--success); margin-top:.2rem; }
 
-/* ===== PROCESS ===== */
 .smo__process{ padding: 0 0 28px; }
 .smo__head{ text-align:left; margin: 0 0 12px; }
 .smo__head h3{ margin:0; font-size:22px; font-weight:900; }
@@ -149,19 +140,16 @@ html { font-size: 10px; }
 .smo__step h4{ margin:0 0 2px; font-size:16px; }
 .smo__step p{ margin:0; color:var(--muted); font-size:14.5px; }
 
-/* ===== FORMATS & PLATFORMS ===== */
 .smo__stack{ padding: 0 0 32px; }
 .smo__chips{ list-style:none; padding:0; margin:10px 0 0; display:flex; flex-wrap:wrap; gap:8px; }
 .smo__chip{ padding:8px 12px; border-radius:999px; background:#fff; border:1px solid var(--edge); font-weight:800; font-size:13px; color:var(--ink); }
 .smo__chips--platforms{ margin-top:10px; }
 .smo__chip i{ margin-right:6px; }
 
-/* ===== DELIVERABLES ===== */
 .smo__deliver{ padding: 0 0 28px; }
 .smo__list--cards{ grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 .smo__list--cards li{ background:#fff; border:1px solid var(--edge); border-radius:12px; padding:10px 12px; }
 
-/* ===== KPIs / POLICIES / ADS ===== */
 .smo__kpis{ padding: 0 0 28px; }
 .smo__policies{ padding: 0 0 28px; }
 .smo__policy-cards{ display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
@@ -173,7 +161,7 @@ html { font-size: 10px; }
 .smo__ads{ padding: 0 0 32px; }
 .smo__ads-list li{ background:#fff; border:1px solid var(--edge); border-radius:12px; padding:10px 12px; }
 
-/* ===== CTA ===== */
+
 .smo__cta{ padding: 0 16px 52px; }
 .smo__cta-inner{
   background:#fff; border:1px solid var(--edge); border-radius:20px; padding:18px;
@@ -182,7 +170,6 @@ html { font-size: 10px; }
 .smo__cta-copy h3{ margin:0 0 2px; font-size:20px; font-weight:900; }
 .smo__cta-copy p{ margin:0; color:var(--muted); font-size:15px; }
 
-/* ===== Responsive ===== */
 @media (max-width: 1100px){
   .smo_services{ grid-template-columns: 1fr; width: 100%; padding: 10px 20px; }
   .smo__rail{ position: static; height: auto; display: grid; grid-auto-rows: min-content; }
@@ -191,7 +178,6 @@ html { font-size: 10px; }
   .btn{ font-size:14.5px; }
 }
 
-/* ===== Samples Section ===== */
 .smo__samples {
   padding: 0 0 28px;
 }

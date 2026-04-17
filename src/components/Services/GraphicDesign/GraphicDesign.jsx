@@ -24,8 +24,6 @@ const GraphicDesign = () => {
   const { openWhatsApp, getWhatsAppUrl } = useLocalContext();
 
   const [sampleFilter, setSampleFilter] = useState("all");
-
-  /** ===== Samples ===== */
   const samples = useManagedServiceSamples("graphicDesign");
 
   const filteredSamples =
@@ -33,7 +31,6 @@ const GraphicDesign = () => {
       ? samples
       : samples.filter((item) => item.type === sampleFilter);
 
-  /** ===== Services ===== */
   const services = [
     {
       icon: <FaPenNib />,
@@ -85,7 +82,6 @@ const GraphicDesign = () => {
     },
   ];
 
-  /** ===== Scope ===== */
   const scope = [
     {
       title: "Brand Strategy",
@@ -133,7 +129,6 @@ const GraphicDesign = () => {
     },
   ];
 
-  /** ===== Tiers ===== */
   const tiers = [
     { tier: "Startup", desc: "Essential identity & social kit" },
     { tier: "Growth", desc: "Full web UI & marketing collateral" },
@@ -185,7 +180,6 @@ const GraphicDesign = () => {
     "Print Quality Accuracy",
   ];
 
-  /* ===== Sticky rail / scroll-spy ===== */
   const ids = useMemo(
     () => [
       "samples",

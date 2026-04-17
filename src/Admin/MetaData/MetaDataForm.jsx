@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { toast } from 'react-toastify'; // For success/error notifications
-import { db } from '../../firebase/firebaseConfig'; // Firebase config
-import { doc, setDoc } from 'firebase/firestore'; // Firebase Firestore functions
+import { toast } from 'react-toastify'; 
+import { db } from '../../firebase/firebaseConfig'; 
+import { doc, setDoc } from 'firebase/firestore'; 
 
 const MetaDataForm = ({ pageId }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [keywords, setKeywords] = useState('');
 
-  // Function to handle form submission
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -18,8 +18,7 @@ const MetaDataForm = ({ pageId }) => {
     }
 
     try {
-      // Save metadata to Firestore under a specific pageId
-      const metadataRef = doc(db, 'pageMetadata', pageId); // Modify according to your Firestore structure
+      const metadataRef = doc(db, 'pageMetadata', pageId); 
 
       await setDoc(metadataRef, {
         title,

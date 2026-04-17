@@ -121,6 +121,8 @@ const Pricing = () => {
   const [pendingService, setPendingService] = useState("");
   const [pricingData, setPricingData] = useState(defaultPricingData);
 
+  const categoryOptions = useMemo(() => Object.keys(pricingData), [pricingData]);
+
   useEffect(() => {
     const loadPricing = async () => {
       try {
@@ -161,7 +163,16 @@ const Pricing = () => {
   const serviceOptions = useMemo(() => {
     if (!selectedCategory) return [];
     return pricingData[selectedCategory] || [];
-  }, [selectedCategory]);
+  }, [selectedCategory, pricingData]);
+
+  useEffect(() => {
+    if (selectedCategory && !categoryOptions.includes(selectedCategory)) {
+      setSelectedCategory("");
+      setSelectedServices([]);
+      setPreviewServiceName("");
+      setPendingService("");
+    }
+  }, [selectedCategory, categoryOptions]);
 
   const activePreviewService = useMemo(() => {
     if (!previewServiceName) return null;
@@ -451,13 +462,11 @@ const Pricing = () => {
             <div className="pricing-selects">
               <select value={selectedCategory} onChange={handleCategoryChange}>
                 <option value="">Select Category</option>
-                <option value="Social Media Marketing">
-                  Social Media Marketing
-                </option>
-                <option value="Ad Film Shoot">Ad Film Shoot</option>
-                <option value="Graphics and Branding">
-                  Graphics and Branding
-                </option>
+                {categoryOptions.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
               </select>
 
               <select

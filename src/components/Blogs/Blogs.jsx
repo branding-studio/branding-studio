@@ -20,7 +20,6 @@ const formatDate = (v) => {
 };
 const plainText = (html = "") => html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 
-/** small hook to debounce a value */
 function useDebouncedValue(value, delay = 200) {
   const [v, setV] = useState(value);
   useEffect(() => {
@@ -36,18 +35,14 @@ const Blogs = () => {
   const [rawBlogs, setRawBlogs] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // UI state
   const [activeCat, setActiveCat] = useState("all");
   const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(9);
-
-  // React 18 concurrency helpers (avoid blocking the UI)
   const [isPending, startTransition] = useTransition();
   const deferredQuery = useDeferredValue(query);
   const debouncedQuery = useDebouncedValue(deferredQuery, 200);
 
-  // one-shot load
+
   useEffect(() => {
     let ok = true;
     (async () => {
@@ -63,14 +58,13 @@ const Blogs = () => {
     return () => { ok = false; };
   }, [fetchBlogs, fetchCategories]);
 
-  // category id -> name map
+
   const catMap = useMemo(() => {
     const m = Object.create(null);
     (categories || []).forEach((c) => { m[c.id] = c.name || c.id; });
     return m;
   }, [categories]);
 
-  // Normalize once so filtering is cheap
   const normalizedBlogs = useMemo(() => {
     if (!rawBlogs?.length) return [];
     return rawBlogs

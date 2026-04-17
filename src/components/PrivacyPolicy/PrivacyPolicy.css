@@ -1,6 +1,4 @@
-/* =========================
-   Tokens
-   ========================= */
+
 :root{
   --maxw: 134rem;
 
@@ -28,9 +26,6 @@
   --shadow-lg: 0 18px 44px rgba(15, 23, 42, .12);
 }
 
-/* =========================
-   Base wrapper (mobile-first)
-   ========================= */
 .privacy{
   color: var(--text);
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
@@ -43,9 +38,6 @@
   text-rendering: optimizeLegibility;
 }
 
-/* =========================
-   Header
-   ========================= */
 .privacy-header{
   width: min(var(--maxw), 100%);
   margin: 0 auto 1.6rem;
@@ -82,9 +74,6 @@
   font-size: 1.3rem;
 }
 
-/* =========================
-   Grid
-   ========================= */
 .privacy-grid{
   width: min(var(--maxw), 100%);
   margin: 0 auto;
@@ -97,9 +86,6 @@
   .privacy-grid{ grid-template-columns: 1fr; }
 }
 
-/* =========================
-   Cards / Containers
-   ========================= */
 .privacy-card{
   background: #fff;
   border: 1px solid color-mix(in oklab, var(--text) 10%, transparent);
@@ -107,9 +93,6 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* =========================
-   TOC (desktop: list, mobile: chips)
-   ========================= */
 .privacy-aside{ position: sticky; top: 1.6rem; height: fit-content; }
 @media (max-width: var(--break-lg)){ .privacy-aside{ position: static; } }
 
@@ -168,9 +151,6 @@
   }
 }
 
-/* =========================
-   Content
-   ========================= */
 .privacy-content .privacy-card{
   padding: clamp(1.6rem, 2.2vw, 2.4rem);
 }
@@ -181,7 +161,7 @@
   font-size: clamp(1.8rem, .8vw + 1rem, 2.2rem);
   font-weight: 900;
   letter-spacing: -0.01em;
-  scroll-margin-top: 8rem; /* anchor offset for sticky headers */
+  scroll-margin-top: 8rem; 
 }
 .privacy-section h3{
   margin: .6rem 0 .4rem;
@@ -203,7 +183,6 @@
 }
 .privacy-section li{ margin: .3rem 0; }
 
-/* Callout */
 .privacy-callout{
   margin: .6rem 0 1.1rem;
   padding: 1.0rem 1.2rem;
@@ -214,7 +193,6 @@
   box-shadow: var(--shadow-sm);
 }
 
-/* Links inside content */
 .privacy-content a{
   color: var(--primary-500);
   text-decoration: none;
@@ -224,9 +202,6 @@
   border-color: var(--primary-500);
 }
 
-/* =========================
-   Responsive refinements
-   ========================= */
 @media (max-width:1024px){
   .privacy-toc{display: none;}
   .privacy-section h2{ scroll-margin-top: 7rem; }
@@ -253,9 +228,6 @@
   .privacy-card{ border-radius: var(--radius-lg); }
 }
 
-/* =========================
-   Accessibility & motion
-   ========================= */
 .privacy a:focus-visible{
   outline: none;
   box-shadow: 0 0 0 4px rgba(250, 204, 21, .35), 0 0 0 1.5px #eab308;
@@ -267,9 +239,6 @@
   *{ transition: none !important; animation: none !important; }
 }
 
-/* =========================
-   Print (clean output)
-   ========================= */
 @media print{
   .privacy{
     background: #fff !important;

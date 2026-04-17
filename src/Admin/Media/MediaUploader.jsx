@@ -10,14 +10,14 @@ const MediaUploader = ({ onSelectImage }) => {
   const [category, setCategory] = useState("");
   const [uploadedImages, setUploadedImages] = useState([]);
 
-  // Handle Upload (either file or URL)
+  
   const handleUpload = async () => {
     if ((!image && !imageUrl) || !category) {
       alert("Please select an image, paste a URL, and enter a category.");
       return;
     }
 
-    let url = imageUrl; // Use direct URL if provided
+    let url = imageUrl; 
 
     if (image) {
       const storageRef = ref(storage, `images/${image.name}`);
@@ -33,7 +33,6 @@ const MediaUploader = ({ onSelectImage }) => {
     fetchImages();
   };
 
-  // Fetch Images from Firestore
   const fetchImages = async () => {
     const querySnapshot = await getDocs(collection(db, "media"));
     const images = querySnapshot.docs.map((doc) => ({
@@ -47,18 +46,18 @@ const MediaUploader = ({ onSelectImage }) => {
     fetchImages();
   }, []);
 
-  // Handle Delete
+ 
   const handleDelete = async (id, url) => {
     if (window.confirm("Are you sure you want to delete this image?")) {
       await deleteDoc(doc(db, "media", id));
 
-      // Delete from Firebase Storage if it's an uploaded file
+     
       if (url.startsWith("https://firebasestorage.googleapis.com")) {
         const storageRef = ref(storage, url);
         await deleteObject(storageRef).catch((error) => console.error("Storage delete error:", error));
       }
 
-      fetchImages(); // Refresh images after deletion
+      fetchImages(); 
     }
   };
 

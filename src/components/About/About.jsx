@@ -29,7 +29,6 @@ const About = () => {
   const { webinfo = {} } = useLocalContext();
   const brand = webinfo?.name || "Our Brand";
 
-  // FAQ accordion state
   const [openFaq, setOpenFaq] = useState(null);
 
   const osCards = [
@@ -157,7 +156,6 @@ const About = () => {
         </div>
       </motion.header>
 
-      {/* SNAPSHOT STRIP */}
       <motion.section className="snapshot" {...fade(0.05)}>
         <div className="chip"><FaAward /> Outcome-driven SOWs</div>
         <div className="chip"><FaCheckCircle /> Weekly insight loops</div>
@@ -165,7 +163,6 @@ const About = () => {
         <div className="chip"><FaUsers /> In-house friendly</div>
       </motion.section>
 
-      {/* JOURNEY TIMELINE (Mission, Vision, Values) */}
       <motion.section className="timeline" {...fade(0.1)}>
         <h2>Our journey to outcomes</h2>
         <ol className="steps">
@@ -199,7 +196,6 @@ const About = () => {
         </ol>
       </motion.section>
 
-      {/* OPERATING SYSTEM GRID */}
       <motion.section className="os-grid" {...fade(0.15)}>
         <h2>The operating system for growth</h2>
         <p className="lead">
@@ -223,7 +219,6 @@ const About = () => {
         </div>
       </motion.section>
 
-      {/* DIFFERENTIATORS */}
       <motion.section className="diff" {...fade(0.2)}>
         <h2>What makes us different</h2>
         <div className="diff-list">
@@ -239,7 +234,6 @@ const About = () => {
         </div>
       </motion.section>
 
-      {/* METRICS RIBBON */}
       <motion.section className="ribbon" {...fade(0.25)}>
         {stats.map((s) => (
           <div key={s.label} className="kpi">
@@ -249,7 +243,6 @@ const About = () => {
         ))}
       </motion.section>
 
-      {/* TESTIMONIALS (text-only) */}
       <motion.section className="testimonials" {...fade(0.3)}>
         <h2>What partners say</h2>
         <div className="quotes">
@@ -262,7 +255,6 @@ const About = () => {
         </div>
       </motion.section>
 
-      {/* FAQ */}
       <motion.section className="faq" {...fade(0.35)}>
         <h2>Frequently asked</h2>
         <div className="faq-list">
@@ -293,7 +285,6 @@ const About = () => {
         </div>
       </motion.section>
 
-      {/* CTA */}
       <motion.section className="cta" {...fade(0.4)}>
         <div className="cta-inner">
           <div>

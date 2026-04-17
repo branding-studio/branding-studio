@@ -15,21 +15,13 @@ html {
 
 
 :root {
-  /* ===============================
-     BRAND CORE (Logo Matched)
-  =============================== */
-
-  /* Primary – Deep Purple (Logo Base) */
   --primary-color: #4b2b82;
   --primary-color-dark: #2e164f;
   --primary-color-light: #7a5ccf;
-
-  /* Accent – Indigo / Royal Blue */
   --accent-color: #4f6bdc;
   --accent-color-dark: #3a54b4;
   --accent-color-light: #7f94ff;
 
-  /* Gradient – Cinematic Purple → Blue */
   --accent-color-gradient: linear-gradient(
     135deg,
     #4b2b82,
@@ -37,46 +29,22 @@ html {
     #4f6bdc
   );
 
-  /* ===============================
-     TEXT COLORS
-  =============================== */
-
   --text-light: #ffffff;
   --text-muted: #cbd5f5;
   --text-dark: #1e1b2e;
-
-  /* ===============================
-     BACKGROUNDS
-  =============================== */
-
   --bg-light: #f6f7ff;
   --bg-muted: #eef0ff;
   --bg-dark-purple: #1f1333;
-
-  /* ===============================
-     STATUS
-  =============================== */
-
   --success-color: #22c55e;
-
-  /* ===============================
-     UI TOKENS (keep as-is)
-  =============================== */
-
   --radius-lg: 2rem;
   --radius-md: 1.6rem;
   --radius-sm: 1.2rem;
-
   --shadow-lg: 0 14px 40px rgba(75, 43, 130, 0.18);
   --shadow-md: 0 8px 22px rgba(75, 43, 130, 0.14);
   --shadow-sm: 0 6px 16px rgba(75, 43, 130, 0.12);
-
   --break-md: 768px;
   --break-lg: 1024px;
 }
-
-
-  
 
   @keyframes slideUpFade {
   0% {
@@ -105,7 +73,7 @@ html {
 .circle-bg .circle {
   position: absolute;
   border-radius: 50%;
-  background: rgba(0, 82, 204, 0.016); /* bluish circles */
+  background: rgba(0, 82, 204, 0.016); 
   animation: floatUp linear infinite;
 }
 
@@ -114,7 +82,7 @@ html {
   height: 35px;
   left: 10%;
   bottom: -100px;
-  background: rgba(255, 99, 132, 0.28); /* soft red */
+  background: rgba(255, 99, 132, 0.28); 
   animation-duration: 24s;
 }
 
@@ -123,7 +91,7 @@ html {
   height: 40px;
   left: 25%;
   bottom: -60px;
-  background: rgba(54, 163, 235, 0.145); /* soft blue */
+  background: rgba(54, 163, 235, 0.145); 
   animation-duration: 18s;
 }
 
@@ -132,7 +100,7 @@ html {
   height: 20px;
   left: 40%;
   bottom: -40px;
-  background: rgba(255, 207, 86, 0.149); /* soft yellow */
+  background: rgba(255, 207, 86, 0.149); 
   animation-duration: 22s;
 }
 
@@ -141,7 +109,7 @@ html {
   height: 60px;
   left: 55%;
   bottom: -70px;
-  background: rgba(75, 192, 192, 0.142); /* soft teal */
+  background: rgba(75, 192, 192, 0.142); 
   animation-duration: 30s;
 }
 
@@ -150,7 +118,7 @@ html {
   height: 30px;
   left: 70%;
   bottom: -50px;
-  background: rgba(153, 102, 255, 0.131); /* soft purple */
+  background: rgba(153, 102, 255, 0.131); 
   animation-duration: 26s;
 }
 
@@ -159,7 +127,7 @@ html {
   height: 40px;
   left: 85%;
   bottom: -120px;
-  background: rgba(255, 160, 64, 0.17); /* soft orange */
+  background: rgba(255, 160, 64, 0.17); 
   animation-duration: 35s;
 }
 
@@ -168,7 +136,7 @@ html {
   height: 25px;
   left: 15%;
   bottom: -45px;
-  background: rgba(0, 255, 128, 0.171); /* soft green */
+  background: rgba(0, 255, 128, 0.171); 
   animation-duration: 28s;
 }
 
@@ -177,7 +145,7 @@ html {
   height: 50px;
   left: 65%;
   bottom: -75px;
-  background: rgba(255, 0, 255, 0.177); /* soft magenta */
+  background: rgba(255, 0, 255, 0.177); 
   animation-duration: 20s;
 }
 
@@ -186,7 +154,7 @@ html {
   height: 30px;
   left: 65%;
   bottom: 100%;
-  background: rgba(255, 0, 255, 0.148); /* soft magenta */
+  background: rgba(255, 0, 255, 0.148); 
   animation-duration: 20s;
 }
 
@@ -195,7 +163,7 @@ html {
   height: 30px;
   left: 5%;
   bottom: 100%;
-  background: rgba(0, 238, 255, 0.163); /* soft magenta */
+  background: rgba(0, 238, 255, 0.163); 
   animation-duration: 20s;
 }
 
@@ -239,8 +207,6 @@ html {
 .spinner-mini { width: 16px; height: 16px; margin-right: .6rem; vertical-align: -3px; display: inline-block; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
-
-/* Global overlay (for destructive/saving actions) */
 .loading-overlay {
   position: fixed;
   inset: 0;
@@ -251,7 +217,6 @@ html {
   z-index: 10000;
 }
 
-/* Category chip skeletons */
 .bd-categories .pill.skeleton {
   width: 110px;
   height: 36px;
@@ -262,8 +227,6 @@ html {
   border: none;
 }
 @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-
-/* Meta skeleton lines */
 .meta-skeleton .line {
   height: 12px;
   border-radius: 6px;
@@ -272,12 +235,8 @@ html {
 }
 .meta-skeleton .w40 { width: 40%; }
 .meta-skeleton .w60 { width: 60%; }
-
-/* Disable buttons while loading (optional) */
 .btn[disabled] { opacity: .65; cursor: not-allowed; }
 
-
-/* Back tracker / breadcrumb */
 .post-breadcrumb {
   display: flex;
   align-items: center;

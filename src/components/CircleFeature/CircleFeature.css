@@ -1,10 +1,9 @@
-/* ===== Shell ===== */
+
 .circle-feature-alt{
   padding: clamp(3rem, 5vw, 6rem) clamp(1rem, 3vw, 2rem);
   text-align: center;
 }
 
-/* ===== Intro ===== */
 .feature-intro{
   max-width: min(720px, 92vw);
   margin: 0 auto clamp(2rem, 5vw, 4rem);
@@ -31,10 +30,8 @@
   line-height: 1.7;
 }
 
-/* ===== Icon grid ===== */
 .feature-icons-grid{
   display: grid;
-  /* grows from 120→160px tracks, always centered */
   grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 22vw, 160px), 1fr));
   gap: clamp(1rem, 3vw, 2rem);
   justify-content: center;
@@ -66,7 +63,6 @@
   margin-top: .8rem;
 }
 
-/* ===== Stats ===== */
 .feature-stats-panel{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(clamp(160px, 28vw, 220px), 1fr));
@@ -96,13 +92,11 @@
   color: #6b7280;
 }
 
-/* ===== Tiny screens ===== */
 @media (max-width: 480px){
   .feature-stats-panel{ text-align: center; }
   .stat-card-alt{ text-align: center; }
 }
 
-/* ===== Motion accessibility ===== */
 @media (prefers-reduced-motion: reduce){
   .icon-circle,
   .stat-card-alt{ transition: none !important; }

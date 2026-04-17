@@ -1,29 +1,23 @@
-/* ===== Design Tokens ===== */
+
 :root{
   --page-max: 1400px;
-
   --ink: #0b1220;
   --muted: #5f6b89;
-
   --bg: #060914;
   --panel: #0d1224;
   --panel-2: #0f1630;
-
   --primary: #7c5cff;
   --primary-2: #a182ff;
   --accent: #ff7a59;
   --accent-2: #ffd3c8;
-
   --line: rgba(0,0,0,.08);
   --ring: rgba(124,92,255,.28);
-
   --shadow-1: 0 10px 30px rgba(12,16,40,.15);
   --shadow-2: 0 30px 60px rgba(12,16,40,.22);
-
   --radius: 18px;
 }
 
-/* ===== Shell (single column) ===== */
+
 .ppc2-shell{
   position: relative;
   min-height: 100dvh;
@@ -39,7 +33,6 @@
   z-index:-1;
 }
 
-/* ===== Main ===== */
 .ppc2-main{
   position: relative; z-index: 1;
   padding: 28px 28px 88px;
@@ -48,7 +41,6 @@
   color: var(--ink);
 }
 
-/* ===== Hero ===== */
 .ppc2-hero{
   background:
     linear-gradient(180deg, rgba(124,92,255,.06), transparent 60%) padding-box,
@@ -84,10 +76,9 @@
 .ppc2-statNum{ font-weight: 900; font-size: 20px; display:block; color: var(--ink); }
 .ppc2-statLbl{ font-size: 13px; color: var(--muted); }
 
-/* ===== NEW: Centered Nav below hero ===== */
 .ppc2-centerNav{
   position: sticky;
-  top: 0;               /* sticks under the app header if any */
+  top: 0;          
   z-index: 10;
   margin-top: 16px;
   padding: 12px 14px;
@@ -97,7 +88,7 @@
   backdrop-filter: blur(8px) saturate(1.05);
   box-shadow: 0 6px 18px rgba(12,16,40,.08);
   display: grid;
-  grid-template-columns: 1fr auto; /* pills + CTA */
+  grid-template-columns: 1fr auto; 
   gap: 12px;
   z-index: 100;
 }
@@ -133,12 +124,10 @@
 }
 .ppc2-centerNavItem.is-active .ppc2-dot{ opacity: 1; transform: scale(1); }
 
-/* CTA inside the center nav */
 .ppc2-centerNavCta{
   justify-self: end;
 }
 
-/* ===== Sections ===== */
 .ppc2-section{ margin-top: 32px; }
 .ppc2-section--alt{
   background: #ffffff;
@@ -161,7 +150,6 @@
   box-shadow: 0 10px 24px rgba(124,92,255,.22);
 }
 
-/* cards grid */
 .ppc2-grid{
   display: grid; gap: 16px;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -196,8 +184,6 @@
 .ppc2-cardText{ margin: 0 0 12px; color: var(--muted); font-size: 15.5px; }
 
 .ppc2-actions{ display: flex; flex-wrap: wrap; gap: 10px; }
-
-/* ===== Chips / Deliverables ===== */
 .ppc2-slab{ margin-top: 32px; }
 .ppc2-slabHead h3{ margin: 0; font-size: 24px; font-weight: 900; color: var(--ink); }
 .ppc2-slabHead p{ margin: 6px 0 12px; color: var(--muted); font-size: 16px; }
@@ -223,7 +209,6 @@
 }
 .ppc2-list svg{ color: #16a34a; }
 
-/* ===== Steps ===== */
 .ppc2-steps{ margin-top: 32px; }
 .ppc2-stepsGrid{
   display: grid; gap: 14px; list-style: none; padding: 0; margin: 0;
@@ -242,7 +227,6 @@
   linear-gradient(135deg, var(--primary), var(--accent)); box-shadow: 0 10px 24px rgba(124,92,255,.22);
 }
 
-/* ===== CTA / Buttons ===== */
 .ppc2-btn{
   display: inline-flex; align-items: center; gap: 10px;
   padding: 12px 16px; border-radius: 999px; cursor: pointer;
@@ -268,7 +252,6 @@
   background: linear-gradient(135deg, var(--primary), var(--accent)); border: none; color:#fff;
 }
 
-/* ===== Bottom Banner ===== */
 .ppc2-banner{
   position: sticky; bottom: 16px; margin-top: 32px;
   z-index: 100;
@@ -285,7 +268,6 @@
 .ppc2-bannerText h3{ margin: 0; font-size: 20px; font-weight: 900; }
 .ppc2-bannerText p{ margin: 4px 0 0; color: white; font-size: 15.5px; }
 
-/* ===== Responsive ===== */
 @media (max-width: 1100px){
   .ppc2-main{ padding: 22px 18px 84px; }
 }
@@ -294,7 +276,7 @@
   .ppc2-centerNav{
     grid-template-columns: 1fr;
     gap: 8px;
-    top: 0; /* remains sticky */
+    top: 0;
   }
   .ppc2-centerNavList{
     overflow-x: auto; overflow-y: hidden;
@@ -330,7 +312,6 @@
  
 }
 
-/* ===== Pricing & Engagement ===== */
 .ppc2-pricing { margin-top: 1.2rem; padding: 0 0 2.8rem; }
 .ppc2-pricingGrid {
   display: grid; gap: 1.2rem;

@@ -1,4 +1,4 @@
-// src/components/SEO.jsx
+
 import { useEffect } from "react";
 
 const KEY = "data-react-seo";
@@ -65,9 +65,9 @@ export function SEO({
   canonical,
   ogImage,
   ogType = "article",
-  article = {}, // { publishedTime, modifiedTime, section, author }
+  article = {},
   twitterCard = "summary_large_image",
-  jsonLd, // object
+  jsonLd,
 }) {
   useEffect(() => {
     const prevTitle = document.title;
@@ -78,7 +78,6 @@ export function SEO({
       upsertMetaByName("keywords", keywords),
       upsertLink("canonical", canonical),
 
-      // Open Graph
       upsertMetaByProp("og:title", title),
       upsertMetaByProp("og:description", description),
       upsertMetaByProp("og:url", canonical),
@@ -89,7 +88,6 @@ export function SEO({
       article.modifiedTime ? upsertMetaByProp("article:modified_time", article.modifiedTime) : null,
       article.author ? upsertMetaByProp("article:author", article.author) : null,
 
-      // Twitter
       upsertMetaByName("twitter:card", twitterCard),
       upsertMetaByName("twitter:title", title),
       upsertMetaByName("twitter:description", description),

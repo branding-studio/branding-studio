@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAdminContext } from "../../context/AdminContext";
 import { useLocalContext } from "../../context/LocalContext";
  import { doc, getDoc } from "firebase/firestore";
-import {  db } from "../../firebase/firebaseConfig"; // make sure this path is correct
+import {  db } from "../../firebase/firebaseConfig";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +14,6 @@ const AdminLogin = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
-  // alias to avoid name confusion with component
   const { adminSignIn } = useAdminContext();
   const { webinfo } = useLocalContext();
 
@@ -25,7 +24,7 @@ const handleLogin = async (e) => {
   setIsSubmitting(true);
 
   try {
-  await adminSignIn(email, password); // no return expected
+  await adminSignIn(email, password); 
   navigate("/admin/dashboard");
 } catch (err) {
   setError(err?.message || "Login failed. Please try again.");
@@ -36,7 +35,6 @@ const handleLogin = async (e) => {
 
   return (
     <div className="admin-auth-shell">
-      {/* Left / Brand panel */}
       <aside className="admin-auth-brand">
         <div className="brand-inner">
           <div className="brand-badge">{webinfo?.name || "Your Brand"}</div>
@@ -53,7 +51,7 @@ const handleLogin = async (e) => {
         </div>
       </aside>
 
-      {/* Right / Form panel */}
+
       <main className="admin-auth-main">
         <form className="auth-card" onSubmit={handleLogin} noValidate>
           <header className="auth-header">

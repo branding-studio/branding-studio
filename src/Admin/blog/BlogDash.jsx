@@ -35,7 +35,7 @@ const BlogDash = () => {
   const [savingSEO, setSavingSEO] = useState(false);
   const [deletingCatId, setDeletingCatId] = useState(null);
   const [editingCatId, setEditingCatId] = useState(null);
-  const [busyOverlay, setBusyOverlay] = useState(false); // global overlay for mutations
+  const [busyOverlay, setBusyOverlay] = useState(false); 
 
   const {
     fetchCategories,

@@ -1,4 +1,4 @@
-// src/context/AdminContext.jsx
+
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "../firebase/firebaseConfig";
@@ -7,18 +7,15 @@ import { toast } from "react-toastify";
 
 const AdminContext = createContext(undefined);
 
-// ---- Roles & permissions config ----
 export const ROLES = {
-  MASTER: "master",   // superuser
-  ADMIN:  "all",      // your existing super-admin
+  MASTER: "master",  
+  ADMIN:  "all",     
   EDITOR: "editor",
   VIEWER: "viewer",
 };
 
-// Who can access the admin panel at all:
 const PANEL_ACCESS_ROLES = [ROLES.MASTER, ROLES.ADMIN, ROLES.EDITOR]; // tweak if needed
 
-// Ranking for "at least" checks
 const ROLE_RANK = {
   [ROLES.VIEWER]: 0,
   [ROLES.EDITOR]: 1,
@@ -37,12 +34,11 @@ export const AdminProvider = ({ children }) => {
     uid,
     email: data.email,
     role: data.role || ROLES.VIEWER,
-    perms: data.perms || [], // e.g. ["blog.write","users.manage"]
+    perms: data.perms || [], 
   });
 
   const isAllowedForPanel = (role) => PANEL_ACCESS_ROLES.includes(role);
 
-  // auth state
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       try {
@@ -86,14 +82,13 @@ export const AdminProvider = ({ children }) => {
     return unsub;
   }, []);
 
- // in AdminContext
 const adminSignIn = async (email, password) => {
   const cred = await signInWithEmailAndPassword(auth, email, password);
 
   const ref = doc(db, "admin", cred.user.uid);
   const snap = await getDoc(ref);
   if (!snap.exists()) {
-    await signOut(auth); // keep auth clean
+    await signOut(auth); 
     throw new Error("Access denied");
   }
 
@@ -125,7 +120,6 @@ try {
 }
 };
 
-  // ---------- helpers you can use anywhere ----------
   const hasRole = (...roles) => !!admin && roles.includes(admin.role);
   const hasAnyRole = (roles = []) => !!admin && roles.includes(admin.role);
   const hasMinRole = (required) =>
@@ -142,7 +136,6 @@ try {
         : { lastLogout: serverTimestamp(), lastSeen: serverTimestamp() }),
     });
   } catch (e) {
-    // don't block UI on presence update
     console.warn("Presence update failed:", e);
   }
 };

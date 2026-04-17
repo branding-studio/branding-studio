@@ -14,12 +14,10 @@ const TelegramFixed = ({
   pulse = true,
 }) => {
   const { openTelegram, getTelegramUrl, webinfo = {} } = useLocalContext();
-
-  // Build Telegram URL: priority = explicit override → prop → context fallback
   const telegramUrl =
     hrefOverride ||
     (handle ? `https://t.me/${handle.replace(/^@/, "")}` : null) ||
-    getTelegramUrl?.({ preferApp: false }) || // centralized web-friendly href
+    getTelegramUrl?.({ preferApp: false }) || 
     "https://t.me/";
 
   return (
@@ -36,7 +34,7 @@ const TelegramFixed = ({
         rel="noopener noreferrer"
         onClick={(e) => {
           e.preventDefault();
-          openTelegram?.({ handle }); // centralized handler with optional override
+          openTelegram?.({ handle }); 
         }}
         aria-label={`Open Telegram @${
           handle || webinfo.telegramHandle || "contact"

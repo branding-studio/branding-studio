@@ -113,14 +113,20 @@ const ManageTeam = () => {
   };
 
   const isValid = useMemo(() => {
+    const hasRequiredDescription = isLeadershipType
+      ? form.description.trim().length > 0
+      : true;
+
     return (
       form.type &&
       form.name.trim() &&
       form.role.trim() &&
+      hasRequiredDescription &&
       (form.imageUrl.trim() || selectedImage) &&
-      Number.isFinite(Number(form.sortOrder))
+      Number.isFinite(Number(form.sortOrder)) &&
+      Number(form.sortOrder) > 0
     );
-  }, [form, selectedImage]);
+  }, [form, selectedImage, isLeadershipType]);
 
   const resetForm = () => {
     setForm(initialForm);
@@ -146,7 +152,7 @@ const ManageTeam = () => {
     if (!isValid || loading) {
       setMessage({
         type: "error",
-        text: "Please fill all required fields correctly.",
+        text: "Please fill all visible fields before saving this member.",
       });
       return;
     }
@@ -353,7 +359,7 @@ const ManageTeam = () => {
 
             {isLeadershipType ? (
               <div className="mt-field">
-                <label htmlFor="description">Description (optional)</label>
+                <label htmlFor="description">Description *</label>
                 <textarea
                   id="description"
                   name="description"
@@ -417,7 +423,7 @@ const ManageTeam = () => {
         )}
 
         <div className="mt-actions">
-          <button className="btn primary" type="submit" disabled={loading}>
+          <button className="btn primary" type="submit" disabled={loading || !isValid}>
             {loading
               ? editingId
                 ? "Updating..."

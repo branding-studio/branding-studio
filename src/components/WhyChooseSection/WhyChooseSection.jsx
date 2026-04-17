@@ -52,13 +52,13 @@ const features = [
   icon: <FaUsers />,
   title: "Dedicated Account Manager",
   desc: "Every client gets a dedicated strategist to ensure smooth communication, clarity, and consistent support.",
-  color: "#f97316", // Orange
+  color: "#f97316", 
 },
 {
   icon: <FaLightbulb />,
   title: "Creative Ad Strategy",
   desc: "We craft compelling ad creatives and messaging that align with your brand and engage your audience effectively.",
-  color: "#a855f7", // Violet
+  color: "#a855f7", 
 },
 
 ];
