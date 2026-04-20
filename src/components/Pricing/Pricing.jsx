@@ -629,7 +629,12 @@ const Pricing = () => {
       </div>
 
       <div className="pdf-only-wrapper">
-        <div ref={pdfRef} className="pdf-quotation">
+        <div
+          ref={pdfRef}
+          className={`pdf-quotation ${
+            selectedServices.length <= 2 ? "pdf-quotation--compact" : ""
+          }`}
+        >
           <div className="pdf-quotation__header">
             <div className="pdf-quotation__brand">
               <img
@@ -680,7 +685,7 @@ const Pricing = () => {
             </div>
           </div>
 
-          <div className="pdf-quotation__section">
+          <div className="pdf-quotation__section pdf-quotation__section--spaced">
             <h2>Selected Services</h2>
 
             <table className="pdf-quotation__table">
@@ -723,7 +728,7 @@ const Pricing = () => {
             </table>
           </div>
 
-          <div className="pdf-quotation__total">
+          <div className="pdf-quotation__total pdf-quotation__total--spaced">
             <div className="pdf-quotation__total-breakdown">
               <span>Subtotal: ₹{totalPrice.toLocaleString("en-IN")}/-</span>
               <span>GST (18%): ₹{gstAmount.toLocaleString("en-IN")}/-</span>
@@ -731,11 +736,11 @@ const Pricing = () => {
             <strong>₹{grandTotal.toLocaleString("en-IN")}/-</strong>
           </div>
 
-          <div className="pdf-quotation__section">
+          <div className="pdf-quotation__section pdf-quotation__section--spaced pdf-quotation__section--terms">
             <h2>Terms & Conditions</h2>
             <ul className="pdf-quotation__terms">
               <li>Quotation is valid for 7 days from the issue date.</li>
-              <li>50% advance may be required before project start.</li>
+              <li>100% advance may be required before project start.</li>
               <li>Final delivery timelines depend on scope and approvals.</li>
               <li>
                 Third-party ad spend, influencer charges, and production

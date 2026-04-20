@@ -1,14 +1,15 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./ManageServiceSamples.css";
-import { db, storage } from "../../firebase/firebaseConfig";
+import { db } from "../../firebase/firebaseConfig";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import {
   serviceSampleDefaults,
   serviceSampleLabels,
 } from "../../utils/serviceSamples";
 
 const serviceKeys = Object.keys(serviceSampleDefaults);
+const cloudinaryCloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
+const cloudinaryUploadPreset = process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET;
 
 const createSample = (id = `sample-${Date.now()}`) => ({
   id,
@@ -59,11 +60,49 @@ const normalizeServices = (storedServices = {}) =>
     return acc;
   }, {});
 
-const uploadFileToStorage = async (file, folder) => {
-  const sanitizedName = file.name.replace(/\s+/g, "-").toLowerCase();
-  const fileRef = ref(storage, `${folder}/${Date.now()}-${sanitizedName}`);
-  await uploadBytes(fileRef, file);
-  return getDownloadURL(fileRef);
+const withTimeout = (promise, ms, message) =>
+  Promise.race([
+    promise,
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error(message)), ms)
+    ),
+  ]);
+
+const uploadFileToCloudinary = async (file, folder) => {
+  if (!cloudinaryCloudName || !cloudinaryUploadPreset) {
+    throw new Error("Cloudinary upload is not configured yet. Please check the cloud name and upload preset.");
+  }
+
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", cloudinaryUploadPreset);
+  formData.append("folder", folder);
+  formData.append("resource_type", "auto");
+
+  const response = await withTimeout(
+    fetch(`https://api.cloudinary.com/v1_1/${cloudinaryCloudName}/auto/upload`, {
+      method: "POST",
+      body: formData,
+    }),
+    20000,
+    "Cloudinary upload timed out. Please try again."
+  );
+
+  if (!response.ok) {
+    let message = "Cloudinary upload failed.";
+
+    try {
+      const errorData = await response.json();
+      message = errorData?.error?.message || message;
+    } catch (error) {
+      // Ignore JSON parse errors and use the fallback message.
+    }
+
+    throw new Error(message);
+  }
+
+  const data = await response.json();
+  return data.secure_url;
 };
 
 const createVideoThumbnail = (file) =>
@@ -130,6 +169,7 @@ const ManageServiceSamples = () => {
   const [activeService, setActiveService] = useState(serviceKeys[0]);
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [savingSampleId, setSavingSampleId] = useState(null);
   const [fetching, setFetching] = useState(true);
 
   useEffect(() => {
@@ -217,85 +257,157 @@ const ManageServiceSamples = () => {
     });
   };
 
+  const buildPersistedSample = async (sample, serviceKey) => {
+    const title = sample.title.trim();
+    const category = sample.category.trim();
+    const source = sample.source === "local" ? "local" : "url";
+    let thumb = sample.thumb.trim();
+    let link = sample.link.trim();
+
+    if (!title) {
+      throw new Error("Please add a title before saving this sample.");
+    }
+
+    if (source === "local") {
+      if (sample.type === "photo") {
+        if (!sample.mediaFile && !thumb && !link) {
+          throw new Error(`Please choose a local photo for "${title}".`);
+        }
+
+        if (sample.mediaFile) {
+          const photoUrl = await uploadFileToCloudinary(
+            sample.mediaFile,
+            `service-samples/${serviceKey}/photos`
+          );
+          thumb = photoUrl;
+          link = photoUrl;
+        }
+      } else {
+        if (!sample.mediaFile && !link) {
+          throw new Error(`Please choose a local video for "${title}".`);
+        }
+
+        if (sample.mediaFile) {
+          link = await uploadFileToCloudinary(
+            sample.mediaFile,
+            `service-samples/${serviceKey}/videos`
+          );
+        }
+
+        if (sample.thumbFile) {
+          thumb = await uploadFileToCloudinary(
+            sample.thumbFile,
+            `service-samples/${serviceKey}/thumbs`
+          );
+        }
+      }
+    }
+
+    if (!thumb || !link) {
+      throw new Error(
+        `Please complete both thumbnail and media fields for "${title}".`
+      );
+    }
+
+    return {
+      id: sample.id,
+      type: sample.type === "photo" ? "photo" : "video",
+      title,
+      category,
+      thumb,
+      link,
+    };
+  };
+
+  const saveServiceSamples = async (targetSampleId = null) => {
+    const currentDocRef = doc(db, "service_samples", "main");
+    const currentDoc = await withTimeout(
+      getDoc(currentDocRef),
+      10000,
+      "Could not read existing samples from Firestore."
+    );
+    const existingServices = currentDoc.data()?.services || {};
+
+    if (targetSampleId) {
+      const targetSample = (services[activeService] || []).find(
+        (sample) => sample.id === targetSampleId
+      );
+
+      if (!targetSample) {
+        throw new Error("Sample not found.");
+      }
+
+      const savedSample = await buildPersistedSample(targetSample, activeService);
+      const existingActiveSamples = Array.isArray(existingServices[activeService])
+        ? existingServices[activeService]
+        : [];
+
+      const sampleExists = existingActiveSamples.some(
+        (sample) => sample.id === targetSampleId
+      );
+
+      const nextActiveSamples = sampleExists
+        ? existingActiveSamples.map((sample) =>
+            sample.id === targetSampleId ? savedSample : sample
+          )
+        : [...existingActiveSamples, savedSample];
+
+      const nextServices = {
+        ...existingServices,
+        [activeService]: nextActiveSamples,
+      };
+
+      await withTimeout(
+        setDoc(currentDocRef, {
+          services: nextServices,
+          updatedAt: serverTimestamp(),
+        }),
+        10000,
+        "Could not save this sample to Firestore."
+      );
+
+      setServices(normalizeServices(nextServices));
+      setMessage({
+        type: "success",
+        text: `"${savedSample.title}" saved successfully.`,
+      });
+      return;
+    }
+
+    const currentSamples = services[activeService] || [];
+    const builtSamples = [];
+
+    for (const sample of currentSamples) {
+      if (!sample.title.trim()) continue;
+      builtSamples.push(await buildPersistedSample(sample, activeService));
+    }
+
+    const nextServices = {
+      ...existingServices,
+      [activeService]: builtSamples,
+    };
+
+    await withTimeout(
+      setDoc(currentDocRef, {
+        services: nextServices,
+        updatedAt: serverTimestamp(),
+      }),
+      10000,
+      "Could not save samples to Firestore."
+    );
+
+    setServices(normalizeServices(nextServices));
+    setMessage({
+      type: "success",
+      text: `${serviceSampleLabels[activeService]} samples updated successfully.`,
+    });
+  };
+
   const handleSave = async () => {
     try {
       setLoading(true);
       setMessage(null);
-
-      const sanitized = {};
-
-      for (const key of serviceKeys) {
-        const builtSamples = [];
-
-        for (const sample of services[key] || []) {
-          const title = sample.title.trim();
-          const category = sample.category.trim();
-          const source = sample.source === "local" ? "local" : "url";
-          let thumb = sample.thumb.trim();
-          let link = sample.link.trim();
-
-          if (!title) continue;
-
-          if (source === "local") {
-            if (sample.type === "photo") {
-              if (!sample.mediaFile && !thumb && !link) continue;
-
-              if (sample.mediaFile) {
-                const photoUrl = await uploadFileToStorage(
-                  sample.mediaFile,
-                  `service-samples/${key}/photos`
-                );
-                thumb = photoUrl;
-                link = photoUrl;
-              }
-            } else {
-              if (!sample.mediaFile && !link) continue;
-
-              if (sample.mediaFile) {
-                link = await uploadFileToStorage(
-                  sample.mediaFile,
-                  `service-samples/${key}/videos`
-                );
-              }
-
-              if (sample.thumbFile) {
-                thumb = await uploadFileToStorage(
-                  sample.thumbFile,
-                  `service-samples/${key}/thumbs`
-                );
-              }
-            }
-          }
-
-          if (!thumb || !link) {
-            throw new Error(
-              `Please complete both thumbnail and media fields for "${title}".`
-            );
-          }
-
-          builtSamples.push({
-            id: sample.id,
-            type: sample.type === "photo" ? "photo" : "video",
-            title,
-            category,
-            thumb,
-            link,
-          });
-        }
-
-        sanitized[key] = builtSamples;
-      }
-
-      await setDoc(doc(db, "service_samples", "main"), {
-        services: sanitized,
-        updatedAt: serverTimestamp(),
-      });
-
-      setServices(normalizeServices(sanitized));
-      setMessage({
-        type: "success",
-        text: "Service samples updated successfully.",
-      });
+      await saveServiceSamples();
     } catch (error) {
       console.error("Failed to save service samples:", error);
       setMessage({
@@ -304,6 +416,22 @@ const ManageServiceSamples = () => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSaveSample = async (sampleId) => {
+    try {
+      setSavingSampleId(sampleId);
+      setMessage(null);
+      await saveServiceSamples(sampleId);
+    } catch (error) {
+      console.error("Failed to save sample:", error);
+      setMessage({
+        type: "error",
+        text: error?.message || "Failed to save this sample.",
+      });
+    } finally {
+      setSavingSampleId(null);
     }
   };
 
@@ -362,13 +490,24 @@ const ManageServiceSamples = () => {
                   <article className="mss-sample-card" key={sample.id}>
                     <div className="mss-sample-head">
                       <h4>Sample {index + 1}</h4>
-                      <button
-                        type="button"
-                        className="btn small danger"
-                        onClick={() => removeSample(sample.id)}
-                      >
-                        Remove
-                      </button>
+                      <div className="mss-sample-actions">
+                        <button
+                          type="button"
+                          className="btn small ghost"
+                          onClick={() => handleSaveSample(sample.id)}
+                          disabled={savingSampleId === sample.id || loading}
+                        >
+                          {savingSampleId === sample.id ? "Saving..." : "Save This Sample"}
+                        </button>
+                        <button
+                          type="button"
+                          className="btn small danger"
+                          onClick={() => removeSample(sample.id)}
+                          disabled={savingSampleId === sample.id}
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </div>
 
                     <div className="mss-grid-2">

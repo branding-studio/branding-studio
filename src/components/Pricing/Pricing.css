@@ -427,7 +427,7 @@
   width: 794px;
   background: #ffffff;
   color: #111827;
-  padding: 36px;
+  padding: 32px;
   font-family: Arial, sans-serif;
 }
 
@@ -448,10 +448,71 @@
 }
 
 .pdf-quotation__logo {
-  width: 68px;
+  width: 88px;
   height: auto;
   object-fit: contain;
   flex-shrink: 0;
+}
+
+.pdf-quotation--compact {
+  padding: 28px;
+}
+
+.pdf-quotation--compact .pdf-quotation__header {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+}
+
+.pdf-quotation--compact .pdf-quotation__section {
+  margin-bottom: 18px;
+}
+
+.pdf-quotation--compact .pdf-quotation__section--spaced,
+.pdf-quotation--compact .pdf-quotation__section--terms {
+  margin-top: 14px;
+}
+
+.pdf-quotation--compact .pdf-quotation__client-grid {
+  gap: 8px 18px;
+  font-size: 13px;
+  line-height: 1.42;
+}
+
+.pdf-quotation--compact .pdf-quotation__table {
+  font-size: 12px;
+}
+
+.pdf-quotation--compact .pdf-quotation__table th,
+.pdf-quotation--compact .pdf-quotation__table td {
+  padding: 7px 9px;
+}
+
+.pdf-quotation--compact .pdf-quotation__service-desc {
+  font-size: 10px;
+  line-height: 1.25;
+}
+
+.pdf-quotation--compact .pdf-quotation__total {
+  padding: 12px 14px;
+}
+
+.pdf-quotation--compact .pdf-quotation__total--spaced {
+  margin-top: 10px;
+}
+
+.pdf-quotation--compact .pdf-quotation__terms {
+  font-size: 11px;
+  line-height: 1.42;
+}
+
+.pdf-quotation--compact .pdf-quotation__terms li {
+  margin-bottom: 4px;
+}
+
+.pdf-quotation--compact .pdf-quotation__footer {
+  margin-top: 14px;
+  padding-top: 12px;
+  font-size: 12px;
 }
 
 .pdf-quotation__header h1 {
@@ -474,6 +535,16 @@
 
 .pdf-quotation__section {
   margin-bottom: 24px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.pdf-quotation__section--spaced {
+  margin-top: 18px;
+}
+
+.pdf-quotation__section--terms {
+  margin-top: 20px;
 }
 
 .pdf-quotation__section h2 {
@@ -486,21 +557,23 @@
 .pdf-quotation__client-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px 20px;
+  gap: 10px 20px;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .pdf-quotation__table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 13px;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 .pdf-quotation__table th,
 .pdf-quotation__table td {
   border: 1px solid #e5e7eb;
-  padding: 10px 12px;
+  padding: 8px 10px;
   vertical-align: top;
   text-align: left;
 }
@@ -517,8 +590,8 @@
 
 .pdf-quotation__service-desc {
   color: #6b7280;
-  font-size: 12px;
-  line-height: 1.5;
+  font-size: 11px;
+  line-height: 1.35;
 }
 
 .pdf-quotation__total {
@@ -526,17 +599,24 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 8px;
-  padding: 16px 18px;
+  padding: 14px 16px;
   border-radius: 12px;
   background: #f5f3ff;
   border: 1px solid #ddd6fe;
   font-size: 18px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.pdf-quotation__total--spaced {
+  margin-top: 14px;
+  margin-bottom: 4px;
 }
 
 .pdf-quotation__total-breakdown {
   display: grid;
   gap: 4px;
-  font-size: 14px;
+  font-size: 13px;
   color: #4b5563;
 }
 
@@ -549,17 +629,23 @@
   margin: 0;
   padding-left: 18px;
   color: #374151;
-  font-size: 13px;
-  line-height: 1.8;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.pdf-quotation__terms li {
+  margin-bottom: 6px;
 }
 
 .pdf-quotation__footer {
-  margin-top: 28px;
+  margin-top: 20px;
   padding-top: 16px;
   border-top: 1px solid #e5e7eb;
   text-align: center;
   font-size: 13px;
   color: #6b7280;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 @media (max-width: 1100px) {
