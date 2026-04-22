@@ -371,17 +371,23 @@
 }
 
 .pricing-summary__footer {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 18px;
-  align-items: center;
+  align-items: end;
   margin-top: 22px;
-  flex-wrap: wrap;
 }
 
 .pricing-summary__totals {
   display: grid;
   gap: 10px;
+  min-width: 0;
+}
+
+.pricing-summary__footer .pricing-btn--gradient {
+  align-self: end;
+  margin-bottom: 4px;
+  white-space: nowrap;
 }
 
 .pricing-summary__line {
@@ -395,6 +401,58 @@
 
 .pricing-summary__line strong {
   color: #171424;
+}
+
+.pricing-summary__line--total {
+  padding-top: 6px;
+  font-weight: 800;
+  color: #171424;
+}
+
+.pricing-summary__line--total strong {
+  color: #171424;
+}
+
+.pricing-summary__divider {
+  height: 1px;
+  margin: 4px 0;
+  background: rgba(153, 157, 181, 0.24);
+}
+
+.pricing-package-picker {
+  display: grid;
+  gap: 8px;
+  margin: 4px 0;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(245, 243, 255, 0.72);
+  border: 1px solid rgba(125, 110, 255, 0.16);
+}
+
+.pricing-package-picker label {
+  color: #5c45d3;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.pricing-package-picker select {
+  width: 100%;
+  border: 1px solid rgba(140, 145, 180, 0.22);
+  background: #ffffff;
+  color: #171424;
+  border-radius: 12px;
+  padding: 11px 12px;
+  font-size: 14px;
+  font-weight: 700;
+  outline: none;
+}
+
+.pricing-summary__line--save {
+  color: #15803d;
+}
+
+.pricing-summary__line--save strong {
+  color: #15803d;
 }
 
 .pricing-summary__final {
@@ -448,7 +506,7 @@
 }
 
 .pdf-quotation__logo {
-  width: 88px;
+  width: 175px;
   height: auto;
   object-fit: contain;
   flex-shrink: 0;
@@ -689,8 +747,14 @@
 
   .pricing-summary__head,
   .pricing-summary__footer {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     align-items: flex-start;
+  }
+
+  .pricing-summary__footer .pricing-btn--gradient {
+    align-self: stretch;
+    width: 100%;
+    margin-bottom: 0;
   }
 
   .pricing-summary__final {

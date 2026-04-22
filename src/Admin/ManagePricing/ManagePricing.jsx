@@ -72,6 +72,12 @@ const defaultCategories = [
   },
 ];
 
+const defaultPackageOptions = [
+  { id: "package-3-months", value: "3", label: "3 Months Package", months: 3, discount: 5 },
+  { id: "package-6-months", value: "6", label: "6 Months Package", months: 6, discount: 10 },
+  { id: "package-yearly", value: "12", label: "Yearly Package", months: 12, discount: 15 },
+];
+
 const createId = (value) =>
   String(value || "")
     .toLowerCase()
@@ -95,6 +101,20 @@ const normalizeCategories = (categories = defaultCategories) =>
       : [],
   }));
 
+const normalizePackageOptions = (options = defaultPackageOptions) =>
+  options.map((option, index) => {
+    const months = Number(option.months || option.value) || index + 1;
+    const rawDiscount = Number(option.discount) || 0;
+
+    return {
+      id: option.id || createId(option.label || `package-${index + 1}`),
+      value: String(option.value || months),
+      label: option.label || `${months} Months Package`,
+      months,
+      discount: rawDiscount <= 1 ? Math.round(rawDiscount * 100) : rawDiscount,
+    };
+  });
+
 const hasIncompletePricingFields = (categories = []) =>
   categories.some((category) => {
     if (!category.name.trim()) return true;
@@ -109,8 +129,21 @@ const hasIncompletePricingFields = (categories = []) =>
     );
   });
 
+const hasIncompletePackageFields = (options = []) =>
+  options.length === 0 ||
+  options.some(
+    (option) =>
+      !option.label.trim() ||
+      !Number.isFinite(Number(option.months)) ||
+      Number(option.months) <= 0 ||
+      !Number.isFinite(Number(option.discount)) ||
+      Number(option.discount) < 0 ||
+      Number(option.discount) > 100
+  );
+
 const ManagePricing = () => {
   const [categories, setCategories] = useState(defaultCategories);
+  const [packageOptions, setPackageOptions] = useState(defaultPackageOptions);
   const [activeCategoryId, setActiveCategoryId] = useState(defaultCategories[0].id);
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
@@ -122,6 +155,7 @@ const ManagePricing = () => {
         setFetching(true);
         const snap = await getDoc(doc(db, "pricing_settings", "main"));
         const storedCategories = snap.data()?.categories;
+        const storedPackageOptions = snap.data()?.packageOptions;
 
         if (Array.isArray(storedCategories) && storedCategories.length > 0) {
           const normalized = normalizeCategories(storedCategories);
@@ -131,6 +165,12 @@ const ManagePricing = () => {
           const normalized = normalizeCategories(defaultCategories);
           setCategories(normalized);
           setActiveCategoryId(normalized[0].id);
+        }
+
+        if (Array.isArray(storedPackageOptions) && storedPackageOptions.length > 0) {
+          setPackageOptions(normalizePackageOptions(storedPackageOptions));
+        } else {
+          setPackageOptions(normalizePackageOptions(defaultPackageOptions));
         }
       } catch (error) {
         console.error("Failed to load pricing settings:", error);
@@ -152,8 +192,10 @@ const ManagePricing = () => {
   );
 
   const isPricingComplete = useMemo(
-    () => !hasIncompletePricingFields(categories),
-    [categories]
+    () =>
+      !hasIncompletePricingFields(categories) &&
+      !hasIncompletePackageFields(packageOptions),
+    [categories, packageOptions]
   );
 
   const updateCategory = (categoryId, updates) => {
@@ -244,11 +286,53 @@ const ManagePricing = () => {
     );
   };
 
+  const updatePackageOption = (optionId, field, value) => {
+    setPackageOptions((prev) =>
+      prev.map((option) =>
+        option.id === optionId
+          ? {
+              ...option,
+              [field]: ["months", "discount"].includes(field)
+                ? Number(value) || 0
+                : value,
+              value: field === "months" ? String(Number(value) || 0) : option.value,
+            }
+          : option
+      )
+    );
+  };
+
+  const addPackageOption = () => {
+    const months = packageOptions.length > 0 ? packageOptions.length * 3 + 3 : 3;
+    setPackageOptions((prev) => [
+      ...prev,
+      {
+        id: `package-${Date.now()}`,
+        value: String(months),
+        label: `${months} Months Package`,
+        months,
+        discount: 0,
+      },
+    ]);
+  };
+
+  const removePackageOption = (optionId) => {
+    if (packageOptions.length === 1) {
+      setMessage({
+        type: "error",
+        text: "At least one package option is required.",
+      });
+      return;
+    }
+
+    setPackageOptions((prev) => prev.filter((option) => option.id !== optionId));
+  };
+
   const handleSave = async () => {
     if (!isPricingComplete) {
       setMessage({
         type: "error",
-        text: "Please fill every category and service field before saving pricing.",
+        text: "Please fill every category, service, and package field before saving pricing.",
       });
       return;
     }
@@ -264,10 +348,19 @@ const ManagePricing = () => {
         })),
     }));
 
+    const sanitizedPackageOptions = packageOptions.map((option) => ({
+      id: option.id,
+      value: String(Number(option.months) || 0),
+      label: option.label.trim(),
+      months: Number(option.months) || 0,
+      discount: (Number(option.discount) || 0) / 100,
+    }));
+
     try {
       setLoading(true);
       await setDoc(doc(db, "pricing_settings", "main"), {
         categories: sanitizedCategories,
+        packageOptions: sanitizedPackageOptions,
         updatedAt: serverTimestamp(),
       });
       setMessage({
@@ -440,6 +533,92 @@ const ManagePricing = () => {
                     ))}
                   </div>
                 )}
+              </div>
+
+              <div className="mp-card">
+                <div className="mp-card-head">
+                  <div>
+                    <h3>Package Discounts</h3>
+                    <p>
+                      Manage package duration and discount options shown on the
+                      pricing page.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    className="btn primary"
+                    onClick={addPackageOption}
+                  >
+                    + Add Package
+                  </button>
+                </div>
+
+                <div className="mp-package-list">
+                  {packageOptions.map((option, index) => (
+                    <article className="mp-package-card" key={option.id}>
+                      <div className="mp-service-head">
+                        <h4>Package {index + 1}</h4>
+                        <button
+                          type="button"
+                          className="btn small danger"
+                          onClick={() => removePackageOption(option.id)}
+                        >
+                          Remove
+                        </button>
+                      </div>
+
+                      <div className="mp-grid-3">
+                        <div className="mp-field">
+                          <label>Package Label</label>
+                          <input
+                            type="text"
+                            value={option.label}
+                            onChange={(e) =>
+                              updatePackageOption(
+                                option.id,
+                                "label",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </div>
+
+                        <div className="mp-field">
+                          <label>Duration Months</label>
+                          <input
+                            type="number"
+                            min="1"
+                            value={option.months}
+                            onChange={(e) =>
+                              updatePackageOption(
+                                option.id,
+                                "months",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </div>
+
+                        <div className="mp-field">
+                          <label>Discount %</label>
+                          <input
+                            type="number"
+                            min="0"
+                            max="100"
+                            value={option.discount}
+                            onChange={(e) =>
+                              updatePackageOption(
+                                option.id,
+                                "discount",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
               </div>
 
               {message && (

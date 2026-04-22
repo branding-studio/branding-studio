@@ -55,6 +55,7 @@ const Nav = () => {
     { name: "Manage Team", path: "/admin/manage-team", icon: faUser },
     { name: "Manage Gallery", path: "/admin/manage-gallery", icon: faFileAlt },
     { name: "Manage Pricing", path: "/admin/manage-pricing", icon: faFileAlt },
+    { name: "Quotation Leads", path: "/admin/quotation-leads", icon: faFileAlt },
     {
       name: "Manage Samples",
       path: "/admin/manage-service-samples",

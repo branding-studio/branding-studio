@@ -153,16 +153,28 @@
   gap: 14px;
 }
 
-.mp-service-list {
+.mp-grid-3 {
+  display: grid;
+  grid-template-columns: 1.3fr 0.8fr 0.8fr;
+  gap: 14px;
+}
+
+.mp-service-list,
+.mp-package-list {
   display: grid;
   gap: 14px;
 }
 
-.mp-service-card {
+.mp-service-card,
+.mp-package-card {
   border: 1px solid #e6eaf2;
   border-radius: 20px;
   padding: 16px;
   background: #fbfcff;
+}
+
+.mp-package-card {
+  background: linear-gradient(135deg, #fbfcff 0%, #f5f3ff 100%);
 }
 
 .mp-service-head {
@@ -261,6 +273,10 @@
   }
 
   .mp-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .mp-grid-3 {
     grid-template-columns: 1fr;
   }
 

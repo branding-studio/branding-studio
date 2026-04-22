@@ -24,6 +24,7 @@ import ManageTeam from "../Admin/ManageTeam/ManageTeam";
 import ManageGallery from "../Admin/ManageGallery/ManageGallery";
 import ManagePricing from "../Admin/ManagePricing/ManagePricing";
 import ManageServiceSamples from "../Admin/ManageServiceSamples/ManageServiceSamples";
+import QuotationLeads from "../Admin/QuotationLeads/QuotationLeads";
 import BlogDash from "../Admin/blog/BlogDash";
 import ReadBlog from "../Admin/blog/ReadBlog";
 import BlogEditForm from "../Admin/blog/BlogEditForm";
@@ -150,6 +151,7 @@ const Container = () => {
                     <Route path="/admin/manage-team" element={<ManageTeam />} />
                     <Route path="/admin/manage-gallery" element={<ManageGallery />} />
                     <Route path="/admin/manage-pricing" element={<ManagePricing />} />
+                    <Route path="/admin/quotation-leads" element={<QuotationLeads />} />
                     <Route
                       path="/admin/manage-service-samples"
                       element={<ManageServiceSamples />}

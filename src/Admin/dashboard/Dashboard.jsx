@@ -20,6 +20,11 @@ const dashboardSections = [
     path: "/admin/manage-pricing",
   },
   {
+    title: "Quotation Leads",
+    desc: "View client details and selected services whenever someone generates a quotation.",
+    path: "/admin/quotation-leads",
+  },
+  {
     title: "Manage Samples",
     desc: "Edit the sample videos and visuals shown inside each service detail page.",
     path: "/admin/manage-service-samples",

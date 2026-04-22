@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./Pricing.css";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import { doc, getDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 
 const defaultPricingData = {
@@ -101,6 +101,25 @@ const defaultPricingData = {
   ],
 };
 
+const defaultPackageOptions = [
+  { value: "3", label: "3 Months Package", months: 3, discount: 0.05 },
+  { value: "6", label: "6 Months Package", months: 6, discount: 0.1 },
+  { value: "12", label: "Yearly Package", months: 12, discount: 0.15 },
+];
+
+const normalizePackageOptions = (options = defaultPackageOptions) =>
+  options
+    .filter((option) => option?.label && Number(option.months) > 0)
+    .map((option, index) => ({
+      value: String(option.value || option.months || index + 1),
+      label: option.label,
+      months: Number(option.months),
+      discount:
+        Number(option.discount) > 1
+          ? Number(option.discount) / 100
+          : Number(option.discount) || 0,
+    }));
+
 const Pricing = () => {
   const pdfRef = useRef(null);
 
@@ -120,6 +139,8 @@ const Pricing = () => {
   const [previewServiceName, setPreviewServiceName] = useState("");
   const [pendingService, setPendingService] = useState("");
   const [pricingData, setPricingData] = useState(defaultPricingData);
+  const [packageOptions, setPackageOptions] = useState(defaultPackageOptions);
+  const [selectedPackage, setSelectedPackage] = useState("");
 
   const categoryOptions = useMemo(() => Object.keys(pricingData), [pricingData]);
 
@@ -128,29 +149,36 @@ const Pricing = () => {
       try {
         const snap = await getDoc(doc(db, "pricing_settings", "main"));
         const categories = snap.data()?.categories;
+        const storedPackageOptions = snap.data()?.packageOptions;
 
-        if (!Array.isArray(categories) || categories.length === 0) {
-          return;
+        if (Array.isArray(categories) && categories.length > 0) {
+          const normalizedData = categories.reduce((acc, category) => {
+            if (!category?.name || !Array.isArray(category.services)) {
+              return acc;
+            }
+
+            acc[category.name] = category.services
+              .filter((service) => service?.name && Number.isFinite(Number(service.price)))
+              .map((service) => ({
+                name: service.name,
+                price: Number(service.price),
+                desc: service.desc || "",
+              }));
+
+            return acc;
+          }, {});
+
+          if (Object.keys(normalizedData).length > 0) {
+            setPricingData(normalizedData);
+          }
         }
 
-        const normalizedData = categories.reduce((acc, category) => {
-          if (!category?.name || !Array.isArray(category.services)) {
-            return acc;
+        if (Array.isArray(storedPackageOptions) && storedPackageOptions.length > 0) {
+          const normalizedPackages = normalizePackageOptions(storedPackageOptions);
+
+          if (normalizedPackages.length > 0) {
+            setPackageOptions(normalizedPackages);
           }
-
-          acc[category.name] = category.services
-            .filter((service) => service?.name && Number.isFinite(Number(service.price)))
-            .map((service) => ({
-              name: service.name,
-              price: Number(service.price),
-              desc: service.desc || "",
-            }));
-
-          return acc;
-        }, {});
-
-        if (Object.keys(normalizedData).length > 0) {
-          setPricingData(normalizedData);
         }
       } catch (error) {
         console.error("Failed to load pricing settings:", error);
@@ -174,6 +202,15 @@ const Pricing = () => {
     }
   }, [selectedCategory, categoryOptions]);
 
+  useEffect(() => {
+    if (
+      selectedPackage &&
+      !packageOptions.some((option) => option.value === selectedPackage)
+    ) {
+      setSelectedPackage("");
+    }
+  }, [selectedPackage, packageOptions]);
+
   const activePreviewService = useMemo(() => {
     if (!previewServiceName) return null;
     return (
@@ -188,13 +225,43 @@ const Pricing = () => {
     );
   }, [selectedServices]);
 
+  const activePackage = useMemo(() => {
+    return packageOptions.find((item) => item.value === selectedPackage) || null;
+  }, [selectedPackage, packageOptions]);
+
+  const packageBaseAmount = useMemo(() => {
+    return activePackage ? totalPrice * activePackage.months : totalPrice;
+  }, [totalPrice, activePackage]);
+
+  const discountAmount = useMemo(() => {
+    return activePackage
+      ? Math.round(packageBaseAmount * activePackage.discount)
+      : 0;
+  }, [packageBaseAmount, activePackage]);
+
+  const discountedPackageAmount = useMemo(() => {
+    return packageBaseAmount - discountAmount;
+  }, [packageBaseAmount, discountAmount]);
+
+  const packageGstBeforeDiscount = useMemo(() => {
+    return Math.round(packageBaseAmount * 0.18);
+  }, [packageBaseAmount]);
+
   const gstAmount = useMemo(() => {
-    return Math.round(totalPrice * 0.18);
-  }, [totalPrice]);
+    return Math.round(discountedPackageAmount * 0.18);
+  }, [discountedPackageAmount]);
 
   const grandTotal = useMemo(() => {
-    return totalPrice + gstAmount;
-  }, [totalPrice, gstAmount]);
+    return discountedPackageAmount + gstAmount;
+  }, [discountedPackageAmount, gstAmount]);
+
+  const packageTotalBeforeDiscount = useMemo(() => {
+    return packageBaseAmount + packageGstBeforeDiscount;
+  }, [packageBaseAmount, packageGstBeforeDiscount]);
+
+  const totalSavedAmount = useMemo(() => {
+    return packageTotalBeforeDiscount - grandTotal;
+  }, [packageTotalBeforeDiscount, grandTotal]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -295,26 +362,90 @@ const Pricing = () => {
 
     const imgData = canvas.toDataURL("image/png");
     const pdf = new jsPDF("p", "mm", "a4");
+    const logoData = await new Promise((resolve) => {
+      const logo = new Image();
+      logo.crossOrigin = "anonymous";
+      logo.onload = () => {
+        const canvasLogo = document.createElement("canvas");
+        canvasLogo.width = logo.naturalWidth;
+        canvasLogo.height = logo.naturalHeight;
+        const ctx = canvasLogo.getContext("2d");
+        ctx.drawImage(logo, 0, 0);
+        resolve(canvasLogo.toDataURL("image/png"));
+      };
+      logo.onerror = () => resolve(null);
+      logo.src = "/assets/logo/branding-logo.png";
+    });
 
     const pdfWidth = 210;
     const pdfHeight = 297;
-    const imgWidth = pdfWidth;
+    const pageMargin = 8;
+    const imgWidth = pdfWidth - pageMargin * 2;
+    const pageContentHeight = pdfHeight - pageMargin * 2;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
     let heightLeft = imgHeight;
-    let position = 0;
+    let position = pageMargin;
 
-    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-    heightLeft -= pdfHeight;
+    const addFooterLogo = () => {
+      if (!logoData) return;
+      pdf.addImage(logoData, "PNG", pdfWidth - 42, pdfHeight - 20, 28, 9);
+    };
+
+    pdf.addImage(imgData, "PNG", pageMargin, position, imgWidth, imgHeight);
+    heightLeft -= pageContentHeight;
 
     while (heightLeft > 0) {
-      position = heightLeft - imgHeight;
+      position = heightLeft - imgHeight + pageMargin;
       pdf.addPage();
-      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-      heightLeft -= pdfHeight;
+      pdf.addImage(imgData, "PNG", pageMargin, position, imgWidth, imgHeight);
+      addFooterLogo();
+      heightLeft -= pageContentHeight;
     }
 
     pdf.save(`quotation-${formData.companyName || "branding-studio"}.pdf`);
+  };
+
+  const saveQuotationLead = async () => {
+    await addDoc(collection(db, "quotation_leads"), {
+      client: {
+        companyName: formData.companyName.trim(),
+        businessCategory: formData.businessCategory.trim(),
+        name: formData.name.trim(),
+        position: formData.position.trim(),
+        email: formData.mailId.trim(),
+        phone: formData.number.trim(),
+        address: formData.address.trim(),
+        monthlyBudgetRange: formData.monthlyBudgetRange.trim(),
+      },
+      pricing: {
+        selectedCategory,
+        monthlySubtotal: totalPrice,
+        selectedPackage: activePackage
+          ? {
+              label: activePackage.label,
+              months: activePackage.months,
+              discountPercent: Math.round(activePackage.discount * 100),
+            }
+          : null,
+        packageAmount: packageBaseAmount,
+        gstBeforeDiscount: packageGstBeforeDiscount,
+        totalBeforeDiscount: packageTotalBeforeDiscount,
+        discountAmount,
+        totalSavedAmount,
+        amountAfterDiscount: discountedPackageAmount,
+        gstAmount,
+        grandTotal,
+      },
+      services: selectedServices.map((service) => ({
+        name: service.name,
+        price: service.price,
+        quantity: service.quantity,
+        total: service.price * service.quantity,
+        desc: service.desc || "",
+      })),
+      createdAt: serverTimestamp(),
+    });
   };
 
   const handleGenerateQuotation = async () => {
@@ -341,7 +472,13 @@ const Pricing = () => {
       return;
     }
 
-    await generatePDF();
+    try {
+      await saveQuotationLead();
+      await generatePDF();
+    } catch (error) {
+      console.error("Failed to save quotation lead:", error);
+      alert("Quotation could not be saved. Please try again.");
+    }
   };
 
   const isFormComplete =
@@ -603,15 +740,77 @@ const Pricing = () => {
               <div className="pricing-summary__footer">
                 <div className="pricing-summary__totals">
                   <div className="pricing-summary__line">
-                    <span>Subtotal</span>
+                    <span>Monthly Subtotal</span>
                     <strong>₹{totalPrice.toLocaleString("en-IN")}/-</strong>
                   </div>
+                  {selectedServices.length > 0 && (
+                    <div className="pricing-package-picker">
+                      <label htmlFor="packageDuration">
+                        Choose Package Duration
+                      </label>
+                      <select
+                        id="packageDuration"
+                        value={selectedPackage}
+                        onChange={(e) => setSelectedPackage(e.target.value)}
+                      >
+                        <option value="">Choose Package Duration</option>
+                        {packageOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label} - {Math.round(option.discount * 100)}% Discount
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                  {activePackage && (
+                    <div className="pricing-summary__line">
+                      <span>{activePackage.label} Amount</span>
+                      <strong>₹{packageBaseAmount.toLocaleString("en-IN")}/-</strong>
+                    </div>
+                  )}
                   <div className="pricing-summary__line">
                     <span>GST (18%)</span>
-                    <strong>₹{gstAmount.toLocaleString("en-IN")}/-</strong>
+                    <strong>
+                      ₹
+                      {(activePackage
+                        ? packageGstBeforeDiscount
+                        : gstAmount
+                      ).toLocaleString("en-IN")}
+                      /-
+                    </strong>
+                  </div>
+                  <div className="pricing-summary__line pricing-summary__line--total">
+                    <span>Total</span>
+                    <strong>
+                      ₹
+                      {(activePackage
+                        ? packageTotalBeforeDiscount
+                        : grandTotal
+                      ).toLocaleString("en-IN")}
+                      /-
+                    </strong>
+                  </div>
+                  {activePackage && <div className="pricing-summary__divider" />}
+                  <div className="pricing-summary__line">
+                    <span>
+                      Discount (
+                      {activePackage
+                        ? `${Math.round(activePackage.discount * 100)}%`
+                        : "No package selected"}
+                      )
+                    </span>
+                    <strong>- ₹{discountAmount.toLocaleString("en-IN")}/-</strong>
+                  </div>
+                  <div className="pricing-summary__line pricing-summary__line--save">
+                    <span>Total Saved Amount</span>
+                    <strong>₹{totalSavedAmount.toLocaleString("en-IN")}/-</strong>
                   </div>
                   <div className="pricing-summary__final">
-                    <span>Total Package Price</span>
+                    <span>
+                      {activePackage
+                        ? "Total Price with Discount"
+                        : "Total Package Price"}
+                    </span>
                     <strong>₹{grandTotal.toLocaleString("en-IN")}/-</strong>
                   </div>
                 </div>
@@ -730,7 +929,36 @@ const Pricing = () => {
 
           <div className="pdf-quotation__total pdf-quotation__total--spaced">
             <div className="pdf-quotation__total-breakdown">
-              <span>Subtotal: ₹{totalPrice.toLocaleString("en-IN")}/-</span>
+              <span>Monthly Subtotal: ₹{totalPrice.toLocaleString("en-IN")}/-</span>
+              {activePackage && (
+                <>
+                  <span>
+                    Package: {activePackage.label} (
+                    {Math.round(activePackage.discount * 100)}% discount)
+                  </span>
+                  <span>
+                    Package Amount: ₹{packageBaseAmount.toLocaleString("en-IN")}/-
+                  </span>
+                  <span>
+                    GST Before Discount: ₹
+                    {packageGstBeforeDiscount.toLocaleString("en-IN")}/-
+                  </span>
+                  <span>
+                    Total Before Discount: ₹
+                    {packageTotalBeforeDiscount.toLocaleString("en-IN")}/-
+                  </span>
+                </>
+              )}
+              <span>
+                Discount: ₹{discountAmount.toLocaleString("en-IN")}/-
+              </span>
+              <span>
+                Total Saved: ₹{totalSavedAmount.toLocaleString("en-IN")}/-
+              </span>
+              <span>
+                After Discount: ₹
+                {discountedPackageAmount.toLocaleString("en-IN")}/-
+              </span>
               <span>GST (18%): ₹{gstAmount.toLocaleString("en-IN")}/-</span>
             </div>
             <strong>₹{grandTotal.toLocaleString("en-IN")}/-</strong>
@@ -740,7 +968,10 @@ const Pricing = () => {
             <h2>Terms & Conditions</h2>
             <ul className="pdf-quotation__terms">
               <li>Quotation is valid for 7 days from the issue date.</li>
-              <li>100% advance may be required before project start.</li>
+              <li>
+                This is a prepaid service, and work will commence only after
+                payment confirmation.
+              </li>
               <li>Final delivery timelines depend on scope and approvals.</li>
               <li>
                 Third-party ad spend, influencer charges, and production
