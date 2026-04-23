@@ -239,6 +239,13 @@
   font-weight: 600;
 }
 
+.pricing-alert--soft {
+  margin-top: 14px;
+  background: rgba(91, 92, 226, 0.08);
+  border: 1px solid rgba(91, 92, 226, 0.14);
+  color: #4b40aa;
+}
+
 .pricing-preview {
   margin-bottom: 24px;
   padding: 22px;

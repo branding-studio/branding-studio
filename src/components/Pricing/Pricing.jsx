@@ -3,6 +3,7 @@ import "./Pricing.css";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { addDoc, collection, doc, getDoc, serverTimestamp } from "firebase/firestore";
+import { toast } from "react-toastify";
 import { db } from "../../firebase/firebaseConfig";
 
 const defaultPricingData = {
@@ -202,6 +203,16 @@ const Pricing = () => {
     }
   }, [selectedCategory, categoryOptions]);
 
+  const isFormComplete =
+    formData.companyName &&
+    formData.businessCategory &&
+    formData.name &&
+    formData.position &&
+    formData.mailId &&
+    formData.number &&
+    formData.address &&
+    formData.monthlyBudgetRange;
+
   useEffect(() => {
     if (
       selectedPackage &&
@@ -210,6 +221,16 @@ const Pricing = () => {
       setSelectedPackage("");
     }
   }, [selectedPackage, packageOptions]);
+
+  useEffect(() => {
+    if (!isFormComplete && (selectedCategory || selectedServices.length > 0)) {
+      setSelectedCategory("");
+      setSelectedServices([]);
+      setPreviewServiceName("");
+      setPendingService("");
+      setSelectedPackage("");
+    }
+  }, [isFormComplete, selectedCategory, selectedServices.length]);
 
   const activePreviewService = useMemo(() => {
     if (!previewServiceName) return null;
@@ -481,16 +502,6 @@ const Pricing = () => {
     }
   };
 
-  const isFormComplete =
-    formData.companyName &&
-    formData.businessCategory &&
-    formData.name &&
-    formData.position &&
-    formData.mailId &&
-    formData.number &&
-    formData.address &&
-    formData.monthlyBudgetRange;
-
   return (
     <section className="pricing-page">
       <div className="pricing-page__topbar">
@@ -597,7 +608,31 @@ const Pricing = () => {
             </div>
 
             <div className="pricing-selects">
-              <select value={selectedCategory} onChange={handleCategoryChange}>
+              <select
+                value={selectedCategory}
+                onChange={(e) => {
+                  if (!isFormComplete) {
+                    return;
+                  }
+
+                  handleCategoryChange(e);
+                }}
+                onMouseDown={(e) => {
+                  if (!isFormComplete) {
+                    e.preventDefault();
+                    toast.info("Please fill client details first.", {
+                      position: "top-right",
+                      autoClose: 2400,
+                      style: {
+                        minWidth: "320px",
+                        fontSize: "16px",
+                        fontWeight: 700,
+                        padding: "16px 18px",
+                      },
+                    });
+                  }
+                }}
+              >
                 <option value="">Select Category</option>
                 {categoryOptions.map((category) => (
                   <option key={category} value={category}>
@@ -625,6 +660,13 @@ const Pricing = () => {
                 ))}
               </select>
             </div>
+
+            {!isFormComplete && (
+              <div className="pricing-alert pricing-alert--soft">
+                Please fill all client details first. Category and services will
+                unlock after that.
+              </div>
+            )}
 
             <div className="pricing-actions-row">
               <button
