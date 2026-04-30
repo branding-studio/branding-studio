@@ -438,6 +438,12 @@
   text-decoration:none;
 }
 
+.contact-list__phones{
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .contact-list a:hover{
   text-decoration: underline;
 }

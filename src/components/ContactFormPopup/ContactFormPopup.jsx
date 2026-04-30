@@ -1,13 +1,16 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { useMessageContext } from "../../context/MessageContext";
+import { useLocalContext } from "../../context/LocalContext";
 import "./ContactFormPopup.css";
 import { toast } from "react-toastify";
 
 const ContactFormPopup = () => {
   const { addMessage } = useMessageContext();
+  const { openWhatsApp } = useLocalContext();
 
   const initialIsDesktop = useMemo(() => {
     if (typeof window === "undefined") return false;
@@ -72,6 +75,11 @@ const ContactFormPopup = () => {
       });
 
       toast.success("Thanks! We’ll get back to you within a day.");
+      openWhatsApp?.({
+        message: `Hi! My name is ${form.name.trim()}. ${form.message.trim()}${
+          form.phone.trim() ? ` My phone number is ${form.phone.trim()}.` : ""
+        }`,
+      });
       setForm({ name: "", email: "", phone: "", message: "" });
       setIsOpen(false);
       console.log("Message saved with ID:", savedId);
@@ -94,7 +102,7 @@ const ContactFormPopup = () => {
         >
           <div className="contact-popup-header">
             <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-              <FontAwesomeIcon icon={faEnvelope} />
+              <FontAwesomeIcon icon={faWhatsapp} />
               <span id="contact-popup-title">Contact Us</span>
             </div>
             <button
@@ -143,12 +151,12 @@ const ContactFormPopup = () => {
 
             {submitting ? (
               <button type="submit" disabled className="contact-submit-btn" style={{ opacity: 0.6 }}>
-                <FontAwesomeIcon icon={faEnvelope} style={{ marginRight: "0.6rem" }} />
+                <FontAwesomeIcon icon={faWhatsapp} style={{ marginRight: "0.6rem" }} />
                 Sending Messages ...
               </button>
             ) : (
               <button type="submit" className="contact-submit-btn">
-                <FontAwesomeIcon icon={faEnvelope} style={{ marginRight: "0.6rem" }} />
+                <FontAwesomeIcon icon={faWhatsapp} style={{ marginRight: "0.6rem" }} />
                 Send Message
               </button>
             )}
@@ -166,7 +174,7 @@ const ContactFormPopup = () => {
           }}
           title="Contact us"
         >
-          <FontAwesomeIcon icon={faEnvelope} />
+          <FontAwesomeIcon icon={faWhatsapp} />
         </button>
       )}
     </>

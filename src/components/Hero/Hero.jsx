@@ -9,6 +9,8 @@ import { FaShareAlt, FaSearch, FaLaptopCode, FaVideo, FaPalette } from "react-ic
 
 const DEFAULT_HERO_IMG =
   "https://www.pixartprinting.co.uk/blog/wp-content/uploads/2024/12/Marketing-Strategy.jpg";
+const DEFAULT_HERO_VIDEO =
+  "https://res.cloudinary.com/drwnnarkl/video/upload/f_mp4,q_auto/v1777567861/homepage-hero-video.mp4";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 22 },
@@ -40,6 +42,7 @@ const Hero = () => {
 
   const brand = webinfo?.name || "Branding Studios";
   const heroImage = webinfo?.heroImage || DEFAULT_HERO_IMG;
+  const heroVideo = webinfo?.heroVideo || DEFAULT_HERO_VIDEO;
 
   const services = [
     {
@@ -147,7 +150,17 @@ const Hero = () => {
           <motion.div className="mk-right" variants={fadeUp} transition={{ delay: 0.06 }}>
             <div className="mk-media">
               <div className="mk-media-frame">
-                <img src={heroImage} alt="Branding Studios hero visual" className="mk-photo" loading="eager" />
+                <video
+                  className="mk-photo mk-video"
+                  src={heroVideo}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  poster={heroImage}
+                >
+                </video>
                 <div className="mk-media-shine" aria-hidden="true" />
               </div>
 

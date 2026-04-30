@@ -15,6 +15,12 @@ const isLikelyMobile = () => {
 
 const normalizeWaNumber = (raw = "") => String(raw).replace(/[^\d]/g, "");
 const encodeMsg = (msg = "") => encodeURIComponent(String(msg));
+const formatIndiaDisplayNumber = (raw = "") => {
+  const digits = normalizeWaNumber(raw);
+  if (!digits) return "";
+  const local = digits.length > 10 ? digits.slice(-10) : digits;
+  return `+91 ${local}`;
+};
 
 export const LocalProvider = ({ children }) => {
   const [currentTFN, setCurrentTFN] = useState({
@@ -24,12 +30,15 @@ export const LocalProvider = ({ children }) => {
 
   const [webinfo, setwebinfo] = useState({
     name: "Branding Studios",
-    phone: "7788001422",
+    phone: "+91 7788001422",
     phonecall: "7788001422",
+    phoneSecondary: "+91 7735191969",
+    phoneSecondaryCall: "917735191969",
     logo: "https://brandingstudio.in/wp-content/uploads/2024/08/NEW-BS-LOGOOOO-1-copy-2-scaled.png",
     email: "brandingstudio.business@gmail.com",
     address:
       "1st Floor, F-4F - 53/2, Indradhanu Market, Complex, Nayapalli, Bhubaneswar",
+    hours: "Mon-Sat • 9am to 9pm",
     addressCity: "Odisha",
 
     telegramHandle: "",
@@ -65,7 +74,7 @@ export const LocalProvider = ({ children }) => {
   useEffect(() => {
     setwebinfo((prev) => ({
       ...prev,
-      phone: currentTFN.localFormat || prev.phone,
+      phone: formatIndiaDisplayNumber(currentTFN.localFormat) || prev.phone,
       phonecall: currentTFN.intlFormat || prev.phonecall,
     }));
   }, [currentTFN]);

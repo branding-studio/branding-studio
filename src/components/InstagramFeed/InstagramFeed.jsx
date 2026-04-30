@@ -32,8 +32,8 @@ const InstagramFeed = () => {
       </p>
 
       <div className="instagram-widget-wrapper">
-        <div 
-          className="elfsight-app-7b07f3d1-11ee-4414-a072-415bbee45151" 
+        <div
+          className="elfsight-app-4adba1cb-0f55-4e4e-8112-461e4961bc66"
           data-elfsight-app-lazy
         ></div>
       </div>

@@ -1,0 +1,50 @@
+.admin-layout-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.admin-layout-frame {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 60px);
+  min-height: 0;
+}
+
+.admin-layout-frame.is-login {
+  height: 100vh;
+}
+
+.admin-layout-side {
+  width: 264px;
+  flex-shrink: 0;
+}
+
+.admin-layout-main {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@media (max-width: 760px) {
+  .admin-layout-shell {
+    overflow: visible;
+  }
+
+  .admin-layout-frame {
+    height: auto;
+    min-height: calc(100vh - 60px);
+    flex-direction: column;
+  }
+
+  .admin-layout-side {
+    width: 100%;
+  }
+
+  .admin-layout-main {
+    overflow: visible;
+  }
+}

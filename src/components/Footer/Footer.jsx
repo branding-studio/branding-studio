@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -21,6 +21,18 @@ import { useLocalContext } from "../../context/LocalContext";
 const Footer = () => {
   const { webinfo, openWhatsApp } = useLocalContext();
   const brand = webinfo?.name || "Your Brand";
+  const [footerMessage, setFooterMessage] = useState("");
+  const phoneItems = [
+    webinfo?.phone
+      ? { label: webinfo.phone, href: webinfo.phonecall || webinfo.phone }
+      : null,
+    webinfo?.phoneSecondary
+      ? {
+          label: webinfo.phoneSecondary,
+          href: webinfo.phoneSecondaryCall || webinfo.phoneSecondary,
+        }
+      : null,
+  ].filter(Boolean);
 
   return (
     <footer className="footerx" aria-label={`${brand} website footer`}>
@@ -69,19 +81,31 @@ const Footer = () => {
             </div>
           </div>
           <form
-  className="newsletter"
-  onSubmit={(e) => e.preventDefault()}
-  aria-label="Send message"
->
-  <input
-    type="text"
-    placeholder="Send Message"
-    aria-label="Send message"
-  />
-  <span className="newsletter__icon" aria-hidden="true">
-  <FontAwesomeIcon icon={faWhatsapp} />
-</span>
-</form>
+            className="newsletter"
+            onSubmit={(e) => {
+              e.preventDefault();
+              openWhatsApp({
+                message:
+                  footerMessage.trim() || "Hello! I would like to know more.",
+              });
+            }}
+            aria-label="Send message"
+          >
+            <input
+              type="text"
+              placeholder="Send Message"
+              aria-label="Send message"
+              value={footerMessage}
+              onChange={(e) => setFooterMessage(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="newsletter__icon"
+              aria-label="Send WhatsApp message"
+            >
+              <FontAwesomeIcon icon={faWhatsapp} />
+            </button>
+          </form>
 
           <div className="socials" aria-label="Social links">
             <a
@@ -160,19 +184,25 @@ const Footer = () => {
           <ul className="contact-list">
             <li>
               <FontAwesomeIcon icon={faPhone} />{" "}
-              <a href={`tel:${webinfo.phone}`}>{webinfo.phone}</a>
+              <span className="contact-list__phones">
+                {phoneItems.map((item) => (
+                  <a key={item.href} href={`tel:${item.href}`}>
+                    {item.label}
+                  </a>
+                ))}
+              </span>
             </li>
             <li>
               <FontAwesomeIcon icon={faEnvelope} />{" "}
               <a href={`mailto:${webinfo.email}`}>{webinfo.email}</a>
             </li>
             <li>
-              <FontAwesomeIcon icon={faLocationDot} />{" "}
-              <span>Remote-first • Global</span>
+              <FontAwesomeIcon icon={faClock} />{" "}
+              <span>{webinfo.hours || "Mon-Sat • 9am to 9pm"}</span>
             </li>
             <li>
-              <FontAwesomeIcon icon={faClock} />{" "}
-              <span>Mon–Fri • 9am–6pm</span>
+              <FontAwesomeIcon icon={faLocationDot} />{" "}
+              <span>{webinfo.address}</span>
             </li>
           </ul>
 

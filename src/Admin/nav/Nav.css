@@ -19,6 +19,7 @@
   position: fixed;
   inset: 0 auto 0 0; 
   width: var(--sb-width);
+  height: 100%;
   background: linear-gradient(180deg, var(--sb-bg), #0b1530 60%, #0b1220 100%);
   color: var(--sb-text);
   display: flex;
@@ -210,6 +211,54 @@
 
 @media (max-width: 760px) {
   .admin-sidebar {
-    width: var(--sb-width-collapsed);
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--sb-border);
+    box-shadow: 0 8px 18px rgba(2, 6, 23, 0.14);
+  }
+
+  .admin-sidebar.is-collapsed {
+    width: 100%;
+  }
+
+  .admin-nav-list {
+    display: flex;
+    gap: 10px;
+    margin: 0;
+    padding: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+
+  .admin-nav-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .admin-nav-item {
+    min-width: max-content;
+  }
+
+  .admin-nav-link,
+  .admin-sidebar.is-collapsed .admin-nav-link {
+    display: inline-flex;
+    grid-template-columns: none;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    min-width: 150px;
+  }
+
+  .admin-sidebar.is-collapsed .nav-text,
+  .nav-text {
+    display: inline;
+  }
+
+  .admin-sidebar-footer {
+    display: none;
   }
 }

@@ -3,6 +3,7 @@ import { Outlet, useLocation, Navigate } from "react-router-dom";
 import Nav from "../Admin/nav/Nav";
 import TopNav from "../Admin/nav/TopNav";
 import { useAdminContext } from "../context/AdminContext";
+import "./AdminLayout.css";
 
 
 const AdminLayout = () => {
@@ -23,16 +24,16 @@ const AdminLayout = () => {
 
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden" }}>
+    <div className="admin-layout-shell">
       {!isLogin && <TopNav />}
 
-      <div style={{ display: "flex", width: "100%", height: !isLogin ? "calc(100vh - 60px)" : "100vh" }}>
+      <div className={`admin-layout-frame ${isLogin ? "is-login" : ""}`}>
         {!isLogin && (
-          <aside style={{ width: 250, flexShrink: 0 }}>
+          <aside className="admin-layout-side">
             <Nav />
           </aside>
         )}
-        <main style={{ flex: 1, overflowY: "auto" }}>
+        <main className="admin-layout-main">
           <Outlet />
         </main>
       </div>

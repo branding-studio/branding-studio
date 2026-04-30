@@ -29,13 +29,22 @@ const fx = (d = 0) => ({
 });
 
 export default function Contact() {
-  const { webinfo = {} } = useLocalContext();
+  const { webinfo = {}, openWhatsApp } = useLocalContext();
   const { addMessage } = useMessageContext();
 
   const phone = webinfo.phone || "";
   const phoneHref = webinfo.phonecall || phone || "";
+  const phoneSecondary = webinfo.phoneSecondary || "";
+  const phoneSecondaryHref = webinfo.phoneSecondaryCall || phoneSecondary || "";
   const email = webinfo.email || "";
   const address = webinfo.address || "Remote • India based";
+  const hours = webinfo.hours || "Mon-Sat • 9am to 9pm";
+  const phoneItems = [
+    phone ? { label: phone, href: phoneHref } : null,
+    phoneSecondary
+      ? { label: phoneSecondary, href: phoneSecondaryHref }
+      : null,
+  ].filter(Boolean);
 
   const [sending, setSending] = useState(false);
   const [faqOpen, setFaqOpen] = useState(null);
@@ -76,6 +85,15 @@ export default function Contact() {
         meta: { subject: form.subject.trim() || null },
       });
       toast.success("Thanks! We’ll reply within a day.");
+      openWhatsApp?.({
+        message: `Hi! My name is ${form.name.trim()}. ${
+          form.subject.trim()
+            ? `Subject: ${form.subject.trim()}. `
+            : ""
+        }${form.message.trim()}${
+          form.phone.trim() ? ` My phone number is ${form.phone.trim()}.` : ""
+        }`,
+      });
       setForm({
         name: "",
         email: "",
@@ -149,12 +167,21 @@ export default function Contact() {
               <span className="cv4-label">
                 <FontAwesomeIcon icon={faPhone} /> Phone
               </span>
-              <a
-                href={phoneHref ? `tel:${phoneHref}` : "#"}
-                aria-disabled={!phoneHref}
-              >
-                {phone || "—"}
-              </a>
+              <span className="cv4-multi-contact">
+                {phoneItems.length ? (
+                  phoneItems.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href ? `tel:${item.href}` : "#"}
+                      aria-disabled={!item.href}
+                    >
+                      {item.label}
+                    </a>
+                  ))
+                ) : (
+                  <a href="#" aria-disabled="true">—</a>
+                )}
+              </span>
             </li>
             <li>
               <span className="cv4-label">
@@ -168,7 +195,7 @@ export default function Contact() {
               <span className="cv4-label">
                 <FontAwesomeIcon icon={faClock} /> Hours
               </span>
-              <span>24 / 7</span>
+              <span>{hours}</span>
             </li>
             <li>
               <span className="cv4-label">
@@ -343,13 +370,21 @@ export default function Contact() {
             <h4>
               <FontAwesomeIcon icon={faPhone} /> Phone
             </h4>
-            <a
-              className="cv4-rail-link"
-              href={phoneHref ? `tel:${phoneHref}` : "#"}
-              aria-disabled={!phoneHref}
-            >
-              {phone || "—"}
-            </a>
+            <div className="cv4-rail-link cv4-multi-contact" aria-disabled={!phoneItems.length}>
+              {phoneItems.length ? (
+                phoneItems.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href ? `tel:${item.href}` : "#"}
+                    aria-disabled={!item.href}
+                  >
+                    {item.label}
+                  </a>
+                ))
+              ) : (
+                <span>—</span>
+              )}
+            </div>
           </div>
 
           <div className="cv4-rail-group">
@@ -376,7 +411,7 @@ export default function Contact() {
             <h4>
               <FontAwesomeIcon icon={faClock} /> Hours
             </h4>
-            <p className="cv4-rail-text">24 / 7</p>
+            <p className="cv4-rail-text">{hours}</p>
           </div>
 
           <div className="cv4-rail-cta">

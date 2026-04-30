@@ -2,6 +2,7 @@ import React from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 import "./SubFooterBanner.css";
+import { useLocalContext } from "../../context/LocalContext";
 
 const SubFooterBanner = ({
   kicker = "Need help growing your brand?",
@@ -13,12 +14,20 @@ const SubFooterBanner = ({
     "Clear step-by-step resolution",
   ],
   ctaLabel = "WhatsApp Now",
-  whatsappNumber = "91XXXXXXXXXX", 
+  whatsappNumber = "", 
   whatsappMessage = "Hi! I need tech support. Please help.", // optional
 }) => {
-  const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    whatsappMessage
-  )}`;
+  const { getWhatsAppUrl, openWhatsApp, webinfo = {} } = useLocalContext();
+  const resolvedNumber = whatsappNumber || webinfo.whatsappNumber || "";
+  const waLink =
+    getWhatsAppUrl?.({
+      number: resolvedNumber,
+      message: whatsappMessage,
+      preferApp: false,
+    }) ||
+    `https://wa.me/${resolvedNumber}?text=${encodeURIComponent(
+      whatsappMessage
+    )}`;
 
   return (
     <aside className="sfw">
@@ -47,6 +56,13 @@ const SubFooterBanner = ({
               target="_blank"
               rel="noreferrer"
               aria-label="Chat on WhatsApp"
+              onClick={(e) => {
+                e.preventDefault();
+                openWhatsApp?.({
+                  number: resolvedNumber,
+                  message: whatsappMessage,
+                });
+              }}
             >
               <FaWhatsapp aria-hidden="true" />
               {ctaLabel}

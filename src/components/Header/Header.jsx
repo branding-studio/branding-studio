@@ -29,7 +29,6 @@ const Header = () => {
   const handleWhatsApp = () => {
     openWhatsApp?.({
       message: `Hi ${webinfo?.name || "Branding Studios"}, I’d like to connect.`,
-      preferApp: true,
     });
   };
 
