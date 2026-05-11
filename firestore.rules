@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function selfUid() {
+      return request.auth.uid;
+    }
+
+    function myAdminDoc() {
+      return get(/databases/$(database)/documents/admin/$(selfUid()));
+    }
+
+    function myAdminDocExists() {
+      return exists(/databases/$(database)/documents/admin/$(selfUid()));
+    }
+
+    function myRole() {
+      return myAdminDoc().data.role;
+    }
+
+    function isPanelRole() {
+      return isSignedIn() && myAdminDocExists() && myRole() in ["master", "all", "editor"];
+    }
+
+    function isMaster() {
+      return isSignedIn() && myAdminDocExists() && myRole() == "master";
+    }
+
+    match /admin/{uid} {
+      allow read: if isSignedIn() && (selfUid() == uid || isPanelRole());
+      allow update: if isSignedIn() && (selfUid() == uid || isPanelRole());
+      allow create, delete: if isMaster();
+    }
+
+    // Public website content
+    match /team/{id} { allow read: if true; allow write: if isPanelRole(); }
+    match /gallery/{id} { allow read: if true; allow write: if isPanelRole(); }
+    match /pricing/{id} { allow read: if true; allow write: if isPanelRole(); }
+    match /service_samples/{id} { allow read: if true; allow write: if isPanelRole(); }
+    match /webinfo/{id} { allow read: if true; allow write: if isPanelRole(); }
+    match /_blogs/{id} { allow read: if true; allow write: if isPanelRole(); }
+    match /categories/{id} { allow read: if true; allow write: if isPanelRole(); }
+
+    // Public submissions
+    match /messages/{id} {
+      allow create: if true;
+      allow read, update, delete: if isPanelRole();
+    }
+
+    match /quotation_leads/{id} {
+      allow create: if true;
+      allow read, update, delete: if isPanelRole();
+    }
+
+    // Default deny for everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
